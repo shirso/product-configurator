@@ -1,0 +1,825 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress Product Configurator v1.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2015-10-20 16:40:54+0000\n"
+"Last-Translator: posie <info@webshopberatung.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: admin/class-admin-attributes.php:21
+#: admin/class-admin-attributes.php:53
+#@ wpc
+msgid "Attribute Type"
+msgstr ""
+
+#: admin/class-admin-attributes.php:32
+#: admin/class-admin-attributes.php:66
+#: admin/texture_configurator.php:34
+#: inc/class-frontend-product.php:177
+#: inc/class-frontend-product.php:399
+#@ wpc
+msgid "Image"
+msgstr ""
+
+#: admin/class-admin-attributes.php:36
+#: admin/class-admin-attributes.php:70
+#: admin/class-admin.php:139
+#: admin/configurator.php:60
+#: admin/configurator.php:64
+#: admin/image_configurator.php:59
+#: admin/image_configurator.php:63
+#@ wpc
+msgid "Upload"
+msgstr ""
+
+#: admin/class-admin-attributes.php:39
+#: admin/class-admin-attributes.php:75
+#: inc/class-frontend-product.php:201
+#@ wpc
+msgid "Color"
+msgstr ""
+
+#: admin/class-admin-attributes.php:103
+#@ wpc
+msgid "Image or Color"
+msgstr ""
+
+#: admin/class-admin-metabox.php:9
+#: product-configurator.php:53
+#: product-configurator.php:66
+#@ wpc
+msgid "Base Design"
+msgstr ""
+
+#: admin/class-admin-metabox.php:32
+#@ wpc
+msgid "Upload Base Design"
+msgstr ""
+
+#: admin/class-admin-metabox.php:33
+#@ wpc
+msgid "Upload Secondary Design"
+msgstr ""
+
+#: admin/class-admin-metabox.php:34
+#@ wpc
+msgid "Clear All"
+msgstr ""
+
+#: admin/class-admin-metabox.php:39
+#@ wpc
+msgid "Scale"
+msgstr ""
+
+#: admin/class-admin-metabox.php:43
+#@ wpc
+msgid "ScaleX"
+msgstr ""
+
+#: admin/class-admin-metabox.php:47
+#@ wpc
+msgid "ScaleY"
+msgstr ""
+
+#: admin/class-admin-metabox.php:51
+#: admin/embroidery_configurator.php:77
+#@ wpc
+msgid "Left"
+msgstr ""
+
+#: admin/class-admin-metabox.php:55
+#: admin/embroidery_configurator.php:83
+#@ wpc
+msgid "Top"
+msgstr ""
+
+#: admin/class-admin-product.php:19
+#@ wpc
+msgid "Enable Product Configurator"
+msgstr ""
+
+#: admin/class-admin-product.php:20
+#@ wpc
+msgid "Enable Product Configurator for this Product."
+msgstr ""
+
+#: admin/class-admin-product.php:28
+#@ wpc
+msgid "Step Instructions"
+msgstr ""
+
+#: admin/class-admin-product.php:33
+#@ wpc
+msgid "WP Product Configurator"
+msgstr ""
+
+#: admin/class-admin-product.php:105
+#: admin/class-admin-product.php:354
+#@ wpc
+msgid "Refresh"
+msgstr ""
+
+#: admin/class-admin-product.php:108
+#@ wpc
+msgid "Pre Configure Options"
+msgstr ""
+
+#: admin/class-admin-product.php:111
+#@ wpc
+msgid "Before selecting variations, add and save some attributes on the <strong>Attributes</strong> tab."
+msgstr ""
+
+#: admin/class-admin-product.php:149
+#@ default
+msgid "Base Step"
+msgstr ""
+
+#: admin/class-admin-product.php:173
+#@ wpc
+msgid "Base Color Step"
+msgstr ""
+
+#: admin/class-admin-product.php:197
+#@ default
+msgid "Exclude From Image"
+msgstr ""
+
+#: admin/class-admin-product.php:221
+#@ default
+msgid "Exclude From Color"
+msgstr ""
+
+#: admin/class-admin-product.php:246
+#@ default
+msgid "Embroidery Step"
+msgstr ""
+
+#: admin/class-admin-product.php:270
+#@ default
+msgid "Embroidery Term"
+msgstr ""
+
+#: admin/class-admin-product.php:300
+#@ wpc
+msgid "Texture Terms"
+msgstr ""
+
+#: admin/class-admin-product.php:329
+#@ wpc
+msgid "Base Image Category"
+msgstr ""
+
+#: admin/class-admin-product.php:344
+#@ wpc
+msgid "Images Configuration"
+msgstr ""
+
+#: admin/class-admin-product.php:346
+#@ wpc
+msgid "Color Configuration"
+msgstr ""
+
+#: admin/class-admin-product.php:348
+#@ wpc
+msgid "Multicolor Cord Configuration"
+msgstr ""
+
+#: admin/class-admin-product.php:349
+#@ wpc
+msgid "Embroidery Configuration"
+msgstr ""
+
+#: admin/class-admin-product.php:369
+#@ wpc
+msgid "Finish Step"
+msgstr ""
+
+#: admin/class-admin-product.php:377
+#@ wpc
+msgid "General Instruction"
+msgstr ""
+
+#: admin/class-admin.php:41
+#@ wpc
+msgid "WP Product Configurator Settings"
+msgstr ""
+
+#: admin/class-admin.php:46
+#@ wpc
+msgid "Save Changes"
+msgstr ""
+
+#: admin/class-admin.php:62
+#@ wpc
+msgid "Available Colors"
+msgstr ""
+
+#: admin/class-admin.php:63
+#@ wpc
+msgid "Available Textures"
+msgstr ""
+
+#: admin/class-admin.php:64
+#@ wpc
+msgid "Choose Fonts"
+msgstr ""
+
+#: admin/class-admin.php:65
+#@ wpc
+msgid "Font Sizes"
+msgstr ""
+
+#: admin/class-admin.php:66
+#@ wpc
+msgid "Embroidery Character Limit"
+msgstr ""
+
+#: admin/class-admin.php:87
+#@ wpc
+msgid "Color Name"
+msgstr ""
+
+#: admin/class-admin.php:97
+#: admin/color_configurator.php:50
+#@ wpc
+msgid "No Color"
+msgstr ""
+
+#: admin/class-admin.php:101
+#@ wpc
+msgid "Add Color"
+msgstr ""
+
+#: admin/class-admin.php:102
+#: admin/class-admin.php:151
+#: admin/class-admin.php:199
+#: admin/embroidery_configurator.php:99
+#@ wpc
+msgid "Remove"
+msgstr ""
+
+#: admin/class-admin.php:103
+#: admin/class-admin.php:152
+#: admin/class-admin.php:200
+#@ wpc
+msgid "Remove all"
+msgstr ""
+
+#: admin/class-admin.php:107
+#: admin/class-admin.php:156
+#: admin/class-admin.php:204
+#: admin/embroidery_configurator.php:98
+#: inc/class-frontend-product.php:472
+#@ wpc
+msgid "Add"
+msgstr ""
+
+#: admin/class-admin.php:134
+#@ wpc
+msgid "Texture Name"
+msgstr ""
+
+#: admin/class-admin.php:146
+#@ wpc
+msgid "No Texture"
+msgstr ""
+
+#: admin/class-admin.php:150
+#@ wpc
+msgid "Add Texture"
+msgstr ""
+
+#: admin/class-admin.php:182
+#@ wpc
+msgid "Display Name"
+msgstr ""
+
+#: admin/class-admin.php:186
+#: inc/class-frontend-product.php:428
+#@ wpc
+msgid "Size"
+msgstr ""
+
+#: admin/class-admin.php:194
+#@ wpc
+msgid "No Font Size"
+msgstr ""
+
+#: admin/class-admin.php:198
+#@ wpc
+msgid "Add Size"
+msgstr ""
+
+#: admin/class-admin.php:249
+#@ wpc
+msgid "Per Line Character Limit"
+msgstr ""
+
+#: admin/class-admin.php:253
+#@ wpc
+msgid "Line Limit"
+msgstr ""
+
+#: admin/color_configurator.php:25
+#@ wpc
+msgid "Color setting for"
+msgstr ""
+
+#: admin/color_configurator.php:27
+#@ wpc
+msgid "Step Color"
+msgstr ""
+
+#: admin/color_configurator.php:48
+#: admin/configurator.php:50
+#: admin/image_configurator.php:49
+#@ wpc
+msgid "Term Name"
+msgstr ""
+
+#: admin/color_configurator.php:49
+#: admin/embroidery_configurator.php:106
+#@ wpc
+msgid "Colors"
+msgstr ""
+
+#: admin/color_configurator.php:59
+#@ wpc
+msgid "Available"
+msgstr ""
+
+#: admin/color_configurator.php:59
+#: admin/embroidery_configurator.php:111
+#@ wpc
+msgid "All"
+msgstr ""
+
+#: admin/color_configurator.php:59
+#: admin/embroidery_configurator.php:89
+#: admin/texture_configurator.php:34
+#@ wpc
+msgid "Default"
+msgstr ""
+
+#: admin/color_configurator.php:98
+#@ wpc
+msgid "Save Colors"
+msgstr ""
+
+#: admin/configurator.php:23
+#@ wpc
+msgid "Image and Color setting for"
+msgstr ""
+
+#: admin/configurator.php:26
+#: admin/image_configurator.php:25
+#@ wpc
+msgid "Step Images"
+msgstr ""
+
+#: admin/configurator.php:51
+#: admin/image_configurator.php:50
+#@ wpc
+msgid "Base Image"
+msgstr ""
+
+#: admin/configurator.php:52
+#: admin/image_configurator.php:51
+#@ wpc
+msgid "Texture Image"
+msgstr ""
+
+#: admin/configurator.php:72
+#: admin/image_configurator.php:75
+#@ wpc
+msgid "Save Images"
+msgstr ""
+
+#: admin/embroidery_configurator.php:18
+#@ wpc
+msgid "Embroidery setting for"
+msgstr ""
+
+#: admin/embroidery_configurator.php:22
+#@ wpc
+msgid "Default Logo Image Size. (Based on 800 X 800)"
+msgstr ""
+
+#: admin/embroidery_configurator.php:26
+#@ wpc
+msgid "Width"
+msgstr ""
+
+#: admin/embroidery_configurator.php:28
+#@ wpc
+msgid "Height"
+msgstr ""
+
+#: admin/embroidery_configurator.php:34
+#@ wpc
+msgid "Default Font Size"
+msgstr ""
+
+#: admin/embroidery_configurator.php:48
+#@ wpc
+msgid "(No) Embroidery Term"
+msgstr ""
+
+#: admin/embroidery_configurator.php:57
+#@ wpc
+msgid "Positions (Based on 800 X 800)"
+msgstr ""
+
+#: admin/embroidery_configurator.php:71
+#@ wpc
+msgid "Position Name"
+msgstr ""
+
+#: admin/embroidery_configurator.php:122
+#@ wpc
+msgid "Save Data"
+msgstr ""
+
+#: admin/image_configurator.php:22
+#@ wpc
+msgid "Image setting for"
+msgstr ""
+
+#: admin/image_configurator.php:52
+#@ wpc
+msgid "No Image"
+msgstr ""
+
+#: admin/texture_configurator.php:12
+#@ wpc
+msgid "Texture setting for"
+msgstr ""
+
+#: admin/texture_configurator.php:31
+#@ wpc
+msgid "for"
+msgstr ""
+
+#: admin/texture_configurator.php:34
+#@ wpc
+msgid "Name"
+msgstr ""
+
+#: admin/texture_configurator.php:34
+#@ wpc
+msgid "Not Available"
+msgstr ""
+
+#: admin/texture_configurator.php:62
+#@ wpc
+msgid "Save Setting"
+msgstr ""
+
+#: inc/class-frontend-cart.php:29
+#@ woocommerce
+msgid "Product Image"
+msgstr ""
+
+#: inc/class-frontend-cart.php:71
+#: inc/class-frontend-cart.php:142
+#: inc/class-frontend-cart.php:203
+#@ wpc
+msgid "Embroidery Type"
+msgstr ""
+
+#: inc/class-frontend-cart.php:73
+#: inc/class-frontend-cart.php:144
+#: inc/class-frontend-cart.php:204
+#@ wpc
+msgid "Embroidery Image"
+msgstr ""
+
+#: inc/class-frontend-cart.php:75
+#: inc/class-frontend-cart.php:146
+#: inc/class-frontend-cart.php:206
+#@ wpc
+msgid "Embroidery Text"
+msgstr ""
+
+#: inc/class-frontend-cart.php:77
+#: inc/class-frontend-cart.php:148
+#: inc/class-frontend-cart.php:207
+#: inc/class-frontend-product.php:185
+#@ wpc
+msgid "Font"
+msgstr ""
+
+#: inc/class-frontend-cart.php:80
+#: inc/class-frontend-cart.php:151
+#: inc/class-frontend-cart.php:208
+#: inc/class-frontend-product.php:189
+#@ wpc
+msgid "Font Size"
+msgstr ""
+
+#: inc/class-frontend-cart.php:83
+#: inc/class-frontend-cart.php:154
+#: inc/class-frontend-cart.php:209
+#: inc/class-frontend-product.php:193
+#@ wpc
+msgid "Font Weight"
+msgstr ""
+
+#: inc/class-frontend-cart.php:86
+#: inc/class-frontend-cart.php:157
+#: inc/class-frontend-cart.php:210
+#: inc/class-frontend-product.php:197
+#@ wpc
+msgid "Font Style"
+msgstr ""
+
+#: inc/class-frontend-cart.php:89
+#: inc/class-frontend-cart.php:160
+#: inc/class-frontend-cart.php:211
+#@ wpc
+msgid "Embroidery Color"
+msgstr ""
+
+#: inc/class-frontend-cart.php:92
+#: inc/class-frontend-cart.php:163
+#: inc/class-frontend-cart.php:205
+#@ wpc
+msgid "Embroidery Position"
+msgstr ""
+
+#: inc/class-frontend-cart.php:95
+#: inc/class-frontend-cart.php:166
+#: inc/class-frontend-cart.php:212
+#: inc/class-frontend-product.php:209
+#: inc/class-frontend-product.php:469
+#@ wpc
+msgid "Additional Comment"
+msgstr ""
+
+#: inc/class-frontend-cart.php:182
+#@ wpc
+msgid "WPC Product"
+msgstr ""
+
+#: inc/class-frontend-cart.php:214
+#@ wpc
+msgid "Image:"
+msgstr ""
+
+#: inc/class-frontend-product.php:31
+#@ wpc
+msgid "Configure"
+msgstr ""
+
+#: inc/class-frontend-product.php:76
+#@ wpc
+msgid "Finish"
+msgstr ""
+
+#: inc/class-frontend-product.php:98
+#@ wpc
+msgid "Choose Design"
+msgstr ""
+
+#: inc/class-frontend-product.php:122
+#@ wpc
+msgid "Finish Builder"
+msgstr ""
+
+#: inc/class-frontend-product.php:123
+#@ wpc
+msgid "Reset All"
+msgstr ""
+
+#: inc/class-frontend-product.php:128
+#@ wpc
+msgid "Add to Cart"
+msgstr ""
+
+#: inc/class-frontend-product.php:148
+#@ wpc
+msgid "Chosen Options"
+msgstr ""
+
+#: inc/class-frontend-product.php:159
+#@ wpc
+msgid "Chosen Colors"
+msgstr ""
+
+#: inc/class-frontend-product.php:170
+#@ wpc
+msgid "Embroidery"
+msgstr ""
+
+#: inc/class-frontend-product.php:173
+#@ wpc
+msgid "Type"
+msgstr ""
+
+#: inc/class-frontend-product.php:181
+#: inc/class-frontend-product.php:400
+#@ wpc
+msgid "Text"
+msgstr ""
+
+#: inc/class-frontend-product.php:205
+#@ wpc
+msgid "Position"
+msgstr ""
+
+#: inc/class-frontend-product.php:251
+#, php-format
+#@ default
+msgid "No attributes found for this taxonomy. Be sure that they are visible on the product page and you created them via the <a href=\"%s\" target=\"_blank\">Attributes admin page</a>."
+msgstr ""
+
+#: inc/class-frontend-product.php:397
+#@ wpc
+msgid "Reset"
+msgstr ""
+
+#: inc/class-frontend-product.php:407
+#@ wpc
+msgid "Choose Image"
+msgstr ""
+
+#: inc/class-frontend-product.php:416
+#@ wpc
+msgid "Bold"
+msgstr ""
+
+#: inc/class-frontend-product.php:417
+#@ wpc
+msgid "Italic"
+msgstr ""
+
+#: inc/resize.php:42
+#: inc/resize.php:175
+#@ wta
+msgid "No image URL has been entered."
+msgstr ""
+
+#: inc/resize.php:76
+#: inc/resize.php:210
+#@ wta
+msgid "Image is BMP. Please use either JPG or PNG."
+msgstr ""
+
+#: inc/resize.php:238
+#@ wta
+msgid "Failed to get $file_path information using \"@getimagesize\"."
+msgstr ""
+
+#: inc/resize.php:281
+#@ wta
+msgid "Resize path invalid (GIF)"
+msgstr ""
+
+#: inc/resize.php:285
+#@ wta
+msgid "Resize path invalid (PNG)."
+msgstr ""
+
+#: inc/resize.php:293
+#@ wta
+msgid "Resize path invalid (JPG)."
+msgstr ""
+
+#: inc/resize.php:308
+#@ wta
+msgid "Failed to get $dest_file_name (resized image) info via @getimagesize"
+msgstr ""
+
+#: product-configurator.php:50
+#@ wpc
+msgctxt "Post Type General Name"
+msgid "Base Designs"
+msgstr ""
+
+#: product-configurator.php:51
+#@ wpc
+msgctxt "Post Type Singular Name"
+msgid "Design"
+msgstr ""
+
+#: product-configurator.php:52
+#@ wpc
+msgid "Base Designs"
+msgstr ""
+
+#: product-configurator.php:54
+#@ wpc
+msgid "All Designs"
+msgstr ""
+
+#: product-configurator.php:55
+#@ wpc
+msgid "Add New Design"
+msgstr ""
+
+#: product-configurator.php:56
+#@ wpc
+msgid "Add New"
+msgstr ""
+
+#: product-configurator.php:57
+#@ wpc
+msgid "New Design"
+msgstr ""
+
+#: product-configurator.php:58
+#@ wpc
+msgid "Edit Design"
+msgstr ""
+
+#: product-configurator.php:59
+#@ wpc
+msgid "Update Design"
+msgstr ""
+
+#: product-configurator.php:60
+#@ wpc
+msgid "View Design"
+msgstr ""
+
+#: product-configurator.php:61
+#@ wpc
+msgid "Search Design"
+msgstr ""
+
+#: product-configurator.php:62
+#@ wpc
+msgid "Not found"
+msgstr ""
+
+#: product-configurator.php:63
+#@ wpc
+msgid "Not found in Trash"
+msgstr ""
+
+#: product-configurator.php:80
+#@ wpc
+msgid "Categories"
+msgstr ""
+
+#: product-configurator.php:81
+#: product-configurator.php:90
+#@ wpc
+#@ default
+msgid "Category"
+msgstr ""
+
+#: product-configurator.php:82
+#@ wpc
+msgid "Search Categories"
+msgstr ""
+
+#: product-configurator.php:83
+#@ wpc
+msgid "All Categories"
+msgstr ""
+
+#: product-configurator.php:84
+#@ wpc
+msgid "Parent Category"
+msgstr ""
+
+#: product-configurator.php:85
+#@ wpc
+msgid "Parent Category:"
+msgstr ""
+
+#: product-configurator.php:86
+#@ wpc
+msgid "Edit Category"
+msgstr ""
+
+#: product-configurator.php:87
+#@ wpc
+msgid "Update Category"
+msgstr ""
+
+#: product-configurator.php:88
+#@ wpc
+msgid "Add New Category"
+msgstr ""
+
+#: product-configurator.php:89
+#@ wpc
+msgid "New Category Name"
+msgstr ""
+

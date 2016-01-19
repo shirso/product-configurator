@@ -1,0 +1,13 @@
+#wpc_sheepItForm_controls{margin-top: 10px;}
+.wpc-hidden{display:none;}
+.wpc_variation_meta_field{border: 1px solid #003bb3;}
+.wpc_variation_meta_field input[type="checkbox"] {
+    margin-right: 3px;
+    margin-top: 0px !important;
+}
+.wpc_product_image_thumbnail img{}
+.wpc-product-header{text-align: center !important;}
+.show_if_wpc_panel{display: none!important;}
+.clr span{ color: #ffffff;}
+.clr .dashicons{font-size: 22px; margin-left:-5px; margin-right: 5px; margin-top: 1px;}
+.dashicons-plus{margin-top: 2px !important;}
