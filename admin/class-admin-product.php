@@ -347,6 +347,8 @@ if (!class_exists('WPC_Admin_Product')) {
                             <a target="_blank" class="button button-default"
                                href="options.php?page=wpc_configurator_texture&post=<?= $_GET['post'] ?>"><?php _e('Multicolor Cord Configuration', 'wpc'); ?></a>
                             <a target="_blank" class="button button-default" href="options.php?page=wpc_configurator_embroidery&post=<?= $_GET['post'] ?>"><?php _e('Embroidery Configuration', 'wpc'); ?></a>
+                            <a target="_blank" class="button button-default"
+                               href="options.php?page=wpc_configurator_images&post=<?=$_GET["post"]?>"><?=__('Images','wpc')?></a>
                         <?php } ?>
                     </div>
                 </div>
