@@ -10,6 +10,7 @@ if( !class_exists('WPC_Admin') ) {
             add_action('admin_menu',array(&$this,'register_custom_submenu_page_color'));
             add_action('admin_menu',array(&$this,'register_custom_submenu_page_texture'));
             add_action('admin_menu',array(&$this,'register_custom_submenu_page_embroidery'));
+            add_action('admin_menu',array(&$this,'register_custom_submenu_page_images'));
             add_action('wp_ajax_wpc_save_configuration_form',array(&$this,'wpc_save_configuration_form'));
             add_action('wp_ajax_wpc_save_configuration_form_texture',array(&$this,'wpc_save_configuration_form_texture'));
             add_action('wp_ajax_wpc_save_configuration_form_color',array(&$this,'wpc_save_configuration_form_color'));
@@ -295,6 +296,19 @@ if( !class_exists('WPC_Admin') ) {
                 , 'wpc_configurator_embroidery'
                 , array(&$this,'my_custom_submenu_page_callback_embroidery')
             );
+        }
+        public  function register_custom_submenu_page_images(){
+            add_submenu_page(
+                'options.php'
+                , 'Images Configurator'
+                , 'Images Configurator'
+                , 'manage_options'
+                , 'wpc_configurator_images'
+                , array(&$this,'my_custom_submenu_page_callback_images')
+            );
+        }
+        public function my_custom_submenu_page_callback_images(){
+            require_once(WPC_PLUGIN_ADMIN_DIR.'/all_images.php');
         }
         public function my_custom_submenu_page_callback_image(){
             require_once(WPC_PLUGIN_ADMIN_DIR.'/image_configurator.php');

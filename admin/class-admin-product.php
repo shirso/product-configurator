@@ -341,12 +341,14 @@ if (!class_exists('WPC_Admin_Product')) {
                     <div class="options_group">
                         <?php if (isset($_GET['post'])) { ?>
                             <a target="_blank" class="button button-default"
-                               href="options.php?page=wpc_configurator_image&post=<?= $_GET['post'] ?>"><?php _e('Images Configuration', 'wpc'); ?></a>
+                               href="options.php?page=wpc_con figurator_image&post=<?= $_GET['post'] ?>"><?php _e('Images Configuration', 'wpc'); ?></a>
                             <a target="_blank" class="button button-default"
                                href="options.php?page=wpc_configurator_color&post=<?= $_GET['post'] ?>"><?php _e('Color Configuration', 'wpc'); ?></a>
                             <a target="_blank" class="button button-default"
                                href="options.php?page=wpc_configurator_texture&post=<?= $_GET['post'] ?>"><?php _e('Multicolor Cord Configuration', 'wpc'); ?></a>
                             <a target="_blank" class="button button-default" href="options.php?page=wpc_configurator_embroidery&post=<?= $_GET['post'] ?>"><?php _e('Embroidery Configuration', 'wpc'); ?></a>
+                            <a target="_blank" class="button button-default"
+                                href="options.php?page=wpc_configurator_images&post=<?= $_GET['post'] ?>"><?php _e('Images', 'wpc'); ?></a>
                         <?php } ?>
                     </div>
                 </div>
