@@ -15,6 +15,7 @@ if( !class_exists('WPC_Admin') ) {
             add_action('wp_ajax_wpc_save_configuration_form_texture',array(&$this,'wpc_save_configuration_form_texture'));
             add_action('wp_ajax_wpc_save_configuration_form_color',array(&$this,'wpc_save_configuration_form_color'));
             add_action('wp_ajax_wpc_save_configuration_form_embroidery',array(&$this,'wpc_save_configuration_form_embroidery'));
+            add_action('wp_ajax_wpc_save_configuration_form_cord_layers',array(&$this,'wpc_save_configuration_form_cord_layers'));
         }
         public function admin_scripts(){
             wp_register_script('wpc_sheepit_jquery',WPC_PLUGIN_ABSOLUTE_PATH.'admin/js/jquery.sheepItPlugin-1.1.1.min.js','',false,true);
@@ -297,19 +298,12 @@ if( !class_exists('WPC_Admin') ) {
                 , array(&$this,'my_custom_submenu_page_callback_embroidery')
             );
         }
-<<<<<<< HEAD
+
         public  function register_custom_submenu_page_images(){
             add_submenu_page(
                 'options.php'
-                , 'Images Configurator'
-                , 'Images Configurator'
-=======
-        public function register_custom_submenu_page_images(){
-            add_submenu_page(
-                'options.php'
                 , 'Image Configurator'
                 , 'Image Configurator'
->>>>>>> e466baed5b3ca842066cccff3d6983f67a3c1f5d
                 , 'manage_options'
                 , 'wpc_configurator_images'
                 , array(&$this,'my_custom_submenu_page_callback_images')
@@ -346,6 +340,14 @@ if( !class_exists('WPC_Admin') ) {
             update_post_meta(intval($_POST['postId']),'_wpc_emb_positions',$params['wpc_emb_positions']);
             update_post_meta(intval($_POST['postId']),'_wpc_emb_colors',$params['wpc_emb_colors']);
             exit;
+        }
+        public function wpc_save_configuration_form_cord_layers(){
+            parse_str($_POST['formData'],$params);
+            $postId=absint($_POST["postId"]);
+           // print_r($params['wpc_cord_layers']);
+            update_post_meta($postId,'_wpc_cord_layers',$params['wpc_cord_layers']);
+            echo 'success';
+            die;
         }
     }
     new WPC_Admin();

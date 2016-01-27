@@ -358,4 +358,20 @@ $('body').on('click','.wpc_selectAllButton',function(e){
         $(this).parent().parent().parent().find('.color_checkbox').removeAttr('checked');
     }
 });
+//Image Page Script
+   $(document).on('click','#wpc_cord_layers_save',function(e){
+       e.preventDefault();
+       var data = {
+           'action': 'wpc_save_configuration_form_cord_layers',
+           'formData': $("#wpc_cord_layers_form").serialize(),
+           'postId': postId
+       };
+       $.post(ajaxurl, data, function (resp) {
+          // console.log(resp);
+           if(resp=='success'){
+               alert('refresh page');
+           }
+       })
+   });
+
 });
