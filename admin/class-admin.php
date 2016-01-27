@@ -297,11 +297,19 @@ if( !class_exists('WPC_Admin') ) {
                 , array(&$this,'my_custom_submenu_page_callback_embroidery')
             );
         }
+<<<<<<< HEAD
         public  function register_custom_submenu_page_images(){
             add_submenu_page(
                 'options.php'
                 , 'Images Configurator'
                 , 'Images Configurator'
+=======
+        public function register_custom_submenu_page_images(){
+            add_submenu_page(
+                'options.php'
+                , 'Image Configurator'
+                , 'Image Configurator'
+>>>>>>> e466baed5b3ca842066cccff3d6983f67a3c1f5d
                 , 'manage_options'
                 , 'wpc_configurator_images'
                 , array(&$this,'my_custom_submenu_page_callback_images')
