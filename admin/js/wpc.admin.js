@@ -374,4 +374,18 @@ $('body').on('click','.wpc_selectAllButton',function(e){
        })
    });
 
+
+    $("#wpc_all_images").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slide",
+        titleTemplate: "#title#",
+        labels:wpc_image_labels,
+        stepsOrientation: "vertical",
+        onStepChanging:function(event, currentIndex, newIndex){
+
+            return true;
+        }
+    });
+
 });
