@@ -349,7 +349,8 @@ if( !class_exists('WPC_Admin') ) {
             $postId=absint($_POST["postId"]);
            // print_r($params['wpc_cord_layers']);
             update_post_meta($postId,'_wpc_cord_layers',$params['wpc_cord_layers']);
-            echo 'success';
+           // sleep(1000);
+            echo "success";
             die;
         }
     }

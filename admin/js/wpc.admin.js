@@ -359,20 +359,36 @@ $('body').on('click','.wpc_selectAllButton',function(e){
     }
 });
 //Image Page Script
-   $(document).on('click','#wpc_cord_layers_save',function(e){
-       e.preventDefault();
-       var data = {
-           'action': 'wpc_save_configuration_form_cord_layers',
-           'formData': $("#wpc_cord_layers_form").serialize(),
-           'postId': postId
-       };
-       $.post(ajaxurl, data, function (resp) {
-          // console.log(resp);
-           if(resp=='success'){
-               alert('refresh page');
-           }
-       })
-   });
+    var saveTabData=function(tabId){
+        var action,formId;
+        switch (tabId){
+            case 0:
+                action= "wpc_save_configuration_form_cord_layers";
+                formId="#wpc_cord_layers_form";
+                break;
+
+        }
+        var data = {
+            'action': action,
+            'formData': $(formId).serialize(),
+            'postId': postId
+        };
+        $(formId).block({message: null,
+            overlayCSS: {
+                background: '#fff',
+                opacity: 0.6
+            }
+        });
+     return  $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: data,
+            success:function(){
+              $(formId).unblock();
+            },
+            async:false
+        });
+    }
 
 
     $("#wpc_all_images").steps({
@@ -383,9 +399,18 @@ $('body').on('click','.wpc_selectAllButton',function(e){
         labels:wpc_image_labels,
         stepsOrientation: "vertical",
         onStepChanging:function(event, currentIndex, newIndex){
-
+            saveTabData(currentIndex);
             return true;
+        },
+        onStepChanged:function(event, currentIndex, priorIndex){
+
         }
     });
+    var loadTab=function(tabId){
+        switch (tabId){
+            case 1:
+
+        }
+    }
 
 });

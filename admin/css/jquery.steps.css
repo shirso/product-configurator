@@ -104,6 +104,7 @@
 }
 
 .wizard > .steps .disabled a,
+.wizard > .steps ul li a,
 .wizard > .steps .disabled a:hover,
 .wizard > .steps .disabled a:active
 {
