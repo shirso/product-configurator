@@ -362,29 +362,21 @@ $('body').on('click','.wpc_selectAllButton',function(e){
     var saveTabData=function(tabId){
         var action,formId;
         switch (tabId){
-            case 0:
+            case 1:
                 action= "wpc_save_configuration_form_cord_layers";
                 formId="#wpc_cord_layers_form";
                 break;
-
         }
         var data = {
             'action': action,
             'formData': $(formId).serialize(),
             'postId': postId
         };
-        $(formId).block({message: null,
-            overlayCSS: {
-                background: '#fff',
-                opacity: 0.6
-            }
-        });
      return  $.ajax({
             type: 'POST',
             url: ajaxurl,
             data: data,
             success:function(){
-              $(formId).unblock();
             },
             async:false
         });
@@ -403,14 +395,36 @@ $('body').on('click','.wpc_selectAllButton',function(e){
             return true;
         },
         onStepChanged:function(event, currentIndex, priorIndex){
-
+            loadTab(currentIndex);
         }
     });
     var loadTab=function(tabId){
-        switch (tabId){
-            case 1:
+        var action="wpc_load_tab_data",
+            sectionId=null;
+        var sections=['wpc_base_edge','wpc_cord_layers','wpc_multicolor_cords','wpc_cord_images','wpc_multicolor_images'];
 
-        }
+        sectionId=sections[tabId];
+        $("#"+sectionId).block({message:null,
+            overlayCSS: {
+                background: '#eee',
+                opacity: 0.6
+            }
+        });
+        var data = {
+            'action': action,
+            'section': sectionId,
+            'postId': postId
+        };
+          $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: data,
+            success:function(resp){
+                $("#"+sectionId).html(resp);
+                $("#wpc_multicolor_cords_select").multiselect({});
+                $("#"+sectionId).unblock();
+            }
+        });
     }
 
 });

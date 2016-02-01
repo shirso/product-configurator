@@ -16,21 +16,27 @@ if( !class_exists('WPC_Admin') ) {
             add_action('wp_ajax_wpc_save_configuration_form_color',array(&$this,'wpc_save_configuration_form_color'));
             add_action('wp_ajax_wpc_save_configuration_form_embroidery',array(&$this,'wpc_save_configuration_form_embroidery'));
             add_action('wp_ajax_wpc_save_configuration_form_cord_layers',array(&$this,'wpc_save_configuration_form_cord_layers'));
+            add_action('wp_ajax_wpc_load_tab_data',array(&$this,'wpc_load_tab_data'));
         }
         public function admin_scripts(){
             wp_register_script('wpc_sheepit_jquery',WPC_PLUGIN_ABSOLUTE_PATH.'admin/js/jquery.sheepItPlugin-1.1.1.min.js','',false,true);
             wp_enqueue_script('wpc_sheepit_jquery');
             wp_enqueue_media();
             wp_register_script('wpc_chosen_jquery',WPC_PLUGIN_ABSOLUTE_PATH.'admin/js/chosen.jquery.js','',false,true);
+            wp_register_script('wpc_blockUI',WPC_PLUGIN_ABSOLUTE_PATH.'admin/js/jquery.blockUI.min.js','',false,true);
             wp_enqueue_script('wpc_fabric',WPC_PLUGIN_ABSOLUTE_PATH.'admin/js/fabric.js','',false,true);
             wp_enqueue_script('wpc_steps',WPC_PLUGIN_ABSOLUTE_PATH.'admin/js/jquery.steps.min.js','',false,true);
+            wp_enqueue_script('wpc_multiselect',WPC_PLUGIN_ABSOLUTE_PATH.'admin/js/jquery.multiselect.min.js','',false,true);
             wp_enqueue_script( 'wpc_chosen_jquery' );
+            wp_enqueue_script( 'wpc_blockUI' );
             wp_register_script('wpc_admin_script',WPC_PLUGIN_ABSOLUTE_PATH.'admin/js/wpc.admin.js','',false,true);
             wp_localize_script('wpc_admin_script','wpc_image_labels',array('previous'=>__('Previous','wpc'),'next'=>__('Save and Continue','wpc'),'finish'=>'Save'));
             wp_enqueue_script('wpc_admin_script');
             wp_enqueue_style('wpc_grid12',WPC_PLUGIN_ABSOLUTE_PATH.'admin/css/grid12.css');
             wp_enqueue_style('wpc_chosen_style',WPC_PLUGIN_ABSOLUTE_PATH.'admin/css/chosen.min.css');
             wp_enqueue_style('wpc_steps_style',WPC_PLUGIN_ABSOLUTE_PATH.'admin/css/jquery.steps.css');
+            wp_enqueue_style('wpc_ui_style','http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-darkness/jquery-ui.css');
+            wp_enqueue_style('wpc_multiselect_style',WPC_PLUGIN_ABSOLUTE_PATH.'admin/css/jquery.multiselect.css');
             wp_enqueue_style('wpc_admin_style',WPC_PLUGIN_ABSOLUTE_PATH.'admin/css/wpc.admin.css');
         }
         public  function wpc_save_configuration_form_texture(){
@@ -347,12 +353,32 @@ if( !class_exists('WPC_Admin') ) {
         public function wpc_save_configuration_form_cord_layers(){
             parse_str($_POST['formData'],$params);
             $postId=absint($_POST["postId"]);
-           // print_r($params['wpc_cord_layers']);
             update_post_meta($postId,'_wpc_cord_layers',$params['wpc_cord_layers']);
            // sleep(1000);
             echo "success";
             die;
         }
+        public function wpc_load_tab_data(){
+            $postId=absint($_POST["postId"]);
+            $section=trim($_POST["section"]);
+            if($section!="wpc_cord_layers"  || $section!="wpc_base_edge") {
+                switch ($section) {
+                    case "wpc_multicolor_cords":
+                        require_once(WPC_PLUGIN_ADMIN_DIR.'/wpc_multicolor_cords.php');
+                        break;
+                    case "wpc_cord_images":
+                        require_once(WPC_PLUGIN_ADMIN_DIR.'/wpc_cord_images.php');
+                        break;
+                    case "wpc_multicolor_images":
+                        require_once(WPC_PLUGIN_ADMIN_DIR.'/wpc_multicolor_images.php');
+                        break;
+                    default:
+                        echo 'success';
+                }
+            }
+            exit;
+        }
+
     }
     new WPC_Admin();
 }
