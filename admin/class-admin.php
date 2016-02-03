@@ -15,7 +15,7 @@ if( !class_exists('WPC_Admin') ) {
             add_action('wp_ajax_wpc_save_configuration_form_texture',array(&$this,'wpc_save_configuration_form_texture'));
             add_action('wp_ajax_wpc_save_configuration_form_color',array(&$this,'wpc_save_configuration_form_color'));
             add_action('wp_ajax_wpc_save_configuration_form_embroidery',array(&$this,'wpc_save_configuration_form_embroidery'));
-            add_action('wp_ajax_wpc_save_configuration_form_cord_layers',array(&$this,'wpc_save_configuration_form_cord_layers'));
+            add_action('wp_ajax_wpc_save_tab_data',array(&$this,'wpc_save_tab_data'));
             add_action('wp_ajax_wpc_load_tab_data',array(&$this,'wpc_load_tab_data'));
         }
         public function admin_scripts(){
@@ -350,13 +350,39 @@ if( !class_exists('WPC_Admin') ) {
             update_post_meta(intval($_POST['postId']),'_wpc_emb_colors',$params['wpc_emb_colors']);
             exit;
         }
-        public function wpc_save_configuration_form_cord_layers(){
+        public function wpc_save_tab_data(){
+//            parse_str($_POST['formData'],$params);
+//            $postId=absint($_POST["postId"]);
+//            update_post_meta($postId,'_wpc_cord_layers',$params['wpc_cord_layers']);
+//           // sleep(1000);
+//            echo "success";
+//            die;
+            $section=esc_html($_POST["section"]);
             parse_str($_POST['formData'],$params);
             $postId=absint($_POST["postId"]);
-            update_post_meta($postId,'_wpc_cord_layers',$params['wpc_cord_layers']);
-           // sleep(1000);
-            echo "success";
-            die;
+            switch ($section) {
+                case 'wpc_base_edge' :
+                    update_post_meta($postId,'_wpc_color_dependency',$params['_wpc_color_dependency']);
+                    update_post_meta($postId,'_wpc_base_color_dependency',$params['_wpc_base_color_dependency']);
+                    update_post_meta($postId,'_wpc_base_image_base',$params['wpc_base_image_base']);
+                    update_post_meta($postId,'_wpc_base_image_texture',$params['wpc_base_image_texture']);
+                    update_post_meta($postId,'_wpc_edge_image_base',$params['wpc_edge_image_base']);
+                    update_post_meta($postId,'_wpc_edge_image_texture',$params['wpc_edge_image_texture']);
+                    break;
+                case 'wpc_cord_layers' :
+                    update_post_meta($postId,'_wpc_cord_layers',$params['wpc_cord_layers']);
+                    break;
+                case 'wpc_multicolor_cords' :
+                    update_post_meta($postId,'_wpc_multicolor_cords',$params['wpc_multicolor_cords']);
+                    break;
+                case 'wpc_cord_images' :
+                    break;
+                case 'wpc_multicolor_images' :
+                    break;
+                default:
+                    break;
+            }
+            exit;
         }
         public function wpc_load_tab_data(){
             $postId=absint($_POST["postId"]);

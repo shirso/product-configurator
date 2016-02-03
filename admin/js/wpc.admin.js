@@ -360,7 +360,7 @@ $('body').on('click','.wpc_selectAllButton',function(e){
 });
 //Image Page Script
     var saveTabData=function(tabId){
-        var action="wpc_load_tab_data",
+        var action="wpc_save_tab_data",
             sectionId=null;
         var sections=['wpc_base_edge','wpc_cord_layers','wpc_multicolor_cords','wpc_cord_images','wpc_multicolor_images'];
         //switch (tabId){
@@ -369,9 +369,11 @@ $('body').on('click','.wpc_selectAllButton',function(e){
         //        formId="#wpc_cord_layers_form";
         //        break;
         //}
+        var formId=$("#"+sections[tabId]+"_form");
         var data = {
             'action': action,
             'formData': $(formId).serialize(),
+            'section':sections[tabId],
             'postId': postId
         };
      return  $.ajax({
@@ -393,7 +395,9 @@ $('body').on('click','.wpc_selectAllButton',function(e){
         labels:wpc_image_labels,
         stepsOrientation: "vertical",
         onStepChanging:function(event, currentIndex, newIndex){
-            saveTabData(currentIndex);
+            if(newIndex > currentIndex){
+                saveTabData(currentIndex);
+            }
             return true;
         },
         onStepChanged:function(event, currentIndex, priorIndex){
@@ -406,6 +410,7 @@ $('body').on('click','.wpc_selectAllButton',function(e){
         var sections=['wpc_base_edge','wpc_cord_layers','wpc_multicolor_cords','wpc_cord_images','wpc_multicolor_images'];
 
         sectionId=sections[tabId];
+        if(sectionId == 'wpc_base_edge'  || sectionId=='wpc_cord_layers') return;
         $("#"+sectionId).block({message:null,
             overlayCSS: {
                 background: '#eee',

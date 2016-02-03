@@ -1,6 +1,7 @@
 <?php
 if (!defined('ABSPATH')) exit;
 $wpc_cord_layers=get_post_meta($postId,'_wpc_cord_layers',true);
+$wpc_multicolor_cords=get_post_meta($postId,'_wpc_multicolor_cords',true);
 ?>
 <h2><?=__('Choose Multicolor Cord Terms','wpc');?></h2>
 <form id="wpc_multicolor_cords_form">
@@ -17,8 +18,9 @@ $wpc_cord_layers=get_post_meta($postId,'_wpc_cord_layers',true);
             if(is_array($cords) && !empty($cords)){
                 foreach ($cords as $variation) {
                     if (has_term(absint($variation1->term_id), $layer, $postId)) {
+                     $selected=!empty($wpc_multicolor_cords) && in_array($variation->term_id,$wpc_multicolor_cords) ?"selected" : "";
                     ?>
-                   <option value="<?=$variation->term_id;?>"><?=$variation->name;?></option>
+                   <option <?=$selected;?> value="<?=$variation->term_id;?>"><?=$variation->name;?></option>
                    <?php }
                 }}
          ?>

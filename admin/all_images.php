@@ -55,11 +55,11 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
                            </tr>
                            <tr>
                                <td>
-                               <input type="text" name="wpc_base_image_base" id="wpc_base_image_base">
+                               <input type="text" name="wpc_base_image_base" id="wpc_base_image_base" value="<?=get_post_meta($post_id,'_wpc_base_image_base',true);?>">
                                <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_base_image_base" value="<?=__('Upload','wpc');?>">
                                </td>
                            <td>
-                               <input type="text" name="wpc_base_image_texture" id="wpc_base_image_texture">
+                               <input type="text" name="wpc_base_image_texture" id="wpc_base_image_texture" value="<?=get_post_meta($post_id,'_wpc_base_image_texture',true);?>">
                                <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_base_image_texture" value="<?=__('Upload','wpc');?>">
                            </td>
                            </tr>
@@ -76,11 +76,11 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="text" name="wpc_edge_image_base" id="wpc_edge_image_base">
+                                    <input type="text" name="wpc_edge_image_base" id="wpc_edge_image_base" value="<?=get_post_meta($post_id,'_wpc_edge_image_base',true);?>">
                                     <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_edge_image_base" value="<?=__('Upload','wpc');?>">
                                 </td>
                                 <td>
-                                    <input type="text" name="wpc_edge_image_texture" id="wpc_edge_image_texture">
+                                    <input type="text" name="wpc_edge_image_texture" id="wpc_edge_image_texture" value="<?=get_post_meta($post_id,'_wpc_edge_image_texture',true);?>">
                                     <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_edge_image_texture" value="<?=__('Upload','wpc');?>">
                                 </td>
                             </tr>
