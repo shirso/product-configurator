@@ -429,6 +429,7 @@ $('body').on('click','.wpc_selectAllButton',function(e){
             success:function(resp){
                 $("#"+sectionId).html(resp);
                 $("#wpc_multicolor_cords_select").multiselect({});
+                resizeJquerySteps();
                 $("#"+sectionId).unblock();
             }
         });
@@ -446,5 +447,7 @@ $('body').on('click','.wpc_selectAllButton',function(e){
         mediaUploader.open();
 
     });
-
+    function resizeJquerySteps() {
+        $('.wizard .content').animate({ height: $('.body.current').outerHeight() }, "slow");
+    }
 });
