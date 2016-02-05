@@ -351,12 +351,6 @@ if( !class_exists('WPC_Admin') ) {
             exit;
         }
         public function wpc_save_tab_data(){
-//            parse_str($_POST['formData'],$params);
-//            $postId=absint($_POST["postId"]);
-//            update_post_meta($postId,'_wpc_cord_layers',$params['wpc_cord_layers']);
-//           // sleep(1000);
-//            echo "success";
-//            die;
             $section=esc_html($_POST["section"]);
             parse_str($_POST['formData'],$params);
             $postId=absint($_POST["postId"]);
@@ -376,6 +370,7 @@ if( !class_exists('WPC_Admin') ) {
                     update_post_meta($postId,'_wpc_multicolor_cords',$params['wpc_multicolor_cords']);
                     break;
                 case 'wpc_cord_images' :
+                    print_r($params['wpc_combination']);
                     break;
                 case 'wpc_multicolor_images' :
                     break;
