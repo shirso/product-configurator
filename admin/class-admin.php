@@ -359,6 +359,7 @@ if( !class_exists('WPC_Admin') ) {
                     update_post_meta($postId,'_wpc_color_dependency',$params['_wpc_color_dependency']);
                     update_post_meta($postId,'_wpc_base_color_dependency',$params['_wpc_base_color_dependency']);
                     update_post_meta($postId,'_wpc_base_image_base',$params['wpc_base_image_base']);
+                    update_post_meta($postId,'_wpc_edge_layer',$params['wpc_edge_layer']);
                     update_post_meta($postId,'_wpc_base_image_texture',$params['wpc_base_image_texture']);
                     update_post_meta($postId,'_wpc_edge_image_base',$params['wpc_edge_image_base']);
                     update_post_meta($postId,'_wpc_edge_image_texture',$params['wpc_edge_image_texture']);
@@ -370,7 +371,8 @@ if( !class_exists('WPC_Admin') ) {
                     update_post_meta($postId,'_wpc_multicolor_cords',$params['wpc_multicolor_cords']);
                     break;
                 case 'wpc_cord_images' :
-                    print_r($params['wpc_combination']);
+                    update_post_meta($postId,'_wpc_cord_images',$params['wpc_combination']);
+                    update_post_meta($postId,'_wpc_no_cords',$params['wpc_no_cords']);
                     break;
                 case 'wpc_multicolor_images' :
                     break;

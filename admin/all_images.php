@@ -46,6 +46,24 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
                     </td>
                 </tr>
                 <tr>
+                  <td>
+                      <label for="wpc_edge_layer"><?=__('Choose Edge Layer','wpc')?></label>
+                  </td>
+                    <td>
+                        <select name="wpc_edge_layer" id="wpc_edge_layer">
+                            <option value="">---</option>
+                            <?php $check_edge = get_post_meta($post_id, '_wpc_edge_layer', true); if (isset($attributes) && !empty($attributes)){ foreach ($attributes as $attr) {
+                                if (!$attr['is_variation']) {
+                                    continue;
+                                }
+                                ?>
+                                <?php $checked = $attr['name'] == $check_edge ? 'selected' : ''; ?>
+                                <option <?=$checked;?> value="<?= $attr['name'] ?>"> <?= esc_html(wc_attribute_label($attr['name'])) ?></option>
+                            <?php }}?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <td><?=__('Base Images','wpc')?></td>
                     <td>
                        <table>

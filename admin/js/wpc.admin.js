@@ -438,8 +438,8 @@ $('body').on('click','.wpc_selectAllButton',function(e){
     }
     var activateSheepIt=function(className){
         $(className).each(function(k,v){
-           // var elementId=$(v).attr("id")
-            console.log(window["wpc_combination_"+k]);
+            var injectData=$("#wpc_values_"+$(this).data("layer")).val();
+            injectData= $.parseJSON(injectData);
             var sheepItForm = $('#'+$(v).attr("id")).sheepIt({
                 separator: '<div style="width:100%; border-top:1px solid #ccc; margin: 10px 0px;"></div>',
                 minFormsCount: 0,
@@ -447,9 +447,13 @@ $('body').on('click','.wpc_selectAllButton',function(e){
                 afterAdd: function(source, newForm) {
                     resizeJquerySteps();
                 },
-               // data:position_data
+                afterFill: function() {
+                   // resizeJquerySteps();
+                },
+                data:injectData
             });
         });
+        resizeJquerySteps();
     }
 
     $(document).on('click','.wpc_image_upload',function(e){
