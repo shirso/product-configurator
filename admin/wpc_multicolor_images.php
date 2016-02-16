@@ -37,10 +37,27 @@ $wpc_cord_layers=get_post_meta($postId,'_wpc_cord_layers',true);
                  <div class="wpc_textures">
                      <div id="wpc_textures_<?=$term_id?>_#index#_images">
                          <div id="wpc_textures_<?=$term_id?>_#index#_images_template" class="">
-                             Here Goes
+                          <label for="wpc_textures_<?=$term_id;?>_images_#index_images#_name"><?=__('Name','wpc')?></label>
+                             <select name="wpc_textures[<?=$term_id;?>][#index#][images][#index_images#][name]" id="wpc_textures_<?=$term_id;?>_images_#index_images#_name">
+                                 <option value="">---</option>
+                                 <?php  $options = get_option('wpc_settings');
+                                 if(isset($options['texture_data']) && !empty($options['texture_data'])){
+                                     foreach($options["texture_data"] as $color){
+                                         ?>
+                                         <option value="<?=$color['name']?>"><?=$color['name']?></option>
+                                     <?php   }
+                                 }
+                                 ?>
+                             </select>
+                             <label for="wpc_textures_<?=$term_id;?>_images_#index_images#_value"></label>
+                             <input type="text" name="wpc_textures[<?=$term_id;?>][#index#][images][#index_images#][value]" id="wpc_textures_<?=$term_id;?>_images_#index_images#_value">
+                             <button class="button button-secondary wpc_image_upload_sheepit"><?=__('Upload','wpc')?></button>
                           </div>
-                         <div id="wpc_textures_<?=$term_id?>_#index#_images_noforms_template"><?=__('No Images','wbm');?></div>
-
+                         <div id="wpc_textures_<?=$term_id?>_#index#_images_noforms_template"><?=__('No Image','wbm');?></div>
+                         <div id="wpc_textures_<?=$term_id?>_#index#_images_controls" class="row btln">
+                             <div id="wpc_textures_<?=$term_id?>_#index#_images_add" ><a class="button button-default"><span><?=__('Add Image','wbm')?></span></a></div>
+                             <div id="wpc_textures_<?=$term_id?>_#index#_images_remove_last" ><a class="button button-default"><span><?=__('Remove Image','wbm')?></span></a></div>
+                         </div>
                       </div>
                  </div>
               </div>

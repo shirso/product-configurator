@@ -467,6 +467,7 @@ $('body').on('click','.wpc_selectAllButton',function(e){
         $(className).each(function (k, v) {
             //var injectData = $("#wpc_values_" + $(this).data("layer")).val();
           //  injectData = $.parseJSON(injectData);
+            var term_id=$(this).data('layer');
             var sheepItForm = $('#' + $(v).attr("id")).sheepIt({
                 separator: '<div style="width:100%; border-top:1px solid #ccc; margin: 10px 0px;"></div>',
                 minFormsCount: 0,
@@ -477,6 +478,25 @@ $('body').on('click','.wpc_selectAllButton',function(e){
                 afterFill: function () {
                     // resizeJquerySteps();
                 },
+                nestedForms: [
+                    {
+                        id: 'wpc_textures_'+term_id+'_#index#_images',
+                        options: {
+                            indexFormat: '#index_images#',
+                            allowRemoveLast: true,
+                            allowRemoveCurrent: true,
+                            allowAdd: true,
+                            allowRemoveAll: false,
+                            allowAddN: false,
+                            minFormsCount: 0,
+                            iniFormsCount: 0,
+                            separator: '',
+                            afterAdd: function (source, newForm) {
+                                resizeJquerySteps();
+                            },
+                        }
+                    }
+                ]
               //  data: injectData
             });
         });
