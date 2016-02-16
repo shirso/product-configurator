@@ -28,7 +28,8 @@ if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
                 if(is_array($cords2) && !empty($cords2)){
                     foreach ($cords2 as $variation2) {
                         $checked_term=$variation2->term_id == $wpc_no_cords[$layer] ? 'selected' :'';
-                        if (has_term(absint($variation2->term_id), $layer, $postId) && !in_array($variation2->term_id,$wpc_multicolor_cords)) {
+                        $checking_value=$variation2->taxonomy.'|'.$variation2->term_id;
+                        if (has_term(absint($variation2->term_id), $layer, $postId) && !in_array($checking_value,$wpc_multicolor_cords)) {
                             ?>
                             <option <?=$checked_term?> value="<?=$variation2->term_id;?>"><?=$variation2->name;?></option>
                         <?php }}} ?>
@@ -44,7 +45,8 @@ if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
                         <?php $cords = get_terms($layer);
                         if(is_array($cords) && !empty($cords)){
                             foreach ($cords as $variation) {
-                                if (has_term(absint($variation->term_id), $layer, $postId) && !in_array($variation->term_id,$wpc_multicolor_cords)) {
+                                $checking_value=$variation->taxonomy.'|'.$variation->term_id;
+                                if (has_term(absint($variation->term_id), $layer, $postId) && !in_array($checking_value,$wpc_multicolor_cords)) {
                                     ?>
                                     <option value="<?=$variation->term_id;?>"><?=$variation->name;?></option>
                                 <?php }}} ?>
@@ -60,7 +62,8 @@ if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
                                 <?php $cords1 = get_terms($layer1);
                                 if(is_array($cords1) && !empty($cords1)){
                                     foreach ($cords1 as $variation1) {
-                                        if (has_term(absint($variation1->term_id), $layer1, $postId) && !in_array($variation1->term_id,$wpc_multicolor_cords)) {
+                                        $checking_value=$variation1->taxonomy.'|'.$variation1->term_id;
+                                        if (has_term(absint($variation1->term_id), $layer1, $postId)){ //&& !in_array($checking_value,$wpc_multicolor_cords)) {
                                             ?>
                                             <option value="<?=$variation1->term_id;?>"><?=$variation1->name;?></option>
                                         <?php }}} ?>

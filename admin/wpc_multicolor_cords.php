@@ -20,7 +20,8 @@ $wpc_multicolor_cords=get_post_meta($postId,'_wpc_multicolor_cords',true);
         if(is_array($cords) && !empty($cords)){
             foreach ($cords as $variation) {
                 if (has_term(absint($variation1->term_id), $attr['name'], $postId)) {
-                    $selected=!empty($wpc_multicolor_cords) && in_array($variation->term_id,$wpc_multicolor_cords) ?"selected" : "";
+                    $checking_value=$variation->taxonomy.'|'.$variation->term_id;
+                    $selected=!empty($wpc_multicolor_cords) && in_array($checking_value,$wpc_multicolor_cords) ?"selected" : "";
         ?>
                     <option <?=$selected;?> value="<?=$variation->taxonomy?>|<?=$variation->term_id;?>"><?=$variation->name;?></option>
         <?php }}}?>
