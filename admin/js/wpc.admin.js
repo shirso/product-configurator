@@ -212,7 +212,7 @@ jQuery(function($){
                     lockRotation: true
                 });
                 design.add(oImg).renderAll();
-                console.log(oImg);
+               // console.log(oImg);
                 $("#saddle_design_upload_btn").attr('disabled','disabled');
             })
         })
@@ -342,7 +342,7 @@ jQuery(function($){
                 'postId': $(this).data('id')
             };
             $.post(ajaxurl, data, function (resp) {
-                console.log(resp);
+              //  console.log(resp);
             })
 
         })
@@ -363,14 +363,10 @@ $('body').on('click','.wpc_selectAllButton',function(e){
     var saveTabData=function(tabId){
         var action="wpc_save_tab_data",
             sectionId=null;
-        var sections=['wpc_base_edge','wpc_cord_layers','wpc_multicolor_cords','wpc_cord_images','wpc_multicolor_images'];
-        //switch (tabId){
-        //    case 1:
-        //        action= "wpc_save_configuration_form_cord_layers";
-        //        formId="#wpc_cord_layers_form";
-        //        break;
-        //}
+        var sections=['wpc_base_edge','wpc_cord_layers','wpc_multicolor_cords','wpc_cord_images','wpc_colors','wpc_multicolor_images'];
+
         var formId=$("#"+sections[tabId]+"_form");
+       // console.log(formId);
         var data = {
             'action': action,
             'formData': $(formId).serialize(),
@@ -403,12 +399,15 @@ $('body').on('click','.wpc_selectAllButton',function(e){
         },
         onStepChanged:function(event, currentIndex, priorIndex){
             loadTab(currentIndex);
+        },
+        onFinished: function (event, currentIndex) {
+           saveTabData(currentIndex);
         }
     });
     var loadTab=function(tabId){
         var action="wpc_load_tab_data",
             sectionId=null;
-        var sections=['wpc_base_edge','wpc_cord_layers','wpc_multicolor_cords','wpc_cord_images','wpc_multicolor_images'];
+        var sections=['wpc_base_edge','wpc_cord_layers','wpc_multicolor_cords','wpc_cord_images','wpc_colors','wpc_textures','wpc_multicolor_images'];
 
         sectionId=sections[tabId];
         if(sectionId == 'wpc_base_edge'  || sectionId=='wpc_cord_layers') return;
@@ -437,7 +436,7 @@ $('body').on('click','.wpc_selectAllButton',function(e){
                 if($(resp).filter("#wpc_cord_images_form").length>0){
                 activateSheepIt('.wpc_combinations');
                 }
-                else if($(resp).filter("#wpc_multicolor_cords_form").length>0){
+                else if($(resp).filter("#wpc_multicolor_images_form").length>0){
                     textureSheepIt('.wpc_combinations_texture');
                 }
                 $("#"+sectionId).unblock();

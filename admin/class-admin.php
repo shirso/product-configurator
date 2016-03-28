@@ -375,6 +375,10 @@ if( !class_exists('WPC_Admin') ) {
                     update_post_meta($postId,'_wpc_no_cords',$params['wpc_no_cords']);
                     break;
                 case 'wpc_multicolor_images' :
+                    update_post_meta($postId,'_wpc_textures_images',$params['wpc_textures']);
+                    break;
+                case 'wpc_colors' :
+                    update_post_meta($postId,'_wpc_colors',$params["wpc_colors"]);
                     break;
                 default:
                     break;
@@ -394,6 +398,12 @@ if( !class_exists('WPC_Admin') ) {
                         break;
                     case "wpc_multicolor_images":
                         require_once(WPC_PLUGIN_ADMIN_DIR.'/wpc_multicolor_images.php');
+                        break;
+                    case "wpc_colors":
+                        require_once(WPC_PLUGIN_ADMIN_DIR.'/wpc_colors.php');
+                        break;
+                    case "wpc_textures" :
+                        require_once(WPC_PLUGIN_ADMIN_DIR.'/wpc_textures.php');
                         break;
                     default:
                         echo 'success';

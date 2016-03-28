@@ -140,6 +140,18 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
 
         </div>
     </section>
+    <h3><?=__("Colors",'wpc')?></h3>
+    <section>
+        <div id="wpc_colors">
+
+        </div>
+    </section>
+    <h3><?=__("Multi Colors",'wpc');?></h3>
+    <section>
+        <div id="wpc_textures">
+
+        </div>
+    </section>
     <h3><?=__('MultiColor Cord Images','wpc')?></h3>
     <section>
         <div id="wpc_multicolor_images">
