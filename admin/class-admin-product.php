@@ -78,6 +78,7 @@ if (!class_exists('WPC_Admin_Product')) {
         public function add_product_data_panel()
         {
             global $wpdb, $post;
+            $post_id=$post->ID;
             $attributes = maybe_unserialize(get_post_meta($post->ID, '_product_attributes', true));
             $args = array(
                 'posts_per_page' => -1,
@@ -103,253 +104,147 @@ if (!class_exists('WPC_Admin_Product')) {
             <script type="text/javascript">var wpc_product_page=true;</script>
                 <div id="wpc_data_default_configuration" class="panel woocommerce_options_panel wc-metaboxes-wrapper">
                <input type="button" id="wpc_refresh_button" value="<?=__('Refresh','wpc');?>" class="button button-primary button-large" />
+                    <div id="wpc_all_layers" class="wc-metabox">
+                    <table>
 
-                    <div class="options_group" id="wpc_option_data_default_configuration">
-                        <h2><?php _e('Pre Configure Options', 'wpc'); ?></h2>
-                        <?php if (!$variation_attribute_found) { ?>
-                            <div class="inline woocommerce-message">
-                                <p><?php _e('Before selecting variations, add and save some attributes on the <strong>Attributes</strong> tab.', 'wpc'); ?></p>
-                            </div>
-                        <?php
-                        } else {
-                            $c = 0;
-                            $default_config = get_post_meta($post->ID, '_wpc_default_config', true);
-
-                            foreach ($attributes as $attribute) {
-                                if (!$attribute['is_variation']) {
-                                    continue;
-                                } ?>
-                                <h3><?= esc_html(wc_attribute_label($attribute['name'])) ?></h3>
-                                <?php if ($attribute["is_taxonomy"]) {
-                                    $check_variation = isset($default_config[$attribute['name']]) ? $default_config[$attribute['name']] : "";  ?>
-                                    <table class="wpc_variation_price">
-                                        <?php $post_terms = wp_get_post_terms($post->ID, $attribute['name']); ?>
-                                        <?php foreach ($post_terms as $term) { ?>
-                                            <tr>
-                                                <td>
-                                        <span
-                                            class="wpc_variation_text_default"><strong><?= esc_html($term->name) ?></strong>
-                                             </span></td>
-                                                <td><input class="wpc_variation_checkbox_default" type="checkbox"
-                                                           name="_wpc_default_config[<?= $attribute['name'] ?>]"
-                                                           <?php if ($check_variation == $term->slug){ ?>checked="checked"<?php } ?>
-                                                           value="<?= $term->slug; ?>"/></td>
-                                            </tr>
-                                        <?php } ?>
-                                    </table>
-                                <?php } ?>
-                            <?php } ?>
-
-                        <?php
-                        }
-                        $c++; ?>
-
-                    </div>
-                    <div class="options_group">
-                        <h2><?php _e('Base Step') ?></h2>
-                        <table>
-                            <?php
-                            $check_depenedency = get_post_meta($post->ID, '_wpc_color_dependency', true);
-                            if(is_array($attributes) && !empty($attributes)){
-                            foreach ($attributes as $attribute) {
-                                if (!$attribute['is_variation']) {
-                                    continue;
-                                } ?>
-                                <tr>
-                                    <td>
-                                        <?= esc_html(wc_attribute_label($attribute['name'])) ?>
-                                    </td>
-                                    <td>
-                                        <?php $checked = $attribute['name'] == $check_depenedency ? 'checked' : ''; ?>
-                                        <input type="radio" <?= $checked; ?> value="<?= $attribute['name'] ?>"
-                                               name="_wpc_color_dependency">
-                                    </td>
-                                </tr>
-
-                            <?php }} ?>
-                        </table>
-                    </div>
-                    <div class="options_group">
-                        <h2><?php _e('Base Color Step','wpc') ?></h2>
-                        <table>
-                            <?php
-                            $check_depenedency = get_post_meta($post->ID, '_wpc_base_color_dependency', true);
-                            if(is_array($attributes) && !empty($attributes)){
-                                foreach ($attributes as $attribute) {
-                                    if (!$attribute['is_variation']) {
-                                        continue;
-                                    } ?>
-                                    <tr>
-                                        <td>
-                                            <?= esc_html(wc_attribute_label($attribute['name'])) ?>
-                                        </td>
-                                        <td>
-                                            <?php $checked = $attribute['name'] == $check_depenedency ? 'checked' : ''; ?>
-                                            <input type="radio" <?= $checked; ?> value="<?= $attribute['name'] ?>"
-                                                   name="_wpc_base_color_dependency">
-                                        </td>
-                                    </tr>
-
-                                <?php }} ?>
-                        </table>
-                    </div>
-                    <div class="options_group">
-                        <h2><?php _e('Exclude From Image') ?></h2>
-                        <table>
-                            <?php
-                            $check_depenedency = get_post_meta($post->ID, '_wpc_exclude_image', true) && get_post_meta($post->ID, '_wpc_exclude_image', true) != "" ? get_post_meta($post->ID, '_wpc_exclude_image', true) : array();
-                if(is_array($attributes) && !empty($attributes)){
-                            foreach ($attributes as $attribute) {
-                                if (!$attribute['is_variation']) {
-                                    continue;
-                                } ?>
-                                <tr>
-                                    <td>
-                                        <?= esc_html(wc_attribute_label($attribute['name'])) ?>
-                                    </td>
-                                    <td>
-                                        <?php $checked = in_array($attribute['name'], $check_depenedency) ? 'checked' : ''; ?>
-                                        <input type="checkbox" <?= $checked; ?> value="<?= $attribute['name'] ?>"
-                                               name="_wpc_exclude_image[]">
-                                    </td>
-                                </tr>
-
-                            <?php }} ?>
-                        </table>
-                    </div>
-                    <div class="options_group">
-                        <h2><?php _e('Exclude From Color') ?></h2>
-                        <table>
-                            <?php
-                            //  $check_depenedency=get_post_meta($post->ID, '_wpc_exclude_color', true);
-                            $check_depenedency = get_post_meta($post->ID, '_wpc_exclude_color', true) && get_post_meta($post->ID, '_wpc_exclude_color', true) != "" ? get_post_meta($post->ID, '_wpc_exclude_color', true) : array();
-                if(is_array($attributes) && !empty($attributes)){
-                            foreach ($attributes as $attribute) {
-                                if (!$attribute['is_variation']) {
-                                    continue;
-                                } ?>
-                                <tr>
-                                    <td>
-                                        <?= esc_html(wc_attribute_label($attribute['name'])) ?>
-                                    </td>
-                                    <td>
-                                        <?php $checked = in_array($attribute['name'], $check_depenedency) ? 'checked' : ''; ?>
-                                        <input type="checkbox" <?= $checked; ?> value="<?= $attribute['name'] ?>"
-                                               name="_wpc_exclude_color[]">
-                                    </td>
-                                </tr>
-
-                            <?php }} ?>
-                        </table>
-                    </div>
-                    <div class="options_group wpc_hidden">
-                        <h2><?php _e('Embroidery Step') ?></h2>
-                        <table>
-                            <?php
-                            $check_dependency = get_post_meta($post->ID, '_wpc_embroidery_step', true);
-                if(is_array($attributes) && !empty($attributes)){
-                            foreach ($attributes as $attribute) {
-                                if (!$attribute['is_variation']) {
-                                    continue;
-                                } ?>
-                                <tr>
-                                    <td>
-                                        <?= esc_html(wc_attribute_label($attribute['name'])) ?>
-                                    </td>
-                                    <td>
-                                        <?php $checked = $attribute['name'] == $check_dependency ? 'checked' : ''; ?>
-                                        <input type="radio" <?= $checked; ?> value="<?= $attribute['name'] ?>"
-                                               name="_wpc_embroidery_step">
-                                    </td>
-                                </tr>
-
-                            <?php }} ?>
-                        </table>
-                    </div>
-                    <div class="options_group wpc_hidden">
-                        <h2><?php _e('Embroidery Term') ?></h2>
-
-                        <p>
-                            <select name="_wpc_embroidery_term">
-                                <?php
-                                $check_dependency = get_post_meta($post->ID, '_wpc_embroidery_term', true);
-                                foreach ($attributes as $attribute) {
-                                    if (!$attribute['is_variation']) {
-                                        continue;
-                                    } ?>
+                        <tr>
+                            <td><?=__("Model Layer","wpc")?></td>
+                            <td>
+                                <select name="wpc_color_dependency" id="wpc_color_dependency">
                                     <option value="">---</option>
-                                    <optgroup
-                                        label="<?= esc_html(wc_attribute_label($attribute['name'])) ?>"></optgroup>
-
-                                    <?php if ($attribute["is_taxonomy"]) {
-                                        $post_terms = wp_get_post_terms($post->ID, $attribute['name']);
+                                    <?php $check_depenedency = get_post_meta($post_id, '_wpc_color_dependency', true); if (isset($attributes) && !empty($attributes)){ foreach ($attributes as $attr) {
+                                        if (!$attr['is_variation']) {
+                                            continue;
+                                        }
                                         ?>
-                                        <?php foreach ($post_terms as $term) {
-                                            $check_value = $attribute['name'] . "|" . $term->slug;
-                                            $selected = $check_dependency == $check_value ? "selected" : "";
-                                            ?>
-                                            <option <?= $selected ?>
-                                                value="<?php echo $attribute['name'] . "|" . $term->slug ?>"><?= esc_html($term->name) ?></option>
-                                        <?php } ?>
-                                    <?php } ?>
-                                <?php } ?>
-                            </select>
-                        </p>
-                    </div>
-                    <div class="options_group">
-                        <h2><?php _e('Texture Terms','wpc') ?></h2>
-                        <p>
-                            <select name="_wpc_texture_term[]" multiple style="width: 100%">
-                                <?php
-                                $check_dependency = get_post_meta($post->ID, '_wpc_texture_term', true)?get_post_meta($post->ID, '_wpc_texture_term', true):array();
-                                foreach ($attributes as $attribute) {
-                                    if (!$attribute['is_variation']) {
+                                        <?php $checked = $attr['name'] == $check_depenedency ? 'selected' : ''; ?>
+                                        <option <?=$checked;?> value="<?= $attr['name'] ?>"> <?= esc_html(wc_attribute_label($attr['name'])) ?></option>
+                                    <?php }}?>
+                                 </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><?=__("Base layer")?></td>
+                            <td>
+                                <select name="wpc_base_color_dependency" id="wpc_base_color_dependency">
+                                    <option value="">---</option>
+                                    <?php $check_depenedency = get_post_meta($post_id, '_wpc_base_color_dependency', true); if (isset($attributes) && !empty($attributes)){ foreach ($attributes as $attr) {
+                                        if (!$attr['is_variation']) {
+                                            continue;
+                                        }
+                                        ?>
+                                        <?php $checked = $attr['name'] == $check_depenedency ? 'selected' : ''; ?>
+                                        <option <?=$checked;?> value="<?= $attr['name'] ?>"> <?= esc_html(wc_attribute_label($attr['name'])) ?></option>
+                                    <?php }}?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                               <?=__('Edge Layer','wpc')?>
+                            </td>
+                            <td>
+                                <select name="wpc_edge_layer" id="wpc_edge_layer">
+                                    <option value="">---</option>
+                                    <?php $check_edge = get_post_meta($post_id, '_wpc_edge_layer', true); if (isset($attributes) && !empty($attributes)){ foreach ($attributes as $attr) {
+                                        if (!$attr['is_variation']) {
+                                            continue;
+                                        }
+                                        ?>
+                                        <?php $checked = $attr['name'] == $check_edge ? 'selected' : ''; ?>
+                                        <option <?=$checked;?> value="<?= $attr['name'] ?>"> <?= esc_html(wc_attribute_label($attr['name'])) ?></option>
+                                    <?php }}?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?=__("Cord Layers","wpc")?>
+                            </td>
+                            <td>
+                                <select name="wpc_cord_layers[]" class="wpc_multiselect" multiple>
+
+                                    <?php $wpc_cord_layers=get_post_meta($post_id,'_wpc_cord_layers',true);
+                                    if (isset($attributes) && !empty($attributes)){
+                                    foreach ($attributes as $attr) {
+                                    if (!$attr['is_variation']) {
                                         continue;
-                                    } ?>
-                                    <optgroup label="<?= esc_html(wc_attribute_label($attribute['name'])) ?>"></optgroup>
-                                    <?php if ($attribute["is_taxonomy"]) {
-                                        $post_terms = wp_get_post_terms($post->ID, $attribute['name']);
-                                        ?>
-                                        <?php foreach ($post_terms as $term) {
-                                            $check_value = $attribute['name'] . "|" . $term->slug;
-                                            $selected =in_array($check_value,$check_dependency)  ? "selected" : "";
-                                            ?>
-                                            <option <?= $selected ?>
-                                                value="<?php echo $attribute['name'] . "|" . $term->slug ?>"><?= esc_html($term->name) ?></option>
-                                        <?php } ?>
-                                    <?php } ?>
-                                <?php } ?>
-                            </select>
-                        </p>
-                    </div>
-
-                    <?php  if(!empty($base_images)) : $bs = get_post_meta($post->ID, '_wpc_selected_base', true);
-                        ?>
-                    <div class="options_group">
-                        <h2><?php _e('Base Image Category','wpc') ?></h2>
-                        <p>
-                            <select name="wpc_selected_base">
-                                <option value="">---</option>
-                                <?php foreach ($base_images as $base) :
+                                    }
+                                    $checked=is_array($wpc_cord_layers) && in_array($attr['name'],$wpc_cord_layers) ? 'selected' : "";
                                     ?>
-                                    <option <?php if($base->term_id == $bs) echo 'selected="selected"'; ?> value="<?=$base->term_id?>"><?=$base->name ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </p>
+                                        <option <?=$checked?> value="<?=$attr['name'];?>"><?= esc_html(wc_attribute_label($attr['name'])) ?></option>
+                                    <?php }} ?>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <button id="wpc_btn_save_layers" class="button button-primary"><?=__("Save Layers","wpc")?></button>
+                            </td>
+                        </tr>
+                    </table>
                     </div>
-                    <?php endif ?>
-                    <div class="options_group">
-                        <?php if (isset($_GET['post'])) { ?>
-                            <a target="_blank" class="button button-default"
-                               href="options.php?page=wpc_con figurator_image&post=<?= $_GET['post'] ?>"><?php _e('Images Configuration', 'wpc'); ?></a>
-                            <a target="_blank" class="button button-default"
-                               href="options.php?page=wpc_configurator_color&post=<?= $_GET['post'] ?>"><?php _e('Color Configuration', 'wpc'); ?></a>
-                            <a target="_blank" class="button button-default"
-                               href="options.php?page=wpc_configurator_texture&post=<?= $_GET['post'] ?>"><?php _e('Multicolor Cord Configuration', 'wpc'); ?></a>
-                            <a target="_blank" class="button button-default" href="options.php?page=wpc_configurator_embroidery&post=<?= $_GET['post'] ?>"><?php _e('Embroidery Configuration', 'wpc'); ?></a>
-                            <a target="_blank" class="button button-default"
-                               href="options.php?page=wpc_configurator_images&post=<?=$_GET["post"]?>"><?=__('Images','wpc')?></a>
-                        <?php } ?>
+                    <div id="wpc_all_cords" class="wc-metabox">
+                        <?php
+                        $all_cords=get_post_meta($post_id,"_wpc_cord_layers",true);
+                        if(!empty($all_cords)){?>
+                        <table>
+                        <tr>
+                            <td><?=__("No Cords","wpc")?></td>
+                            <td>
+                                <select multiple class="wpc_multiselect" id="wpc_no_cord" name="wpc_no_cords">
+                                    <?php
+                                    $no_cords=get_post_meta($post_id,"_wpc_no_cords",true);
+                                    print_r($no_cords);
+                                    foreach($all_cords as $cord){?>
+                                        <optgroup label="<?=wc_attribute_label($cord)?>">
+                                            <?php $variations=get_terms($cord);
+                                            if(!empty($variations)){
+                                               foreach($variations as $variation){
+                                                   if (has_term(absint($variation->term_id), $cord, $post_id)) {
+                                                       $selected_value=in_array($variation->term_id,$no_cords)?"selected":"";
+                                            ?>
+                                                       <option <?=$selected_value?> value="<?=$variation->term_id;?>"><?=$variation->name;?></option>
+                                            <?php }}}?>
+
+                                        </optgroup>
+                                    <?php }?>
+                                </select>
+                            </td>
+                        </tr>
+                            <tr>
+                                <td><?=__("Multi-Color Cords","wpc")?></td>
+                                <td>
+                                    <select multiple class="wpc_multiselect" id="wpc_multicolor_cord" name="wpc_multicolor_cords">
+                                        <?php
+                                        $multicolor_cords=get_post_meta($post_id,"_wpc_multicolor_cords",true);
+                                        foreach($all_cords as $cord){?>
+                                            <optgroup label="<?=wc_attribute_label($cord)?>">
+                                                <?php $variations=get_terms($cord);
+                                                if(!empty($variations)){
+                                                    foreach($variations as $variation){
+                                                        if (has_term(absint($variation->term_id), $cord, $post_id)) {
+                                                            $selected_value=in_array($variation->term_id,$multicolor_cords)?"selected":"";
+                                                            ?>
+                                                            <option <?=$selected_value?> value="<?=$variation->term_id;?>"><?=$variation->name;?></option>
+                                                        <?php }}}?>
+
+                                            </optgroup>
+                                        <?php }?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: center">
+                                    <button id="wpc_btn_save_cords" class="button button-primary"><?=__("Save Cords","wpc")?></button>
+                                </td>
+                            </tr>
+                        </table>
+                        <?php }?>
+                    </div>
+                    <div id="wpc_buttons" class="wc-metabox">
+
                     </div>
                 </div>
             <div id="wpc_instructions_tab" class="panel woocommerce_options_panel wc-metaboxes-wrapper">

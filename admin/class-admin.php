@@ -356,23 +356,34 @@ if( !class_exists('WPC_Admin') ) {
             $postId=absint($_POST["postId"]);
             switch ($section) {
                 case 'wpc_base_edge' :
-                    update_post_meta($postId,'_wpc_color_dependency',$params['_wpc_color_dependency']);
-                    update_post_meta($postId,'_wpc_base_color_dependency',$params['_wpc_base_color_dependency']);
-                    update_post_meta($postId,'_wpc_base_image_base',$params['wpc_base_image_base']);
+                    //update_post_meta($postId,'_wpc_color_dependency',$params['_wpc_color_dependency']);
+                  //  update_post_meta($postId,'_wpc_base_color_dependency',$params['_wpc_base_color_dependency']);
+                   // update_post_meta($postId,'_wpc_base_image_base',$params['wpc_base_image_base']);
+                 //   update_post_meta($postId,'_wpc_edge_layer',$params['wpc_edge_layer']);
+                  //  update_post_meta($postId,'_wpc_base_image_texture',$params['wpc_base_image_texture']);
+                 //   update_post_meta($postId,'_wpc_edge_image_base',$params['wpc_edge_image_base']);
+                 //   update_post_meta($postId,'_wpc_edge_image_texture',$params['wpc_edge_image_texture']);
+                    break;
+                case 'save_all_layers':
+                    update_post_meta($postId,'_wpc_color_dependency',$params['wpc_color_dependency']);
+                    update_post_meta($postId,'_wpc_base_color_dependency',$params['wpc_base_color_dependency']);
                     update_post_meta($postId,'_wpc_edge_layer',$params['wpc_edge_layer']);
-                    update_post_meta($postId,'_wpc_base_image_texture',$params['wpc_base_image_texture']);
-                    update_post_meta($postId,'_wpc_edge_image_base',$params['wpc_edge_image_base']);
-                    update_post_meta($postId,'_wpc_edge_image_texture',$params['wpc_edge_image_texture']);
+                    update_post_meta($postId,'_wpc_cord_layers',$params['wpc_cord_layers']);
+                    break;
+                case 'save_all_cords':
+                    update_post_meta($postId,'_wpc_no_cords',$params['wpc_no_cords']);
+                    update_post_meta($postId,'_wpc_multicolor_cords',$params['wpc_multicolor_cords']);
+                    echo 'test';
                     break;
                 case 'wpc_cord_layers' :
                     update_post_meta($postId,'_wpc_cord_layers',$params['wpc_cord_layers']);
                     break;
                 case 'wpc_multicolor_cords' :
-                    update_post_meta($postId,'_wpc_multicolor_cords',$params['wpc_multicolor_cords']);
+                   // update_post_meta($postId,'_wpc_multicolor_cords',$params['wpc_multicolor_cords']);
                     break;
                 case 'wpc_cord_images' :
                     update_post_meta($postId,'_wpc_cord_images',$params['wpc_combination']);
-                    update_post_meta($postId,'_wpc_no_cords',$params['wpc_no_cords']);
+                   // update_post_meta($postId,'_wpc_no_cords',$params['wpc_no_cords']);
                     break;
                 case 'wpc_multicolor_images' :
                     update_post_meta($postId,'_wpc_textures_images',$params['wpc_textures']);

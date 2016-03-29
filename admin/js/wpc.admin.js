@@ -103,19 +103,21 @@ jQuery(function($){
                 $('.wpc_instructions_options').addClass('show_if_wpc_panel');
             }
         });
+        $(".wpc_multiselect").select2();
         $('body').on('click', '#wpc_refresh_button', function (e) {
             e.preventDefault();
             var this_page = window.location.toString();
             this_page = this_page.replace('post-new.php?', 'post.php?post=' + woocommerce_admin_meta_boxes.post_id + '&action=edit&');
             $('#wpc_data_default_configuration').block({message: null,
                 overlayCSS: {
-                    background: '#fff url(' + woocommerce_admin_meta_boxes.plugin_url + '/assets/images/ajax-loader.gif) no-repeat center',
+                    background: '#fff',
                     opacity: 0.6
                 }
             });
             $('#wpc_data_default_configuration').load(this_page + ' #wpc_data_default_configuration', function () {
+                $(".wpc_multiselect").select2();
                 $('#wpc_data_default_configuration').unblock();
-            })
+            });
         });
         $('body').on('click', '#wpc_refresh_instructions_button', function (e) {
             e.preventDefault();
@@ -361,6 +363,7 @@ $('body').on('click','.wpc_selectAllButton',function(e){
 
 //Image Page Script
     var saveTabData=function(tabId){
+        console.log(tabId);
         var action="wpc_save_tab_data",
             sectionId=null;
         var sections=['wpc_base_edge','wpc_cord_layers','wpc_multicolor_cords','wpc_cord_images','wpc_colors','wpc_multicolor_images'];
@@ -383,6 +386,38 @@ $('body').on('click','.wpc_selectAllButton',function(e){
         });
     }
 
+ $(document).on("click","#wpc_btn_save_layers",function(e){
+     e.preventDefault();
+     additionalAjaxSave('wpc_all_layers','save_all_layers','wpc_data_default_configuration');
+ });
+    $(document).on("click","#wpc_btn_save_cords",function(e){
+        e.preventDefault();
+        additionalAjaxSave('wpc_all_cords','save_all_cords','wpc_data_default_configuration');
+    });
+var additionalAjaxSave=function(formId,section,div){
+    var action="wpc_save_tab_data";
+    console.log()
+    var data = {
+        'action': action,
+        'formData': $("#"+formId).find( 'input, select, textarea' ).serialize(),
+        'section':section,
+        'postId': woocommerce_admin_meta_boxes.post_id
+    };
+    $('#'+div).block({message: null,
+        overlayCSS: {
+            background: '#fff',
+            opacity: 0.6
+        }
+    });
+    $.post(ajaxurl, data, function(response) {
+        var this_page = window.location.toString();
+        this_page = this_page.replace('post-new.php?', 'post.php?post=' + woocommerce_admin_meta_boxes.post_id + '&action=edit&');
+        $('#'+div).load(this_page + ' #wpc_data_default_configuration', function () {
+            $(".wpc_multiselect").select2();
+            $('#'+div).unblock();
+        });
+    });
+};
 
     $("#wpc_all_images").steps({
         headerTag: "h3",
