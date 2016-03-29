@@ -356,13 +356,10 @@ if( !class_exists('WPC_Admin') ) {
             $postId=absint($_POST["postId"]);
             switch ($section) {
                 case 'wpc_base_edge' :
-                    //update_post_meta($postId,'_wpc_color_dependency',$params['_wpc_color_dependency']);
-                  //  update_post_meta($postId,'_wpc_base_color_dependency',$params['_wpc_base_color_dependency']);
-                   // update_post_meta($postId,'_wpc_base_image_base',$params['wpc_base_image_base']);
-                 //   update_post_meta($postId,'_wpc_edge_layer',$params['wpc_edge_layer']);
-                  //  update_post_meta($postId,'_wpc_base_image_texture',$params['wpc_base_image_texture']);
-                 //   update_post_meta($postId,'_wpc_edge_image_base',$params['wpc_edge_image_base']);
-                 //   update_post_meta($postId,'_wpc_edge_image_texture',$params['wpc_edge_image_texture']);
+                    update_post_meta($postId,'_wpc_base_image_base',$params['wpc_base_image_base']);
+                    update_post_meta($postId,'_wpc_base_image_texture',$params['wpc_base_image_texture']);
+                    update_post_meta($postId,'_wpc_edge_image_base',$params['wpc_edge_image_base']);
+                    update_post_meta($postId,'_wpc_edge_image_texture',$params['wpc_edge_image_texture']);
                     break;
                 case 'save_all_layers':
                     update_post_meta($postId,'_wpc_color_dependency',$params['wpc_color_dependency']);

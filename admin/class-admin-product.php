@@ -104,6 +104,7 @@ if (!class_exists('WPC_Admin_Product')) {
             <script type="text/javascript">var wpc_product_page=true;</script>
                 <div id="wpc_data_default_configuration" class="panel woocommerce_options_panel wc-metaboxes-wrapper">
                <input type="button" id="wpc_refresh_button" value="<?=__('Refresh','wpc');?>" class="button button-primary button-large" />
+                   <div id="wpc_data_default_configuration_panel">
                     <div id="wpc_all_layers" class="wc-metabox">
                     <table>
 
@@ -193,10 +194,9 @@ if (!class_exists('WPC_Admin_Product')) {
                         <tr>
                             <td><?=__("No Cords","wpc")?></td>
                             <td>
-                                <select multiple class="wpc_multiselect" id="wpc_no_cord" name="wpc_no_cords">
+                                <select multiple class="wpc_multiselect" id="wpc_no_cord" name="wpc_no_cords[]">
                                     <?php
                                     $no_cords=get_post_meta($post_id,"_wpc_no_cords",true);
-                                    print_r($no_cords);
                                     foreach($all_cords as $cord){?>
                                         <optgroup label="<?=wc_attribute_label($cord)?>">
                                             <?php $variations=get_terms($cord);
@@ -216,7 +216,7 @@ if (!class_exists('WPC_Admin_Product')) {
                             <tr>
                                 <td><?=__("Multi-Color Cords","wpc")?></td>
                                 <td>
-                                    <select multiple class="wpc_multiselect" id="wpc_multicolor_cord" name="wpc_multicolor_cords">
+                                    <select multiple class="wpc_multiselect" id="wpc_multicolor_cord" name="wpc_multicolor_cords[]">
                                         <?php
                                         $multicolor_cords=get_post_meta($post_id,"_wpc_multicolor_cords",true);
                                         foreach($all_cords as $cord){?>
@@ -244,8 +244,27 @@ if (!class_exists('WPC_Admin_Product')) {
                         <?php }?>
                     </div>
                     <div id="wpc_buttons" class="wc-metabox">
-
+                            <?php
+                           $model_layer = get_post_meta($post_id, '_wpc_color_dependency', true);
+                            if(!empty($model_layer)){
+                                $all_model_terms=get_terms($model_layer);
+                            ?>
+                                <table>
+                                    <tr>
+                                        <td><?=__("Images & Colors for","wpc")?></td>
+                                    <td>
+                                   <?php if(!empty($all_model_terms)){
+                                       foreach($all_model_terms as $term){
+                                           if (has_term(absint($term->term_id), $model_layer, $post_id)) {
+                                       ?>
+                                        <a href="options.php?page=wpc_configurator_images&post=<?=$_GET["post"]?>&taxonomy=<?=$model_layer?>&term=<?=$term->term_id?>" target="_blank" class="button"><?=$term->name;?></a>
+                                    <?php }}}?>
+                                    </td>
+                                    </tr>
+                                </table>
+                        <?php }?>
                     </div>
+                   </div>
                 </div>
             <div id="wpc_instructions_tab" class="panel woocommerce_options_panel wc-metaboxes-wrapper">
                 <input type="button" id="wpc_refresh_instructions_button" value="<?=__('Refresh','wpc');?>" class="button button-primary button-large" />

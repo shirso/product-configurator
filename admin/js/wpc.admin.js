@@ -114,7 +114,7 @@ jQuery(function($){
                     opacity: 0.6
                 }
             });
-            $('#wpc_data_default_configuration').load(this_page + ' #wpc_data_default_configuration', function () {
+            $('#wpc_data_default_configuration_panel').load(this_page + ' #wpc_data_default_configuration_panel', function () {
                 $(".wpc_multiselect").select2();
                 $('#wpc_data_default_configuration').unblock();
             });
@@ -412,7 +412,7 @@ var additionalAjaxSave=function(formId,section,div){
     $.post(ajaxurl, data, function(response) {
         var this_page = window.location.toString();
         this_page = this_page.replace('post-new.php?', 'post.php?post=' + woocommerce_admin_meta_boxes.post_id + '&action=edit&');
-        $('#'+div).load(this_page + ' #wpc_data_default_configuration', function () {
+        $('#'+div+'_panel').load(this_page + ' #'+div+'_panel', function () {
             $(".wpc_multiselect").select2();
             $('#'+div).unblock();
         });
