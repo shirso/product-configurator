@@ -20,21 +20,6 @@ if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
         ?>
         <input type="hidden" id='wpc_values_<?=$layer?>' value='<?=json_encode($wpc_combinations)?>'>
         <h2><?= esc_html(wc_attribute_label($layer));?> <?=__('Combinations','wpc')?></h2>
-        <div class="toolbar" style="margin-bottom: 10px">
-           <label for="wpc_no_cord_<?=$layer?>"><?=__('No Cord Term','wpc')?></label>
-            <select name="wpc_no_cords[<?=$layer?>]" id="wpc_no_cord_<?=$layer?>">
-                <option value="">---</option>
-                <?php $cords2 = get_terms($layer);
-                if(is_array($cords2) && !empty($cords2)){
-                    foreach ($cords2 as $variation2) {
-                        $checked_term=$variation2->term_id == $wpc_no_cords[$layer] ? 'selected' :'';
-                        $checking_value=$variation2->taxonomy.'|'.$variation2->term_id;
-                        if (has_term(absint($variation2->term_id), $layer, $postId) && !in_array($checking_value,$wpc_multicolor_cords)) {
-                            ?>
-                            <option <?=$checked_term?> value="<?=$variation2->term_id;?>"><?=$variation2->name;?></option>
-                        <?php }}} ?>
-            </select>
-        </div>
         <div id="wpc_combination_<?=$layer?>" data-layer="<?=$layer?>" class="wpc_combinations">
             <div id="wpc_combination_<?=$layer?>_template">
                 <div class="wpc_combination_wrapper">

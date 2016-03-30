@@ -8,7 +8,9 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
 ?>
 <script type="text/javascript">
     var wpc_image_page=true,
-        postId=<?=$post_id;?>;
+        postId=<?=$post_id;?>,
+        termId=<?=$term_id;?>,
+        taxonomy='<?=$taxonomy;?>';
 </script>
 <div id="wpc_all_images">
     <h3><?=__('Base & Edge Images','wpc')?></h3>
@@ -20,17 +22,22 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
                     <td><?=__('Base Images','wpc')?></td>
                     <td>
                        <table>
+                           <?php
+                           $base_base=get_post_meta($post_id,'_wpc_base_image_base_'.$term_id,true);
+                           $base_texture=get_post_meta($post_id,'_wpc_base_image_texture_'.$term_id,true);
+                           ?>
                            <tr>
                                <th><?=__('Base','wpc')?></th>
                                <th><?=__('Texture','wpc')?></th>
                            </tr>
                            <tr>
                                <td>
-                               <input type="text" name="wpc_base_image_base[<?=$term_id;?>]" id="wpc_base_image_base" value="<?=get_post_meta($post_id,'_wpc_base_image_base',true);?>">
+
+                               <input type="text" name="wpc_base_image_base" id="wpc_base_image_base" value="<?=@$base_base?>">
                                <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_base_image_base" value="<?=__('Upload','wpc');?>">
                                </td>
                            <td>
-                               <input type="text" name="wpc_base_image_texture[<?=$term_id;?>]" id="wpc_base_image_texture" value="<?=get_post_meta($post_id,'_wpc_base_image_texture',true);?>">
+                               <input type="text" name="wpc_base_image_texture" id="wpc_base_image_texture" value="<?=@$base_texture?>">
                                <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_base_image_texture" value="<?=__('Upload','wpc');?>">
                            </td>
                            </tr>
@@ -41,17 +48,21 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
                     <td><?=__('Edge Images','wpc')?></td>
                     <td>
                         <table>
+                            <?php
+                            $edge_base=get_post_meta($post_id,'_wpc_edge_image_base_'.$term_id,true);
+                            $edge_texture=get_post_meta($post_id,'_wpc_edge_image_texture_'.$term_id,true);
+                            ?>
                             <tr>
                                 <th><?=__('Base','wpc')?></th>
                                 <th><?=__('Texture','wpc')?></th>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="text" name="wpc_edge_image_base[<?=$term_id;?>]" id="wpc_edge_image_base" value="<?=get_post_meta($post_id,'_wpc_edge_image_base',true);?>">
+                                    <input type="text" name="wpc_edge_image_base" id="wpc_edge_image_base" value="<?=@$edge_base;?>">
                                     <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_edge_image_base" value="<?=__('Upload','wpc');?>">
                                 </td>
                                 <td>
-                                    <input type="text" name="wpc_edge_image_texture[<?=$term_id;?>]" id="wpc_edge_image_texture" value="<?=get_post_meta($post_id,'_wpc_edge_image_texture',true);?>">
+                                    <input type="text" name="wpc_edge_image_texture" id="wpc_edge_image_texture" value="<?=@$edge_texture;?>">
                                     <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_edge_image_texture" value="<?=__('Upload','wpc');?>">
                                 </td>
                             </tr>
@@ -60,31 +71,6 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
                 </tr>
             </table>
             </form>
-        </div>
-    </section>
-    <h3><?=__('Cord Layers','wpc');?></h3>
-    <section id="wpc_cord_layers">
-        <h2><?=__('Choose Cord Layers','wpc');?></h2>
-        <form id="wpc_cord_layers_form">
-        <?php $wpc_cord_layers=get_post_meta($post_id,'_wpc_cord_layers',true);
-        if (isset($attributes) && !empty($attributes)){
-        foreach ($attributes as $attr) {
-            if (!$attr['is_variation']) {
-                continue;
-            }
-            $checked=is_array($wpc_cord_layers) && in_array($attr['name'],$wpc_cord_layers) ? 'checked' : "";
-            ?>
-
-            <p class="form-field">
-                <label for="wpc_cord_layers_<?=$attr['name'];?>"><input <?=$checked;?> value="<?=$attr['name'];?>" name="wpc_cord_layers[]" type="checkbox" id="wpc_cord_layers_<?=$attr['name'];?>"> <?= esc_html(wc_attribute_label($attr['name'])) ?></label>
-            </p>
-       <?php }} ?>
-        </form>
-    </section>
-    <h3><?=__('MultiColor Cords','wpc')?></h3>
-    <section>
-        <div id="wpc_multicolor_cords">
-
         </div>
     </section>
     <h3><?=__('Cord Images','wpc')?></h3>
