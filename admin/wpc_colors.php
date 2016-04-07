@@ -5,13 +5,13 @@ $wpc_multicolor_cords=get_post_meta($postId,'_wpc_multicolor_cords',true) ? get_
 $wpc_no_cords=get_post_meta($postId,'_wpc_no_cords',true);
 $settings=get_option('wpc_settings');
 $allColors=$settings["colors_data"];
-$allColorsMeta=get_post_meta($postId,"_wpc_colors",true);
+$allColorsMeta=get_post_meta($postId,"_wpc_colors_".$termId,true);
 $edgeLayer=get_post_meta($postId,'_wpc_edge_layer',true);
 if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
 <form id="wpc_colors_form">
     <?php foreach($wpc_cord_layers as $k=>$layer){
         $all_terms= $post_terms = wp_get_post_terms($postId, $layer);
-        $no_cord=($wpc_no_cords[$layer])?$wpc_no_cords[$layer]:array();
+      //  $no_cord=($wpc_no_cords[$layer])?$wpc_no_cords[$layer]:array();
         ?>
          <h2><?php _e('Colors For','wpc')?> <?=wc_attribute_label($layer);?></h2>
             <table>
@@ -22,7 +22,7 @@ if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
                 <?php if(!empty($all_terms)){
                  foreach($all_terms as $term){
                      $checking_value=$term->taxonomy.'|'.$term->term_id;
-                    if (has_term(absint($term->term_id), $layer, $postId) && !in_array($checking_value,$wpc_multicolor_cords) && $term->term_id!=$no_cord) {
+                    if (has_term(absint($term->term_id), $layer, $postId) && (!in_array($term->term_id,$wpc_multicolor_cords) && !in_array($term->term_id,$wpc_no_cords))) {
                         $check_color=isset($allColorsMeta[$layer][$term->slug]["colors"]) ? $allColorsMeta[$layer][$term->slug]["colors"]:array();
                         ?>
                 <tr>
@@ -55,7 +55,7 @@ if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
 <?php if($edgeLayer){?>
     <h2><?php _e('Colors For','wpc')?> <?=wc_attribute_label($edgeLayer);?></h2>
         <?php
-    $all_terms= $post_terms = wp_get_post_terms($postId, $edgeLayer);
+    $all_terms= wp_get_post_terms($postId, $edgeLayer);
     ?>
     <table>
         <tr>
@@ -65,7 +65,7 @@ if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
         <?php if(!empty($all_terms)){
             foreach($all_terms as $term){
                 $checking_value=$term->taxonomy.'|'.$term->term_id;
-                if (has_term(absint($term->term_id), $edgeLayer, $postId) && !in_array($checking_value,$wpc_multicolor_cords)) {
+                if (has_term(absint($term->term_id), $edgeLayer, $postId) && !in_array($term->term_id,$wpc_multicolor_cords)) {
                     $check_color=isset($allColorsMeta[$edgeLayer][$term->slug]["colors"]) ? $allColorsMeta[$edgeLayer][$term->slug]["colors"]:array();
                 ?>
         <tr>

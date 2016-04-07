@@ -373,7 +373,6 @@ if( !class_exists('WPC_Admin') ) {
                     update_post_meta($postId,'_wpc_no_cords',$params['wpc_no_cords']);
                     update_post_meta($postId,'_wpc_multicolor_cords',$params['wpc_multicolor_cords']);
                     update_post_meta($postId,'_wpc_available_models',$params['wpc_available_models']);
-                    echo 'test';
                     break;
                 case 'wpc_cord_layers' :
                     update_post_meta($postId,'_wpc_cord_layers',$params['wpc_cord_layers']);
@@ -383,13 +382,12 @@ if( !class_exists('WPC_Admin') ) {
                     break;
                 case 'wpc_cord_images' :
                     update_post_meta($postId,'_wpc_cord_images_'.$termId,$params['wpc_combination']);
-                   // update_post_meta($postId,'_wpc_no_cords',$params['wpc_no_cords']);
                     break;
                 case 'wpc_multicolor_images' :
                     update_post_meta($postId,'_wpc_textures_images',$params['wpc_textures']);
                     break;
                 case 'wpc_colors' :
-                    update_post_meta($postId,'_wpc_colors',$params["wpc_colors"]);
+                    update_post_meta($postId,'_wpc_colors_'.$termId,$params["wpc_colors"]);
                     break;
                 default:
                     break;

@@ -251,10 +251,24 @@ if (!class_exists('WPC_Admin_Product')) {
                                                             $selected_value=in_array($variation->term_id,$multicolor_cords)?"selected":"";
                                                             ?>
                                                             <option <?=$selected_value?> value="<?=$variation->term_id;?>"><?=$variation->name;?></option>
-                                                        <?php }}}?>
+                                                        <?php }}} ?>
 
                                             </optgroup>
-                                        <?php }?>
+                                        <?php }
+                                        $edgeLayer=get_post_meta($post_id,'_wpc_edge_layer',true);
+                                        if($edgeLayer){?>
+                                            <optgroup label="<?=wc_attribute_label($edgeLayer)?>">
+                                          <?php  $all_terms=wp_get_post_terms($post_id, $edgeLayer);
+                                            if(!empty($all_terms)){
+                                                foreach($all_terms as $term) {
+                                                    if (has_term(absint($term->term_id), $edgeLayer, $post_id)) {
+                                                        $selected_value=in_array($term->term_id,$multicolor_cords)?"selected":"";
+                                                        ?>
+                                                        <option <?=$selected_value?> value="<?=$term->term_id;?>"><?=$term->name;?></option>
+                                                    <?php }}}?>
+                                            </optgroup>
+                                        <?php }
+                                        ?>
                                     </select>
                                 </td>
                             </tr>
