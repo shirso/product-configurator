@@ -490,6 +490,8 @@ var additionalAjaxSave=function(formId,section,div){
                     separator: '<div style="width:100%; border-top:1px solid #ccc; margin: 10px 0px;"></div>',
                     minFormsCount: 0,
                     iniFormsCount: 0,
+                    allowRemoveLast:false,
+                    allowRemoveAll:true,
                     afterAdd: function (source, newForm) {
                         resizeJquerySteps();
                     },

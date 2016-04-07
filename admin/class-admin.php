@@ -372,6 +372,7 @@ if( !class_exists('WPC_Admin') ) {
                 case 'save_all_cords':
                     update_post_meta($postId,'_wpc_no_cords',$params['wpc_no_cords']);
                     update_post_meta($postId,'_wpc_multicolor_cords',$params['wpc_multicolor_cords']);
+                    update_post_meta($postId,'_wpc_available_models',$params['wpc_available_models']);
                     echo 'test';
                     break;
                 case 'wpc_cord_layers' :
@@ -381,7 +382,7 @@ if( !class_exists('WPC_Admin') ) {
                    // update_post_meta($postId,'_wpc_multicolor_cords',$params['wpc_multicolor_cords']);
                     break;
                 case 'wpc_cord_images' :
-                    update_post_meta($postId,'_wpc_cord_images',$params['wpc_combination']);
+                    update_post_meta($postId,'_wpc_cord_images_'.$termId,$params['wpc_combination']);
                    // update_post_meta($postId,'_wpc_no_cords',$params['wpc_no_cords']);
                     break;
                 case 'wpc_multicolor_images' :
@@ -398,6 +399,8 @@ if( !class_exists('WPC_Admin') ) {
         public function wpc_load_tab_data(){
             $postId=absint($_POST["postId"]);
             $section=trim($_POST["section"]);
+            $termId=isset($_POST["termId"]) ? absint($_POST["termId"]) : null;
+            $taxonomy=isset($_POST["termId"]) ? absint($_POST["termId"]) : null;
             if($section!="wpc_cord_layers"  || $section!="wpc_base_edge") {
                 switch ($section) {
                     case "wpc_multicolor_cords":

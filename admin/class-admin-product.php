@@ -191,6 +191,29 @@ if (!class_exists('WPC_Admin_Product')) {
                         $all_cords=get_post_meta($post_id,"_wpc_cord_layers",true);
                         if(!empty($all_cords)){?>
                         <table>
+                          <tr>
+                              <td>
+                                  <?=__("Available Models","wpc")?>
+                              </td>
+                              <td>
+                                  <?php
+                                  $model_layer = get_post_meta($post_id, '_wpc_color_dependency', true);
+                                  if(!empty($model_layer)){
+                                      $all_model_terms=get_terms($model_layer);
+                                      $available_models=get_post_meta($post_id,'_wpc_available_models',true);
+                                  ?>
+                                  <select multiple class="wpc_multiselect" id="wpc_available_models" name="wpc_available_models[]">
+                                      <?php if(!empty($all_model_terms)){
+                                      foreach($all_model_terms as $term){
+                                      if (has_term(absint($term->term_id), $model_layer, $post_id)) {
+                                          $selectedModels=is_array($available_models) && in_array($term->term_id,$available_models) ? "selected" :"";
+                                          ?>
+                                          <option <?=$selectedModels?> value="<?=$term->term_id;?>"><?=$term->name;?></option>
+                                      <?php }}}?>
+                                  </select>
+                                  <?php }?>
+                              </td>
+                          </tr>
                         <tr>
                             <td><?=__("No Cords","wpc")?></td>
                             <td>
@@ -255,7 +278,7 @@ if (!class_exists('WPC_Admin_Product')) {
                                     <td>
                                    <?php if(!empty($all_model_terms)){
                                        foreach($all_model_terms as $term){
-                                           if (has_term(absint($term->term_id), $model_layer, $post_id)) {
+                                           if (has_term(absint($term->term_id), $model_layer, $post_id) && in_array($term->term_id,$available_models)) {
                                        ?>
                                         <a href="options.php?page=wpc_configurator_images&post=<?=$_GET["post"]?>&taxonomy=<?=$model_layer?>&term=<?=$term->term_id?>" target="_blank" class="button"><?=$term->name;?></a>
                                     <?php }}}?>
