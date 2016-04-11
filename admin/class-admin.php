@@ -381,7 +381,7 @@ if( !class_exists('WPC_Admin') ) {
                    // update_post_meta($postId,'_wpc_multicolor_cords',$params['wpc_multicolor_cords']);
                     break;
                 case 'wpc_cord_images' :
-                    update_post_meta($postId,'_wpc_cord_images_'.$termId,$params['wpc_combination']);
+                    update_post_meta($postId,'_wpc_cord_images_'.$termId,$params['wpc_cord_images']);
                     break;
                 case 'wpc_multicolor_images' :
                     update_post_meta($postId,'_wpc_textures_images',$params['wpc_textures']);
