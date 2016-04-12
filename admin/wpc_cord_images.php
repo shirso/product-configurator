@@ -4,12 +4,14 @@ $wpc_cord_layers=get_post_meta($postId,'_wpc_cord_layers',true);
 $wpc_multicolor_cords=get_post_meta($postId,'_wpc_multicolor_cords',true) ? get_post_meta($postId,'_wpc_multicolor_cords',true): array();
 $wpc_cord_images=get_post_meta($postId,'_wpc_cord_images_'.$termId,true);
 $wpc_no_cords=get_post_meta($postId,'_wpc_no_cords',true);
-print_r($wpc_cord_images['images']);
+//print_r($wpc_cord_images['images']);
 ?>
     <form id="wpc_cord_images_form">
      <?php $wpc_combinations=array();
      if(isset($wpc_cord_images['combinations']) && !empty($wpc_cord_images['combinations'])){
-         foreach($wpc_cord_images['combinations'] as $c){
+         foreach($wpc_cord_images['combinations'] as $key=>$c){
+             $cord_image=$wpc_cord_images['images'][$key];
+             print_r($cord_image);
              if(!empty($c)){
                  foreach($c as $k=>$v){
                     $c['wpc_cord_images_combinations_'.$k.'_#index#']=$v;
@@ -56,11 +58,11 @@ print_r($wpc_cord_images['images']);
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="text" name="wpc_cord_images[images][<?=$layer?>][#index#][base]" id="wpc_cord_images_images_<?=$layer?>_base_#index#">
+                                                <input type="text" name="wpc_cord_images[images][#index#][<?=$layer?>][base]" id="wpc_cord_images_images_<?=$layer?>_base_#index#">
                                                 <button class="button button-secondary wpc_image_upload" data-field="wpc_cord_images_images_<?=$layer?>_base_#index#"><?=__('Upload','wpc');?></button>
                                             </td>
                                             <td>
-                                                <input type="text" name="wpc_cord_images[images][<?=$layer?>][#index#][texture]" id="wpc_cord_images_images_<?=$layer?>_texture_#index#">
+                                                <input type="text" name="wpc_cord_images[images][#index#][<?=$layer?>][texture]" id="wpc_cord_images_images_<?=$layer?>_texture_#index#">
                                                 <button class="button button-secondary wpc_image_upload" data-field="wpc_cord_images_images_<?=$layer?>_texture_#index#"><?=__('Upload','wpc');?></button>
                                             </td>
                                         </tr>
