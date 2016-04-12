@@ -4,24 +4,32 @@ $wpc_cord_layers=get_post_meta($postId,'_wpc_cord_layers',true);
 $wpc_multicolor_cords=get_post_meta($postId,'_wpc_multicolor_cords',true) ? get_post_meta($postId,'_wpc_multicolor_cords',true): array();
 $wpc_cord_images=get_post_meta($postId,'_wpc_cord_images_'.$termId,true);
 $wpc_no_cords=get_post_meta($postId,'_wpc_no_cords',true);
-//print_r($wpc_cord_images);
-if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
+print_r($wpc_cord_images['images']);
+?>
     <form id="wpc_cord_images_form">
-    <?php
-    $wpc_combinations=array();
-    if(isset($wpc_cord_images['combinations']) && !empty($wpc_cord_images['combinations'])){
-        foreach($wpc_cord_images['combinations'] as $c){
-
-        }
-    }
-    ?>
+     <?php $wpc_combinations=array();
+     if(isset($wpc_cord_images['combinations']) && !empty($wpc_cord_images['combinations'])){
+         foreach($wpc_cord_images['combinations'] as $c){
+             if(!empty($c)){
+                 foreach($c as $k=>$v){
+                    $c['wpc_cord_images_combinations_'.$k.'_#index#']=$v;
+                     unset($c[$k]);
+                 }
+             }
+             array_push($wpc_combinations,$c);
+         }
+     }
+    // print_r(json_encode($wpc_combinations));
+     ?>
+        <input type="hidden" id="wpc_combinations_data" value='<?=json_encode($wpc_combinations);?>'>
+   <?php if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
     <div id="wpc_combinations" class="wpc_combinations">
         <div id="wpc_combinations_template">
             <div class="wpc_combination_wrapper">
                 <div class="wc-metabox">
                 <?php foreach($wpc_cord_layers as $layer){?>
                         <lable><?= esc_html(wc_attribute_label($layer));?></lable>
-                        <select name="wpc_cord_images[combinations][#index#][<?=$layer?>]" id="wpc_cord_images_<?=$layer?>_#index#">
+                        <select name="wpc_cord_images[combinations][#index#][<?=$layer?>]" id="wpc_cord_images_combinations_<?=$layer?>_#index#">
                             <option value="">---</option>
                             <?php $cords = get_terms($layer);
                                  if(is_array($cords) && !empty($cords)){
@@ -76,4 +84,5 @@ if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
             </div>
         </div>
      </div>
-     </form><?php }
+     <?php }?>
+     </form>

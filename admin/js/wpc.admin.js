@@ -470,10 +470,8 @@ var additionalAjaxSave=function(formId,section,div){
                 $("#"+sectionId).html(resp);
                 $("#wpc_multicolor_cords_select").multiselect({});
                 resizeJquerySteps();
-              //  var formattedHtml=$($.parseHTML(resp));
-               // console.log($(resp).filter("#wpc_cord_images_form"));
                 if($(resp).filter("#wpc_cord_images_form").length>0){
-                activateSheepIt('.wpc_combinations');
+                activateSheepIt('wpc_combinations');
                 }
                 else if($(resp).filter("#wpc_multicolor_images_form").length>0){
                     textureSheepIt('.wpc_combinations_texture');
@@ -483,25 +481,26 @@ var additionalAjaxSave=function(formId,section,div){
         });
     }
     var activateSheepIt=function(className){
-            $(className).each(function (k, v) {
-                var injectData = $("#wpc_values_" + $(this).data("layer")).val();
-                injectData = $.parseJSON(injectData);
-                var sheepItForm = $('#' + $(v).attr("id")).sheepIt({
-                    separator: '<div style="width:100%; border-top:1px solid #ccc; margin: 10px 0px;"></div>',
-                    minFormsCount: 0,
-                    iniFormsCount: 0,
-                    allowRemoveLast:false,
-                    allowRemoveAll:true,
-                    afterAdd: function (source, newForm) {
-                        resizeJquerySteps();
-                    },
-                    afterFill: function () {
-                        // resizeJquerySteps();
-                    },
-                    data: injectData
-                });
-            });
-            resizeJquerySteps();
+        var injectData = $("#"+className+"_data").val();
+       // console.log(injectData);
+        injectData = $.parseJSON(injectData);
+
+        console.log(injectData);
+        var sheepItForm = $('#' +className).sheepIt({
+            separator: '<div style="width:100%; border-top:1px solid #ccc; margin: 10px 0px;"></div>',
+            minFormsCount: 0,
+            iniFormsCount: 0,
+            allowRemoveLast:false,
+            allowRemoveAll:true,
+            afterAdd: function (source, newForm) {
+                resizeJquerySteps();
+            },
+            afterFill: function () {
+                // resizeJquerySteps();
+            },
+            data: injectData
+        });
+        resizeJquerySteps();
     }
     var textureSheepIt=function(className){
         $(className).each(function (k, v) {
