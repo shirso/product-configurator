@@ -378,16 +378,19 @@ if( !class_exists('WPC_Admin') ) {
                     update_post_meta($postId,'_wpc_cord_layers',$params['wpc_cord_layers']);
                     break;
                 case 'wpc_multicolor_cords' :
-                   // update_post_meta($postId,'_wpc_multicolor_cords',$params['wpc_multicolor_cords']);
+                    update_post_meta($postId,'_wpc_multicolor_cords',$params['wpc_multicolor_cords']);
                     break;
                 case 'wpc_cord_images' :
                     update_post_meta($postId,'_wpc_cord_images_'.$termId,$params['wpc_cord_images']);
                     break;
                 case 'wpc_multicolor_images' :
-                    update_post_meta($postId,'_wpc_textures_images',$params['wpc_textures']);
+                    update_post_meta($postId,'_wpc_multicord_images_'.$termId,$params['wpc_muticord_images']);
                     break;
                 case 'wpc_colors' :
                     update_post_meta($postId,'_wpc_colors_'.$termId,$params["wpc_colors"]);
+                    break;
+                case 'wpc_textures':
+                    update_post_meta($postId,'_wpc_textures_'.$termId,$params["wpc_textures"]);
                     break;
                 default:
                     break;

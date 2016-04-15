@@ -8,6 +8,7 @@ $wpc_no_cords=get_post_meta($postId,'_wpc_no_cords',true);
 $edgeLayer=get_post_meta($postId,'_wpc_edge_layer',true);
 $settings=get_option('wpc_settings');
 $allColors=$settings["texture_data"];
+$allTexturesMeta=get_post_meta($postId,"_wpc_textures_".$termId,true);
 if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
     <form id="wpc_textures_form">
     <?php foreach($wpc_cord_layers as $k=>$layer){
@@ -24,7 +25,7 @@ if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
             foreach($all_terms as $term){
                 $checking_value=$term->taxonomy.'|'.$term->term_id;
                 if (has_term(absint($term->term_id), $layer, $postId) && (in_array($term->term_id,$wpc_multicolor_cords) && !in_array($term->term_id,$wpc_no_cords))) {
-                    $check_color=isset($allColorsMeta[$layer][$term->slug]["colors"]) ? $allColorsMeta[$layer][$term->slug]["colors"]:array();
+                    $check_color=isset($allTexturesMeta[$layer][$term->slug]["textures"]) ? $allTexturesMeta[$layer][$term->slug]["textures"]:array();
                     ?>
             <tr>
                 <td><?=$term->name?></td>
@@ -42,7 +43,7 @@ if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
                                     </td>
                                     <td style="text-align: center">
                                         <?php $checked_color=in_array($color["name"]."|".$color["value"],$check_color)?"checked":""; ?>
-                                        <input <?=$checked_color;?> class="color_checkbox"  type="checkbox" value="<?=$color["name"]?>|<?=$color["value"];?>" name="wpc_textures[<?=$layer?>][<?=$term->slug?>][textures][]">
+                                        <input <?=$checked_color;?> class="color_checkbox"  type="checkbox" value="<?=$color["name"];?>|<?=$color["value"];?>" name="wpc_textures[<?=$layer?>][<?=$term->slug?>][textures][]">
                                     </td>
                                 </tr>
                             <?php }}?>
@@ -66,7 +67,7 @@ if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
                     foreach($all_terms as $term){
                         $checking_value=$term->taxonomy.'|'.$term->term_id;
                         if (has_term(absint($term->term_id), $edgeLayer, $postId) && in_array($term->term_id,$wpc_multicolor_cords)) {
-                            $check_color=isset($allColorsMeta[$edgeLayer][$term->slug]["colors"]) ? $allColorsMeta[$edgeLayer][$term->slug]["colors"]:array();
+                            $check_color=isset($allTexturesMeta[$edgeLayer][$term->slug]["textures"]) ? $allTexturesMeta[$edgeLayer][$term->slug]["textures"]:array();
                             ?>
                             <tr>
                                 <td><?=$term->name?></td>
@@ -84,7 +85,7 @@ if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
                                                     </td>
                                                     <td style="text-align: center">
                                                         <?php $checked_color=in_array($color["name"]."|".$color["value"],$check_color)?"checked":""; ?>
-                                                        <input <?=$checked_color;?> class="color_checkbox"  type="checkbox" value="<?=$color["name"]?>" name="wpc_textures[<?=$edgeLayer?>][<?=$term->slug?>][textures][]">
+                                                        <input <?=$checked_color;?> class="color_checkbox"  type="checkbox" value="<?= $color["name"];?>|<?= $color["value"];?>" name="wpc_textures[<?=$edgeLayer?>][<?=$term->slug?>][textures][]">
                                                     </td>
                                                 </tr>
                                             <?php }}?>

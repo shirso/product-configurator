@@ -366,7 +366,7 @@ $('body').on('click','.wpc_selectAllButton',function(e){
         console.log(tabId);
         var action="wpc_save_tab_data",
             sectionId=null;
-        var sections=['wpc_base_edge','wpc_cord_images','wpc_colors','wpc_multicolor_images'];
+        var sections=['wpc_base_edge','wpc_cord_images','wpc_colors','wpc_textures','wpc_multicolor_images'];
 
         var formId=$("#"+sections[tabId]+"_form");
        // console.log(formId);
@@ -436,6 +436,7 @@ var additionalAjaxSave=function(formId,section,div){
         },
         onStepChanged:function(event, currentIndex, priorIndex){
             loadTab(currentIndex);
+            resizeJquerySteps();
         },
         onFinished: function (event, currentIndex) {
            saveTabData(currentIndex);
@@ -474,7 +475,7 @@ var additionalAjaxSave=function(formId,section,div){
                 activateSheepIt('wpc_combinations');
                 }
                 else if($(resp).filter("#wpc_multicolor_images_form").length>0){
-                    textureSheepIt('.wpc_combinations_texture');
+                    textureSheepIt('wpc_texture_combinations');
                 }
                 $("#"+sectionId).unblock();
             }
@@ -482,10 +483,7 @@ var additionalAjaxSave=function(formId,section,div){
     }
     var activateSheepIt=function(className){
         var injectData = $("#"+className+"_data").val();
-       // console.log(injectData);
         injectData = $.parseJSON(injectData);
-
-        console.log(injectData);
         var sheepItForm = $('#' +className).sheepIt({
             separator: '<div style="width:100%; border-top:1px solid #ccc; margin: 10px 0px;"></div>',
             minFormsCount: 0,
@@ -501,46 +499,25 @@ var additionalAjaxSave=function(formId,section,div){
             data: injectData
         });
         resizeJquerySteps();
-    }
+    };
     var textureSheepIt=function(className){
-        $(className).each(function (k, v) {
-            //var injectData = $("#wpc_values_" + $(this).data("layer")).val();
-          //  injectData = $.parseJSON(injectData);
-            var term_id=$(this).data('layer');
-            var sheepItForm = $('#' + $(v).attr("id")).sheepIt({
-                separator: '<div style="width:100%; border-top:1px solid #ccc; margin: 10px 0px;"></div>',
-                minFormsCount: 0,
-                iniFormsCount: 0,
-                afterAdd: function (source, newForm) {
-                    resizeJquerySteps();
-                },
-                afterFill: function () {
-                    // resizeJquerySteps();
-                },
-                nestedForms: [
-                    {
-                        id: 'wpc_textures_'+term_id+'_#index#_images',
-                        options: {
-                            indexFormat: '#index_images#',
-                            allowRemoveLast: true,
-                            allowRemoveCurrent: true,
-                            allowAdd: true,
-                            allowRemoveAll: false,
-                            allowAddN: false,
-                            minFormsCount: 0,
-                            iniFormsCount: 0,
-                            separator: '',
-                            afterAdd: function (source, newForm) {
-                                resizeJquerySteps();
-                            },
-                        }
-                    }
-                ]
-              //  data: injectData
-            });
+        var injectData = $("#"+className+"_data").val();
+        injectData = $.parseJSON(injectData);
+        var sheepItForm = $('#' +className).sheepIt({
+            separator: '<div style="width:100%; border-top:1px solid #ccc; margin: 10px 0px;"></div>',
+            minFormsCount: 0,
+            iniFormsCount: 0,
+            allowRemoveLast:false,
+            allowRemoveAll:true,
+            afterAdd: function (source, newForm) {
+                resizeJquerySteps();
+            },
+            afterFill: function () {
+            },
+            data: injectData
         });
         resizeJquerySteps();
-    }
+    };
 
     $(document).on('click','.wpc_image_upload',function(e){
         e.preventDefault();
