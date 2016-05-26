@@ -19,3 +19,9 @@ function clean($string) {
 
     return  strtolower(preg_replace('/-+/', '-', $string)); // Replaces multiple hyphens with single one.
 }
+function get_variation_attribute_type($name){
+    global $wpdb;
+    $attribute_name = substr($name, 3);
+    $attribute = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "woocommerce_attribute_taxonomies WHERE attribute_name = '$attribute_name'");
+    return  $attribute->attribute_type;
+}

@@ -548,4 +548,15 @@ var additionalAjaxSave=function(formId,section,div){
     function resizeJquerySteps() {
         $('.wizard .content').animate({ height: $('.body.current').outerHeight() }, "slow");
     }
+    $(document).on('click','.wpc_upload_button',function(e){
+        e.preventDefault();
+        var self=$(this);
+        mediaUploader = wp.media({
+            multiple: false
+        });
+        mediaUploader.on('select', function () {
+            $(self).prev().val(mediaUploader.state().get('selection').toJSON()[0].url);
+        });
+        mediaUploader.open();
+    });
 });

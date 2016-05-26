@@ -1,6 +1,6 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-include ('resize.php');
+//include ('resize.php');
 if(!class_exists('WPC_Frontend_Ajax')) {
     class WPC_Frontend_Ajax{
         public function __construct() {
@@ -10,7 +10,6 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             add_action( 'wp_ajax_nopriv_wpc_embroidery_image_upload', array(&$this,'upload_image'));
         }
         public  function upload_image(){
-          // echo 'fuck';exit;
             $upload_dir = wp_upload_dir();
             $wpc_upload_dir=$upload_dir["basedir"]."/product_configurator_images/";
             $wpc_upload_path=$upload_dir["baseurl"]."/product_configurator_images/";

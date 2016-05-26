@@ -88,7 +88,7 @@ $wpc_multicord_images=get_post_meta($postId,'_wpc_multicord_images_'.$termId,tru
                             <?php }}?>
                             <tr>
                                 <td colspan="2" style="text-align: center">
-                                    <button class="button" id="wpc_texture_combinations _remove_current"><?=__('Remove This','wpc')?></button>
+                                    <button class="button" id="wpc_texture_combinations_remove_current"><?=__('Remove This','wpc')?></button>
                                 </td>
                             </tr>
                         </table>
