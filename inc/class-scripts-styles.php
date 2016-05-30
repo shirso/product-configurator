@@ -158,7 +158,7 @@ if (!class_exists('WPC_Scripts_Styles')) {
                 wp_localize_script('wpc_frontend_script', 'wpc_loading', array('loading' => WPC_PLUGIN_ABSOLUTE_PATH . 'img/loader.gif'));
                 wp_localize_script('wpc_frontend_script', 'this_is_main_kelma', array('pre_configure' => $pre_configure, 'color_dependency' => $color_dependency_step,
                     'image_config' => $image_config, 'color_config' => $color_config,
-                    'texture_config' => $texture_config['_wpc_textures'], 'base_color_step' => $base_color_step,
+                //    'texture_config' => $texture_config['_wpc_textures'], 'base_color_step' => $base_color_step,
                     'exclude_image' => $exclude_image, 'exclude_color' => $exclude_color,
                     'embrodiary_step' => $embrodiary_step, 'last_step' => $last_step,'logo_size'=>$logo_size,'font_size'=>$font_size));
                 wp_enqueue_script('wpc_underscore', WPC_PLUGIN_ABSOLUTE_PATH . 'js/underscore-min.js', array('jquery'), false);

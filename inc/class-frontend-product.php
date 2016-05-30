@@ -3,6 +3,8 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
 if (!class_exists('WPC_Frontend_Product')) {
     class WPC_Frontend_Product
     {
+        private static $default_model=0;
+        private static $colorsMeta=array();
         public function __construct()
         {
             global $post, $wpdb, $product, $woocommerce;
@@ -136,10 +138,26 @@ if (!class_exists('WPC_Frontend_Product')) {
                             <img src="<?= $attr_image ?>"
                                  title="<?= $term->name ?>"/><span><?= $term->name ?></span>
                         </a>
-                        <?php if($term->slug==$default_value){echo '<i class="fa fa-check"></i>';} ?>
-                    <?php }else{?>
+                        <?php if($term->slug==$default_value){
+                            echo '<i class="fa fa-check"></i>';
+                            self::$default_model=$term->term_id;
+                            self::$colorsMeta=get_post_meta($productId,"_wpc_colors_".self::$default_model,true);
+                        } ?>
+                    <?php }else{
+                        $activeClass=$term->slug==$default_value?"atv":"";
+                        $button_class=null;
+                        $no_cords=get_post_meta($productId,"_wpc_no_cords",true);
+                        $texture_cords=get_post_meta($productId,"_wpc_multicolor_cords",true);
+                        if(in_array($term->term_id,$no_cords)){
+                            $button_class="wpc_no_cords";
+                        }
+                        if(in_array($term->term_id,$texture_cords)){
+                            $button_class="wpc_texture_cords";
+                        }
+
+                        ?>
                         <button
-                            class="wpc_terms  <?= $attribute_name . '_' . $term->slug ?>"
+                            class="wpc_terms <?=$activeClass?> <?=$button_class?> <?= $attribute_name . '_' . $term->slug ?>"
                             data-attribute="<?= $attribute_name ?>" data-display="<?=$term->name?>"
                             data-term="<?= $term->slug ?>" data-id="<?=$term->term_id;?>"><?= $term->name ?></button>
                      <?php }?>
@@ -147,7 +165,19 @@ if (!class_exists('WPC_Frontend_Product')) {
                 <?php }}}?>
             </ul>
             <?php
-        }
+            $colorOfThisAttribute=isset(self::$colorsMeta[$attribute_name][$default_value]['colors'])?self::$colorsMeta[$attribute_name][$default_value]['colors']:array();
+            ?>
+        <div class="c-seclect" id="wpc_color_tab_<?=$attribute_name?>">
+
+          <?php  foreach ($colorOfThisAttribute as $color) {   $all = explode('|', $color); ?>
+              <div class="flclr">
+              <div class="change_color insec" style="background: <?= $all[1] ?>">
+              </div>
+              <p><?= $all[0] ?></p>
+              </div>
+           <?php } ?>
+        </div>
+       <?php }
     }
 
     new WPC_Frontend_Product();
