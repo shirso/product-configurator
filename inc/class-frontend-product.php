@@ -5,6 +5,7 @@ if (!class_exists('WPC_Frontend_Product')) {
     {
         private static $default_model=0;
         private static $colorsMeta=array();
+        private static $textureMeta=array();
         public function __construct()
         {
             global $post, $wpdb, $product, $woocommerce;
@@ -98,7 +99,10 @@ if (!class_exists('WPC_Frontend_Product')) {
                                 <?php }}?>
                     </div>
                 </div>
-
+                <script type="text/javascript">
+                    var defaultModel=<?=self::$default_model;?>,
+                        productId=<?=$product->id;?>;
+                </script>
                 <?php
             }
 
@@ -142,6 +146,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                             echo '<i class="fa fa-check"></i>';
                             self::$default_model=$term->term_id;
                             self::$colorsMeta=get_post_meta($productId,"_wpc_colors_".self::$default_model,true);
+                            self::$textureMeta=get_post_meta($productId,"_wpc_textures_".self::$default_model,true);
                         } ?>
                     <?php }else{
                         $activeClass=$term->slug==$default_value?"atv":"";
@@ -154,7 +159,9 @@ if (!class_exists('WPC_Frontend_Product')) {
                         if(in_array($term->term_id,$texture_cords)){
                             $button_class="wpc_texture_cords";
                         }
-
+                        if(!in_array($term->term_id,$no_cords) && !in_array($term->term_id,$texture_cords)){
+                            $button_class="wpc_color_cords";
+                        }
                         ?>
                         <button
                             class="wpc_terms <?=$activeClass?> <?=$button_class?> <?= $attribute_name . '_' . $term->slug ?>"
@@ -166,17 +173,27 @@ if (!class_exists('WPC_Frontend_Product')) {
             </ul>
             <?php
             $colorOfThisAttribute=isset(self::$colorsMeta[$attribute_name][$default_value]['colors'])?self::$colorsMeta[$attribute_name][$default_value]['colors']:array();
+            $textureOfThisAttribute=isset(self::$textureMeta[$attribute_name][$default_value]['textures'])?self::$textureMeta[$attribute_name][$default_value]['textures']:array();
             ?>
         <div class="c-seclect" id="wpc_color_tab_<?=$attribute_name?>">
 
-          <?php  foreach ($colorOfThisAttribute as $color) {   $all = explode('|', $color); ?>
+          <?php if(!empty($colorOfThisAttribute)){foreach ($colorOfThisAttribute as $color) {   $all = explode('|', $color); ?>
               <div class="flclr">
               <div class="change_color insec" style="background: <?= $all[1] ?>">
               </div>
               <p><?= $all[0] ?></p>
               </div>
-           <?php } ?>
+           <?php }} ?>
         </div>
+            <div class="c-seclect" id="wpc_texture_tab_<?= $attribute_name ?>">
+            <?php if(!empty($textureOfThisAttribute)){foreach ($textureOfThisAttribute as $texture) {   $all = explode('|', $texture); ?>
+                <div class="flclr">
+                    <div class="change_texture insec" style="background: url('<?= $all[1] ?>')">
+                    </div>
+                    <p><?= $all[0] ?></p>
+                </div>
+            <?php }} ?>
+            </div>
        <?php }
     }
 

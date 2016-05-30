@@ -8,8 +8,12 @@ if(!class_exists('WPC_Frontend_Ajax')) {
           //  add_action( 'wp_ajax_nopriv_get_images', array(&$this,'get_all_variation_images'));
             add_action( 'wp_ajax_wpc_embroidery_image_upload', array(&$this,'upload_image') );
             add_action( 'wp_ajax_nopriv_wpc_embroidery_image_upload', array(&$this,'upload_image'));
+            add_action( 'wp_ajax_wpc_get_color_data', array(&$this,'wpc_get_color_data'));
+            add_action( 'wp_ajax_nopriv_wpc_get_color_data', array(&$this,'wpc_get_color_data'));
+            add_action( 'wp_ajax_wpc_get_texture_data', array(&$this,'wpc_get_texture_data'));
+            add_action( 'wp_ajax_nopriv_wpc_get_texture_data', array(&$this,'wpc_get_texture_data'));
         }
-        public  function upload_image(){
+        public function upload_image(){
             $upload_dir = wp_upload_dir();
             $wpc_upload_dir=$upload_dir["basedir"]."/product_configurator_images/";
             $wpc_upload_path=$upload_dir["baseurl"]."/product_configurator_images/";
@@ -21,6 +25,48 @@ if(!class_exists('WPC_Frontend_Ajax')) {
            echo  json_encode(array('filepath'=>$wpc_upload_path.$newFileName));
             exit;
 
+        }
+        public function wpc_get_color_data(){
+            $defaultModel=absint($_POST["model"]);
+            $attribute=esc_attr($_POST["attribute"]);
+            $term=esc_attr($_POST["term"]);
+            $productId=absint($_POST["productId"]);
+            $colorsMeta=get_post_meta($productId,"_wpc_colors_".$defaultModel,true);
+            $colorOfThisAttribute=isset($colorsMeta[$attribute][$term]['colors'])?$colorsMeta[$attribute][$term]['colors']:array();
+            $html="";
+           if(!empty($colorOfThisAttribute)){
+               foreach ($colorOfThisAttribute as $color) {
+                   $all = explode('|', $color);
+                   $html .= '<div class="flclr">';
+                   $html.='<div class="change_color insec" style="background: '.$all[1].'">';
+                   $html .= '</div>';
+                   $html.='   <p>'.$all[0].'</p>';
+                   $html .= '</div>';
+               }}
+            echo $html;
+            exit;
+        }
+        public function wpc_get_texture_data(){
+            $defaultModel=absint($_POST["model"]);
+            $attribute=esc_attr($_POST["attribute"]);
+            $term=esc_attr($_POST["term"]);
+            $productId=absint($_POST["productId"]);
+            $texturesMeta=get_post_meta($productId,"_wpc_textures_".$defaultModel,true);
+            $textureOfThisAttribute=isset($texturesMeta[$attribute][$term]['textures'])?$texturesMeta[$attribute][$term]['textures']:array();
+//            print_r($textureOfThisAttribute);
+            $html="";
+            if(!empty($textureOfThisAttribute)){
+                foreach ($textureOfThisAttribute as $texture) {
+                    $all = explode('|', $texture);
+                    $html .= '<div class="flclr">';
+                    $html.='<div class="change_color insec" style="background:url('.$all[1].')">';
+                    $html .= '</div>';
+                    $html.='   <p>'.$all[0].'</p>';
+                    $html .= '</div>';
+                }
+            }
+            echo $html;
+            exit;
         }
     }
     new WPC_Frontend_Ajax();
