@@ -29,9 +29,7 @@ if (!class_exists('WPC_Scripts_Styles')) {
         {
             global $product,$woocommerce;;
             if (self::$add_script) {
-                $image_config = get_post_meta($product->id, '_wpc_image_config', true);
-                $textures = get_post_meta($product->id, '_wpc_texture_config', true);
-                $texture_config = @$textures['_wpc_textures'];
+
                 if(isset($_GET['wpc_cart_item_key'])){
                     $wpc_cart_item_key=trim($_GET['wpc_cart_item_key']);
                     $wpc_cart=$woocommerce->cart->get_cart();
@@ -45,62 +43,9 @@ if (!class_exists('WPC_Scripts_Styles')) {
                         $wpc_extra_items=array_filter($wpc_extra_items);
                     }
                     $wpc_cart_redirect_items=array('variations'=>$wpc_cart_variations,'extra_items'=>$wpc_extra_items);
+
                 }
                 ?>
-                <div id="wpc_images_configur" style="display: none">
-                    <?php
-                    foreach ($image_config['_wpc_images'] as $k => $v) {
-                        ?>
-                        <div id="wpc_layout_<?= $k ?>">
-                            <?php
-                            foreach ($v as $k1 => $v1) {
-                                ?>
-                                <div id="wpc_attribute_<?= $k1 ?>">
-                                    <?php
-                                    foreach ($v1 as $k2 => $v2) {
-                                        $term = get_term_by('slug', $k2, $k1);
-                                        $term_id = $term->term_id;
-                                        $texts =isset($texture_config[$k][$k1][$term_id])?$texture_config[$k][$k1][$term_id]:null;
-                                        ?>
-                                        <div class="wpc_image_div" id="wpc_term_<?= $k2 ?>"
-                                             data-no="<?php if ($v2['no_image'] == 1) {
-                                                 echo '1';
-                                             } else {
-                                                 echo '0';
-                                             } ?>">
-                                            <img class="wpc_background" data-term="<?=$k2?>" data-id="<?= $k . '_' . $k1 ?>_background"
-                                                 src="<?= $v2['background_image'] ?>"/>
-                                            <img class="wpc_foreground" data-term="<?=$k2?>" data-id="<?= $k . '_' . $k1 ?>_foreground"
-                                                 src="<?= $v2['foreground_image'] ?>"/>
-
-
-                                            <?php
-                                            if (isset($texts) && !empty($texts)) { ?>
-                                                <div class="texture_images">
-                                                    <?php
-                                                    foreach ($texts as $k3 => $v3) {
-                                                        ?>
-                                                        <div class="texture_contents" data-class="<?=$k.'_'.$k1?>" data-id="<?='texture_'.$k.'_'.$k1.'_'.$k3?>">
-                                                        <img src="<?= $v3['texture_image'] ?>" alt="" class="texture">
-                                                        </div>
-                                                        <?php
-                                                    }?>
-                                                </div>
-                                            <?php }
-                                            ?>
-                                        </div>
-                                        <?php
-                                    }
-                                    ?>
-                                </div>
-                                <?php
-                            }
-                            ?>
-                        </div>
-                        <?php
-                    }
-                    ?>
-                </div>
                 <div id="wpc_base_design_configur" class="wpc_hidden">
                 <?php  $base_category = get_post_meta($product->id, '_wpc_selected_base', true);
                 $args = array('post_type' => 'wpc_base_design',
