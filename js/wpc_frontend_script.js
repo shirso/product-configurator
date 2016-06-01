@@ -8,9 +8,48 @@ jQuery(function ($) {
         rotationCursor: 'default',
         centeredScaling: true
     });
-    stage.setWidth($('#wpc_product_stage').width());
-    stage.setHeight((canvasHeight * stage.getWidth())/canvasWidth);
+    stage.setBackgroundColor("#cfcfcf");
+    var makeCanvasResponsive=function(){
+        stage.setWidth($('#wpc_product_stage').width());
+        stage.setHeight((canvasHeight * stage.getWidth())/canvasWidth);
+    };
+    var makeObjectResponsive=function(){
+        var stageHeight = stage.getHeight();
+        var stageWidth = stage.getWidth();
+        var allObjects=stage.getObjects();
+        for (var i = 0; i < allObjects.length; i++) {
+           // console.log(allObjects[i]);
+            var tempScaleY=(1/canvasHeight) * stage.getHeight();
+            var tempScaleX=(1/canvasWidth) * stage.getWidth();
+            console.log(tempScaleX);
+            console.log(tempScaleY);
+            allObjects[i].set({scaleX:tempScaleX,scaleY:tempScaleY});
+            allObjects[i].setCoords();
+        }
+        stage.renderAll().calcOffset();
+    };
 
+    var loadBaseEdge=function(divId,imageType){
+        var imageClasses=['base_image','texture_image'];
+        $.each(imageClasses,function(k,v){
+            var imgInstance = new fabric.Image($("#"+divId).children('.'+v).get(0), {
+                hasControls: false,
+                hasBorders: false,
+                lockMovementX: true,
+                lockMovementY: true,
+                lockRotation: true,
+                lockScalingX: true,
+                lockScalingY: true,
+                lockUniScaling: true,
+                imageClass:v,
+                imageType:imageType
+            });
+
+            stage.add(imgInstance);
+        });
+        stage.renderAll().calcOffset();
+    };
+    makeCanvasResponsive();
     $(window).load(function () {
         $('#attribute-tabs').responsiveTabs({
             rotate: false,
@@ -20,33 +59,16 @@ jQuery(function ($) {
             }
         });
 
-        var imgInstance = new fabric.Image($("#wpc_base_images").children('.base_image').get(0), {
-            hasControls: false,
-            hasBorders: false,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockRotation: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            lockUniScaling: true,
-            imgType:'background'
-        });
-        var imgInstance1 = new fabric.Image($("#wpc_base_images").children('.texture_image').get(0), {
-            hasControls: false,
-            hasBorders: false,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockRotation: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            lockUniScaling: true,
-            imgType:'foreground'
-        });
-        stage.add(imgInstance);
-        stage.add(imgInstance1);
-        stage.renderAll().calcOffset();
+       loadBaseEdge('wpc_base_images','base');
+       loadBaseEdge('wpc_edge_images','edge');
+       makeObjectResponsive();
     });
-    $(document).on("click",".wpc_terms",function(){
+    $(window).resize(function () {
+        makeCanvasResponsive();
+        makeObjectResponsive();
+    });
+    $(document).on("click",".wpc_terms",function(e){
+        e.preventDefault();
         $this=$(this);
         if($this.hasClass('atv')){
             return false;
@@ -111,4 +133,8 @@ jQuery(function ($) {
           });
       }
      });
+    $(document).on("click",".change_color",function(e){
+        e.preventDefault();
+
+    });
 });

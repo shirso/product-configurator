@@ -111,6 +111,14 @@ if (!class_exists('WPC_Frontend_Product')) {
                     <img src="<?=$base_image?>" class="base_image">
                     <img src="<?=$texture_image?>" class="texture_image">
                 </div>
+                <div id="wpc_edge_images" class="wpc-hidden">
+                    <?php
+                    $base_image=get_post_meta($product->id,'_wpc_edge_image_base_'.self::$default_model,true);
+                    $texture_image=get_post_meta($product->id,'_wpc_edge_image_texture_'.self::$default_model,true);
+                    ?>
+                    <img src="<?=$base_image?>" class="base_image">
+                    <img src="<?=$texture_image?>" class="texture_image">
+                </div>
                 <?php
             }
 
