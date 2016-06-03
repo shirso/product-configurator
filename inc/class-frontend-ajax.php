@@ -12,6 +12,8 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             add_action( 'wp_ajax_nopriv_wpc_get_color_data', array(&$this,'wpc_get_color_data'));
             add_action( 'wp_ajax_wpc_get_texture_data', array(&$this,'wpc_get_texture_data'));
             add_action( 'wp_ajax_nopriv_wpc_get_texture_data', array(&$this,'wpc_get_texture_data'));
+            add_action( 'wp_ajax_wpc_get_image_data', array(&$this,'wpc_get_image_data'));
+            add_action( 'wp_ajax_nopriv_wpc_get_image_data', array(&$this,'wpc_get_image_data'));
         }
         public function upload_image(){
             $upload_dir = wp_upload_dir();
@@ -38,7 +40,7 @@ if(!class_exists('WPC_Frontend_Ajax')) {
                foreach ($colorOfThisAttribute as $color) {
                    $all = explode('|', $color);
                    $html .= '<div class="flclr">';
-                   $html.='<div class="change_color insec" style="background: '.$all[1].'">';
+                   $html.='<div class="change_color insec" data-color="'.$all[1].'" data-display="'.$all[0].'" style="background: '.$all[1].'">';
                    $html .= '</div>';
                    $html.='   <p>'.$all[0].'</p>';
                    $html .= '</div>';
@@ -59,13 +61,34 @@ if(!class_exists('WPC_Frontend_Ajax')) {
                 foreach ($textureOfThisAttribute as $texture) {
                     $all = explode('|', $texture);
                     $html .= '<div class="flclr">';
-                    $html.='<div class="change_color insec" style="background:url('.$all[1].')">';
+                    $html.='<div class="change_texture insec" style="background:url('.$all[1].')">';
                     $html .= '</div>';
                     $html.='   <p>'.$all[0].'</p>';
                     $html .= '</div>';
                 }
             }
             echo $html;
+            exit;
+        }
+        public function wpc_get_image_data(){
+            $defaultModel=absint($_POST["model"]);
+            $attribute=esc_attr($_POST["attribute"]);
+            $productId=absint($_POST["productId"]);
+            $cordsData=$_POST["cordsData"];
+            $cordLayers=get_post_meta($productId,"_wpc_cord_layers",true);
+            $filterData=array_map(create_function('$n', 'return null;'), array_flip($cordLayers));
+           if(!empty($cordsData)){
+               foreach($cordsData as $cord){
+               if(array_key_exists($cord["attribute"],$filterData)){
+                   $filterData[$cord["attribute"]]=$cord["term"];
+                }}}
+            $imageData=get_post_meta($productId,'_wpc_cord_images_'.$defaultModel,true);
+            $combinations=$imageData["combinations"];
+            $images=$imageData["images"];
+            $key123=array_search($filterData,$combinations);
+            $returnImage=array_key_exists($key123,$images) ? $images[$key123] : array();
+          //  echo json_encode($returnImage);
+            print_r($returnImage);
             exit;
         }
     }

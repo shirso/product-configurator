@@ -1,6 +1,8 @@
 jQuery(function ($) {
     var canvasHeight = 800,
-        canvasWidth = 800;
+        canvasWidth = 800,
+        visitedStep=[],
+        cords=[];
     var canvas = jQuery('#wpc_product_stage').children('canvas').get(0);
     var stage = new fabric.Canvas(canvas, {
         selection: false,
@@ -8,21 +10,16 @@ jQuery(function ($) {
         rotationCursor: 'default',
         centeredScaling: true
     });
-    stage.setBackgroundColor("#cfcfcf");
+   // stage.setBackgroundColor("#cfcfcf");
     var makeCanvasResponsive=function(){
         stage.setWidth($('#wpc_product_stage').width());
         stage.setHeight((canvasHeight * stage.getWidth())/canvasWidth);
     };
     var makeObjectResponsive=function(){
-        var stageHeight = stage.getHeight();
-        var stageWidth = stage.getWidth();
         var allObjects=stage.getObjects();
         for (var i = 0; i < allObjects.length; i++) {
-           // console.log(allObjects[i]);
             var tempScaleY=(1/canvasHeight) * stage.getHeight();
             var tempScaleX=(1/canvasWidth) * stage.getWidth();
-            console.log(tempScaleX);
-            console.log(tempScaleY);
             allObjects[i].set({scaleX:tempScaleX,scaleY:tempScaleY});
             allObjects[i].setCoords();
         }
@@ -49,18 +46,33 @@ jQuery(function ($) {
         });
         stage.renderAll().calcOffset();
     };
+    var colorBaseEdge=function(color,type){
+      var allObjects=stage.getObjects();
+        for(var i in allObjects){
+            if(allObjects[i].imageType==type && allObjects[i].imageClass=='base_image'){
+                allObjects[i].filters.push(new fabric.Image.filters.Tint({color: color}))
+                allObjects[i].applyFilters(stage.renderAll.bind(stage))
+                break;
+            }
+        }
+        stage.renderAll().calcOffset();
+    };
     makeCanvasResponsive();
     $(window).load(function () {
         $('#attribute-tabs').responsiveTabs({
             rotate: false,
             collapsible: 'accordion',
             activate: function (e, tab) {
-
+                var selector=tab.selector,
+                    selector_attribute= typeof selector != "undefined" && selector != null ? $(selector).data("attribute") : "";
+               if(!_.contains(visitedStep,selector_attribute)){
+                   visitedStep.push(selector_attribute);
+               }
             }
         });
 
-       loadBaseEdge('wpc_base_images','base');
-       loadBaseEdge('wpc_edge_images','edge');
+       loadBaseEdge('wpc_base_images','base_image');
+       loadBaseEdge('wpc_edge_images','edge_image');
        makeObjectResponsive();
     });
     $(window).resize(function () {
@@ -74,15 +86,16 @@ jQuery(function ($) {
             return false;
         }
         var attributeName=$this.data("attribute"),
-            termId=$this.data("term");
+            termSlug=$this.data("term");
        $this.closest('.attribute_loop').find('button').removeClass('atv');
        $this.addClass('atv');
        if($this.hasClass('wpc_no_cords')){
            $('#wpc_color_tab_'+attributeName).html('');
            $('#wpc_texture_tab_'+attributeName).html('');
+           cords= _.without(cords, _.findWhere(cords, {attribute: attributeName}));
        }
        if($this.hasClass('wpc_color_cords')){
-         //Load Colors
+         //Load Colors Tab
            $('#wpc_texture_tab_'+attributeName).html("");
            $('#wpc_color_tab_'+attributeName).block({
                message: '',
@@ -98,13 +111,43 @@ jQuery(function ($) {
            var data = {
                'action': 'wpc_get_color_data',
                'attribute': attributeName,
-               'term':termId,
+               'term':termSlug,
                'model':defaultModel,
                'productId':productId
            };
            $.post(wpc_ajaxUrl.ajaxUrl, data, function(response) {
                $('#wpc_color_tab_'+attributeName).unblock();
                $('#wpc_color_tab_'+attributeName).html(response);
+           });
+
+           //Load Cord Images
+           //$('#wpc_product_stage').block({
+           //    message: '',
+           //    overlayCSS: {
+           //        border: 'none',
+           //        padding: '0',
+           //        margin: '0',
+           //        backgroundColor: 'transparent',
+           //        opacity: 1,
+           //        color: '#fff'
+           //    }
+           //});
+           if (typeof _.findWhere(cords, {attribute: attributeName}) == "undefined") {
+               cords.push({attribute:attributeName,term:termSlug});
+           }else{
+               var newArray = _.without(cords, _.findWhere(cords, {attribute: attributeName}));
+               cords=newArray;
+               cords.push({attribute:attributeName,term:termSlug});
+           }
+         var imageData= {
+               'action': 'wpc_get_image_data',
+               'attribute': attributeName,
+               'cordsData':cords,
+               'model':defaultModel,
+               'productId':productId
+           };
+           $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(response) {
+               console.log(response);
            });
        }
       if($this.hasClass('wpc_texture_cords')){
@@ -123,7 +166,7 @@ jQuery(function ($) {
           var data = {
               'action': 'wpc_get_texture_data',
               'attribute': attributeName,
-              'term':termId,
+              'term':termSlug,
               'model':defaultModel,
               'productId':productId
           };
@@ -131,10 +174,22 @@ jQuery(function ($) {
               $('#wpc_texture_tab_'+attributeName).unblock();
               $('#wpc_texture_tab_'+attributeName).html(response);
           });
+          cords= _.without(cords, _.findWhere(cords, {attribute: attributeName}));
       }
      });
     $(document).on("click",".change_color",function(e){
         e.preventDefault();
+        $this=$(this);
+        if($this.hasClass("active")){return false;}
 
+        $this.closest('.c-seclect').find('.change_color').removeClass('active');
+        $this.addClass("active");
+        $this.closest('.c-seclect').find('i').remove();
+        $this.append('<i class="fa fa-check-circle"></i>');
+
+        if($this.hasClass('base_layer') || $this.hasClass('edge_layer')){
+            $this.hasClass('base_layer')? colorBaseEdge($this.data('color'),'base_image'): colorBaseEdge($this.data('color'),'edge_image');
+            return false;
+        }
     });
 });

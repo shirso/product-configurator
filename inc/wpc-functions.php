@@ -25,3 +25,12 @@ function get_variation_attribute_type($name){
     $attribute = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "woocommerce_attribute_taxonomies WHERE attribute_name = '$attribute_name'");
     return  $attribute->attribute_type;
 }
+function array_find($needle, array $haystack)
+{
+    foreach ($haystack as $key => $value) {
+        if (false !== stripos($value, $needle)) {
+            return $key;
+        }
+    }
+    return false;
+}
