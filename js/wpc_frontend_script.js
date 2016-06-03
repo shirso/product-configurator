@@ -57,6 +57,55 @@ jQuery(function ($) {
         }
         stage.renderAll().calcOffset();
     };
+    var loadImageData=function(object){
+        var imageBase=new Image;
+        imageBase.src=object.base;
+        $(imageBase).load(function(){
+            var imgInstance = new fabric.Image(imageBase, {
+                hasControls: false,
+                hasBorders: false,
+                lockMovementX: true,
+                lockMovementY: true,
+                lockRotation: true,
+                lockScalingX: true,
+                lockScalingY: true,
+                lockUniScaling: true,
+                imageClass:"base",
+                imageType:"cord_images"
+            });
+            stage.add(imgInstance);
+            var imageTexture=new Image;
+            imageTexture.src= object.texture;
+            $(imageTexture).load(function(){
+                var imgInstance1 = new fabric.Image(imageTexture, {
+                    hasControls: false,
+                    hasBorders: false,
+                    lockMovementX: true,
+                    lockMovementY: true,
+                    lockRotation: true,
+                    lockScalingX: true,
+                    lockScalingY: true,
+                    lockUniScaling: true,
+                    imageClass:"texture",
+                    imageType:"cord_images"
+                });
+                stage.add(imgInstance1);
+            });
+       });
+        stage.renderAll().calcOffset();
+        makeCanvasResponsive();
+        makeObjectResponsive();
+    };
+    var loadImagesFromAjax=function(data){
+       if(!$.isEmptyObject(data)){
+           $.each(data,function(k,v){
+             if((typeof v.base !="undefined" &&  v.base!="") && (typeof v.texture !="undefined" && v.texture!="")){
+                 loadImageData(v);
+             }
+           });
+       }
+
+    };
     makeCanvasResponsive();
     $(window).load(function () {
         $('#attribute-tabs').responsiveTabs({
@@ -121,17 +170,17 @@ jQuery(function ($) {
            });
 
            //Load Cord Images
-           //$('#wpc_product_stage').block({
-           //    message: '',
-           //    overlayCSS: {
-           //        border: 'none',
-           //        padding: '0',
-           //        margin: '0',
-           //        backgroundColor: 'transparent',
-           //        opacity: 1,
-           //        color: '#fff'
-           //    }
-           //});
+           $('#wpc_product_stage').block({
+               message: '',
+               overlayCSS: {
+                   border: 'none',
+                   padding: '0',
+                   margin: '0',
+                   backgroundColor: 'transparent',
+                   opacity: 1,
+                   color: '#fff'
+               }
+           });
            if (typeof _.findWhere(cords, {attribute: attributeName}) == "undefined") {
                cords.push({attribute:attributeName,term:termSlug});
            }else{
@@ -147,7 +196,9 @@ jQuery(function ($) {
                'productId':productId
            };
            $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(response) {
-               console.log(response);
+               console.log($.parseJSON(response));
+               loadImagesFromAjax($.parseJSON(response));
+               $('#wpc_product_stage').unblock();
            });
        }
       if($this.hasClass('wpc_texture_cords')){

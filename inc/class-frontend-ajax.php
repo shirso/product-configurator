@@ -87,8 +87,7 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             $images=$imageData["images"];
             $key123=array_search($filterData,$combinations);
             $returnImage=array_key_exists($key123,$images) ? $images[$key123] : array();
-          //  echo json_encode($returnImage);
-            print_r($returnImage);
+            echo json_encode($returnImage);
             exit;
         }
     }
