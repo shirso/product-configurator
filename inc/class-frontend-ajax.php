@@ -32,6 +32,7 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             $defaultModel=absint($_POST["model"]);
             $attribute=esc_attr($_POST["attribute"]);
             $term=esc_attr($_POST["term"]);
+            $termId=absint($_POST["termId"]);
             $productId=absint($_POST["productId"]);
             $colorsMeta=get_post_meta($productId,"_wpc_colors_".$defaultModel,true);
             $colorOfThisAttribute=isset($colorsMeta[$attribute][$term]['colors'])?$colorsMeta[$attribute][$term]['colors']:array();
@@ -40,7 +41,7 @@ if(!class_exists('WPC_Frontend_Ajax')) {
                foreach ($colorOfThisAttribute as $color) {
                    $all = explode('|', $color);
                    $html .= '<div class="flclr">';
-                   $html.='<div class="change_color insec" data-color="'.$all[1].'" data-display="'.$all[0].'" style="background: '.$all[1].'">';
+                   $html.='<div class="change_color insec" data-color="'.$all[1].'" data-attribute="'.$attribute.'" data-term="'.$termId.'" data-display="'.$all[0].'" style="background: '.$all[1].'">';
                    $html .= '</div>';
                    $html.='   <p>'.$all[0].'</p>';
                    $html .= '</div>';

@@ -103,7 +103,11 @@ if (!class_exists('WPC_Frontend_Product')) {
                     var defaultModel=<?=self::$default_model;?>,
                         productId=<?=$product->id;?>;
                 </script>
-                <div id="wpc_base_images" class="wpc_hidden">
+                <?php
+                $base_layer=get_post_meta($product->id,"_wpc_base_color_dependency",true);
+                $edge_layer=get_post_meta($product->id,"_wpc_edge_layer",true);
+                ?>
+                <div id="wpc_base_images" class="wpc_hidden" data-attribute="<?=$base_layer;?>">
                    <?php
                    $base_image=get_post_meta($product->id,'_wpc_base_image_base_'.self::$default_model,true);
                    $texture_image=get_post_meta($product->id,'_wpc_base_image_texture_'.self::$default_model,true);
@@ -111,7 +115,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                     <img src="<?=$base_image?>" class="base_image">
                     <img src="<?=$texture_image?>" class="texture_image">
                 </div>
-                <div id="wpc_edge_images" class="wpc_hidden">
+                <div id="wpc_edge_images" class="wpc_hidden" data-attribute="<?=$edge_layer;?>">
                     <?php
                     $base_image=get_post_meta($product->id,'_wpc_edge_image_base_'.self::$default_model,true);
                     $texture_image=get_post_meta($product->id,'_wpc_edge_image_texture_'.self::$default_model,true);
@@ -189,12 +193,6 @@ if (!class_exists('WPC_Frontend_Product')) {
                 <?php }}}?>
             </ul>
             <?php
-            $baseEdgeClass='';
-            if($attribute_name==$base_layer){$baseEdgeClass='base_layer';}
-            if($attribute_name==$edge_layer){$baseEdgeClass='edge_layer';}
-
-            ?>
-            <?php
             $colorOfThisAttribute=isset(self::$colorsMeta[$attribute_name][$default_value]['colors'])?self::$colorsMeta[$attribute_name][$default_value]['colors']:array();
             $textureOfThisAttribute=isset(self::$textureMeta[$attribute_name][$default_value]['textures'])?self::$textureMeta[$attribute_name][$default_value]['textures']:array();
             ?>
@@ -202,7 +200,7 @@ if (!class_exists('WPC_Frontend_Product')) {
 
           <?php if(!empty($colorOfThisAttribute)){foreach ($colorOfThisAttribute as $color) {   $all = explode('|', $color); ?>
               <div class="flclr">
-              <div class="change_color <?=$baseEdgeClass?> insec" style="background: <?= $all[1] ?>" data-color="<?=$all[1]?>" data-display="<?=$all[0]?>" data-attribute="<?=$attribute_name?>" data-term="<?=$term->term_id;?>">
+              <div class="change_color insec" style="background: <?= $all[1] ?>" data-color="<?=$all[1]?>" data-display="<?=$all[0]?>" data-attribute="<?=$attribute_name?>" data-term="<?=$term->term_id;?>">
               </div>
               <p><?= $all[0] ?></p>
               </div>
@@ -211,7 +209,7 @@ if (!class_exists('WPC_Frontend_Product')) {
             <div class="c-seclect" id="wpc_texture_tab_<?= $attribute_name ?>">
             <?php if(!empty($textureOfThisAttribute)){foreach ($textureOfThisAttribute as $texture) {   $all = explode('|', $texture); ?>
                 <div class="flclr">
-                    <div class="change_texture <?=$baseEdgeClass?> insec"  style="background: url('<?= $all[1] ?>')">
+                    <div class="change_texture insec"  style="background: url('<?= $all[1] ?>')">
                     </div>
                     <p><?= $all[0] ?></p>
                 </div>

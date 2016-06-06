@@ -1,9 +1,11 @@
 jQuery(function ($) {
     var canvasHeight = 800,
         canvasWidth = 800,
-        scale= [],
+        cordScaleX=1,
+        cordScaleY= 1,
         visitedStep=[],
-        cords=[];
+        cords=[],
+        colors=[];
     var canvas = jQuery('#wpc_product_stage').children('canvas').get(0);
     var stage = new fabric.Canvas(canvas, {
         selection: false,
@@ -11,7 +13,7 @@ jQuery(function ($) {
         rotationCursor: 'default',
         centeredScaling: true
     });
-   // stage.setBackgroundColor("#cfcfcf");
+
     var makeCanvasResponsive=function(){
         stage.setWidth($('#wpc_product_stage').width());
         stage.setHeight((canvasHeight * stage.getWidth())/canvasWidth);
@@ -22,9 +24,8 @@ jQuery(function ($) {
             var tempScaleY=(1/canvasHeight) * stage.getHeight();
             var tempScaleX=(1/canvasWidth) * stage.getWidth();
             if(allObjects[i].imageType=="base_image" && allObjects[i].imageClass=="base_image"){
-                //cords= _.without(cords, _.findWhere(cords, {scaleX: tempScaleX,scaleY:}));
-                scale=[];
-              scale.push({scaleX:tempScaleX,scaleY:tempScaleY});
+              cordScaleX=tempScaleX;
+              cordScaleY=tempScaleY;
             }
             allObjects[i].set({scaleX:tempScaleX,scaleY:tempScaleY});
             allObjects[i].setCoords();
@@ -34,6 +35,7 @@ jQuery(function ($) {
 
     var loadBaseEdge=function(divId,imageType){
         var imageClasses=['base_image','texture_image'];
+        var attribute=$("#"+divId).data("attribute");
         $.each(imageClasses,function(k,v){
             var imgInstance = new fabric.Image($("#"+divId).children('.'+v).get(0), {
                 hasControls: false,
@@ -45,7 +47,8 @@ jQuery(function ($) {
                 lockScalingY: true,
                 lockUniScaling: true,
                 imageClass:v,
-                imageType:imageType
+                imageType:imageType,
+                attribute:attribute
             });
 
             stage.add(imgInstance);
@@ -64,7 +67,6 @@ jQuery(function ($) {
         stage.renderAll().calcOffset();
     };
     var loadImageData=function(attribute,object){
-       // console.log(scale);
         var imageBase=new Image;
         imageBase.src=object.base;
         $(imageBase).load(function(){
@@ -78,12 +80,12 @@ jQuery(function ($) {
                 lockScalingY: true,
                 lockUniScaling: true,
                 imageClass:"base_image",
-                imageType:"cord_images_"+attribute,
-                scaleX:scale.scaleX,
-                scaleY:scale.scaleY,
+                imageType:"cord_images",
+                attribute:attribute,
+                scaleX:cordScaleX,
+                scaleY:cordScaleY
             });
             stage.add(imgInstance);
-            console.log(scale);
             var imageTexture=new Image;
             imageTexture.src= object.texture;
             $(imageTexture).load(function(){
@@ -97,11 +99,10 @@ jQuery(function ($) {
                     lockScalingY: true,
                     lockUniScaling: true,
                     imageClass:"texture_image",
-                    imageType:"cord_images_"+attribute,
-                    scaleX:scale.scaleX,
-                    scaleY:scale.scaleY,
-                    top:0,
-                    left:0
+                    imageType:"cord_images",
+                    attribute:attribute,
+                    scaleX:cordScaleX,
+                    scaleY:cordScaleY
                 });
                 stage.add(imgInstance1);
             });
@@ -147,7 +148,8 @@ jQuery(function ($) {
             return false;
         }
         var attributeName=$this.data("attribute"),
-            termSlug=$this.data("term");
+            termSlug=$this.data("term"),
+            termId=$this.data("id");
        $this.closest('.attribute_loop').find('button').removeClass('atv');
        $this.addClass('atv');
        if($this.hasClass('wpc_no_cords')){
@@ -173,12 +175,21 @@ jQuery(function ($) {
                'action': 'wpc_get_color_data',
                'attribute': attributeName,
                'term':termSlug,
+               'termId':termId,
                'model':defaultModel,
                'productId':productId
            };
            $.post(wpc_ajaxUrl.ajaxUrl, data, function(response) {
                $('#wpc_color_tab_'+attributeName).unblock();
                $('#wpc_color_tab_'+attributeName).html(response);
+               if(typeof _.findWhere(colors,{attribute:attributeName})!="undefined"){
+                 //  console.log(_.findWhere(colors,{attribute:attributeName}));
+                   var colorData=_.findWhere(colors,{attribute:attributeName});
+                  if($("#wpc_color_tab_"+attributeName+" .change_color[data-color='"+colorData.color+"']").length>0){
+                      $("#wpc_color_tab_"+attributeName+" .change_color[data-color='"+colorData.color+"']").append('<i class="fa fa-check-circle"></i>')
+                  }
+               }
+
            });
 
            //Load Cord Images
@@ -248,10 +259,14 @@ jQuery(function ($) {
         $this.addClass("active");
         $this.closest('.c-seclect').find('i').remove();
         $this.append('<i class="fa fa-check-circle"></i>');
-
-        if($this.hasClass('base_layer') || $this.hasClass('edge_layer')){
-            $this.hasClass('base_layer')? colorBaseEdge($this.data('color'),'base_image'): colorBaseEdge($this.data('color'),'edge_image');
-            return false;
+        var attribute=$this.data("attribute"),
+            colorValue=$this.data("color")
+        if(typeof _.findWhere(colors,{attribute:attribute})=="undefined"){
+            colors.push({attribute:attribute,color:colorValue});
+        }else{
+            var newArray = _.without(colors, _.findWhere(colors, {attribute: attribute}));
+            colors=newArray;
+            colors.push({attribute:attribute,color:colorValue});
         }
     });
 });
