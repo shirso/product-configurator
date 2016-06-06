@@ -64,7 +64,7 @@ jQuery(function ($) {
         stage.renderAll().calcOffset();
     };
     var loadImageData=function(attribute,object){
-        console.log(scale);
+       // console.log(scale);
         var imageBase=new Image;
         imageBase.src=object.base;
         $(imageBase).load(function(){
@@ -83,7 +83,7 @@ jQuery(function ($) {
                 scaleY:scale.scaleY,
             });
             stage.add(imgInstance);
-            console.log($.parseJSON(scale));
+            console.log(scale);
             var imageTexture=new Image;
             imageTexture.src= object.texture;
             $(imageTexture).load(function(){
