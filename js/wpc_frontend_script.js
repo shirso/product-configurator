@@ -21,7 +21,11 @@ jQuery(function ($) {
         for (var i = 0; i < allObjects.length; i++) {
             var tempScaleY=(1/canvasHeight) * stage.getHeight();
             var tempScaleX=(1/canvasWidth) * stage.getWidth();
-            if(allObjects[i].)
+            if(allObjects[i].imageType=="base_image" && allObjects[i].imageClass=="base_image"){
+                //cords= _.without(cords, _.findWhere(cords, {scaleX: tempScaleX,scaleY:}));
+                scale=[];
+              scale.push({scaleX:tempScaleX,scaleY:tempScaleY});
+            }
             allObjects[i].set({scaleX:tempScaleX,scaleY:tempScaleY});
             allObjects[i].setCoords();
         }
@@ -60,7 +64,7 @@ jQuery(function ($) {
         stage.renderAll().calcOffset();
     };
     var loadImageData=function(attribute,object){
-        console.log(attribute);
+        console.log(scale);
         var imageBase=new Image;
         imageBase.src=object.base;
         $(imageBase).load(function(){
@@ -73,10 +77,13 @@ jQuery(function ($) {
                 lockScalingX: true,
                 lockScalingY: true,
                 lockUniScaling: true,
-                imageClass:"base",
-                imageType:"cord_images"
+                imageClass:"base_image",
+                imageType:"cord_images_"+attribute,
+                scaleX:scale.scaleX,
+                scaleY:scale.scaleY,
             });
             stage.add(imgInstance);
+            console.log($.parseJSON(scale));
             var imageTexture=new Image;
             imageTexture.src= object.texture;
             $(imageTexture).load(function(){
@@ -89,8 +96,12 @@ jQuery(function ($) {
                     lockScalingX: true,
                     lockScalingY: true,
                     lockUniScaling: true,
-                    imageClass:"texture",
-                    imageType:"cord_images"
+                    imageClass:"texture_image",
+                    imageType:"cord_images_"+attribute,
+                    scaleX:scale.scaleX,
+                    scaleY:scale.scaleY,
+                    top:0,
+                    left:0
                 });
                 stage.add(imgInstance1);
             });
