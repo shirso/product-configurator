@@ -13,7 +13,6 @@ jQuery(function ($) {
         rotationCursor: 'default',
         centeredScaling: true
     });
-
     var makeCanvasResponsive=function(){
         stage.setWidth($('#wpc_product_stage').width());
         stage.setHeight((canvasHeight * stage.getWidth())/canvasWidth);
@@ -32,7 +31,6 @@ jQuery(function ($) {
         }
         stage.renderAll().calcOffset();
     };
-
     var loadBaseEdge=function(divId,imageType){
         var imageClasses=['base_image','texture_image'];
         var attribute=$("#"+divId).data("attribute");
@@ -53,17 +51,6 @@ jQuery(function ($) {
 
             stage.add(imgInstance);
         });
-        stage.renderAll().calcOffset();
-    };
-    var colorBaseEdge=function(color,type){
-      var allObjects=stage.getObjects();
-        for(var i in allObjects){
-            if(allObjects[i].imageType==type && allObjects[i].imageClass=='base_image'){
-                allObjects[i].filters.push(new fabric.Image.filters.Tint({color: color}))
-                allObjects[i].applyFilters(stage.renderAll.bind(stage))
-                break;
-            }
-        }
         stage.renderAll().calcOffset();
     };
     var loadImageData=function(attribute,object){
@@ -119,6 +106,10 @@ jQuery(function ($) {
        }
 
     };
+    var removeColorFromArray=function(){
+
+    };
+
     makeCanvasResponsive();
     $(window).load(function () {
         $('#attribute-tabs').responsiveTabs({
@@ -183,7 +174,6 @@ jQuery(function ($) {
                $('#wpc_color_tab_'+attributeName).unblock();
                $('#wpc_color_tab_'+attributeName).html(response);
                if(typeof _.findWhere(colors,{attribute:attributeName})!="undefined"){
-                 //  console.log(_.findWhere(colors,{attribute:attributeName}));
                    var colorData=_.findWhere(colors,{attribute:attributeName});
                   if($("#wpc_color_tab_"+attributeName+" .change_color[data-color='"+colorData.color+"']").length>0){
                       $("#wpc_color_tab_"+attributeName+" .change_color[data-color='"+colorData.color+"']").append('<i class="fa fa-check-circle"></i>')
