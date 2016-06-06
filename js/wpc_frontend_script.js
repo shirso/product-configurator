@@ -1,6 +1,7 @@
 jQuery(function ($) {
     var canvasHeight = 800,
         canvasWidth = 800,
+        scale= [],
         visitedStep=[],
         cords=[];
     var canvas = jQuery('#wpc_product_stage').children('canvas').get(0);
@@ -20,6 +21,7 @@ jQuery(function ($) {
         for (var i = 0; i < allObjects.length; i++) {
             var tempScaleY=(1/canvasHeight) * stage.getHeight();
             var tempScaleX=(1/canvasWidth) * stage.getWidth();
+            if(allObjects[i].)
             allObjects[i].set({scaleX:tempScaleX,scaleY:tempScaleY});
             allObjects[i].setCoords();
         }
@@ -57,7 +59,8 @@ jQuery(function ($) {
         }
         stage.renderAll().calcOffset();
     };
-    var loadImageData=function(object){
+    var loadImageData=function(attribute,object){
+        console.log(attribute);
         var imageBase=new Image;
         imageBase.src=object.base;
         $(imageBase).load(function(){
@@ -93,14 +96,12 @@ jQuery(function ($) {
             });
        });
         stage.renderAll().calcOffset();
-        makeCanvasResponsive();
-        makeObjectResponsive();
     };
     var loadImagesFromAjax=function(data){
        if(!$.isEmptyObject(data)){
            $.each(data,function(k,v){
              if((typeof v.base !="undefined" &&  v.base!="") && (typeof v.texture !="undefined" && v.texture!="")){
-                 loadImageData(v);
+                 loadImageData(k,v);
              }
            });
        }
@@ -196,7 +197,6 @@ jQuery(function ($) {
                'productId':productId
            };
            $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(response) {
-               console.log($.parseJSON(response));
                loadImagesFromAjax($.parseJSON(response));
                $('#wpc_product_stage').unblock();
            });
