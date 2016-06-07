@@ -54,47 +54,56 @@ jQuery(function ($) {
         stage.renderAll().calcOffset();
     };
     var loadImageData=function(attribute,object){
-        var imageBase=new Image;
+       removeImageFromCanvas(attribute);
+       var checking_base=0;
+       var imageBase=new Image;
         imageBase.src=object.base;
         $(imageBase).load(function(){
-            var imgInstance = new fabric.Image(imageBase, {
-                hasControls: false,
-                hasBorders: false,
-                lockMovementX: true,
-                lockMovementY: true,
-                lockRotation: true,
-                lockScalingX: true,
-                lockScalingY: true,
-                lockUniScaling: true,
-                imageClass:"base_image",
-                imageType:"cord_images",
-                attribute:attribute,
-                scaleX:cordScaleX,
-                scaleY:cordScaleY
-            });
-            stage.add(imgInstance);
-            var imageTexture=new Image;
-            imageTexture.src= object.texture;
-            $(imageTexture).load(function(){
-                var imgInstance1 = new fabric.Image(imageTexture, {
-                    hasControls: false,
-                    hasBorders: false,
-                    lockMovementX: true,
-                    lockMovementY: true,
-                    lockRotation: true,
-                    lockScalingX: true,
-                    lockScalingY: true,
-                    lockUniScaling: true,
-                    imageClass:"texture_image",
-                    imageType:"cord_images",
-                    attribute:attribute,
-                    scaleX:cordScaleX,
-                    scaleY:cordScaleY
-                });
-                stage.add(imgInstance1);
-            });
+          if(checking_base==0) {
+              var imgInstance = new fabric.Image(imageBase, {
+                  hasControls: false,
+                  hasBorders: false,
+                  lockMovementX: true,
+                  lockMovementY: true,
+                  lockRotation: true,
+                  lockScalingX: true,
+                  lockScalingY: true,
+                  lockUniScaling: true,
+                  imageClass: "base_image",
+                  imageType: "cord_images",
+                  attribute: attribute,
+                  scaleX: cordScaleX,
+                  scaleY: cordScaleY
+              });
+              stage.add(imgInstance);
+              var imageTexture = new Image;
+              imageTexture.src = object.texture;
+              var checking_texture=0;
+              $(imageTexture).load(function () {
+                  if(checking_texture==0) {
+                      var imgInstance1 = new fabric.Image(imageTexture, {
+                          hasControls: false,
+                          hasBorders: false,
+                          lockMovementX: true,
+                          lockMovementY: true,
+                          lockRotation: true,
+                          lockScalingX: true,
+                          lockScalingY: true,
+                          lockUniScaling: true,
+                          imageClass: "texture_image",
+                          imageType: "cord_images",
+                          attribute: attribute,
+                          scaleX: cordScaleX,
+                          scaleY: cordScaleY
+                      });
+                      stage.add(imgInstance1);
+                      checking_texture += 1;
+                  }
+              });
+              stage.renderAll().calcOffset();
+              checking_base+=1;
+          }
        });
-        stage.renderAll().calcOffset();
     };
     var loadImagesFromAjax=function(data){
        if(!$.isEmptyObject(data)){
@@ -140,17 +149,19 @@ jQuery(function ($) {
  var removeImageFromCanvas=function(attribute){
    var objects=stage.getObjects();
      for (var i = 0; i < objects.length; i++) {
-
          if(objects[i].attribute==attribute){
-
              stage.remove(objects[i]);
+             i--;
          }
      }
+     stage.renderAll().calcOffset();
+ };
+ var colorCanvas=function(attribute,color){
+     var objects=stage.getObjects();
+     for (var i = 0; i < objects.length; i++) {
 
-     //var objects1=stage.getObjects();
-     //for (var i = 0; i < objects.length; i++) {
-     //    console.log(i);
-     //}
+     }
+     stage.renderAll().calcOffset();
  };
     makeCanvasResponsive();
     $(window).load(function () {
