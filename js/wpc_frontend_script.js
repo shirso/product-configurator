@@ -106,10 +106,52 @@ jQuery(function ($) {
        }
 
     };
-    var removeColorFromArray=function(){
-
+    var removeColorCordsFromArray=function(attribute){
+        if(typeof _.findWhere(colors,{attribute:attribute}!="undefined")){
+            var newArray = _.without(colors, _.findWhere(colors, {attribute: attribute}));
+            colors=newArray;
+        }
+        cords= _.without(cords, _.findWhere(cords, {attribute: attribute}));
     };
+ var fetchImageData=function(attributeName){
+     $('#wpc_product_stage').block({
+         message: '',
+         overlayCSS: {
+             border: 'none',
+             padding: '0',
+             margin: '0',
+             backgroundColor: 'transparent',
+             opacity: 1,
+             color: '#fff'
+         }
+     });
+     var imageData= {
+         'action': 'wpc_get_image_data',
+         'attribute': attributeName,
+         'cordsData':cords,
+         'model':defaultModel,
+         'productId':productId
+     };
+     $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(response) {
+         loadImagesFromAjax($.parseJSON(response));
+         $('#wpc_product_stage').unblock();
+     });
+ };
+ var removeImageFromCanvas=function(attribute){
+   var objects=stage.getObjects();
+     for (var i = 0; i < objects.length; i++) {
 
+         if(objects[i].attribute==attribute){
+
+             stage.remove(objects[i]);
+         }
+     }
+
+     //var objects1=stage.getObjects();
+     //for (var i = 0; i < objects.length; i++) {
+     //    console.log(i);
+     //}
+ };
     makeCanvasResponsive();
     $(window).load(function () {
         $('#attribute-tabs').responsiveTabs({
@@ -146,7 +188,9 @@ jQuery(function ($) {
        if($this.hasClass('wpc_no_cords')){
            $('#wpc_color_tab_'+attributeName).html('');
            $('#wpc_texture_tab_'+attributeName).html('');
-           cords= _.without(cords, _.findWhere(cords, {attribute: attributeName}));
+           removeColorCordsFromArray(attributeName);
+           fetchImageData(attributeName);
+           removeImageFromCanvas(attributeName);
        }
        if($this.hasClass('wpc_color_cords')){
          //Load Colors Tab
@@ -183,17 +227,6 @@ jQuery(function ($) {
            });
 
            //Load Cord Images
-           $('#wpc_product_stage').block({
-               message: '',
-               overlayCSS: {
-                   border: 'none',
-                   padding: '0',
-                   margin: '0',
-                   backgroundColor: 'transparent',
-                   opacity: 1,
-                   color: '#fff'
-               }
-           });
            if (typeof _.findWhere(cords, {attribute: attributeName}) == "undefined") {
                cords.push({attribute:attributeName,term:termSlug});
            }else{
@@ -201,17 +234,7 @@ jQuery(function ($) {
                cords=newArray;
                cords.push({attribute:attributeName,term:termSlug});
            }
-         var imageData= {
-               'action': 'wpc_get_image_data',
-               'attribute': attributeName,
-               'cordsData':cords,
-               'model':defaultModel,
-               'productId':productId
-           };
-           $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(response) {
-               loadImagesFromAjax($.parseJSON(response));
-               $('#wpc_product_stage').unblock();
-           });
+            fetchImageData(attributeName);
        }
       if($this.hasClass('wpc_texture_cords')){
           $('#wpc_color_tab_'+attributeName).html("");

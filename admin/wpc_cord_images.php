@@ -37,7 +37,7 @@ $wpc_no_cords=get_post_meta($postId,'_wpc_no_cords',true);
                             <?php $cords = get_terms($layer);
                                  if(is_array($cords) && !empty($cords)){
                                      foreach ($cords as $variation) {
-                                         if (has_term(absint($variation->term_id), $layer, $postId)) {?>
+                                         if (has_term(absint($variation->term_id), $layer, $postId) && !in_array($variation->term_id,$wpc_no_cords)) {?>
                                              <option value="<?=$variation->slug;?>"><?=$variation->name;?></option>
                                         <?php }}} ?>
                         </select>
