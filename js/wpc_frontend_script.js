@@ -159,7 +159,11 @@ jQuery(function ($) {
  var colorCanvas=function(attribute,color){
      var objects=stage.getObjects();
      for (var i = 0; i < objects.length; i++) {
-
+            if(objects[i].attribute==attribute && objects[i].imageClass=="base_image"){
+                objects[i].filters.push(new fabric.Image.filters.Tint({color: color}));
+                objects[i].applyFilters(stage.renderAll.bind(stage));
+                break;
+            }
      }
      stage.renderAll().calcOffset();
  };
@@ -292,5 +296,6 @@ jQuery(function ($) {
             colors=newArray;
             colors.push({attribute:attribute,color:colorValue});
         }
+        colorCanvas(attribute,colorValue);
     });
 });
