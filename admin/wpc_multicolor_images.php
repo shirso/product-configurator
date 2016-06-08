@@ -73,7 +73,7 @@ $wpc_multicord_images=get_post_meta($postId,'_wpc_multicord_images_'.$termId,tru
                                                                <tr>
                                                                     <td><?=$spitData[0]?></td>
                                                                     <td>
-                                                                        <input type="text" name="wpc_muticord_images[images][#index#][<?=$layer?>][<?=clean($spitData[0]);?>]" id="wpc_multicord_images_images_<?=$layer?>_<?=clean($spitData[0]);?>_#index#">
+                                                                        <input type="text" name="wpc_muticord_images[images][#index#][<?=$layer?>][<?=$key?>][<?=clean($spitData[0]);?>]" id="wpc_multicord_images_images_<?=$layer?>_<?=clean($spitData[0]);?>_#index#">
                                                                         <button class="button button-secondary wpc_image_upload" data-field="wpc_multicord_images_images_<?=$layer?>_<?=clean($spitData[0]);?>_#index#"><?=__('Upload','wpc');?></button>
                                                                     </td>
                                                                </tr>
