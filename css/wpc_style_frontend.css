@@ -221,7 +221,7 @@ h3{font-size: 18px; color: #000; font-weight: 600; margin-top: 0;font-family: 'L
 .variations{display:none;}
 .flclr{display: inline-block; margin-right: 5px;}
 .flclr p{margin-bottom: 5px!important;}
-.flclr .change_color,.flclr .insec{ width: 60px; height: 60px; text-align: center; background-size:100% 100%!important;}
+.flclr .change_color,.flclr .insec{ width: 80px; height: 60px; text-align: center; background-size:100% 100%!important;}
 .flclr .change_color .fa,.flclr .insec .fa{color: #000; font-size: 30px; margin-top: 17px;}
 #wpc_zoom_canvas{color: #00c5ad; margin-bottom: 20px; display: inline-block; text-align: center;}
 #wpc_zoom_canvas .fa{ margin-right: 5px;}
@@ -327,7 +327,7 @@ canvas {
 #tbstl .col-sm-6 table{width: 100%;}
 #tbstl table tbody th,#tbstl tbody td{font-size: 14px;  border-top: 1px solid #ededed; padding: 0; line-height: 35px;}
 .wpc_finish_product{padding: 11px 12px; margin: 10px 0;}
-.flclr{display: inline-block;  width: 60px; overflow: hidden; }
+.flclr{display: inline-block;  width: 92px; overflow: hidden; }
 #tbstl .col-sm-12{margin-top: 15px;}
 .c-seclect:after,.clearfix:after {
     clear: both;
@@ -338,7 +338,7 @@ canvas {
 }
 .wpc_instructions{font-style: italic;}.wpc_instructions {line-height: 16px;}
 .flclr .change_color, .flclr .insec{border: 1px solid #ccc;}
-.flclr p{word-wrap: break-word; margin-top: 5px;}
+.flclr p{word-wrap: break-word; margin-top: 5px;text-overflow:ellipsis;overflow:hidden;white-space: nowrap;}
 .mfp-figure img{  border: 10px solid #ffffff; background: #e6e6e6;}
 
 #wpc_text_add_div textarea{margin: 10px 0;}
