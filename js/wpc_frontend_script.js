@@ -102,8 +102,13 @@ jQuery(function ($) {
               });
               stage.renderAll().calcOffset();
               checking_base+=1;
+              if(typeof _.findWhere(colors,{attribute:attribute})!="undefined"){
+                  var color= _.findWhere(colors,{attribute:attribute});
+                  colorCanvas(attribute,color.color);
+              }
           }
        });
+
     };
     var loadImagesFromAjax=function(data){
        if(!$.isEmptyObject(data)){
