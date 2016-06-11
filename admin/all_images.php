@@ -44,6 +44,8 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
                        </table>
                     </td>
                 </tr>
+                <?php $edge_layer=get_post_meta($post_id,"_wpc_edge_layer",true);?>
+                <?php if($edge_layer!=""){ ?>
                 <tr>
                     <td><?=__('Edge Images','wpc')?></td>
                     <td>
@@ -69,6 +71,7 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
                         </table>
                     </td>
                 </tr>
+                <?php }?>
             </table>
             </form>
         </div>

@@ -523,6 +523,7 @@ var additionalAjaxSave=function(formId,section,div){
         e.preventDefault();
         var self=$(this);
         var inputField=$("#"+self.data('field'));
+        console.log(inputField);
         mediaUploader = wp.media({
             multiple: false
         });

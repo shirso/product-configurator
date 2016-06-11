@@ -16,7 +16,11 @@ $wpc_multicord_images=get_post_meta($postId,'_wpc_multicord_images_'.$termId,tru
                     $textureCord=$cord_image[$k];
                    if(!empty($textureCord)){
                        foreach($textureCord as $p=>$q){
-                           $c['wpc_multicord_images_images_'.$k.'_'.$p.'_#index#'] =isset($cord_image[$k][$p])?$cord_image[$k][$p]:"";
+                           if(!empty($q)){
+                               foreach($q as $x=>$y){
+                                   $c['wpc_multicord_images_images_'.$k.'_'.$p.'_'.$x.'_#index#'] =isset($cord_image[$k][$p][$x])?$cord_image[$k][$p][$x]:"";
+                               }
+                           }
                        }
                    }
                     unset($c[$k]);
@@ -73,8 +77,8 @@ $wpc_multicord_images=get_post_meta($postId,'_wpc_multicord_images_'.$termId,tru
                                                                <tr>
                                                                     <td><?=$spitData[0]?></td>
                                                                     <td>
-                                                                        <input type="text" name="wpc_muticord_images[images][#index#][<?=$layer?>][<?=$key?>][<?=clean($spitData[0]);?>]" id="wpc_multicord_images_images_<?=$layer?>_<?=clean($spitData[0]);?>_#index#">
-                                                                        <button class="button button-secondary wpc_image_upload" data-field="wpc_multicord_images_images_<?=$layer?>_<?=clean($spitData[0]);?>_#index#"><?=__('Upload','wpc');?></button>
+                                                                        <input type="text" name="wpc_muticord_images[images][#index#][<?=$layer?>][<?=$key?>][<?=clean($spitData[0]);?>]" id="wpc_multicord_images_images_<?=$layer?>_<?=$key;?>_<?=clean($spitData[0]);?>_#index#">
+                                                                        <button class="button button-secondary wpc_image_upload" data-field="wpc_multicord_images_images_<?=$layer?>_<?=$key;?>_<?=clean($spitData[0]);?>_#index#"><?=__('Upload','wpc');?></button>
                                                                     </td>
                                                                </tr>
                                                                 <?php }}?>
@@ -106,5 +110,48 @@ $wpc_multicord_images=get_post_meta($postId,'_wpc_multicord_images_'.$termId,tru
                 </div>
              </div>
         </div>
+    <?php }?>
+    <?php if($edge_layer!=""){
+        $edge_images=isset($wpc_multicord_images["edge_images"][$edge_layer])?$wpc_multicord_images["edge_images"][$edge_layer]:array();
+        ?>
+    <div class="wc-metabox">
+        <table>
+            <tr>
+                <th><h2 style="margin-bottom: 5px"><?=esc_html(wc_attribute_label($edge_layer));?></h2></th>
+            </tr>
+            <tr>
+                <td>
+                    <table>
+                        <?php if(isset($allTexturesMeta[$edge_layer]) && !empty($allTexturesMeta[$edge_layer])){
+                        foreach($allTexturesMeta[$edge_layer] as $key=>$textureLayer){
+                        ?>
+                            <tr>
+                                <?php $termDetails=get_term_by("slug",$key,$edge_layer);?>
+                                <th><?=$termDetails->name;?></th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table style="overflow-x: scroll;height: 100px;">
+                                        <?php if(isset($textureLayer["textures"]) && !empty($textureLayer["textures"])){ ?>
+                                        <?php foreach($textureLayer["textures"] as $t){
+                                        $spitData=explode("|",$t);
+                                        ?>
+                                                <tr>
+                                                    <td><?=$spitData[0]?></td>
+                                                    <td>
+                                                        <input type="text" value="<?=@$edge_images[clean($spitData[0])]?>" name="wpc_muticord_images[edge_images][<?=$edge_layer?>][<?=clean($spitData[0]);?>]" id="wpc_multicord_images_edge_images_<?=$edge_layer?>_<?=clean($spitData[0]);?>">
+                                                        <button class="button button-secondary wpc_image_upload" data-field="wpc_multicord_images_edge_images_<?=$edge_layer?>_<?=clean($spitData[0]);?>"><?=__('Upload','wpc');?></button>
+                                                    </td>
+                                                </tr>
+                                        <?php }}?>
+                                    </table>
+                                </td>
+                            </tr>
+                        <?php }}?>
+                    </table>
+                </td>
+            </tr>
+        </table>
+     </div>
     <?php }?>
 </form>
