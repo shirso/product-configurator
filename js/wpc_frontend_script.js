@@ -172,6 +172,10 @@ jQuery(function ($) {
      }
      stage.renderAll().calcOffset();
  };
+    var clearEmbTab=function(){
+      $(".wpc_emb_tabs ").removeClass("atv");
+      $(".wpc_emb_controls").addClass("wpc_hidden");
+    };
     makeCanvasResponsive();
     $(window).load(function () {
         $('#attribute-tabs').responsiveTabs({
@@ -282,7 +286,17 @@ jQuery(function ($) {
           });
           cords= _.without(cords, _.findWhere(cords, {attribute: attributeName}));
       }
+        if($this.hasClass("wpc_no_emb")){
+            clearEmbTab();
+            $("#embroidery_tab").addClass("wpc_hidden");
+            return false;
+        }
+        if($this.hasClass("wpc_emb_buttons")){
+            clearEmbTab();
+            $("#embroidery_tab").removeClass("wpc_hidden");
+        }
      });
+
     $(document).on("click",".change_color",function(e){
         e.preventDefault();
         $this=$(this);
@@ -302,5 +316,45 @@ jQuery(function ($) {
             colors.push({attribute:attribute,color:colorValue});
         }
         colorCanvas(attribute,colorValue);
+    });
+    $(document).on("click",".wpc_emb_tabs",function(e){
+        e.preventDefault();
+        $this=$(this);
+        $('.wpc_emb_controls').addClass("wpc_hidden");
+        $('.wpc_emb_tabs').removeClass("atv");
+        $($this.attr("href")).removeClass("wpc_hidden");
+        $($this).addClass("atv");
+    });
+    $(document).on("click","#wpc_add_text_btn",function(e){
+        e.preventDefault();
+        var textToPut = $('#wpc_text_add').val().trim();
+        if(textToPut!="") {
+            $('#embroidery_tab').block({
+                message: '',
+                overlayCSS: {
+                    border: 'none',
+                    padding: '0',
+                    margin: '0',
+                    backgroundColor: 'transparent',
+                    opacity: 1,
+                    color: '#fff'
+                }
+            });
+            var data = {
+                'action': 'wpc_get_emb_config',
+                'model':defaultModel,
+                'type':'text',
+                'productId':productId
+            };
+            $.post(wpc_ajaxUrl.ajaxUrl, data, function(response) {
+               var responseData= $.parseJSON(response);
+                $("#wpc_font_select").html(responseData.fontOptions);
+                $("#wpc_size_select").html(responseData.fontSizes);
+                $("#wpc_emb_colors").html(responseData.colors);
+                $("#wpc_text_options").removeClass("wpc_hidden");
+                $("#wpc_emb_colors").removeClass("wpc_hidden");
+                $('#embroidery_tab').unblock();
+            });
+        }
     });
 });

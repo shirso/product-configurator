@@ -132,6 +132,7 @@ if (!class_exists('WPC_Frontend_Product')) {
             $attribute_type=get_variation_attribute_type($attribute_name);
             $base_layer=get_post_meta($productId,"_wpc_base_color_dependency",true);
             $edge_layer=get_post_meta($productId,"_wpc_edge_layer",true);
+            $emb_layer=get_post_meta($productId,"_wpc_emb_layer",true);
             switch ($orderby) {
                 case 'name' :
                     $args = array('orderby' => 'name', 'hide_empty' => false, 'menu_order' => false);
@@ -180,8 +181,15 @@ if (!class_exists('WPC_Frontend_Product')) {
                         if(in_array($term->term_id,$texture_cords)){
                             $button_class="wpc_texture_cords";
                         }
-                        if(!in_array($term->term_id,$no_cords) && !in_array($term->term_id,$texture_cords)){
+                        if(!in_array($term->term_id,$no_cords) && !in_array($term->term_id,$texture_cords) && $emb_layer!=$attribute_name){
                             $button_class="wpc_color_cords";
+                        }
+                        if($emb_layer==$attribute_name){
+                            $button_class="wpc_emb_buttons";
+                            $no_emb=get_post_meta($productId,"_wpc_no_emb",true);
+                            if($no_emb==$term->term_id){
+                                $button_class="wpc_no_emb";
+                            }
                         }
                         ?>
                         <button
@@ -215,6 +223,53 @@ if (!class_exists('WPC_Frontend_Product')) {
                 </div>
             <?php }} ?>
             </div>
+            <?php if($attribute_name==$emb_layer){
+                ?>
+                <div class="wpc_hidden" id="embroidery_tab">
+                    <a href="#" class="wpc_clear_all"><i class="fa fa-refresh"></i> <?=__('Reset','wpc')?></a>
+                    <ul>
+                        <li><a data-type="image" class="btab wpc_emb_tabs wpc_buttons" href="#wpc_emb_image"><?=__('Image','wpc')?></a></li>
+                        <li><a data-type="text" class="btab wpc_emb_tabs wpc_buttons" href="#wpc_emb_text"><?=__('Text','wpc')?></a></li>
+                    </ul>
+                    <div id="wpc_emb_image" class="wpc_hidden wpc_emb_controls">
+                        <form id="wpc_image_upload_form"
+                              action="<?php echo admin_url('admin-ajax.php') . '?action=wpc_embroidery_image_upload' ?>"
+                              method="post" name="wpc_image_upload_form" enctype="multipart/form-data">
+                            <div class="choose_file">
+                                <span><?php _e('Choose Image', 'wpc') ?> </span>
+                                <input name="wpc_image_upload" type="file" id="wpc_image_upload"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="wpc_emb_text" class="wpc_hidden wpc_emb_controls">
+                        <div id="wpc_text_add_div">
+                            <div id="wpc_text_options" class="wpc_hidden row">
+                                <div class="col-sm-4">
+                                    <a id="wpc_bold_select" title="<?=__('Bold','wpc');?>" class="bcnt" href=""><i class="fa fa-bold"></i></a>
+                                    <a id="wpc_italic_select" title="<?=__('Italic','wpc');?>" class="bcnt" href=""><i class="fa fa-italic"></i></a>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select id="wpc_font_select">
+
+                                    </select>
+                                    <select id="wpc_size_select">
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <textarea id="wpc_text_add" cols="10" rows="3"></textarea>
+                            <button id="wpc_add_text_btn"><?=__("Add Text","wpc")?></button>
+                            <div id="wpc_emb_colors" class="wpc_hidden">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="wpc_emb_postion_buttons" class="btn-group wpc_hidden" role="group">
+
+                    </div>
+                </div>
+                <?php }?>
        <?php }
     }
 

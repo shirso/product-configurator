@@ -342,12 +342,8 @@ if( !class_exists('WPC_Admin') ) {
             update_post_meta(intval($_POST['postId']),'_wpc_color_config',$params);
         }
         public function wpc_save_configuration_form_embroidery(){
-           parse_str($_POST['formData'],$params);
-            update_post_meta(intval($_POST['postId']),'_wpc_emb_logo_size',$params['wpc_emb_logo_size']);
-            update_post_meta(intval($_POST['postId']),'_wpc_emb_font_size',$params['wpc_emb_font_size']);
-            update_post_meta(intval($_POST['postId']),'_wpc_emb_no_embroidery',$params['wpc_emb_no_embroidery']);
-            update_post_meta(intval($_POST['postId']),'_wpc_emb_positions',$params['wpc_emb_positions']);
-            update_post_meta(intval($_POST['postId']),'_wpc_emb_colors',$params['wpc_emb_colors']);
+            parse_str($_POST['formData'],$params);
+              update_post_meta(absint($_POST['postId']),'_wpc_emb_config_'.absint($_POST["termId"]),$params["wpc_emb_config"]);
             exit;
         }
         public function wpc_save_tab_data(){
@@ -367,12 +363,14 @@ if( !class_exists('WPC_Admin') ) {
                     update_post_meta($postId,'_wpc_color_dependency',$params['wpc_color_dependency']);
                     update_post_meta($postId,'_wpc_base_color_dependency',$params['wpc_base_color_dependency']);
                     update_post_meta($postId,'_wpc_edge_layer',$params['wpc_edge_layer']);
+                    update_post_meta($postId,'_wpc_emb_layer',$params['wpc_emb_layer']);
                     update_post_meta($postId,'_wpc_cord_layers',$params['wpc_cord_layers']);
                     break;
                 case 'save_all_cords':
                     update_post_meta($postId,'_wpc_no_cords',$params['wpc_no_cords']);
                     update_post_meta($postId,'_wpc_multicolor_cords',$params['wpc_multicolor_cords']);
                     update_post_meta($postId,'_wpc_available_models',$params['wpc_available_models']);
+                    update_post_meta($postId,'_wpc_no_emb',$params['wpc_no_emb']);
                     break;
                 case 'wpc_cord_layers' :
                     update_post_meta($postId,'_wpc_cord_layers',$params['wpc_cord_layers']);

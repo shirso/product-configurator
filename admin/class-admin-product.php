@@ -182,6 +182,24 @@ if (!class_exists('WPC_Admin_Product')) {
                         </tr>
                         <tr>
                             <td>
+                                <?=__('Embroidery Step','wpc')?>
+                            </td>
+                            <td>
+                                <select name="wpc_emb_layer" id="wpc_emb_layer">
+                                    <option value="">---</option>
+                                    <?php $check_emb = get_post_meta($post_id, '_wpc_emb_layer', true); if (isset($attributes) && !empty($attributes)){ foreach ($attributes as $attr) {
+                                        if (!$attr['is_variation']) {
+                                            continue;
+                                        }
+                                        ?>
+                                        <?php $checked = $attr['name'] == $check_emb ? 'selected' : ''; ?>
+                                        <option <?=$checked;?> value="<?= $attr['name'] ?>"> <?= esc_html(wc_attribute_label($attr['name'])) ?></option>
+                                    <?php }}?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <?=__("Cord Layers","wpc")?>
                             </td>
                             <td>
@@ -259,6 +277,26 @@ if (!class_exists('WPC_Admin_Product')) {
                             </td>
                         </tr>
                             <tr>
+                                 <td><?=__("No Embroidery","wpc")?></td>
+                                <td>
+                                    <select id="wpc_no_emb" name="wpc_no_emb">
+                                        <option value="">---</option>
+                                        <?php
+                                        $no_emb=get_post_meta($post_id,"_wpc_no_emb",true);
+                                        $emb_layer=get_post_meta($post_id,"_wpc_emb_layer",true);
+                                        $all_emb_terms=get_terms($emb_layer);
+                                        if(!empty($all_emb_terms)){
+                                        foreach($all_emb_terms as $variation){
+                                            if (has_term(absint($variation->term_id), $emb_layer, $post_id)) {
+                                                $selected_value=$variation->term_id==$no_emb?"selected":"";
+                                        ?>
+                                                <option <?=$selected_value?> value="<?=$variation->term_id;?>"><?=$variation->name;?></option>
+                                        <?php }}}?>
+                                    </select>
+                                </td>
+
+                            </tr>
+                            <tr>
                                 <td><?=__("Multi-Color Cords","wpc")?></td>
                                 <td>
                                     <select multiple class="wpc_multiselect" id="wpc_multicolor_cord" name="wpc_multicolor_cords[]">
@@ -320,6 +358,18 @@ if (!class_exists('WPC_Admin_Product')) {
                                     <?php }}}?>
                                     </td>
                                     </tr>
+                                    <tr>
+                                        <td><?=__("Embroidery Options for","wpc")?></td>
+                                        <td>
+                                            <?php if(!empty($all_model_terms)){
+                                                foreach($all_model_terms as $term){
+                                                    if (has_term(absint($term->term_id), $model_layer, $post_id) && in_array($term->term_id,$available_models)) {
+                                                        ?>
+                                                        <a href="options.php?page=wpc_configurator_embroidery&post=<?=$_GET["post"]?>&taxonomy=<?=$model_layer?>&term=<?=$term->term_id?>" target="_blank" class="button"><?=$term->name;?></a>
+                                                    <?php }}}?>
+                                        </td>
+                                    </tr>
+
                                 </table>
                         <?php }?>
                     </div>

@@ -337,14 +337,14 @@ jQuery(function($){
 
         $('#step_embroidery_form').on('submit', function (e) {
             e.preventDefault();
-            // alert($(this).serialize());
             var data = {
                 'action': 'wpc_save_configuration_form_embroidery',
                 'formData': $(this).serialize(),
-                'postId': $(this).data('id')
+                'postId': $(this).data('id'),
+                'termId':termId
             };
             $.post(ajaxurl, data, function (resp) {
-              //  console.log(resp);
+             alert("Data Saved");
             })
 
         })

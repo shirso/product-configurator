@@ -1,21 +1,16 @@
 <?php
 if (!defined('ABSPATH')) exit;
-$post_id = $_GET['post'];
-$embroidery_step=get_post_meta($post_id,'_wpc_embroidery_step',true);
-$embroidery_attribute= wp_get_post_terms($post_id,$embroidery_step);
-$title = get_the_title($post_id);
+$post_id =absint($_GET['post']);
+$term_id=absint($_GET["term"]);
 $settings=get_option('wpc_settings');
 $allColors=$settings["colors_data"];
-$wpc_emb_logo_size=get_post_meta($post_id,'_wpc_emb_logo_size',true);
-$wpc_emb_font_size=get_post_meta($post_id,'_wpc_emb_font_size',true);
-$wpc_emb_no_embroidery=get_post_meta($post_id,'_wpc_emb_no_embroidery',true);
-$wpc_emb_positions=get_post_meta($post_id,'_wpc_emb_positions',true);
-$wpc_emb_colors=get_post_meta($post_id,'_wpc_emb_colors',true)?get_post_meta($post_id,'_wpc_emb_colors',true):array();
+$emb_config=get_post_meta($post_id,"_wpc_emb_config_".$term_id,true);
 ?>
 <script type="text/javascript">
-    var embroidery_config=true;
+    var embroidery_config=true,
+        termId=<?=$term_id?>;
 </script>
-<h2><?php _e('Embroidery setting for', 'wpc') ?> <?= $title ?></h2>
+<div align="center">
 <form action="" method="post" id="step_embroidery_form" data-id="<?=$post_id?>">
 <table cellspacing="10" cellpadding="5">
     <tr>
@@ -23,9 +18,9 @@ $wpc_emb_colors=get_post_meta($post_id,'_wpc_emb_colors',true)?get_post_meta($po
         <td>
             <table>
                 <tr>
-                    <td><input type="text" name="wpc_emb_logo_size[w]" value="<?=@$wpc_emb_logo_size['w']?>" placeholder="<?=__('Width','wpc')?>" size="10"></td>
+                    <td><input type="text" name="wpc_emb_config[logo_width]" value="<?=@$emb_config['logo_width']?>" placeholder="<?=__('Width','wpc')?>" size="10"></td>
                     <td>X</td>
-                    <td><input type="text" name="wpc_emb_logo_size[h]" value="<?=@$wpc_emb_logo_size['h']?>" placeholder="<?=__('Height','wpc')?>" size="10"></td>
+                    <td><input type="text" name="wpc_emb_config[logo_height]" value="<?=@$emb_config['logo_height']?>" placeholder="<?=__('Height','wpc')?>" size="10"></td>
                 </tr>
             </table>
         </td>
@@ -33,31 +28,20 @@ $wpc_emb_colors=get_post_meta($post_id,'_wpc_emb_colors',true)?get_post_meta($po
     <tr>
         <th><?=__('Default Font Size','wpc')?></th>
         <td>
-            <select name="wpc_emb_font_size">
+            <select name="wpc_emb_config[font_size]">
 
                 <option value="">---</option>
                 <?php $options=get_option('wpc_settings'); $font_sizes=isset($options['font_size_data']) ? $options['font_size_data'] : array(); ?>
-                <?php foreach($font_sizes as $size){  $selected=$wpc_emb_font_size==@$size['value'] ?'selected':'' ?> ?>
+                <?php foreach($font_sizes as $size){  $selected=$emb_config['font_size']==@$size['value'] ?'selected':'' ?> ?>
                     <option <?=$selected;?> value="<?=@$size['value']?>"><?=@$size['name'];?></option>
                 <?php }?>
             </select>
         </td>
     </tr>
 </table>
-<table cellspacing="10" cellpadding="5">
-    <tr><th colspan="2"><?=__('(No) Embroidery Term','wpc');?></th></tr>
-    <?php if ($embroidery_attribute && is_array($embroidery_attribute)) { $term_array=array();foreach ($embroidery_attribute as $term) { ?>
-        <tr>
-           <td><?=$term->name?></td>
-            <?php  $selected_check=$wpc_emb_no_embroidery==$term->slug?'checked':'' ?>
-            <td><input type="radio" <?=$selected_check?> name="wpc_emb_no_embroidery" value="<?=$term->slug?>" ></td>
-        </tr>
-    <?php }}?>
-</table>
 <h4><?=__('Positions (Based on 800 X 800)','wpc');?></h4>
   <?php   $data_positions=array();
-  if(!empty($wpc_emb_positions)){ foreach($wpc_emb_positions as $position){
-    //array_push($data_color,array('wpc_#index#_color_name'=>$color['name'],'wpc_#index#_color_value'=>$color['value']));
+  if(!empty($emb_config['positions'])){ foreach($emb_config['positions'] as $position){
       array_push($data_positions,array('wpc_emb_positions_#index#_name'=>$position['name'],'wpc_emb_positions_#index#_left'=>$position['left'],'wpc_emb_positions_#index#_top'=>$position['top'],'wpc_emb_positions_#index#_default'=>@$position['default']));
     }}
   ?>
@@ -70,25 +54,25 @@ $wpc_emb_colors=get_post_meta($post_id,'_wpc_emb_colors',true)?get_post_meta($po
             <tr>
                 <td><?=__('Position Name','wpc')?></td>
                 <td>
-                    <input type="text" id="wpc_emb_positions_#index#_name" name="wpc_emb_positions[#index#][name]">
+                    <input type="text" id="wpc_emb_positions_#index#_name" name="wpc_emb_config[positions][#index#][name]">
                 </td>
             </tr>
             <tr>
                 <td><?=__('Left','wpc')?></td>
                 <td>
-                    <input type="text" id="wpc_emb_positions_#index#_left" name="wpc_emb_positions[#index#][left]">
+                    <input type="text" id="wpc_emb_positions_#index#_left" name="wpc_emb_config[positions][#index#][left]">
                 </td>
             </tr>
             <tr>
                 <td><?=__('Top','wpc')?></td>
                 <td>
-                    <input type="text" id="wpc_emb_positions_#index#_top" name="wpc_emb_positions[#index#][top]">
+                    <input type="text" id="wpc_emb_positions_#index#_top" name="wpc_emb_config[positions][#index#][top]">
                 </td>
             </tr>
             <tr>
                 <td><?=__('Default','wpc')?></td>
                 <td>
-                    <input type="checkbox"  id="wpc_emb_positions_#index#_default" name="wpc_emb_positions[#index#][default]">
+                    <input type="checkbox"  id="wpc_emb_positions_#index#_default" name="wpc_emb_config[positions][#index#][default]">
                 </td>
             </tr>
         </table>
@@ -110,14 +94,15 @@ $wpc_emb_colors=get_post_meta($post_id,'_wpc_emb_colors',true)?get_post_meta($po
         <td></td>
         <td><a class="wpc_selectAllButton" href="#">(<?=__('All','wpc');?>)</a></td>
     </tr>
-    <?php if($allColors && is_array($allColors)){ foreach($allColors as $color){ ?>
+    <?php if(!empty($allColors) && is_array($allColors)){ foreach($allColors as $color){ ?>
         <tr>
             <td><?=$color["name"]?></td>
             <td style="background-color: <?=$color["value"];?>;width: 20px;height: 20px"></td>
-            <?php  $selectedColor=in_array($color["name"].'|'.$color["value"],$wpc_emb_colors)?'checked':'' ?>
-            <td><input class="color_checkbox" <?=$selectedColor?> type="checkbox" value="<?=$color["name"]?>|<?=$color["value"];?>" name="wpc_emb_colors[]"> </td>
+            <?php  $selectedColor=in_array($color["name"].'|'.$color["value"],$emb_config["colors"])?'checked':'' ?>
+            <td><input class="color_checkbox" <?=$selectedColor?> type="checkbox" value="<?=$color["name"]?>|<?=$color["value"];?>" name="wpc_emb_config[colors][]"> </td>
         </tr>
     <?php }}?>
 </table>
     <button type="submit" class="button button-primary"><?php _e('Save Data','wpc') ?></button>
 </form>
+</div>

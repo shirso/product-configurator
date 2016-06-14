@@ -185,6 +185,7 @@ h3{font-size: 18px; color: #000; font-weight: 600; margin-top: 0;font-family: 'L
 .seclect ul li{margin-bottom: 8px;}
 .seclect ul li img{display: block;}
 .seclect button.atv{ background: #ffffff; color: #00c5ad;}
+.wpc_buttons.atv{ background: #ffffff; color: #00c5ad;}
 .seclect,.c-seclect{margin-bottom: 10px;}
 .seclect ul li a{display: block; position: relative;}
 .c-seclect ul li i,.seclect ul li i{ border-radius:0%;color:#00c5ad; background:#ffffff;position: absolute; top: 50%; width: 24px; height: 24px; padding: 3px; left: 50%; margin-top: -14px; margin-left: -12px; border: 1px solid #0c6756;}
