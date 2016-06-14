@@ -176,6 +176,9 @@ jQuery(function ($) {
       $(".wpc_emb_tabs ").removeClass("atv");
       $(".wpc_emb_controls").addClass("wpc_hidden");
     };
+    var clearEmbControls=function(type){
+
+    };
     makeCanvasResponsive();
     $(window).load(function () {
         $('#attribute-tabs').responsiveTabs({
@@ -292,7 +295,7 @@ jQuery(function ($) {
             return false;
         }
         if($this.hasClass("wpc_emb_buttons")){
-            clearEmbTab();
+         //   clearEmbTab();
             $("#embroidery_tab").removeClass("wpc_hidden");
         }
      });

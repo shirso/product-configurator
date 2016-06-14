@@ -98,7 +98,7 @@ $emb_config=get_post_meta($post_id,"_wpc_emb_config_".$term_id,true);
         <tr>
             <td><?=$color["name"]?></td>
             <td style="background-color: <?=$color["value"];?>;width: 20px;height: 20px"></td>
-            <?php  $selectedColor=in_array($color["name"].'|'.$color["value"],$emb_config["colors"])?'checked':'' ?>
+            <?php  $selectedColor=isset($emb_config["colors"]) && in_array($color["name"].'|'.$color["value"],$emb_config["colors"])?'checked':'' ?>
             <td><input class="color_checkbox" <?=$selectedColor?> type="checkbox" value="<?=$color["name"]?>|<?=$color["value"];?>" name="wpc_emb_config[colors][]"> </td>
         </tr>
     <?php }}?>
