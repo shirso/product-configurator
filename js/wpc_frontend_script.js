@@ -175,9 +175,38 @@ jQuery(function ($) {
     var clearEmbTab=function(){
       $(".wpc_emb_tabs ").removeClass("atv");
       $(".wpc_emb_controls").addClass("wpc_hidden");
+      clearEmbControls();
     };
-    var clearEmbControls=function(type){
-
+    var clearEmbControls=function(){
+        $("#wpc_font_select").html("");
+        $("#wpc_size_select").html("");
+        $("#wpc_text_add").val("");
+        $("#wpc_emb_colors").html("");
+        $("#wpc_emb_postion_buttons").html("");
+        $("#wpc_text_options").addClass("wpc_hidden");
+        $("#wpc_emb_colors").addClass("wpc_hidden");
+        $("#wpc_emb_postion_buttons").addClass("wpc_hidden");
+        $("#wpc_image_upload").val("");
+        removeEmb();
+    };
+    var removeEmb=function(){
+        var objects=stage.getObjects();
+        for (var i = 0; i < objects.length; i++) {
+            if(objects[i].title=="extraContent"){
+                stage.remove(objects[i]);
+                i--;
+            }
+        }
+        stage.renderAll().calcOffset();
+    };
+    var getLogoPostions=function(top,left){
+      var positions={};
+        positions["top"]=(top * stage.getHeight())/800;
+        positions["left"]=(left * stage.getWidth())/800;
+        return positions;
+    };
+    var getFontSize=function(size){
+    return ((size*stage.getWidth())/800);
     };
     makeCanvasResponsive();
     $(window).load(function () {
@@ -295,7 +324,6 @@ jQuery(function ($) {
             return false;
         }
         if($this.hasClass("wpc_emb_buttons")){
-         //   clearEmbTab();
             $("#embroidery_tab").removeClass("wpc_hidden");
         }
      });
@@ -327,6 +355,7 @@ jQuery(function ($) {
         $('.wpc_emb_tabs').removeClass("atv");
         $($this.attr("href")).removeClass("wpc_hidden");
         $($this).addClass("atv");
+        clearEmbControls();
     });
     $(document).on("click","#wpc_add_text_btn",function(e){
         e.preventDefault();
@@ -354,10 +383,92 @@ jQuery(function ($) {
                 $("#wpc_font_select").html(responseData.fontOptions);
                 $("#wpc_size_select").html(responseData.fontSizes);
                 $("#wpc_emb_colors").html(responseData.colors);
+                $("#wpc_emb_postion_buttons").html(responseData.positions);
                 $("#wpc_text_options").removeClass("wpc_hidden");
                 $("#wpc_emb_colors").removeClass("wpc_hidden");
+                $("#wpc_emb_postion_buttons").removeClass("wpc_hidden");
+                removeEmb();
+                var position_x=$("#wpc_emb_postion_buttons").find(".active").data("left");
+                var position_y=$("#wpc_emb_postion_buttons").find(".active").data("top");
+                var actualPostions=getLogoPostions(position_y,position_x);
+                var fontSize=getFontSize($("#wpc_size_select").val());
+                console.log(fontSize);
+                var comicSansText = new fabric.Text(textToPut, {
+                    title: 'extraContent',
+                    objectType: 'text',
+                    hasControls: false,
+                    hasBorders: false,
+                    lockMovementX: true,
+                    lockMovementY: true,
+                    lockRotation: true,
+                    lockScalingX: true,
+                    lockScalingY: true,
+                    lockUniScaling: true,
+                    top:actualPostions.top,
+                    left:actualPostions.left,
+                    fontSize:fontSize
+                });
+                stage.add(comicSansText);
                 $('#embroidery_tab').unblock();
             });
         }
+    });
+    $(document).on('change', '#wpc_image_upload', function (e) {
+        var reg = /(.jpg|.gif|.png)$/;
+        if ($("#wpc_image_upload").val()=="" && !reg.test($("#wpc_image_upload").val())) {
+            return false;
+        }
+        $('#wpc_product_stage').block({
+            message: '',
+            overlayCSS: {
+                border: 'none',
+                padding: '0',
+                margin: '0',
+                backgroundColor: 'transparent',
+                opacity: 1,
+                color: '#fff'
+            }
+        });
+        $("#wpc_image_upload_form").ajaxSubmit({
+            dataType: 'json',
+            data:{productId:productId,model:defaultModel},
+            success: function (data, statusText, xhr, wrapper) {
+                removeEmb();
+                $("#wpc_emb_postion_buttons").html(data.positions);
+                $("#wpc_emb_postion_buttons").removeClass("wpc_hidden");
+                var position_x=$("#wpc_emb_postion_buttons").find(".active").data("left");
+                var position_y=$("#wpc_emb_postion_buttons").find(".active").data("top");
+                var actualPostions=getLogoPostions(position_y,position_x);
+                new fabric.Image.fromURL(data.filepath, function (oImg) {
+                    var imageHeight=data.sizes.height;
+                    var imageWidth=data.sizes.width;
+                    var tempWidth=(imageWidth/800) * stage.getWidth();
+                    var tempHeight=(imageHeight/800) * stage.getHeight();
+                    var actualScaleX=oImg.width > tempWidth ? tempWidth/oImg.width : 1;
+                    var actualScaleY=oImg.height > tempHeight ? tempHeight/oImg.height : 1;
+                    oImg.set({hasControls: false,hasBorders: false,lockMovementX: true,lockMovementY: true,lockRotation: true,lockScalingX: true,lockScalingY: true,lockUniScaling: true,left:actualPostions.left,top:actualPostions.top,scaleX: actualScaleX, scaleY: actualScaleY, title: 'extraContent'});
+                    stage.add(oImg);
+                    stage.calcOffset().renderAll();
+                    $('#wpc_product_stage').unblock();
+                });
+            }
+        });
+    });
+    $(document).on("click",".wpc_emb_btn",function(e){
+        e.preventDefault();
+        $this=$(this);
+        if($this.hasClass("active"))return false;
+        var position_x=$this.data("left"),
+            position_y=$this.data("top"),
+            actualPostions=getLogoPostions(position_y,position_x);
+        $("#wpc_emb_postion_buttons").find(".active").removeClass("active");
+        $this.addClass("active");
+        var objects = stage.getObjects();
+        for (var i = 0; i < objects.length; i++) {
+            if(objects[i].title=="extraContent"){
+                objects[i].set({top:actualPostions.top,left:actualPostions.left});
+            }
+        }
+        stage.renderAll().calcOffset();
     });
 });

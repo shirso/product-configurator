@@ -361,6 +361,7 @@ canvas {
     cursor: pointer;}
 .wpc_buttons.active{background: #ffffff none repeat scroll 0 0;
     color: #00c5ad;}
+.wpc_emb_btn{border-radius: 0 !important; }
 .insec{cursor:pointer;}
 #wpc_text_options div{text-align: left!important;}
 .bcnt{padding:5px 10px; border: 1px solid #cccccc; display: inline-block; border-radius: 20%; margin: 3px;text-align: left;}
