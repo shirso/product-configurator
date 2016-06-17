@@ -212,6 +212,7 @@ h3{font-size: 18px; color: #000; font-weight: 600; margin-top: 0;font-family: 'L
     position:absolute;
     top:0; left:0;
     opacity:0;
+    height: 50px;
 }
 #wpc_final_design {
    margin-top: 15px;

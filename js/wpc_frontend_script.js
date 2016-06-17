@@ -5,7 +5,8 @@ jQuery(function ($) {
         cordScaleY= 1,
         visitedStep=[],
         cords=[],
-        colors=[];
+        colors=[],
+        emb_positions={};
     var canvas = jQuery('#wpc_product_stage').children('canvas').get(0);
     var stage = new fabric.Canvas(canvas, {
         selection: false,
@@ -27,7 +28,28 @@ jQuery(function ($) {
               cordScaleY=tempScaleY;
             }
             allObjects[i].set({scaleX:tempScaleX,scaleY:tempScaleY});
+            if(allObjects[i].title=="extraContent"){
+                var tempTop=(emb_positions.top/emb_positions.stageHeight) * stage.getHeight(),
+                    tempLeft=(emb_positions.left/emb_positions.stageWidth) * stage.getWidth();
+                if(allObjects[i].objectType=="image"){
+                    var tempScaleX=(emb_positions.scaleX/emb_positions.stageWidth) * stage.getWidth(),
+                        tempScaleY=(emb_positions.scaleY/emb_positions.stageHeight) * stage.getHeight();
+                    allObjects[i].set({scaleX:tempScaleX,scaleY:tempScaleY,left:tempLeft,top:tempTop});
+                    emb_positions.scaleX=tempScaleX;
+                    emb_positions.scaleY=tempScaleY;
+                }
+                if(allObjects[i].objectType=="image"){
+                    var tempFontSize=(emb_positions.fontSize/emb_positions.stageWidht) * stage.getWidth();
+                    allObjects[i].set({fontSize:tempFontSize,left:tempLeft,top:tempTop});
+                    emb_positions.fontSize=tempFontSize;
+                }
+                emb_positions.top=tempTop;
+                emb_positions.left=tempLeft;
+                emb_positions.stageHeight=stage.getHeight();
+                emb_positions.stageWidth=stage.getWidth();
+            }
             allObjects[i].setCoords();
+            console.log(emb_positions)
         }
         stage.renderAll().calcOffset();
     };
@@ -187,6 +209,7 @@ jQuery(function ($) {
         $("#wpc_emb_colors").addClass("wpc_hidden");
         $("#wpc_emb_postion_buttons").addClass("wpc_hidden");
         $("#wpc_image_upload").val("");
+        emb_positions={};
         removeEmb();
     };
     var removeEmb=function(){
@@ -392,7 +415,6 @@ jQuery(function ($) {
                 var position_y=$("#wpc_emb_postion_buttons").find(".active").data("top");
                 var actualPostions=getLogoPostions(position_y,position_x);
                 var fontSize=getFontSize($("#wpc_size_select").val());
-                console.log(fontSize);
                 var comicSansText = new fabric.Text(textToPut, {
                     title: 'extraContent',
                     objectType: 'text',
@@ -409,6 +431,7 @@ jQuery(function ($) {
                     fontSize:fontSize
                 });
                 stage.add(comicSansText);
+                emb_positions={objectType:"image",stageWidth:stage.getWidth(),stageHeight:stage.getHeight(),top:actualPostions.top,left:actualPostions.left,fontSize:fontSize};
                 $('#embroidery_tab').unblock();
             });
         }
@@ -446,7 +469,9 @@ jQuery(function ($) {
                     var tempHeight=(imageHeight/800) * stage.getHeight();
                     var actualScaleX=oImg.width > tempWidth ? tempWidth/oImg.width : 1;
                     var actualScaleY=oImg.height > tempHeight ? tempHeight/oImg.height : 1;
-                    oImg.set({hasControls: false,hasBorders: false,lockMovementX: true,lockMovementY: true,lockRotation: true,lockScalingX: true,lockScalingY: true,lockUniScaling: true,left:actualPostions.left,top:actualPostions.top,scaleX: actualScaleX, scaleY: actualScaleY, title: 'extraContent'});
+                    oImg.set({hasControls: false,hasBorders: false,lockMovementX: true,lockMovementY: true,lockRotation: true,lockScalingX: true,lockScalingY: true,lockUniScaling: true,left:actualPostions.left,top:actualPostions.top,scaleX: actualScaleX, scaleY: actualScaleY, title: 'extraContent', objectType: 'image'});
+                    //emb_positions=[];
+                    emb_positions={objectType:"image",stageWidth:stage.getWidth(),stageHeight:stage.getHeight(),top:actualPostions.top,left:actualPostions.left,scaleX:actualScaleX,scaleY:actualScaleY};
                     stage.add(oImg);
                     stage.calcOffset().renderAll();
                     $('#wpc_product_stage').unblock();
@@ -467,8 +492,119 @@ jQuery(function ($) {
         for (var i = 0; i < objects.length; i++) {
             if(objects[i].title=="extraContent"){
                 objects[i].set({top:actualPostions.top,left:actualPostions.left});
+                    emb_positions.top=actualPostions.top;
+                    emb_positions.left=actualPostions.left;
+                    emb_positions.stageWidht=stage.getWidth();
+                    emb_positions.stageHeight=stage.getHeight();
             }
         }
         stage.renderAll().calcOffset();
+    });
+    $(document).on('change', '#wpc_font_select', function () {
+       $this=$(this);
+        if($this.val()!=""){
+            var objects = stage.getObjects();
+            for (var i = 0; i < objects.length; i++) {
+                if(objects[i].objectType=='text'){
+                    objects[i].set({fontFamily: $this.val()});
+                    break;
+                }
+            }
+            stage.renderAll();
+        }
+    });
+    $(document).on('change', '#wpc_size_select', function () {
+        $this=$(this);
+        if($this.val()!=""){
+            var objects = stage.getObjects();
+            var fontSize=getFontSize($this.val());
+            for (var i = 0; i < objects.length; i++) {
+                if(objects[i].objectType=='text'){
+                    objects[i].set({fontSize:fontSize});
+                    emb_positions.stageHeight=stage.getHeight();
+                    emb_positions.stageWidht=stage.getWidth();
+                    emb_positions.fontSize=fontSize;
+                    break;
+                }
+            }
+            stage.renderAll();
+        }
+    });
+    $(document).on('click', '.change_color_emb', function (e) {
+        e.preventDefault();
+        $this=$(this);
+        var color=$this.data('color'),
+            all=$this.data('all').split("|"),
+            colorName=all[0];
+        var objects = stage.getObjects();
+        for (var i = 0; i < objects.length; i++) {
+            if(objects[i].objectType=='text'){
+                objects[i].set({fill: color});
+                break;
+            }
+        }
+        stage.renderAll();
+        $(this).parent().parent().find('i').remove();
+        $(this).append('<i class="fa fa-check-circle"></i>');
+    });
+    $(document).on('keyup','#wpc_text_add',function(event){
+        var text=$(this).val();
+        var arr = text.split("\n");
+        if(arr.length > wpc_emb_limit.line_limit) {
+            event.preventDefault();
+            text=text.substring(0, text.length - 1);
+            $(this).val(text);
+        }else{
+            for(var i = 0; i < arr.length; i++) {
+                if(arr[i].length > wpc_emb_limit.character_limit) {
+                    event.preventDefault();
+                    arr[i]=arr[i].substring(0, arr[i].length - 1);
+                    text=arr.join('\n');
+                    $(this).val(text);
+                }
+            }
+        }
+    });
+    $(document).on('click', '#wpc_bold_select', function (e) {
+        e.preventDefault();
+        var objects = stage.getObjects();
+        for (var i = 0; i < objects.length; i++) {
+            if(objects[i].objectType=='text'){
+                switch (objects[i].fontWeight) {
+                    case 'normal':
+                        objects[i].set({
+                            fontWeight: 'bold'
+                        });
+                        break;
+                    case 'bold':
+                        objects[i].set({
+                            fontWeight: 'normal'
+                        });
+                        break;
+                }
+            }
+        }
+        stage.renderAll();
+    });
+    $(document).on('click', '#wpc_italic_select', function (e) {
+        e.preventDefault();
+        var objects = stage.getObjects();
+        for (var i = 0; i < objects.length; i++) {
+            if(objects[i].objectType=='text'){
+                switch (objects[i].fontStyle) {
+                    case '':
+                        objects[i].set({
+                            fontStyle: 'italic'
+                        });
+                        break;
+                    case 'italic':
+                        objects[i].set({
+                            fontStyle: ''
+                        });
+                        break;
+                }
+            }
+        }
+        stage.renderAll();
     });
 });
