@@ -17,11 +17,11 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
     <section>
         <div id="wpc_base_edge">
             <form id="wpc_base_edge_form">
-            <table>
+            <table class="shop_table_responsive">
                 <tr>
                     <td><?=__('Base Images','wpc')?></td>
                     <td>
-                       <table>
+                       <table class="shop_table_responsive">
                            <?php
                            $base_base=get_post_meta($post_id,'_wpc_base_image_base_'.$term_id,true);
                            $base_texture=get_post_meta($post_id,'_wpc_base_image_texture_'.$term_id,true);
@@ -44,34 +44,36 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
                        </table>
                     </td>
                 </tr>
-                <?php $edge_layer=get_post_meta($post_id,"_wpc_edge_layer",true);?>
-                <?php if($edge_layer!=""){ ?>
-                <tr>
-                    <td><?=__('Edge Images','wpc')?></td>
-                    <td>
-                        <table>
-                            <?php
-                            $edge_base=get_post_meta($post_id,'_wpc_edge_image_base_'.$term_id,true);
-                            $edge_texture=get_post_meta($post_id,'_wpc_edge_image_texture_'.$term_id,true);
-                            ?>
-                            <tr>
-                                <th><?=__('Base','wpc')?></th>
-                                <th><?=__('Texture','wpc')?></th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="text" name="wpc_edge_image_base" id="wpc_edge_image_base" value="<?=@$edge_base;?>">
-                                    <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_edge_image_base" value="<?=__('Upload','wpc');?>">
-                                </td>
-                                <td>
-                                    <input type="text" name="wpc_edge_image_texture" id="wpc_edge_image_texture" value="<?=@$edge_texture;?>">
-                                    <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_edge_image_texture" value="<?=__('Upload','wpc');?>">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <?php }?>
+              <?php $all_static_cords=get_post_meta($post_id,"_wpc_static_layers",true);
+              $all_static_image=get_post_meta($post_id,"_wpc_static_images_".$term_id,true);
+              ?>
+                <?php if(!empty($all_static_cords)){
+                    foreach($all_static_cords as $cord){
+                    ?>
+                     <tr>
+                         <td><?=wc_attribute_label($cord)?> <?=__("Images","wpc");?></td>
+                         <td>
+                             <table class="shop_table_responsive">
+                                 <tr>
+                                     <th><?=__('Base','wpc')?></th>
+                                     <th><?=__('Texture','wpc')?></th>
+                                 </tr>
+                                 <tr>
+                                     <td>
+
+                                         <input type="text" name="wpc_static_images[<?=$cord?>][base]" id="wpc_static_images_<?=$cord?>_base" value="<?=@$all_static_image[$cord]["base"]?>">
+                                         <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_static_images_<?=$cord?>_base" value="<?=__('Upload','wpc');?>">
+                                     </td>
+                                     <td>
+                                         <input type="text" name="wpc_static_images[<?=$cord?>][texture]" id="wpc_static_images_<?=$cord?>_texture" value="<?=@$all_static_image[$cord]["texture"]?>">
+                                         <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_static_images_<?=$cord?>_texture" value="<?=__('Upload','wpc');?>">
+                                     </td>
+                                 </tr>
+                              </table>
+                        </td>
+                     </tr>
+
+                <?php }}?>
             </table>
             </form>
         </div>

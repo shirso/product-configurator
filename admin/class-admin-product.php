@@ -162,21 +162,41 @@ if (!class_exists('WPC_Admin_Product')) {
                                 </select>
                             </td>
                         </tr>
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                               --><?//=__('Edge Layer','wpc')?>
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                <select name="wpc_edge_layer" id="wpc_edge_layer">-->
+<!--                                    <option value="">---</option>-->
+<!--                                    --><?php //$check_edge = get_post_meta($post_id, '_wpc_edge_layer', true); if (isset($attributes) && !empty($attributes)){ foreach ($attributes as $attr) {
+//                                        if (!$attr['is_variation']) {
+//                                            continue;
+//                                        }
+//                                        ?>
+<!--                                        --><?php //$checked = $attr['name'] == $check_edge ? 'selected' : ''; ?>
+<!--                                        <option --><?//=$checked;?><!-- value="--><?//= $attr['name'] ?><!--"> --><?//= esc_html(wc_attribute_label($attr['name'])) ?><!--</option>-->
+<!--                                    --><?php //}}?>
+<!--                                </select>-->
+<!--                            </td>-->
+<!--                        </tr>-->
                         <tr>
                             <td>
-                               <?=__('Edge Layer','wpc')?>
+                                <?=__('Static Image Layer','wpc')?>
                             </td>
                             <td>
-                                <select name="wpc_edge_layer" id="wpc_edge_layer">
-                                    <option value="">---</option>
-                                    <?php $check_edge = get_post_meta($post_id, '_wpc_edge_layer', true); if (isset($attributes) && !empty($attributes)){ foreach ($attributes as $attr) {
-                                        if (!$attr['is_variation']) {
-                                            continue;
-                                        }
-                                        ?>
-                                        <?php $checked = $attr['name'] == $check_edge ? 'selected' : ''; ?>
-                                        <option <?=$checked;?> value="<?= $attr['name'] ?>"> <?= esc_html(wc_attribute_label($attr['name'])) ?></option>
-                                    <?php }}?>
+                                <select name="wpc_static_layers[]" class="wpc_multiselect" multiple>
+
+                                    <?php $wpc_static_layers=get_post_meta($post_id,'_wpc_static_layers',true);
+                                    if (isset($attributes) && !empty($attributes)){
+                                        foreach ($attributes as $attr) {
+                                            if (!$attr['is_variation']) {
+                                                continue;
+                                            }
+                                            $checked=is_array($wpc_static_layers) && in_array($attr['name'],$wpc_static_layers) ? 'selected' : "";
+                                            ?>
+                                            <option <?=$checked?> value="<?=$attr['name'];?>"><?= esc_html(wc_attribute_label($attr['name'])) ?></option>
+                                        <?php }} ?>
                                 </select>
                             </td>
                         </tr>
@@ -229,6 +249,7 @@ if (!class_exists('WPC_Admin_Product')) {
                     <div id="wpc_all_cords" class="wc-metabox">
                         <?php
                         $all_cords=get_post_meta($post_id,"_wpc_cord_layers",true);
+                        $all_static_layers=get_post_meta($post_id,"_wpc_static_layers",true);
                         if(!empty($all_cords)){?>
                         <table>
                           <tr>
@@ -302,7 +323,7 @@ if (!class_exists('WPC_Admin_Product')) {
                                     <select multiple class="wpc_multiselect" id="wpc_multicolor_cord" name="wpc_multicolor_cords[]">
                                         <?php
                                         $multicolor_cords=get_post_meta($post_id,"_wpc_multicolor_cords",true);
-                                        foreach($all_cords as $cord){?>
+                                      if(!empty($all_cords)){foreach($all_cords as $cord){?>
                                             <optgroup label="<?=wc_attribute_label($cord)?>">
                                                 <?php $variations=get_terms($cord);
                                                 if(!empty($variations)){
@@ -314,21 +335,21 @@ if (!class_exists('WPC_Admin_Product')) {
                                                         <?php }}} ?>
 
                                             </optgroup>
-                                        <?php }
-                                        $edgeLayer=get_post_meta($post_id,'_wpc_edge_layer',true);
-                                        if($edgeLayer){?>
-                                            <optgroup label="<?=wc_attribute_label($edgeLayer)?>">
-                                          <?php  $all_terms=wp_get_post_terms($post_id, $edgeLayer);
-                                            if(!empty($all_terms)){
-                                                foreach($all_terms as $term) {
-                                                    if (has_term(absint($term->term_id), $edgeLayer, $post_id)) {
-                                                        $selected_value=in_array($term->term_id,$multicolor_cords)?"selected":"";
-                                                        ?>
-                                                        <option <?=$selected_value?> value="<?=$term->term_id;?>"><?=$term->name;?></option>
-                                                    <?php }}}?>
-                                            </optgroup>
-                                        <?php }
+                                        <?php }}?>
+                                        <?php if(!empty($all_static_layers)){
+                                            foreach($all_static_layers as $static_cord){
                                         ?>
+                                        <optgroup label="<?=wc_attribute_label($static_cord)?>">
+                                            <?php $static_variations=get_terms($static_cord);
+                                            if(!empty($static_variations)){
+                                                foreach($static_variations as $variation){
+                                                    if (has_term(absint($variation->term_id), $static_cord, $post_id)) {
+                                                        $selected_value=in_array($variation->term_id,$multicolor_cords)?"selected":"";
+                                                        ?>
+                                                        <option <?=$selected_value?> value="<?=$variation->term_id;?>"><?=$variation->name;?></option>
+                                                    <?php }}} ?>
+                                            </optgroup>
+                                        <?php }}?>
                                     </select>
                                 </td>
                             </tr>
