@@ -35,12 +35,14 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             $ext = strtolower(pathinfo($_FILES['wpc_image_upload']['name'], PATHINFO_EXTENSION));
             $newFileName = microtime(true).'.'.$ext;
             $source = $_FILES['wpc_image_upload']['tmp_name'];
+            list($width, $height) = getimagesize($source);
             $dest = $wpc_upload_dir.$newFileName;
             move_uploaded_file($source,$dest);
             $returnData=array();
             $returnData["filepath"]=$wpc_upload_path.$newFileName;
             $returnData["positions"]=self::get_emb_positions($emb_config);
             $returnData["sizes"]=array("width"=>$emb_config["logo_width"],"height"=>$emb_config["logo_height"]);
+            $returnData["imageSize"]=array("width"=>$width,"height"=>$height);
             echo  json_encode($returnData);
             exit;
         }

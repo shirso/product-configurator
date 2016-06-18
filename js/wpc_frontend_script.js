@@ -35,13 +35,15 @@ jQuery(function ($) {
                 var tempTop=(emb_positions.top/emb_positions.stageHeight) * stage.getHeight(),
                     tempLeft=(emb_positions.left/emb_positions.stageWidth) * stage.getWidth();
                 if(allObjects[i].objectType=="image"){
+                    console.log("Fired Here");
                     var tempScaleX=(emb_positions.scaleX/emb_positions.stageWidth) * stage.getWidth(),
                         tempScaleY=(emb_positions.scaleY/emb_positions.stageHeight) * stage.getHeight();
                     allObjects[i].set({scaleX:tempScaleX,scaleY:tempScaleY,left:tempLeft,top:tempTop});
                     emb_positions.scaleX=tempScaleX;
                     emb_positions.scaleY=tempScaleY;
                 }
-                if(allObjects[i].objectType=="image"){
+                if(allObjects[i].objectType=="text"){
+                    console.log(emb_positions);
                     var tempFontSize=(emb_positions.fontSize/emb_positions.stageWidht) * stage.getWidth();
                     allObjects[i].set({fontSize:tempFontSize,left:tempLeft,top:tempTop});
                     emb_positions.fontSize=tempFontSize;
@@ -372,6 +374,7 @@ jQuery(function ($) {
        makeObjectResponsive();
     });
     $(window).resize(function () {
+        console.log("Resize Fired");
         makeCanvasResponsive();
         makeObjectResponsive();
     });
@@ -571,6 +574,7 @@ jQuery(function ($) {
                     fontSize:fontSize
                 });
                 stage.add(comicSansText);
+                stage.renderAll();
                 emb_positions={objectType:"image",stageWidth:stage.getWidth(),stageHeight:stage.getHeight(),top:actualPostions.top,left:actualPostions.left,fontSize:fontSize};
                 $('#embroidery_tab').unblock();
             });
@@ -603,15 +607,19 @@ jQuery(function ($) {
                 var position_y=$("#wpc_emb_postion_buttons").find(".active").data("top");
                 var actualPostions=getLogoPostions(position_y,position_x);
                 new fabric.Image.fromURL(data.filepath, function (oImg) {
-                    var imageHeight=data.sizes.height;
-                    var imageWidth=data.sizes.width;
-                    var tempWidth=(imageWidth/800) * stage.getWidth();
-                    var tempHeight=(imageHeight/800) * stage.getHeight();
-                    var actualScaleX=oImg.width > tempWidth ? tempWidth/oImg.width : 1;
-                    var actualScaleY=oImg.height > tempHeight ? tempHeight/oImg.height : 1;
-                    oImg.set({hasControls: false,hasBorders: false,lockMovementX: true,lockMovementY: true,lockRotation: true,lockScalingX: true,lockScalingY: true,lockUniScaling: true,left:actualPostions.left,top:actualPostions.top,scaleX: actualScaleX, scaleY: actualScaleY, title: 'extraContent', objectType: 'image'});
-                    //emb_positions=[];
-                    emb_positions={objectType:"image",stageWidth:stage.getWidth(),stageHeight:stage.getHeight(),top:actualPostions.top,left:actualPostions.left,scaleX:actualScaleX,scaleY:actualScaleY};
+                    var imageHeight=data.sizes.height,
+                        imageWidth=data.sizes.width,
+                        maxWidth=(imageWidth/canvasWidth) * stage.getWidth(),
+                        maxHeight = (imageHeight/canvasHeight) * stage.getHeight(),
+                        ratio=1;
+                    if(oImg.width > maxWidth){
+                        ratio=maxWidth / oImg.width;
+                    }
+                    if(oImg.height > maxHeight){
+                        ratio = maxHeight / oImg.height;
+                    }
+                    oImg.set({hasControls: false,hasBorders: false,lockMovementX: true,lockMovementY: true,lockRotation: true,lockScalingX: true,lockScalingY: true,lockUniScaling: true,left:actualPostions.left,top:actualPostions.top,scaleX: ratio, scaleY: ratio, title: 'extraContent', objectType: 'image'});
+                    emb_positions={objectType:"image",stageWidth:stage.getWidth(),stageHeight:stage.getHeight(),top:actualPostions.top,left:actualPostions.left,scaleX:ratio,scaleY:ratio};
                     stage.add(oImg);
                     stage.calcOffset().renderAll();
                     $('#wpc_product_stage').unblock();
@@ -658,15 +666,18 @@ jQuery(function ($) {
         if($this.val()!=""){
             var objects = stage.getObjects();
             var fontSize=getFontSize($this.val());
+            console.log(fontSize);
             for (var i = 0; i < objects.length; i++) {
                 if(objects[i].objectType=='text'){
                     objects[i].set({fontSize:fontSize});
                     emb_positions.stageHeight=stage.getHeight();
                     emb_positions.stageWidht=stage.getWidth();
                     emb_positions.fontSize=fontSize;
+                    console.log(emb_positions);
                     break;
                 }
             }
+
             stage.renderAll();
         }
     });
