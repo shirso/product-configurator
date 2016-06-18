@@ -15,21 +15,17 @@ $all_static_layers=get_post_meta($postId,'_wpc_static_layers',true);
                 foreach($c as $k=>$v){
                     $c['wpc_multicord_images_combinations_'.$k.'_#index#']=$v;
                     $textureCord=$cord_image[$k];
-                   if(!empty($textureCord)){
-                       foreach($textureCord as $p=>$q){
-                           if(!empty($q)){
-                               foreach($q as $x=>$y){
-                                   $c['wpc_multicord_images_images_'.$k.'_'.$p.'_'.$x.'_#index#'] =isset($cord_image[$k][$p][$x])?$cord_image[$k][$p][$x]:"";
-                               }
-                           }
-                       }
-                   }
+                    if(!empty($textureCord)){
+                        foreach($textureCord as $p=>$q){
+                            $c['wpc_multicord_images_images_'.$k.'_'.$p.'_#index#'] =isset($cord_image[$k][$p])?$cord_image[$k][$p]:"";
+                        }
+                    }
                     unset($c[$k]);
                 }
-           }
+            }
             array_push($wpc_combinations,$c);
         }
-   }
+    }
     ?>
     <input type="hidden" id="wpc_texture_combinations_data" value='<?=json_encode($wpc_combinations);?>'>
     <?php if(is_array($wpc_cord_layers) && !empty($wpc_cord_layers)){?>
@@ -64,10 +60,7 @@ $all_static_layers=get_post_meta($postId,'_wpc_static_layers',true);
                                             <?php if(isset($allTexturesMeta[$layer]) && !empty($allTexturesMeta[$layer])){
                                                 foreach($allTexturesMeta[$layer] as $key=>$textureLayer){
                                                 ?>
-                                                    <tr>
-                                                        <?php $termDetails=get_term_by("slug",$key,$layer);?>
-                                                        <th><?=$termDetails->name;?></th>
-                                                    </tr>
+
                                                    <tr>
                                                        <td>
                                                            <table style="overflow-x: scroll;height: 100px;">
@@ -78,8 +71,8 @@ $all_static_layers=get_post_meta($postId,'_wpc_static_layers',true);
                                                                <tr>
                                                                     <td><?=$spitData[0]?></td>
                                                                     <td>
-                                                                        <input type="text" name="wpc_muticord_images[images][#index#][<?=$layer?>][<?=$key?>][<?=clean($spitData[0]);?>]" id="wpc_multicord_images_images_<?=$layer?>_<?=$key;?>_<?=clean($spitData[0]);?>_#index#">
-                                                                        <button class="button button-secondary wpc_image_upload" data-field="wpc_multicord_images_images_<?=$layer?>_<?=$key;?>_<?=clean($spitData[0]);?>_#index#"><?=__('Upload','wpc');?></button>
+                                                                        <input type="text" name="wpc_muticord_images[images][#index#][<?=$layer?>][<?=clean($spitData[0]);?>]" id="wpc_multicord_images_images_<?=$layer?>_<?=clean($spitData[0]);?>_#index#">
+                                                                        <button class="button button-secondary wpc_image_upload" data-field="wpc_multicord_images_images_<?=$layer?>_<?=clean($spitData[0]);?>_#index#"><?=__('Upload','wpc');?></button>
                                                                     </td>
                                                                </tr>
                                                                 <?php }}?>

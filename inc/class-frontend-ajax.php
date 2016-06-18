@@ -109,8 +109,33 @@ if(!class_exists('WPC_Frontend_Ajax')) {
         public function wpc_get_texture_image_data(){
             $defaultModel=absint($_POST["model"]);
             $productId=absint($_POST["productId"]);
-            $textureData=$_POST["cordsData"];
-
+            $cordsData=$_POST["cordsData"];
+            $textureData=$_POST["textureData"];
+            $cordLayers=get_post_meta($productId,"_wpc_cord_layers",true);
+            $filterData=array_map(create_function('$n', 'return null;'), array_flip($cordLayers));
+            if(!empty($cordsData)){
+                foreach($cordsData as $cord){
+                    if(array_key_exists($cord["attribute"],$filterData)){
+                        $filterData[$cord["attribute"]]=$cord["term"];
+                    }}}
+            $imageData=get_post_meta($productId,'_wpc_multicord_images_'.$defaultModel,true);
+            $combinations=$imageData["combinations"];
+            $images=$imageData["images"];
+            $key123=array_search($filterData,$combinations);
+            $returnImage=array_key_exists($key123,$images) ? $images[$key123] : array();
+            $textureFilter=array();
+            if(!empty($textureData)){foreach($textureData as $texture){
+                $textureFilter[$texture["attribute"]]=$texture["texture"];
+            }}
+            $finalArray=array();
+            if(!empty($textureFilter)){foreach($textureFilter as $k=>$t){
+                if($t!=""){
+                   // print_r($t);
+                    $finalArray[$k]=isset($returnImage[$k][$t]) ? $returnImage[$k][$t] : "";
+                }
+            }}
+            echo json_encode($finalArray);
+            exit;
         }
         public function wpc_get_emb_config(){
             $defaultModel=absint($_POST["model"]);
