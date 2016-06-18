@@ -356,8 +356,6 @@ if( !class_exists('WPC_Admin') ) {
                 case 'wpc_base_edge' :
                     update_post_meta($postId,'_wpc_base_image_base_'.$termId,$params['wpc_base_image_base']);
                     update_post_meta($postId,'_wpc_base_image_texture_'.$termId,$params['wpc_base_image_texture']);
-                   // update_post_meta($postId,'_wpc_edge_image_base_'.$termId,$params['wpc_edge_image_base']);
-                   // update_post_meta($postId,'_wpc_edge_image_texture_'.$termId,$params['wpc_edge_image_texture']);
                     update_post_meta($postId,"_wpc_static_images_".$termId,$params["wpc_static_images"]);
                     break;
                 case 'save_all_layers':

@@ -105,24 +105,18 @@ if (!class_exists('WPC_Frontend_Product')) {
                 </script>
                 <?php
                 $base_layer=get_post_meta($product->id,"_wpc_base_color_dependency",true);
-                $edge_layer=get_post_meta($product->id,"_wpc_edge_layer",true);
+                $avilable_models=get_post_meta($product->id,"_wpc_available_models",true);
                 ?>
-                <div id="wpc_base_images" class="wpc_hidden" data-attribute="<?=$base_layer;?>">
-                   <?php
-                   $base_image=get_post_meta($product->id,'_wpc_base_image_base_'.self::$default_model,true);
-                   $texture_image=get_post_meta($product->id,'_wpc_base_image_texture_'.self::$default_model,true);
+                    <?php if(!empty($avilable_models)){ foreach($avilable_models as $k=>$model){ ?>
+                                    <div id="wpc_base_images_<?=$model?>" class="wpc_hidden" data-attribute="<?=$base_layer;?>">
+                                       <?php
+                   $base_image=get_post_meta($product->id,'_wpc_base_image_base_'.$model,true);
+                   $texture_image=get_post_meta($product->id,'_wpc_base_image_texture_'.$model,true);
                    ?>
-                    <img src="<?=$base_image?>" class="base_image">
-                    <img src="<?=$texture_image?>" class="texture_image">
-                </div>
-                <div id="wpc_edge_images" class="wpc_hidden" data-attribute="<?=$edge_layer;?>">
-                    <?php
-                    $base_image=get_post_meta($product->id,'_wpc_edge_image_base_'.self::$default_model,true);
-                    $texture_image=get_post_meta($product->id,'_wpc_edge_image_texture_'.self::$default_model,true);
-                    ?>
-                    <img src="<?=$base_image?>" class="base_image">
-                    <img src="<?=$texture_image?>" class="texture_image">
-                </div>
+                                        <img src="<?=$base_image?>" class="base_image">
+                                        <img src="<?=$texture_image?>" class="texture_image">
+                                    </div>
+                    <?php }}?>
                 <?php
             }
 
@@ -217,7 +211,7 @@ if (!class_exists('WPC_Frontend_Product')) {
             <div class="c-seclect" id="wpc_texture_tab_<?= $attribute_name ?>">
             <?php if(!empty($textureOfThisAttribute)){foreach ($textureOfThisAttribute as $texture) {   $all = explode('|', $texture); ?>
                 <div class="flclr">
-                    <div class="change_texture insec"  style="background: url('<?= $all[1] ?>')">
+                    <div class="change_texture insec" data-attribute="<?=$attribute_name?>" data-term="<?=$term->slug;?>" data-display="<?=$all[0]?>" data-clean="<?=clean($all[0])?>"  style="background: url('<?= $all[1] ?>')">
                     </div>
                     <p><?= $all[0] ?></p>
                 </div>

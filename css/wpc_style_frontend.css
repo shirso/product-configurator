@@ -340,7 +340,7 @@ canvas {
 }
 .wpc_instructions{font-style: italic;}.wpc_instructions {line-height: 16px;}
 .flclr .change_color, .flclr .insec{border: 1px solid #ccc;}
-.flclr p{word-wrap: break-word; margin-top: 5px;text-overflow:ellipsis;overflow:hidden;white-space: nowrap;}
+.flclr p{word-wrap: break-word; margin-top: 5px;text-overflow:ellipsis;overflow:hidden;white-space: nowrap;text-align: center;}
 .mfp-figure img{  border: 10px solid #ffffff; background: #e6e6e6;}
 
 #wpc_text_add_div textarea{margin: 10px 0;}

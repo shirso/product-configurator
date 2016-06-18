@@ -5,6 +5,7 @@ jQuery(function ($) {
         cordScaleY= 1,
         visitedStep=[],
         cords=[],
+        textures=[],
         colors=[],
         emb_positions={};
     var canvas = jQuery('#wpc_product_stage').children('canvas').get(0);
@@ -19,6 +20,7 @@ jQuery(function ($) {
         stage.setHeight((canvasHeight * stage.getWidth())/canvasWidth);
     };
     var makeObjectResponsive=function(){
+
         var allObjects=stage.getObjects();
         for (var i = 0; i < allObjects.length; i++) {
             var tempScaleY=(1/canvasHeight) * stage.getHeight();
@@ -29,6 +31,7 @@ jQuery(function ($) {
             }
             allObjects[i].set({scaleX:tempScaleX,scaleY:tempScaleY});
             if(allObjects[i].title=="extraContent"){
+                //TODO: EMB Image Ratio Fix. Text Responsiveness Fix
                 var tempTop=(emb_positions.top/emb_positions.stageHeight) * stage.getHeight(),
                     tempLeft=(emb_positions.left/emb_positions.stageWidth) * stage.getWidth();
                 if(allObjects[i].objectType=="image"){
@@ -49,15 +52,14 @@ jQuery(function ($) {
                 emb_positions.stageWidth=stage.getWidth();
             }
             allObjects[i].setCoords();
-            console.log(emb_positions)
         }
         stage.renderAll().calcOffset();
     };
     var loadBaseEdge=function(divId,imageType){
         var imageClasses=['base_image','texture_image'];
-        var attribute=$("#"+divId).data("attribute");
+        var attribute=$("#"+divId+"_"+defaultModel).data("attribute");
         $.each(imageClasses,function(k,v){
-            var imgInstance = new fabric.Image($("#"+divId).children('.'+v).get(0), {
+            var imgInstance = new fabric.Image($("#"+divId+"_"+defaultModel).children('.'+v).get(0), {
                 hasControls: false,
                 hasBorders: false,
                 lockMovementX: true,
@@ -142,13 +144,45 @@ jQuery(function ($) {
        }
 
     };
+    var loadStaticImages=function(){
+        $('#wpc_product_stage').block({
+            message: '',
+            overlayCSS: {
+                border: 'none',
+                padding: '0',
+                margin: '0',
+                backgroundColor: 'transparent',
+                opacity: 1,
+                color: '#fff'
+            }
+        });
+        var imageData= {
+            'action': 'wpc_get_static_images',
+            'model':defaultModel,
+            'productId':productId
+        };
+        $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(data) {
+            if(!$.isEmptyObject(data)){
+                var response= $.parseJSON(data);
+                $.each(response,function(k,v){
+                    if((typeof v.base !="undefined" &&  v.base!="") && (typeof v.texture !="undefined" && v.texture!="")){
+                        loadImageData(k,v);
+                    }
+                });
+            }
+            $('#wpc_product_stage').unblock();
+        });
+    };
     var removeColorCordsFromArray=function(attribute){
         if(typeof _.findWhere(colors,{attribute:attribute}!="undefined")){
             var newArray = _.without(colors, _.findWhere(colors, {attribute: attribute}));
             colors=newArray;
         }
-        cords= _.without(cords, _.findWhere(cords, {attribute: attribute}));
+        if(typeof _.findWhere(cords,{attribute:attribute}!="undefined")) {
+            cords = _.without(cords, _.findWhere(cords, {attribute: attribute}));
+        }
     };
+
  var fetchImageData=function(attributeName){
      $('#wpc_product_stage').block({
          message: '',
@@ -170,6 +204,29 @@ jQuery(function ($) {
      };
      $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(response) {
          loadImagesFromAjax($.parseJSON(response));
+         $('#wpc_product_stage').unblock();
+     });
+ };
+ var fetchTextureData=function(){
+     $('#wpc_product_stage').block({
+         message: '',
+         overlayCSS: {
+             border: 'none',
+             padding: '0',
+             margin: '0',
+             backgroundColor: 'transparent',
+             opacity: 1,
+             color: '#fff'
+         }
+     });
+     var imageData= {
+         'action': 'wpc_get_texture_image_data',
+         'textureData':textures,
+         'model':defaultModel,
+         'productId':productId
+     };
+     $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(response) {
+       //  loadImagesFromAjax($.parseJSON(response));
          $('#wpc_product_stage').unblock();
      });
  };
@@ -231,6 +288,15 @@ jQuery(function ($) {
     var getFontSize=function(size){
     return ((size*stage.getWidth())/800);
     };
+    var setCords=function(attributeName,termSlug){
+        if (typeof _.findWhere(cords, {attribute: attributeName}) == "undefined") {
+            cords.push({attribute:attributeName,term:termSlug});
+        }else{
+            var newArray = _.without(cords, _.findWhere(cords, {attribute: attributeName}));
+            cords=newArray;
+            cords.push({attribute:attributeName,term:termSlug});
+        }
+    }
     makeCanvasResponsive();
     $(window).load(function () {
         $('#attribute-tabs').responsiveTabs({
@@ -246,7 +312,7 @@ jQuery(function ($) {
         });
 
        loadBaseEdge('wpc_base_images','base_image');
-       loadBaseEdge('wpc_edge_images','edge_image');
+       loadStaticImages();
        makeObjectResponsive();
     });
     $(window).resize(function () {
@@ -306,13 +372,7 @@ jQuery(function ($) {
            });
 
            //Load Cord Images
-           if (typeof _.findWhere(cords, {attribute: attributeName}) == "undefined") {
-               cords.push({attribute:attributeName,term:termSlug});
-           }else{
-               var newArray = _.without(cords, _.findWhere(cords, {attribute: attributeName}));
-               cords=newArray;
-               cords.push({attribute:attributeName,term:termSlug});
-           }
+            setCords(attributeName,termSlug);
             fetchImageData(attributeName);
        }
       if($this.hasClass('wpc_texture_cords')){
@@ -332,6 +392,7 @@ jQuery(function ($) {
               'action': 'wpc_get_texture_data',
               'attribute': attributeName,
               'term':termSlug,
+              'termId':termId,
               'model':defaultModel,
               'productId':productId
           };
@@ -339,7 +400,7 @@ jQuery(function ($) {
               $('#wpc_texture_tab_'+attributeName).unblock();
               $('#wpc_texture_tab_'+attributeName).html(response);
           });
-          cords= _.without(cords, _.findWhere(cords, {attribute: attributeName}));
+          setCords(attributeName,termSlug);
       }
         if($this.hasClass("wpc_no_emb")){
             clearEmbTab();
@@ -370,6 +431,20 @@ jQuery(function ($) {
             colors.push({attribute:attribute,color:colorValue});
         }
         colorCanvas(attribute,colorValue);
+    });
+    $(document).on("click",".change_texture",function(e){
+        e.preventDefault();
+        $this=$(this);
+        if($this.hasClass("active")){return false;}
+        var attribute=$this.data("attribute"),
+            term=$this.data("term"),
+            texture=$this.data("clean");
+        $this.closest('.c-seclect').find('.change_texture').removeClass('active');
+        $this.addClass("active");
+        $this.closest('.c-seclect').find('i').remove();
+        $this.append('<i class="fa fa-check-circle"></i>');
+
+        fetchTextureData();
     });
     $(document).on("click",".wpc_emb_tabs",function(e){
         e.preventDefault();

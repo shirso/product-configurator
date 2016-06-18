@@ -13,6 +13,17 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             add_action( 'wp_ajax_nopriv_wpc_get_image_data', array(&$this,'wpc_get_image_data'));
             add_action( 'wp_ajax_wpc_get_emb_config', array(&$this,'wpc_get_emb_config'));
             add_action( 'wp_ajax_nopriv_wpc_get_emb_config', array(&$this,'wpc_get_emb_config'));
+            add_action( 'wp_ajax_wpc_get_static_images', array(&$this,'wpc_get_static_images'));
+            add_action( 'wp_ajax_nopriv_wpc_get_static_images', array(&$this,'wpc_get_static_images'));
+            add_action( 'wp_ajax_wpc_get_texture_image_data', array(&$this,'wpc_get_texture_image_data'));
+            add_action( 'wp_ajax_nopriv_wpc_get_texture_image_data', array(&$this,'wpc_get_texture_image_data'));
+        }
+        public function wpc_get_static_images(){
+            $defaultModel=absint($_POST["model"]);
+            $productId=absint($_POST["productId"]);
+            $static_images=get_post_meta($productId,"_wpc_static_images_".$defaultModel,true);
+            echo json_encode($static_images);
+            exit;
         }
         public function upload_image(){
             $defaultModel=absint($_POST["model"]);
@@ -61,13 +72,12 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             $productId=absint($_POST["productId"]);
             $texturesMeta=get_post_meta($productId,"_wpc_textures_".$defaultModel,true);
             $textureOfThisAttribute=isset($texturesMeta[$attribute][$term]['textures'])?$texturesMeta[$attribute][$term]['textures']:array();
-//            print_r($textureOfThisAttribute);
             $html="";
             if(!empty($textureOfThisAttribute)){
                 foreach ($textureOfThisAttribute as $texture) {
                     $all = explode('|', $texture);
                     $html .= '<div class="flclr">';
-                    $html.='<div class="change_texture insec" style="background:url('.$all[1].')">';
+                    $html.='<div class="change_texture insec" data-attribute="'.$attribute.'" data-term="'.$term.'" data-display="'.$all[0].'" data-clean="'.clean($all[0]).'" style="background:url('.$all[1].')">';
                     $html .= '</div>';
                     $html.='   <p>'.$all[0].'</p>';
                     $html .= '</div>';
@@ -95,6 +105,12 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             $returnImage=array_key_exists($key123,$images) ? $images[$key123] : array();
             echo json_encode($returnImage);
             exit;
+        }
+        public function wpc_get_texture_image_data(){
+            $defaultModel=absint($_POST["model"]);
+            $productId=absint($_POST["productId"]);
+            $textureData=$_POST["cordsData"];
+
         }
         public function wpc_get_emb_config(){
             $defaultModel=absint($_POST["model"]);
