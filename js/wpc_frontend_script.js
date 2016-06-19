@@ -20,7 +20,6 @@ jQuery(function ($) {
         stage.setHeight((canvasHeight * stage.getWidth())/canvasWidth);
     };
     var makeObjectResponsive=function(){
-
         var allObjects=stage.getObjects();
         for (var i = 0; i < allObjects.length; i++) {
             var tempScaleY=(1/canvasHeight) * stage.getHeight();
@@ -31,11 +30,9 @@ jQuery(function ($) {
             }
             allObjects[i].set({scaleX:tempScaleX,scaleY:tempScaleY});
             if(allObjects[i].title=="extraContent"){
-                //TODO: EMB Image Ratio Fix. Text Responsiveness Fix
                 var tempTop=(emb_positions.top/emb_positions.stageHeight) * stage.getHeight(),
                     tempLeft=(emb_positions.left/emb_positions.stageWidth) * stage.getWidth();
                 if(allObjects[i].objectType=="image"){
-                    console.log("Fired Here");
                     var tempScaleX=(emb_positions.scaleX/emb_positions.stageWidth) * stage.getWidth(),
                         tempScaleY=(emb_positions.scaleY/emb_positions.stageHeight) * stage.getHeight();
                     allObjects[i].set({scaleX:tempScaleX,scaleY:tempScaleY,left:tempLeft,top:tempTop});
@@ -43,8 +40,7 @@ jQuery(function ($) {
                     emb_positions.scaleY=tempScaleY;
                 }
                 if(allObjects[i].objectType=="text"){
-                    console.log(emb_positions);
-                    var tempFontSize=(emb_positions.fontSize/emb_positions.stageWidht) * stage.getWidth();
+                    var tempFontSize=(emb_positions.fontSize/emb_positions.stageWidth) * stage.getWidth();
                     allObjects[i].set({fontSize:tempFontSize,left:tempLeft,top:tempTop});
                     emb_positions.fontSize=tempFontSize;
                 }
@@ -339,12 +335,12 @@ jQuery(function ($) {
     };
     var getLogoPostions=function(top,left){
       var positions={};
-        positions["top"]=(top * stage.getHeight())/800;
-        positions["left"]=(left * stage.getWidth())/800;
+        positions["top"]=(top * stage.getHeight())/canvasHeight;
+        positions["left"]=(left * stage.getWidth())/canvasWidth;
         return positions;
     };
     var getFontSize=function(size){
-    return ((size*stage.getWidth())/800);
+    return ((size*stage.getWidth())/canvasWidth);
     };
     var setCords=function(attributeName,termSlug){
         if (typeof _.findWhere(cords, {attribute: attributeName}) == "undefined") {
@@ -374,7 +370,6 @@ jQuery(function ($) {
        makeObjectResponsive();
     });
     $(window).resize(function () {
-        console.log("Resize Fired");
         makeCanvasResponsive();
         makeObjectResponsive();
     });
@@ -555,9 +550,9 @@ jQuery(function ($) {
                 $("#wpc_emb_postion_buttons").removeClass("wpc_hidden");
                 removeEmb();
                 var position_x=$("#wpc_emb_postion_buttons").find(".active").data("left");
-                var position_y=$("#wpc_emb_postion_buttons").find(".active").data("top");
-                var actualPostions=getLogoPostions(position_y,position_x);
-                var fontSize=getFontSize($("#wpc_size_select").val());
+                    position_y=$("#wpc_emb_postion_buttons").find(".active").data("top"),
+                    actualPostions=getLogoPostions(position_y,position_x),
+                    tempfontSize=getFontSize(responseData.selectedFontSize);
                 var comicSansText = new fabric.Text(textToPut, {
                     title: 'extraContent',
                     objectType: 'text',
@@ -571,11 +566,11 @@ jQuery(function ($) {
                     lockUniScaling: true,
                     top:actualPostions.top,
                     left:actualPostions.left,
-                    fontSize:fontSize
+                    fontSize:tempfontSize
                 });
                 stage.add(comicSansText);
                 stage.renderAll();
-                emb_positions={objectType:"image",stageWidth:stage.getWidth(),stageHeight:stage.getHeight(),top:actualPostions.top,left:actualPostions.left,fontSize:fontSize};
+                emb_positions={objectType:"text",stageWidth:stage.getWidth(),stageHeight:stage.getHeight(),top:actualPostions.top,left:actualPostions.left,fontSize:tempfontSize};
                 $('#embroidery_tab').unblock();
             });
         }
@@ -603,9 +598,9 @@ jQuery(function ($) {
                 removeEmb();
                 $("#wpc_emb_postion_buttons").html(data.positions);
                 $("#wpc_emb_postion_buttons").removeClass("wpc_hidden");
-                var position_x=$("#wpc_emb_postion_buttons").find(".active").data("left");
-                var position_y=$("#wpc_emb_postion_buttons").find(".active").data("top");
-                var actualPostions=getLogoPostions(position_y,position_x);
+                var position_x=$("#wpc_emb_postion_buttons").find(".active").data("left"),
+                     position_y=$("#wpc_emb_postion_buttons").find(".active").data("top"),
+                     actualPostions=getLogoPostions(position_y,position_x);
                 new fabric.Image.fromURL(data.filepath, function (oImg) {
                     var imageHeight=data.sizes.height,
                         imageWidth=data.sizes.width,
@@ -664,16 +659,14 @@ jQuery(function ($) {
     $(document).on('change', '#wpc_size_select', function () {
         $this=$(this);
         if($this.val()!=""){
-            var objects = stage.getObjects();
-            var fontSize=getFontSize($this.val());
-            console.log(fontSize);
+            var objects = stage.getObjects(),
+                fontSize=getFontSize($this.val());
             for (var i = 0; i < objects.length; i++) {
                 if(objects[i].objectType=='text'){
                     objects[i].set({fontSize:fontSize});
                     emb_positions.stageHeight=stage.getHeight();
                     emb_positions.stageWidht=stage.getWidth();
                     emb_positions.fontSize=fontSize;
-                    console.log(emb_positions);
                     break;
                 }
             }

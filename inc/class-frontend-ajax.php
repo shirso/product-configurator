@@ -156,15 +156,19 @@ if(!class_exists('WPC_Frontend_Ajax')) {
                     }
                     $returnData["fontOptions"]=$fontOptions;
                     $fontSizes="";
+                    $selected_font_size=0;
                     $fontSizes.='<option value="">'.__("---Font Size---","wpc").'</option>';
-
                     if(!empty($setting["font_size_data"])){
                         foreach($setting["font_size_data"] as $size){
                             $selected=$emb_config["font_size"]==$size["value"]?"selected":"";
+                            if($emb_config["font_size"]== $size["value"]){
+                                $selected_font_size= $size["value"];
+                            }
                             $fontSizes.='<option '.$selected.' value="'.$size["value"].'">'.$size["name"].'</option>';
                         }
                     }
                     $returnData["fontSizes"]=$fontSizes;
+                    $returnData["selectedFontSize"]=$selected_font_size;
                     $colors="";
                     if(!empty($emb_config["colors"])){
                         foreach($emb_config["colors"] as $colorEmb){
