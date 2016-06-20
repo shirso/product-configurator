@@ -104,7 +104,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                             if(!empty($selected_design)){
                             ?>
                                 <select id="wpc_base_design_options">
-                                    <option value="">--<?=__('Choose Design','wpc');?>--</option>
+                                    <option value="" selected>--<?=__('Choose Design','wpc');?>--</option>
                                     <?php  $args = array('post_type' => 'wpc_base_design',
                                         'tax_query' => array(
                                             array(

@@ -17,6 +17,8 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             add_action( 'wp_ajax_nopriv_wpc_get_static_images', array(&$this,'wpc_get_static_images'));
             add_action( 'wp_ajax_wpc_get_texture_image_data', array(&$this,'wpc_get_texture_image_data'));
             add_action( 'wp_ajax_nopriv_wpc_get_texture_image_data', array(&$this,'wpc_get_texture_image_data'));
+            add_action( 'wp_ajax_wpc_get_design_data', array(&$this,'wpc_get_design_data'));
+            add_action( 'wp_ajax_nopriv_wpc_get_design_data', array(&$this,'wpc_get_design_data'));
         }
         public function wpc_get_static_images(){
             $defaultModel=absint($_POST["model"]);
@@ -200,6 +202,12 @@ if(!class_exists('WPC_Frontend_Ajax')) {
                 }
             }
             return $buttons;
+        }
+        public function wpc_get_design_data(){
+            $postId=absint($_POST["postId"]);
+            $designs=get_post_meta($postId,'_wpc_admin_design',true);
+            echo json_encode($designs);
+            exit;
         }
     }
     new WPC_Frontend_Ajax();

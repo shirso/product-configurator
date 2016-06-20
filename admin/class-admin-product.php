@@ -231,19 +231,17 @@ if (!class_exists('WPC_Admin_Product')) {
                     <div id="wpc_all_cords" class="wc-metabox">
                         <?php
                         $all_cords=get_post_meta($post_id,"_wpc_cord_layers",true);
-                        $all_static_layers=get_post_meta($post_id,"_wpc_static_layers",true);
-                        if(!empty($all_cords)){?>
+                        $all_static_layers=get_post_meta($post_id,"_wpc_static_layers",true);?>
                         <table>
+                            <?php  $model_layer = get_post_meta($post_id, '_wpc_color_dependency', true); $available_models=get_post_meta($post_id,'_wpc_available_models',true); if(!empty($model_layer)){ ?>
                           <tr>
                               <td>
                                   <?=__("Available Models","wpc")?>
                               </td>
                               <td>
                                   <?php
-                                  $model_layer = get_post_meta($post_id, '_wpc_color_dependency', true);
-                                  if(!empty($model_layer)){
+
                                       $all_model_terms=get_terms($model_layer);
-                                      $available_models=get_post_meta($post_id,'_wpc_available_models',true);
                                   ?>
                                   <select multiple class="wpc_multiselect" id="wpc_available_models" name="wpc_available_models[]">
                                       <?php if(!empty($all_model_terms)){
@@ -254,9 +252,11 @@ if (!class_exists('WPC_Admin_Product')) {
                                           <option <?=$selectedModels?> value="<?=$term->term_id;?>"><?=$term->name;?></option>
                                       <?php }}}?>
                                   </select>
-                                  <?php }?>
+
                               </td>
                           </tr>
+                            <?php }?>
+                            <?php if(!empty($all_cords)){?>
                         <tr>
                             <td><?=__("No Cords","wpc")?></td>
                             <td>
@@ -279,6 +279,8 @@ if (!class_exists('WPC_Admin_Product')) {
                                 </select>
                             </td>
                         </tr>
+                            <?php }?>
+                            <?php $emb_layer=get_post_meta($post_id,"_wpc_emb_layer",true); if(!empty($emb_layer)){?>
                             <tr>
                                  <td><?=__("No Embroidery","wpc")?></td>
                                 <td>
@@ -286,7 +288,6 @@ if (!class_exists('WPC_Admin_Product')) {
                                         <option value="">---</option>
                                         <?php
                                         $no_emb=get_post_meta($post_id,"_wpc_no_emb",true);
-                                        $emb_layer=get_post_meta($post_id,"_wpc_emb_layer",true);
                                         $all_emb_terms=get_terms($emb_layer);
                                         if(!empty($all_emb_terms)){
                                         foreach($all_emb_terms as $variation){
@@ -297,8 +298,9 @@ if (!class_exists('WPC_Admin_Product')) {
                                         <?php }}}?>
                                     </select>
                                 </td>
-
                             </tr>
+                            <?php }?>
+                            <?php if(!empty($all_cords) || !empty($all_static_layers)){?>
                             <tr>
                                 <td><?=__("Multi-Color Cords","wpc")?></td>
                                 <td>
@@ -335,21 +337,21 @@ if (!class_exists('WPC_Admin_Product')) {
                                     </select>
                                 </td>
                             </tr>
+                            <?php }?>
                             <tr>
                                 <td colspan="2" style="text-align: center">
                                     <button id="wpc_btn_save_cords" class="button button-primary"><?=__("Save Cords","wpc")?></button>
                                 </td>
                             </tr>
                         </table>
-                        <?php }?>
                     </div>
                     <div id="wpc_buttons" class="wc-metabox">
                             <?php
-                           $model_layer = get_post_meta($post_id, '_wpc_color_dependency', true);
-                            if(!empty($model_layer)){
+                            if(!empty($model_layer) && !empty($available_models)){
                                 $all_model_terms=get_terms($model_layer);
                             ?>
                                 <table>
+                                    <?php if(!empty($all_cords) || !empty($all_static_layers)){?>
                                     <tr>
                                         <td><?=__("Images & Colors for","wpc")?></td>
                                     <td>
@@ -361,6 +363,8 @@ if (!class_exists('WPC_Admin_Product')) {
                                     <?php }}}?>
                                     </td>
                                     </tr>
+                                    <?php }?>
+                                    <?php if(!empty($emb_layer)){?>
                                     <tr>
                                         <td><?=__("Embroidery Options for","wpc")?></td>
                                         <td>
@@ -372,7 +376,7 @@ if (!class_exists('WPC_Admin_Product')) {
                                                     <?php }}}?>
                                         </td>
                                     </tr>
-
+                                <?php }?>
                                 </table>
                         <?php }?>
                     </div>

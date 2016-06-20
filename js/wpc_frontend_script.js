@@ -15,9 +15,22 @@ jQuery(function ($) {
         rotationCursor: 'default',
         centeredScaling: true
     });
+    var designCanvas= jQuery('#wpc_final_design').children('canvas').get(0);
+    var designStage = new fabric.Canvas(designCanvas, {
+        selection: false,
+        hoverCursor: 'default',
+        rotationCursor: 'default',
+        centeredScaling: true
+    });
+
     var makeCanvasResponsive=function(){
         stage.setWidth($('#wpc_product_stage').width());
         stage.setHeight((canvasHeight * stage.getWidth())/canvasWidth);
+    };
+    var makeDesignResponsive=function(){
+        var desiredWidth=$('#wpc_final_design').width(),
+            desiredHeight=desiredWidth*0.67;
+        designStage.setDimensions({width:desiredWidth,height:desiredHeight});
     };
     var makeObjectResponsive=function(){
         var allObjects=stage.getObjects();
@@ -352,8 +365,25 @@ jQuery(function ($) {
         }
     };
     var zoomImage=function(ratio){
+        var tempStage=stage.getObjects();
 
+         var modifiedWidth=stage.getWidth() * ratio,
+             modifiedHieght=stage.getHeight() * ratio;
+
+        stage.setDimensions({height:modifiedHieght,width:modifiedWidth});
+        makeObjectResponsive();
+
+       var  dataUrl = stage.toDataURL({
+            format: 'png',
+            quality: 1
+        });
+      makeCanvasResponsive();
+      makeObjectResponsive();
+        return dataUrl;
     };
+    $(document).on("click",".wpc_clear_all",function(e){
+        e.preventDefault();
+    });
     makeCanvasResponsive();
     $(window).load(function () {
         $('#attribute-tabs').responsiveTabs({
@@ -375,6 +405,7 @@ jQuery(function ($) {
     $(window).resize(function () {
         makeCanvasResponsive();
         makeObjectResponsive();
+        makeDesignResponsive();
     });
     $(document).on("click",".wpc_terms",function(e){
         e.preventDefault();
@@ -753,5 +784,100 @@ jQuery(function ($) {
             }
         }
         stage.renderAll();
+    });
+   $(document).on("click","#wpc_product_stage",function(e){
+       var windoWidth = $(window).width();
+       $this=$(this);
+       if(windoWidth<767){ return false};
+       if($("#tempForCloud").length){
+           $('#tempForCloud').remove();
+       }
+       $('#wpc_product_stage').block({
+           message: '',
+           overlayCSS: {
+               border: 'none',
+               padding: '0',
+               margin: '0',
+               backgroundColor: 'transparent',
+               opacity: 1,
+               color: '#fff'
+           }
+       });
+       var position= $this.offset();
+       var orginalImage=stage.toDataURL({
+           format: 'png',
+           quality: 1
+       });
+       var zoomingImage=zoomImage(canvasWidth/stage.getWidth());
+       var anchor='<img class="cloudzoom"  id ="zoom1" src="'+orginalImage+'" data-cloudzoom=\'zoomImage:"'+zoomingImage+'",zoomSizeMode:"image",autoInside: 550\' />'
+       var div='<div id="tempForCloud" style="top:'+position.top+'px;left:'+position.left+'px;width:'+$this.width()+'px;height:'+$this.height()+'px;z-index:100;position:absolute">'+anchor+'</div>';
+       $('body').append(div);
+       $('#zoom1').CloudZoom();
+       $('#zoom1').bind('cloudzoom_ready',function(){  $('#wpc_product_stage').unblock();});
+       $('#zoom1').bind('cloudzoom_end_zoom',function(){$('#tempForCloud').remove();});
+       $('#zoom1').bind('click',function(){
+           var cloudZoom = $(this).data('CloudZoom');
+          cloudZoom.closeZoom();
+          stage.deactivateAllWithDispatch();
+           $.magnificPopup.open({
+               items: {src: zoomingImage},
+               type: 'image'
+           }, 0);
+       });
+   });
+    $(document).on("change","#wpc_base_design_options",function(){
+       $this=$(this);
+       if($this.val()=="")return false;
+        $('#wpc_final_design').block({
+            message: '',
+            overlayCSS: {
+                border: 'none',
+                padding: '0',
+                margin: '0',
+                backgroundColor: 'transparent',
+                opacity: 1,
+                color: '#fff'
+            }
+        });
+        var data = {
+            'action': 'wpc_get_design_data',
+            'postId':$this.val()
+        };
+        $.post(wpc_ajaxUrl.ajaxUrl, data, function(response) {
+            var data=JSON.parse(response);
+            designStage.clear();
+            var imagedata=data.wpc_hidden_base_design;
+            var img=new Image;
+            img.src=imagedata;
+            var checking=0;
+            makeDesignResponsive();
+            $(img).load(function(){
+                if(checking==0) {
+                    var ratio=1;
+                    if(img.width > designStage.getWidth()){
+                        ratio=designStage.getWidth() / img.width;
+                    }
+                    if(img.height > designStage.getHeight()){
+                        ratio = designStage.getHeight() / img.height;
+                    }
+                    var imgInstance = new fabric.Image(img, {
+                        hasControls: false,
+                        hasBorders: false,
+                        lockMovementX: true,
+                        lockMovementY: true,
+                        lockRotation: true,
+                        lockScalingX: true,
+                        lockScalingY: true,
+                        lockUniScaling: true,
+                        imageType: "base_image",
+                        scaleX: ratio,
+                        scaleY: ratio,
+                    });
+                    designStage.add(imgInstance).renderAll();
+                    checking+=1;
+                }
+            });
+            $('#wpc_final_design').unblock();
+        });
     });
 });
