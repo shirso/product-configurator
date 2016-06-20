@@ -162,24 +162,6 @@ if (!class_exists('WPC_Admin_Product')) {
                                 </select>
                             </td>
                         </tr>
-<!--                        <tr>-->
-<!--                            <td>-->
-<!--                               --><?//=__('Edge Layer','wpc')?>
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <select name="wpc_edge_layer" id="wpc_edge_layer">-->
-<!--                                    <option value="">---</option>-->
-<!--                                    --><?php //$check_edge = get_post_meta($post_id, '_wpc_edge_layer', true); if (isset($attributes) && !empty($attributes)){ foreach ($attributes as $attr) {
-//                                        if (!$attr['is_variation']) {
-//                                            continue;
-//                                        }
-//                                        ?>
-<!--                                        --><?php //$checked = $attr['name'] == $check_edge ? 'selected' : ''; ?>
-<!--                                        <option --><?//=$checked;?><!-- value="--><?//= $attr['name'] ?><!--"> --><?//= esc_html(wc_attribute_label($attr['name'])) ?><!--</option>-->
-<!--                                    --><?php //}}?>
-<!--                                </select>-->
-<!--                            </td>-->
-<!--                        </tr>-->
                         <tr>
                             <td>
                                 <?=__('Static Image Layer','wpc')?>
@@ -394,6 +376,36 @@ if (!class_exists('WPC_Admin_Product')) {
                                 </table>
                         <?php }?>
                     </div>
+                       <div id="wpc_others_options" class="wc-metabox">
+                           <table>
+                           <tr>
+                               <td><?=__("Design Category")?></td>
+                               <td>
+                                   <?php $terms = get_terms( 'wpc_design_category');
+                                   $selected_design=get_post_meta($post_id,"_wpc_selected_base",true);
+                                   ?>
+                                   <select name="wpc_selected_base">
+                                       <option value="">---</option>
+                                       <?php if(!empty($terms)){foreach($terms as $term){ $selected=$selected_design==$term->term_id?"selected":"";?>
+                                           <option <?=$selected;?> value="<?=$term->term_id;?>"><?=$term->name;?></option>
+                                       <?php }} ?>
+                                   </select>
+                               </td>
+                           </tr>
+                           <tr>
+                               <td><?=__("Additional Comment")?></td>
+                               <?php $additional_comment=get_post_meta($post_id,"_wpc_additional_comment",true);
+                               $checked=$additional_comment==1?"checked":"";
+                               ?>
+                               <td><input type="checkbox" <?=$checked;?> name="wpc_additional_comment" value="1"></td>
+                           </tr>
+                               <tr>
+                                   <td colspan="2" style="text-align: center">
+                                       <button id="wpc_btn_save_others" class="button button-primary"><?=__("Save Others","wpc")?></button>
+                                   </td>
+                               </tr>
+                           </table>
+                       </div>
                    </div>
                 </div>
             <div id="wpc_instructions_tab" class="panel woocommerce_options_panel wc-metaboxes-wrapper">

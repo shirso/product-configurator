@@ -396,9 +396,12 @@ $('body').on('click','.wpc_selectAllButton',function(e){
         e.preventDefault();
         additionalAjaxSave('wpc_all_cords','save_all_cords','wpc_data_default_configuration');
     });
+    $(document).on("click","#wpc_btn_save_others",function(e){
+        e.preventDefault();
+        additionalAjaxSave('wpc_others_options','save_all_others','wpc_data_default_configuration');
+    });
 var additionalAjaxSave=function(formId,section,div){
     var action="wpc_save_tab_data";
-    console.log()
     var data = {
         'action': action,
         'formData': $("#"+formId).find( 'input, select, textarea' ).serialize(),

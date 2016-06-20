@@ -76,6 +76,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                                         <li><a data-attribute="<?= $name ?>"
                                                href="#wpc_<?= $name ?>"><?php echo wc_attribute_label($name); ?></a></li>
                             <?php }}?>
+                            <li><a href="#wpc_finish_product_builder"><?=__('Finish','wpc')?></a></li>
                         </ul>
                         <?php if(isset($attributes) && !empty($attributes)){
                                 foreach ($attributes as $name => $options) {
@@ -97,6 +98,35 @@ if (!class_exists('WPC_Frontend_Product')) {
                                           </a>
                                      </div>
                                 <?php }}?>
+                        <div id="wpc_finish_product_builder">
+                            <p class="wpc_instructions"><i class="fa fa-info-circle"></i> <?=nl2br(@$instruction['wpc_finish'])?></p>
+                            <?php $selected_design= get_post_meta($post->ID,"_wpc_selected_base",true);
+                            if(!empty($selected_design)){
+                            ?>
+                                <select id="wpc_base_design_options">
+                                    <option value="">--<?=__('Choose Design','wpc');?>--</option>
+                                    <?php  $args = array('post_type' => 'wpc_base_design',
+                                        'tax_query' => array(
+                                            array(
+                                                'taxonomy' => 'wpc_design_category',
+                                                'field' => 'term_id',
+                                                'terms' => $selected_design,
+                                            ),
+                                        ),
+                                        'orderby'=>'title'
+                                    );
+                                    $all_posts=get_posts($args);
+                                    if(!empty($all_posts)){
+                                    foreach($all_posts as $basedesign){
+                                    ?>
+                                        <option value="<?=$basedesign->ID ?>"><?=$basedesign->post_title?></option>
+                                    <?php }}?>
+                                </select>
+                            <?php }?>
+                            <div id="wpc_final_design">
+                                <canvas></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <script type="text/javascript">

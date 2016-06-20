@@ -371,6 +371,10 @@ if( !class_exists('WPC_Admin') ) {
                     update_post_meta($postId,'_wpc_available_models',$params['wpc_available_models']);
                     update_post_meta($postId,'_wpc_no_emb',$params['wpc_no_emb']);
                     break;
+                case "save_all_others":
+                    update_post_meta($postId,'_wpc_selected_base',$params['wpc_selected_base']);
+                    update_post_meta($postId,'_wpc_additional_comment',$params['wpc_additional_comment']);
+                    break;
                 case 'wpc_cord_layers' :
                     update_post_meta($postId,'_wpc_cord_layers',$params['wpc_cord_layers']);
                     break;

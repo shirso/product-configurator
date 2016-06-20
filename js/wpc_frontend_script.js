@@ -351,6 +351,9 @@ jQuery(function ($) {
             cords.push({attribute:attributeName,term:termSlug});
         }
     };
+    var zoomImage=function(ratio){
+
+    };
     makeCanvasResponsive();
     $(window).load(function () {
         $('#attribute-tabs').responsiveTabs({
