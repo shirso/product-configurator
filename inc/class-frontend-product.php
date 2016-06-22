@@ -128,6 +128,82 @@ if (!class_exists('WPC_Frontend_Product')) {
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-6 plright">
+                        <div id="tbstl" class="row">
+                            <div class="col-sm-6">
+                                <h4><?=__('Chosen Options','wpc')?></h4>
+                                <table id="wpc_original_options" class="wpc_options_display">
+                                    <?php foreach ($attributes as $name => $options) { ?>
+                                    <tr class="wpc_hidden">
+                                        <th id="wpc_attributes_names_<?=$name;?>"><?=wc_attribute_label($name)?></th>
+                                        <td id="wpc_attributes_values_<?=$name;?>"></td>
+                                        <?php } ?>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4><?=__('Chosen Colors','wpc')?></h4>
+                                <table id="wpc_custom_options" class="wpc_options_display">
+                                    <?php foreach ($attributes as $name => $options) { ?>
+                                        <tr class="wpc_hidden">
+                                            <th id="wpc1_attributes_names_<?=$name;?>"><?=wc_attribute_label($name)?></th>
+                                            <td id="wpc1_attributes_values_<?=$name;?>"></td>
+                                        </tr>
+                                    <?php } ?>
+                                </table>
+                            </div>
+                            <?php $emb_layer=get_post_meta($post->ID,'_wpc_emb_layer',true);
+                            if(!empty($emb_layer)){
+                            ?>
+                                <div class="col-sm-6">
+                                    <h4><?=__('Embroidery','wpc')?></h4>
+                                    <table class="wpc_options_display">
+                                        <tr class="wpc_hidden">
+                                            <th><?=__('Type','wpc')?></th>
+                                            <td class="wpc_emb_options" id="wpc_emb_options_type"></td>
+                                        </tr>
+                                        <tr class="wpc_hidden">
+                                            <th><?=__('Image','wpc')?></th>
+                                            <td class="wpc_emb_options emb_options_for_image" id="wpc_emb_options_image"></td>
+                                        </tr>
+                                        <tr class="wpc_hidden">
+                                            <th><?=__('Text','wpc')?></th>
+                                            <td class="wpc_emb_options emb_options_for_text" id="wpc_emb_options_text"></td>
+                                        </tr>
+                                        <tr class="wpc_hidden">
+                                            <th><?=__('Font','wpc')?></th>
+                                            <td class="wpc_emb_options emb_options_for_text" id="wpc_emb_options_font"></td>
+                                        </tr>
+                                        <tr class="wpc_hidden">
+                                            <th><?=__('Font Size','wpc')?></th>
+                                            <td class="wpc_emb_options emb_options_for_text" id="wpc_emb_options_fontsize"></td>
+                                        </tr>
+                                        <tr class="wpc_hidden">
+                                            <th><?=__('Font Weight','wpc')?></th>
+                                            <td class="wpc_emb_options emb_options_for_text" id="wpc_emb_options_fontweight"></td>
+                                        </tr>
+                                        <tr class="wpc_hidden">
+                                            <th><?=__('Font Style','wpc')?></th>
+                                            <td class="wpc_emb_options emb_options_for_text" id="wpc_emb_options_fontstyle"></td>
+                                        </tr>
+                                        <tr class="wpc_hidden">
+                                            <th><?=__('Color','wpc')?></th>
+                                            <td class="wpc_emb_options emb_options_for_text" id="wpc_emb_options_fontcolor"></td>
+                                        </tr>
+                                        <tr class="wpc_hidden">
+                                            <th><?=__('Position','wpc')?></th>
+                                            <td class="wpc_emb_options" id="wpc_emb_options_position"></td>
+                                        </tr>
+                                        <tr class="wpc_hidden">
+                                            <th><?=__('Additional Comment','wpc')?></th>
+                                            <td class="wpc_emb_options" id="wpc_emb__options_extra_comment"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            <?php }?>
+                        </div>
+                    </div>
+
                 </div>
                 <script type="text/javascript">
                     var defaultModel=<?=self::$default_model;?>,
@@ -182,8 +258,9 @@ if (!class_exists('WPC_Frontend_Product')) {
                         $attr_image = get_option('_wpc_variation_attr_image_' . $term->term_id);
                         $available_models=get_post_meta($productId,'_wpc_available_models',true);
                         $extraClass=in_array($term->term_id,$available_models)?"wpc_available_model":"";
+                        $selected_class=$term->slug==$default_value ? "atv" : "";
                         ?>
-                        <a href="#" data-display="<?=$term->name?>" class="wpc_terms <?=$extraClass?> <?= $attribute_name . '_' . $term->slug ?>"
+                        <a href="#" data-display="<?=$term->name?>" class="wpc_terms  <?=$selected_class?> <?=$extraClass?> <?= $attribute_name . '_' . $term->slug ?>"
                            data-attribute="<?= $attribute_name ?>" data-term="<?= $term->slug ?>">
                             <img src="<?= $attr_image ?>"
                                  title="<?= $term->name ?>"/><span><?= $term->name ?></span>
@@ -291,6 +368,13 @@ if (!class_exists('WPC_Frontend_Product')) {
                     </div>
                     <div id="wpc_emb_postion_buttons" class="btn-group wpc_hidden" role="group">
 
+                    </div>
+                    <div id="wpc_emb_extra_comment" class="row">
+                        <div class="col-sm-5"><?=__('Additional Comment','wpc')?></div>
+                        <div class="col-sm-7">
+                            <textarea class="textar" cols="3" id="wpc_emb_extra_comment_text"></textarea>
+                            <button class="wpc_button" id="wpc_emb_extra_comment_button"><?=__('Add','wpc')?></button>
+                        </div>
                     </div>
                 </div>
                 <?php }?>
