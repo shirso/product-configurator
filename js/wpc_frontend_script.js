@@ -400,6 +400,8 @@ jQuery(function ($) {
     };
     $(document).on("click",".wpc_clear_all",function(e){
         e.preventDefault();
+        clearEmbControls();
+        clearEmbTab();
     });
     makeCanvasResponsive();
     $(window).load(function () {
@@ -586,6 +588,7 @@ jQuery(function ($) {
         e.preventDefault();
         var textToPut = $('#wpc_text_add').val().trim();
         if(textToPut!="") {
+            var textWithLineBreak=textToPut.replace(/\n\r?/g, '<br />');
             $('#embroidery_tab').block({
                 message: '',
                 overlayCSS: {
@@ -616,7 +619,8 @@ jQuery(function ($) {
                 var position_x=$("#wpc_emb_postion_buttons").find(".active").data("left");
                     position_y=$("#wpc_emb_postion_buttons").find(".active").data("top"),
                     actualPostions=getLogoPostions(position_y,position_x),
-                    tempfontSize=getFontSize(responseData.selectedFontSize);
+                    tempfontSize=getFontSize(responseData.selectedFontSize),
+                    positionText= $("#wpc_emb_postion_buttons").find(".active").text();
                 var comicSansText = new fabric.Text(textToPut, {
                     title: 'extraContent',
                     objectType: 'text',
@@ -635,8 +639,10 @@ jQuery(function ($) {
                 stage.add(comicSansText);
                 stage.renderAll();
                 emb_positions={objectType:"text",stageWidth:stage.getWidth(),stageHeight:stage.getHeight(),top:actualPostions.top,left:actualPostions.left,fontSize:tempfontSize};
-                putEmbData("text",textToPut,true);
+                putEmbData("text",textWithLineBreak,true);
                 putEmbData("fontsize",$("#wpc_size_select :selected").text());
+                putEmbData("position",positionText);
+                $('#wpc_text_add').val("");
                 $('#embroidery_tab').unblock();
             });
         }
@@ -695,7 +701,8 @@ jQuery(function ($) {
         if($this.hasClass("active"))return false;
         var position_x=$this.data("left"),
             position_y=$this.data("top"),
-            actualPostions=getLogoPostions(position_y,position_x);
+            actualPostions=getLogoPostions(position_y,position_x),
+            positionText=$this.text();
         $("#wpc_emb_postion_buttons").find(".active").removeClass("active");
         $this.addClass("active");
         var objects = stage.getObjects();
@@ -709,6 +716,7 @@ jQuery(function ($) {
             }
         }
         stage.renderAll().calcOffset();
+        putEmbData("position",positionText);
     });
     $(document).on('change', '#wpc_font_select', function () {
        $this=$(this);
@@ -826,6 +834,20 @@ jQuery(function ($) {
             }
         }
         stage.renderAll();
+    });
+    $(document).on("click","#wpc_emb_extra_comment_button",function(e){
+        e.preventDefault();
+        var text=$("#wpc_emb_extra_comment_text").val();
+        if(text!="") {
+            var textWithLineBreak=text.replace(/\n\r?/g, '<br />');
+            putEmbData("extra_comment", textWithLineBreak,true);
+            $("#wpc_emb_extra_comment_text").val("");
+        }
+    });
+    $(document).on("click","#wpc_emb_extra_comment_button_remove",function(e){
+        e.preventDefault();
+        $("#wpc_emb_extra_comment_text").val("");
+        putEmbData("extra_comment", "");
     });
    $(document).on("click","#wpc_product_stage",function(e){
        var windoWidth = $(window).width();

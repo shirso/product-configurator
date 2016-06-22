@@ -196,7 +196,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                                         </tr>
                                         <tr class="wpc_hidden">
                                             <th><?=__('Additional Comment','wpc')?></th>
-                                            <td class="wpc_emb_options" id="wpc_emb__options_extra_comment"></td>
+                                            <td class="wpc_emb_options" id="wpc_emb_options_extra_comment"></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -374,6 +374,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                         <div class="col-sm-7">
                             <textarea class="textar" cols="3" id="wpc_emb_extra_comment_text"></textarea>
                             <button class="wpc_button" id="wpc_emb_extra_comment_button"><?=__('Add','wpc')?></button>
+                            <button class="wpc_button" id="wpc_emb_extra_comment_button_remove"><?=__('Remove','wpc')?></button>
                         </div>
                     </div>
                 </div>
