@@ -1,5 +1,5 @@
 jQuery(function ($) {
-    var canvasHeight = 800, canvasWidth = 800, cordScaleX=1, cordScaleY= 1, visitedStep=[], cords=[],textures=[],colors=[],emb_positions={};
+    var canvasHeight = 800, canvasWidth = 800,designWidth=600,designHeight=400, cordScaleX=1, cordScaleY= 1, visitedStep=[], cords=[],textures=[],colors=[],emb_positions={};
     var canvas = jQuery('#wpc_product_stage').children('canvas').get(0);
     var stage = new fabric.Canvas(canvas, {
         selection: false,
@@ -891,7 +891,7 @@ jQuery(function ($) {
    });
     $(document).on("change","#wpc_base_design_options",function(){
        $this=$(this);
-       if($this.val()=="")return false;
+       if($this.val()==""){ designStage.clear(); return false};
         $('#wpc_final_design').block({
             message: '',
             overlayCSS: {
@@ -943,5 +943,112 @@ jQuery(function ($) {
             });
             $('#wpc_final_design').unblock();
         });
+    });
+    $(document).on("click",".wpc_finish_product",function(e){
+        e.preventDefault();
+        var designValue=$("#wpc_base_design_options").val();
+        $('#wpc_final_design').block({
+            message: '',
+            overlayCSS: {
+                border: 'none',
+                padding: '0',
+                margin: '0',
+                backgroundColor: 'transparent',
+                opacity: 1,
+                color: '#fff'
+            }
+        });
+        if(designValue!=""){
+            var data = {
+                'action': 'wpc_get_design_data',
+                'postId':designValue
+            };
+            $.post(wpc_ajaxUrl.ajaxUrl, data, function(response) {
+                var data=JSON.parse(response);
+                var allObjects=designStage.getObjects(),
+                    isBase=false,
+                    saddle_image=data.wpc_hidden_saddle_design;
+                for (var i = 0; i < allObjects.length; i++) {
+                    if(allObjects[i].imageType=="base_image"){
+                        isBase=true;
+                    }
+                    if(allObjects[i].title=="finalDesign"){
+                        designStage.remove(allObjects[i]);
+                        i--;
+                    }
+                }
+                if(isBase){
+                  var img=new Image;
+                    img.src=saddle_image;
+                    var actualHeight=img.height * data.wpc_saddle_scaleY,
+                        actualWidth=img.width * data.wpc_saddle_scaleX;
+                   var maxHeight=(actualHeight /designHeight) * designStage.getHeight() ,
+                       maxWidth=(actualWidth /designWidth) * designStage.getWidth();
+                    var ratio=1;
+                    if(stage.getWidth() > maxWidth){
+                        ratio=maxWidth / stage.getWidth();
+                    }
+                    if(stage.getHeight() >maxHeight){
+                        ratio = maxHeight / stage.getHeight();
+                    }
+                    var tempTop=(data.wpc_saddle_pos_y/designHeight) * designStage.getHeight(),
+                        tempLeft=(data.wpc_saddle_pos_x/designWidth) * designStage.getWidth();
+                    var saddelImage=new Image;
+                    var dataUrlForFinal=zoomImage(ratio);
+                    saddelImage.onload = function () {
+                        var imgbase64 = new fabric.Image(saddelImage, {
+                            top: tempTop,
+                            left: tempLeft,
+                            hasControls: false,
+                            hasBorders: false,
+                            lockMovementX: true,
+                            lockMovementY: true,
+                            lockRotation: true,
+                            lockScalingX: true,
+                            lockScalingY: true,
+                            lockUniScaling: true,
+                            title: 'finalDesign'
+
+                        });
+                        designStage.add(imgbase64);
+                    }
+                    saddelImage.src = dataUrlForFinal;
+                }
+                $('#wpc_final_design').unblock();
+            });
+
+        }else{
+            designStage.clear();
+            makeDesignResponsive();
+            var ratio=1;
+            if(stage.getWidth() > designStage.getWidth()){
+                ratio=designStage.getWidth() / stage.getWidth();
+            }
+            if(stage.getHeight() >designStage.getHeight()){
+                ratio = designStage.getHeight() / stage.getHeight();
+            }
+            var dataUrlForFinal=zoomImage(1);
+            var saddelImage=new Image;
+            saddelImage.onload = function () {
+                var imgbase64 = new fabric.Image(saddelImage, {
+                    top: 0,
+                    left: 0,
+                    scaleX: ratio,
+                    scaleY: ratio,
+                    hasControls: false,
+                    hasBorders: false,
+                    lockMovementX: true,
+                    lockMovementY: true,
+                    lockRotation: true,
+                    lockScalingX: true,
+                    lockScalingY: true,
+                    lockUniScaling: true,
+                    title: 'finalDesign'
+                });
+                designStage.add(imgbase64);
+            }
+            saddelImage.src = dataUrlForFinal;
+            $('#wpc_final_design').unblock();
+        }
     });
 });

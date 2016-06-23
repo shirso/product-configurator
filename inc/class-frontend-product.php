@@ -126,6 +126,8 @@ if (!class_exists('WPC_Frontend_Product')) {
                             <div id="wpc_final_design">
                                 <canvas></canvas>
                             </div>
+                            <button class="wpc_finish_product"><?php _e('Finish Builder', 'wpc'); ?></button>
+                            <button class="wpc_finish_reset"><?php _e('Reset All', 'wpc'); ?></button>
                         </div>
                     </div>
                     <div class="col-sm-6 plright">
