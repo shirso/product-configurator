@@ -128,6 +128,23 @@ if (!class_exists('WPC_Frontend_Product')) {
                             </div>
                             <button class="wpc_finish_product"><?php _e('Finish Builder', 'wpc'); ?></button>
                             <button class="wpc_finish_reset"><?php _e('Reset All', 'wpc'); ?></button>
+                            <div class="single_variation_wrap">
+
+                                <div class="variations_button">
+                                    <div class="quantity"><input type="number" size="4" class="input-text qty text" id="wpc_fake_qty" title="Qty" value="1"  step="1" min="1"></div>
+                                    <button class="single_add_to_cart_button fusion-button button-default button-small alt" id="wpc_fake_add-to_cart" type="button"><?=__('Add to Cart','wpc')?></button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="wpc_extra_item[wpc_product_emb_type]" class="wpc_extra_item wpc_hidden_emb" id="wpc_product_emb_type" />
+                            <input type="hidden" name="wpc_extra_item[wpc_product_emb_image]" class="wpc_extra_item wpc_hidden_emb wpc_emb_cart_image" id="wpc_product_emb_image" />
+                            <input type="hidden" name="wpc_extra_item[wpc_product_emb_text]" class="wpc_extra_item wpc_hidden_emb wpc_emb_cart_text" id="wpc_product_emb_text" />
+                            <input type="hidden" name="wpc_extra_item[wpc_product_emb_font]" class="wpc_extra_item wpc_hidden_emb wpc_emb_cart_text" id="wpc_product_emb_font" />
+                            <input type="hidden" name="wpc_extra_item[wpc_product_emb_font_size]" class="wpc_extra_item wpc_hidden_emb wpc_emb_cart_text" id="wpc_product_emb_fontsize" />
+                            <input type="hidden" name="wpc_extra_item[wpc_product_emb_font_weight]" class="wpc_extra_item wpc_hidden_emb wpc_emb_cart_text" id="wpc_product_emb_fontweight" />
+                            <input type="hidden" name="wpc_extra_item[wpc_product_emb_font_style]" class="wpc_extra_item wpc_hidden_emb wpc_emb_cart_text" id="wpc_product_emb_fontstyle" />
+                            <input type="hidden" name="wpc_extra_item[wpc_product_emb_color]" class="wpc_extra_item wpc_hidden_emb wpc_emb_cart_text" id="wpc_product_emb_fontcolor" />
+                            <input type="hidden" name="wpc_extra_item[wpc_product_emb_position]" class="wpc_extra_item wpc_hidden_emb" id="wpc_product_emb_position" />
+                            <input type="hidden" name="wpc_extra_item[wpc_product_extra_comment]" class="wpc_extra_item wpc_hidden_emb" id="wpc_product_emb_extra_comment" />
                         </div>
                     </div>
                     <div class="col-sm-6 plright">

@@ -319,6 +319,7 @@ jQuery(function ($) {
         $("#wpc_font_select").html("");
         $("#wpc_size_select").html("");
         $("#wpc_text_add").val("");
+        $(".wpc_hidden_emb").val("");
         $("#wpc_emb_colors").html("");
         $("#wpc_emb_postion_buttons").html("");
         $("#wpc_text_options").addClass("wpc_hidden");
@@ -389,14 +390,18 @@ jQuery(function ($) {
     };
     var putEmbData=function(type,text,html){
         var td=$("#wpc_emb_options_"+type);
-        if(text==""){$(td).parent().addClass("wpc_hidden");return false;}
+        if(text==""){$(td).parent().addClass("wpc_hidden");}
+
         $(td).parent().removeClass("wpc_hidden");
         if(html){
             $(td).html(text);
         }else{
             $(td).text(text);
         }
-
+        $("#wpc_product_emb_"+type).val(text);
+    };
+    var hiddenData=function(attribute,value){
+        $('#wpc_extra_item_' + attribute).val(value);
     };
     $(document).on("click",".wpc_clear_all",function(e){
         e.preventDefault();
@@ -452,6 +457,7 @@ jQuery(function ($) {
            fetchTextureData();
            removeImageFromCanvas(attributeName);
            displayOptions("wpc1_attributes_values",attributeName,'');
+           hiddenData(attributeName,"");
        }
        if($this.hasClass('wpc_color_cords')){
            removeColorTexttureArray("texture",attributeName);
@@ -551,6 +557,7 @@ jQuery(function ($) {
         }
         displayOptions("wpc1_attributes_values",attribute,displayValue);
         colorCanvas(attribute,colorValue);
+        hiddenData(attribute,displayValue);
     });
     $(document).on("click",".change_texture",function(e){
         e.preventDefault();
@@ -573,6 +580,7 @@ jQuery(function ($) {
         }
         fetchTextureData();
         displayOptions("wpc1_attributes_values",attribute,display);
+        hiddenData(attribute,display);
     });
     $(document).on("click",".wpc_emb_tabs",function(e){
         e.preventDefault();
@@ -639,7 +647,7 @@ jQuery(function ($) {
                 stage.add(comicSansText);
                 stage.renderAll();
                 emb_positions={objectType:"text",stageWidth:stage.getWidth(),stageHeight:stage.getHeight(),top:actualPostions.top,left:actualPostions.left,fontSize:tempfontSize};
-                putEmbData("text",textWithLineBreak,true);
+                putEmbData("text",textToPut,true);
                 putEmbData("fontsize",$("#wpc_size_select :selected").text());
                 putEmbData("position",positionText);
                 $('#wpc_text_add').val("");
@@ -1011,7 +1019,7 @@ jQuery(function ($) {
 
                         });
                         designStage.add(imgbase64);
-                    }
+                    };
                     saddelImage.src = dataUrlForFinal;
                 }
                 $('#wpc_final_design').unblock();
@@ -1046,7 +1054,7 @@ jQuery(function ($) {
                     title: 'finalDesign'
                 });
                 designStage.add(imgbase64);
-            }
+            };
             saddelImage.src = dataUrlForFinal;
             $('#wpc_final_design').unblock();
         }
