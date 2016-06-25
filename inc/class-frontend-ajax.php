@@ -19,12 +19,29 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             add_action( 'wp_ajax_nopriv_wpc_get_texture_image_data', array(&$this,'wpc_get_texture_image_data'));
             add_action( 'wp_ajax_wpc_get_design_data', array(&$this,'wpc_get_design_data'));
             add_action( 'wp_ajax_nopriv_wpc_get_design_data', array(&$this,'wpc_get_design_data'));
+            add_action( 'wp_ajax_wpc_post_final_image', array(&$this,'wpc_post_final_image'));
+            add_action( 'wp_ajax_nopriv_wpc_post_final_image', array(&$this,'wpc_post_final_image'));
         }
+
         public function wpc_get_static_images(){
             $defaultModel=absint($_POST["model"]);
             $productId=absint($_POST["productId"]);
             $static_images=get_post_meta($productId,"_wpc_static_images_".$defaultModel,true);
             echo json_encode($static_images);
+            exit;
+        }
+        public function wpc_post_final_image(){
+            $imageData=$_POST["imageData"];
+//            list($type, $imageData) = explode(';', $imageData);
+//            list(, $imageData)      = explode(',', $imageData);
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imageData));
+
+            $upload_dir = wp_upload_dir();
+            $wpc_upload_dir=$upload_dir["basedir"]."/product_configurator_images/final_design/";
+            //$wpc_upload_path=$upload_dir["baseurl"]."/product_configurator_images/final_design/";
+            $imageName=uniqid().".png";
+            file_put_contents($wpc_upload_dir.$imageName, $imageData);
+            echo $imageName;
             exit;
         }
         public function upload_image(){
@@ -35,7 +52,7 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             $wpc_upload_dir=$upload_dir["basedir"]."/product_configurator_images/";
             $wpc_upload_path=$upload_dir["baseurl"]."/product_configurator_images/";
             $ext = strtolower(pathinfo($_FILES['wpc_image_upload']['name'], PATHINFO_EXTENSION));
-            $newFileName = microtime(true).'.'.$ext;
+            $newFileName = uniqid().'.'.$ext;
             $source = $_FILES['wpc_image_upload']['tmp_name'];
             list($width, $height) = getimagesize($source);
             $dest = $wpc_upload_dir.$newFileName;

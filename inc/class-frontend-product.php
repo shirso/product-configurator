@@ -126,6 +126,16 @@ if (!class_exists('WPC_Frontend_Product')) {
                             <div id="wpc_final_design">
                                 <canvas></canvas>
                             </div>
+                            <?php $additional_comment=get_post_meta($post->ID,"_wpc_additional_comment",true);
+                            if(!empty($additional_comment)){
+                            ?>
+                                <div class="row" style="margin-top: 10px">
+                                <div class="col-sm-4"> <label><?=__("Additional Instructions","wpc")?></label></div>
+                               <div class="col-sm-8">
+                                <textarea id="wpc_additional_comment_text" rows="8" style="width: 100%" ></textarea>
+                                </div>
+                                </div>
+                            <?php }?>
                             <button class="wpc_finish_product"><?php _e('Finish Builder', 'wpc'); ?></button>
                             <button class="wpc_finish_reset"><?php _e('Reset All', 'wpc'); ?></button>
                             <div class="single_variation_wrap">
@@ -145,6 +155,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                             <input type="hidden" name="wpc_extra_item[wpc_product_emb_color]" class="wpc_extra_item wpc_hidden_emb wpc_emb_cart_text" id="wpc_product_emb_fontcolor" />
                             <input type="hidden" name="wpc_extra_item[wpc_product_emb_position]" class="wpc_extra_item wpc_hidden_emb" id="wpc_product_emb_position" />
                             <input type="hidden" name="wpc_extra_item[wpc_product_extra_comment]" class="wpc_extra_item wpc_hidden_emb" id="wpc_product_emb_extra_comment" />
+                            <input type="hidden" name="wpc_extra_item[wpc_product_additional_comment]" class="wpc_extra_item" id="wpc_product_additional_comment" />
                         </div>
                     </div>
                     <div class="col-sm-6 plright">

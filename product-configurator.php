@@ -37,13 +37,51 @@ if( !class_exists('WPC_Product_Configurator') ) {
             load_plugin_textdomain('wpc', FALSE, dirname(plugin_basename(__FILE__)).'/languages/');
         }
         public function install(){
-            $upload_dir = wp_upload_dir();
-            $wpc_upload_dir=$upload_dir["basedir"]."/product_configurator_images/";
-            if(!file_exists($wpc_upload_dir)){
-                mkdir($wpc_upload_dir, 0777, true);
+//            $upload_dir = wp_upload_dir();
+//            $wpc_upload_dir=$upload_dir["basedir"]."/product_configurator_images/";
+//            if(!file_exists($wpc_upload_dir)){
+//                mkdir($wpc_upload_dir, 0777, true);
+//            }
+            self::create_files();
+        }
+        private static function create_files() {
+            // Install files and folders for uploading files and prevent hotlinking
+            $upload_dir      = wp_upload_dir();
+            $wpc_upload_dir=$upload_dir["basedir"]."/product_configurator_images";
+            $wpc_upload_dir_final=$upload_dir["basedir"]."/product_configurator_images/final_design";
+            $content=file_get_contents(plugin_dir_path(__FILE__).'/htaccess.txt');
+            $files = array(
+                array(
+                    'base' 		=> $wpc_upload_dir,
+                    'file' 		=> 'index.html',
+                    'content' 	=> ''
+                ),
+                array(
+                    'base' 		=> $wpc_upload_dir,
+                    'file' 		=> '.htaccess',
+                    'content' 	=> $content
+                ),
+                array(
+                    'base' 		=> $wpc_upload_dir_final,
+                    'file' 		=> 'index.html',
+                    'content' 	=> ''
+                ),
+                array(
+                    'base' 		=> $wpc_upload_dir_final,
+                    'file' 		=> '.htaccess',
+                    'content' 	=> $content
+                )
+            );
+
+
+            foreach ( $files as $file ) {
+                if ( wp_mkdir_p( $file['base'] ) && ! file_exists( trailingslashit( $file['base'] ) . $file['file'] ) ) {
+                    if ( $file_handle = @fopen( trailingslashit( $file['base'] ) . $file['file'], 'w' ) ) {
+                        fwrite( $file_handle, $file['content'] );
+                        fclose( $file_handle );
+                    }
+                }
             }
-
-
         }
      public function custom_post_type() {
             $labels = array(

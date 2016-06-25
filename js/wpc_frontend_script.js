@@ -390,11 +390,12 @@ jQuery(function ($) {
     };
     var putEmbData=function(type,text,html){
         var td=$("#wpc_emb_options_"+type);
+        var textWithLineBreak=text.replace(/\n\r?/g, '<br />');
         if(text==""){$(td).parent().addClass("wpc_hidden");}
 
         $(td).parent().removeClass("wpc_hidden");
         if(html){
-            $(td).html(text);
+            $(td).html(textWithLineBreak);
         }else{
             $(td).text(text);
         }
@@ -409,6 +410,7 @@ jQuery(function ($) {
         clearEmbTab();
     });
     makeCanvasResponsive();
+    $('.variations_button').addClass('wpc_hidden');
     $(window).load(function () {
         $('.variations_form').append($('#attribute-tabs').find('.wpc_extra_item'));
         $('#attribute-tabs').responsiveTabs({
@@ -596,7 +598,6 @@ jQuery(function ($) {
         e.preventDefault();
         var textToPut = $('#wpc_text_add').val().trim();
         if(textToPut!="") {
-            var textWithLineBreak=textToPut.replace(/\n\r?/g, '<br />');
             $('#embroidery_tab').block({
                 message: '',
                 overlayCSS: {
@@ -680,7 +681,8 @@ jQuery(function ($) {
                 $("#wpc_emb_postion_buttons").removeClass("wpc_hidden");
                 var position_x=$("#wpc_emb_postion_buttons").find(".active").data("left"),
                      position_y=$("#wpc_emb_postion_buttons").find(".active").data("top"),
-                     actualPostions=getLogoPostions(position_y,position_x);
+                     actualPostions=getLogoPostions(position_y,position_x),
+                    positionText= $("#wpc_emb_postion_buttons").find(".active").text();
                 new fabric.Image.fromURL(data.filepath, function (oImg) {
                     var imageHeight=data.sizes.height,
                         imageWidth=data.sizes.width,
@@ -698,6 +700,7 @@ jQuery(function ($) {
                     stage.add(oImg);
                     stage.calcOffset().renderAll();
                     putEmbData("image",'<a target="_blank" href="'+data.filepath+'">'+translate_text.image_file+'</a>',true);
+                    putEmbData("position",positionText);
                     $('#wpc_product_stage').unblock();
                 });
             }
@@ -847,8 +850,7 @@ jQuery(function ($) {
         e.preventDefault();
         var text=$("#wpc_emb_extra_comment_text").val();
         if(text!="") {
-            var textWithLineBreak=text.replace(/\n\r?/g, '<br />');
-            putEmbData("extra_comment", textWithLineBreak,true);
+            putEmbData("extra_comment", text,true);
             $("#wpc_emb_extra_comment_text").val("");
         }
     });
@@ -954,6 +956,11 @@ jQuery(function ($) {
     });
     $(document).on("click",".wpc_finish_product",function(e){
         e.preventDefault();
+        $("#wpc_product_additional_comment").val($("#wpc_additional_comment_text").val());
+        var single_variation_wrap=$('.variations_form').find('.single_variation_wrap');
+        if ( $(single_variation_wrap).is( ':visible' ) ) {
+            $('.variations_button').removeClass('wpc_hidden');}else{ $('.variations_button').addClass('wpc_hidden');}
+        var finalData=zoomImage(canvasWidth/stage.getWidth());
         var designValue=$("#wpc_base_design_options").val();
         $('#wpc_final_design').block({
             message: '',
@@ -1022,7 +1029,6 @@ jQuery(function ($) {
                     };
                     saddelImage.src = dataUrlForFinal;
                 }
-                $('#wpc_final_design').unblock();
             });
 
         }else{
@@ -1056,7 +1062,25 @@ jQuery(function ($) {
                 designStage.add(imgbase64);
             };
             saddelImage.src = dataUrlForFinal;
-            $('#wpc_final_design').unblock();
         }
+        var data = {
+            'action': 'wpc_post_final_image',
+            'imageData':finalData
+        };
+        $.post(wpc_ajaxUrl.ajaxUrl, data, function(response) {
+            $("#wpc_product_image_data").val(response);
+            $('#wpc_final_design').unblock();
+        })
+    });
+    $(document).on('keyup','#wpc_fake_qty',function() {
+        $('.variations_form').find('.single_variation_wrap').find('.variations_button').find('.qty').val($(this).val());
+
+    });
+
+    $(document).on('click','#wpc_fake_add-to_cart',function(e) {
+        e.preventDefault();
+        $('.variations_form').find('.single_variation_wrap').find('.variations_button').find('.single_add_to_cart_button').trigger('click');
+
+
     });
 });

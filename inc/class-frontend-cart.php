@@ -4,7 +4,8 @@ if (!class_exists('WPC_Cart')) {
     class WPC_Cart
     {
         public function __construct()
-        {   add_filter('woocommerce_add_cart_item_data', array(&$this, 'add_cart_item_data'), 10, 2);
+        {
+           add_filter('woocommerce_add_cart_item_data', array(&$this, 'add_cart_item_data'), 10, 2);
             add_filter('woocommerce_get_cart_item_from_session', array(&$this, 'get_cart_item_from_session'), 10, 2);
             add_filter('woocommerce_get_item_data', array(&$this, 'get_item_data'), 10, 2);
             add_filter('woocommerce_add_cart_item', array(&$this, 'add_cart_item'), 10, 1);
@@ -16,24 +17,22 @@ if (!class_exists('WPC_Cart')) {
             add_filter('woocommerce_order_items_meta_display',array(&$this,'woocommerce_order_items_meta_display'),10,2);
             add_filter('woocommerce_cart_item_name',array(&$this,'woocommerce_cart_item_name'),10,3);
             add_filter('woocommerce_order_item_thumbnail',array(&$this,'woocommerce_order_item_thumbnail'),10, 2);
+            add_filter('add_to_cart_redirect', array(&$this, 'redirect_to_checkout'));
+        }
+        function redirect_to_checkout() {
+            return WC()->cart->get_cart_url();
         }
         function woocommerce_order_item_thumbnail($html,$item){
-
-          /* if(isset($item['wpc_extra_cart_item'])){
-               $image_data=$item['wpc_extra_cart_item']['wpc_product_image_data'];
-               print_r($image_data);
-           }*/
             if(isset($item['wpc_product_image_data'])){
               $image_data=$item['wpc_product_image_data'];
-               // $image_data='data:image/png;base64,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';
-                $html='<div style="margin-bottom: 5px"><img src="'.$image_data.'" alt="' . esc_attr__( 'Product Image', 'woocommerce' ) . '" width="100" height="" style="vertical-align:middle; margin-right: 10px;" /></div>';
-             //   echo $html;
+                $upload_dir = wp_upload_dir();
+                $wpc_upload_path=$upload_dir["baseurl"]."/product_configurator_images/final_design/";
+                $html='<div style="margin-bottom: 5px"><img src="'.$wpc_upload_path.$image_data.'" alt="' . esc_attr__( 'Product Image', 'woocommerce' ) . '" width="100" height="" style="vertical-align:middle; margin-right: 10px;" /></div>';
             }
            return $html;
         }
 
           function woocommerce_cart_item_name($link, $cart_item, $cart_item_key){
-           // $url = add_query_arg( array('cart_item_key' => $cart_item_key), $cart_item['data']->get_permalink() );
             if(isset($cart_item['wpc_extra_cart_item'])){
                 $url=add_query_arg(array('wpc_cart_item_key'=>$cart_item_key),$cart_item['data']->get_permalink());
                 return sprintf( '<a href="%s">%s</a>', $url, $cart_item['data']->get_title() );
@@ -94,6 +93,9 @@ if (!class_exists('WPC_Cart')) {
                         }elseif($key=='wpc_product_extra_comment'){
                          $other_data[] = array('name' => __('Additional Comment','wpc'), 'display' => $value, 'value' => '','hidden'=>false);
 
+                     }elseif($key=='wpc_product_additional_comment'){
+                         $other_data[] = array('name' => __('Additional Instructions','wpc'), 'display' => $value, 'value' => '','hidden'=>false);
+
                      }
                      else{
                          $other_data[] = array('name' => wc_attribute_label($key), 'display' => $value, 'value' => '');
@@ -114,19 +116,9 @@ if (!class_exists('WPC_Cart')) {
             if( !is_null($cart_item) && isset($cart_item['wpc_extra_cart_item']) && isset($cart_item['wpc_extra_cart_item']['wpc_product_image_data']) ) {
 
                 $thumbnail_data=$cart_item['wpc_extra_cart_item']['wpc_product_image_data'];
-                //print_r($thumbnail_data);
-                $dom = new DOMDocument;
-                libxml_use_internal_errors(true);
-                $dom->loadHTML($thumbnail);
-                $xpath = new DOMXPath( $dom );
-                libxml_clear_errors();
-                $doc = $dom->getElementsByTagName("img")->item(0);
-                $src = $xpath->query(".//@src");
-                foreach ( $src as $s ) {
-                    $s->nodeValue = $thumbnail_data;
-                }
-
-                $output = $dom->saveXML( $doc );
+                $upload_dir = wp_upload_dir();
+                $wpc_upload_path=$upload_dir["baseurl"]."/product_configurator_images/final_design/";
+                $output='<img src="'.$wpc_upload_path.$thumbnail_data.'"/>';
 
                 return $output;
             }
@@ -164,6 +156,9 @@ if (!class_exists('WPC_Cart')) {
 
                         }elseif($k=='wpc_product_extra_comment'){
                             wc_add_order_item_meta($item_id, __('Additional Comment','wpc'), $v);
+
+                        }elseif($k=='wpc_product_additional_comment'){
+                            wc_add_order_item_meta($item_id, __('Additional Instructions','wpc'), $v);
 
                         }else{
                             wc_add_order_item_meta($item_id, wc_attribute_label($k), $v);
@@ -210,6 +205,7 @@ if (!class_exists('WPC_Cart')) {
             $output=str_replace( 'wpc_product_emb_font_style',__('Font Style','wpc'),$output);
             $output=str_replace( 'wpc_product_emb_color',__('Embroidery Color','wpc'),$output);
             $output=str_replace( 'wpc_product_extra_comment',__('Additional Comment','wpc'),$output);
+            $output=str_replace( 'wpc_product_additional_comment',__('Additional Instructions','wpc'),$output);
            if(strpos($output,'<dt')) {
                $output=str_replace('wpc_product_image_data:',__('Image:','wpc'),$output);
                $output = mb_convert_encoding($output, 'HTML-ENTITIES', "UTF-8");
