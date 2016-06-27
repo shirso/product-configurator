@@ -182,7 +182,7 @@ button {
 h3{font-size: 18px; color: #000; font-weight: 600; margin-top: 0;font-family: 'Lato', sans-serif;}
 .seclect ul,.c-seclect ul {display:block; list-style: none; padding-left: 0; margin-left: 0;}
 .seclect ul li,.c-seclect ul li{display: inline-block; margin: 0 3px;position: relative;vertical-align: text-bottom;font-family: 'Lato', sans-serif;}
-.seclect ul li{margin-bottom: 8px;}
+.seclect ul li{margin-bottom: 8px;text-align: center;}
 .seclect ul li img{display: block;}
 .seclect button.atv{ background: #ffffff; color: #00c5ad;}
 .wpc_buttons.atv{ background: #ffffff; color: #00c5ad;}
