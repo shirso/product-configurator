@@ -5,6 +5,7 @@ $allTexturesMeta=get_post_meta($postId,"_wpc_textures_".$termId,true);
 $edge_layer=get_post_meta($postId,'_wpc_edge_layer',true);
 $wpc_multicord_images=get_post_meta($postId,'_wpc_multicord_images_'.$termId,true);
 $all_static_layers=get_post_meta($postId,'_wpc_static_layers',true);
+$wpc_no_cords=get_post_meta($postId,'_wpc_no_cords',true);
 ?>
 <form id="wpc_multicolor_images_form">
     <?php $wpc_combinations=array();
@@ -40,7 +41,7 @@ $all_static_layers=get_post_meta($postId,'_wpc_static_layers',true);
                                 <?php $cords = get_terms($layer);
                                 if(is_array($cords) && !empty($cords)){
                                     foreach ($cords as $variation) {
-                                        if (has_term(absint($variation->term_id), $layer, $postId)) {?>
+                                        if (has_term(absint($variation->term_id), $layer, $postId) && !in_array($variation->term_id,$wpc_no_cords)) {?>
                                             <option value="<?=$variation->slug;?>"><?=$variation->name;?></option>
                                         <?php }}} ?>
                             </select>
