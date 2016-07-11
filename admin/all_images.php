@@ -69,6 +69,14 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
                                          <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_static_images_<?=$cord?>_texture" value="<?=__('Upload','wpc');?>">
                                      </td>
                                  </tr>
+                                 <tr>
+                                     <td>&nbsp;</td>
+                                     <td>
+                                         <input id="not_require_<?=$cord?>" type="checkbox" class="checkbox">
+                                         <label for="not_require_<?=$cord?>" class="description"><?=__("This Step is Optional","wpc")?></label>
+                                     </td>
+
+                                 </tr>
                               </table>
                         </td>
                      </tr>

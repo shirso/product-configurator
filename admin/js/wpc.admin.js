@@ -8,7 +8,7 @@ jQuery(function($){
             allowRemoveAll: false,
             allowAdd: true,
             allowAddN: true,
-            maxFormsCount: 100,
+            maxFormsCount: 0,
             minFormsCount: 0,
             iniFormsCount: 1,
             data: inject_data
@@ -20,7 +20,7 @@ jQuery(function($){
             allowRemoveAll: false,
             allowAdd: true,
             allowAddN: true,
-            maxFormsCount: 100,
+            maxFormsCount: 0,
             minFormsCount: 0,
             iniFormsCount: 1,
             data: inject_data_texture
@@ -32,7 +32,7 @@ jQuery(function($){
             allowRemoveAll: false,
             allowAdd: true,
             allowAddN: true,
-            maxFormsCount: 100,
+            maxFormsCount: 0,
             minFormsCount: 0,
             iniFormsCount: 1,
             data: inject_data_size
@@ -363,7 +363,6 @@ $('body').on('click','.wpc_selectAllButton',function(e){
 
 //Image Page Script
     var saveTabData=function(tabId){
-        console.log(tabId);
         var action="wpc_save_tab_data",
             sectionId=null;
         var sections=['wpc_base_edge','wpc_cord_images','wpc_colors','wpc_textures','wpc_multicolor_images'];
@@ -528,7 +527,6 @@ var additionalAjaxSave=function(formId,section,div){
         e.preventDefault();
         var self=$(this);
         var inputField=$("#"+self.data('field'));
-        console.log(inputField);
         mediaUploader = wp.media({
             multiple: false
         });
