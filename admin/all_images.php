@@ -46,6 +46,8 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
                 </tr>
               <?php $all_static_cords=get_post_meta($post_id,"_wpc_static_layers",true);
               $all_static_image=get_post_meta($post_id,"_wpc_static_images_".$term_id,true);
+              $all_not_required=get_post_meta($post_id,"_wpc_not_required_".$term_id,true);
+              print_r($all_not_required);
               ?>
                 <?php if(!empty($all_static_cords)){
                     foreach($all_static_cords as $cord){
@@ -62,7 +64,7 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
                                      <td>
 
                                          <input type="text" name="wpc_static_images[<?=$cord?>][base]" id="wpc_static_images_<?=$cord?>_base" value="<?=@$all_static_image[$cord]["base"]?>">
-                                         <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_static_images_<?=$cord?>_base" value="<?=__('Upload','wpc');?>">
+                                           <input type="button" class="button button-secondary wpc_image_upload" data-field="wpc_static_images_<?=$cord?>_base" value="<?=__('Upload','wpc');?>">
                                      </td>
                                      <td>
                                          <input type="text" name="wpc_static_images[<?=$cord?>][texture]" id="wpc_static_images_<?=$cord?>_texture" value="<?=@$all_static_image[$cord]["texture"]?>">
@@ -72,7 +74,8 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
                                  <tr>
                                      <td>&nbsp;</td>
                                      <td>
-                                         <input id="not_require_<?=$cord?>" type="checkbox" class="checkbox">
+                                         <?php  $checked=isset($all_not_required[$cord])?"checked":""; ?>
+                                         <input value="1" <?=$checked;?> id="not_require_<?=$cord?>" name="wpc_not_require[<?=$cord?>]" type="checkbox" class="checkbox">
                                          <label for="not_require_<?=$cord?>" class="description"><?=__("This Step is Optional","wpc")?></label>
                                      </td>
 

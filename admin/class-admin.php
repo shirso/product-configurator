@@ -680,6 +680,7 @@ if( !class_exists('WPC_Admin') ) {
                     update_post_meta($postId,'_wpc_base_image_base_'.$termId,$params['wpc_base_image_base']);
                     update_post_meta($postId,'_wpc_base_image_texture_'.$termId,$params['wpc_base_image_texture']);
                     update_post_meta($postId,"_wpc_static_images_".$termId,$params["wpc_static_images"]);
+                    update_post_meta($postId,"_wpc_not_require_".$termId,$params["wpc_not_require"]);
                     break;
                 case 'save_all_layers':
                     update_post_meta($postId,'_wpc_color_dependency',$params['wpc_color_dependency']);

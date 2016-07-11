@@ -18,7 +18,7 @@ $wpc_no_cords=get_post_meta($postId,'_wpc_no_cords',true);
                     $textureCord=$cord_image[$k];
                     if(!empty($textureCord)){
                         foreach($textureCord as $p=>$q){
-                            $c['wpc_multicord_images_images_'.$k.'_'.$p.'_#index#'] =isset($cord_image[$k][$p])?$cord_image[$k][$p]:"";
+                              $c['wpc_multicord_images_images_'.$k.'_'.$p.'_#index#'] =isset($cord_image[$k][$p])?$cord_image[$k][$p]:"";
                         }
                     }
                     unset($c[$k]);

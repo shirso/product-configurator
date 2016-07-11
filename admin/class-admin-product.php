@@ -256,26 +256,40 @@ if (!class_exists('WPC_Admin_Product')) {
                               </td>
                           </tr>
                             <?php }?>
-                            <?php if(!empty($all_cords)){?>
+                            <?php if(!empty($all_cords) || !empty($all_static_layers)){?>
                         <tr>
-                            <td><?=__("No Cords","wpc")?></td>
+                            <td><?=__("No Cords or Static Layer","wpc")?></td>
                             <td>
                                 <select multiple class="wpc_multiselect" id="wpc_no_cord" name="wpc_no_cords[]">
-                                    <?php
-                                    $no_cords=get_post_meta($post_id,"_wpc_no_cords",true);
-                                    foreach($all_cords as $cord){?>
-                                        <optgroup label="<?=wc_attribute_label($cord)?>">
-                                            <?php $variations=get_terms($cord);
-                                            if(!empty($variations)){
-                                               foreach($variations as $variation){
-                                                   if (has_term(absint($variation->term_id), $cord, $post_id)) {
-                                                       $selected_value=in_array($variation->term_id,$no_cords)?"selected":"";
-                                            ?>
-                                                       <option <?=$selected_value?> value="<?=$variation->term_id;?>"><?=$variation->name;?></option>
-                                            <?php }}}?>
+                                    <?php $no_cords=get_post_meta($post_id,"_wpc_no_cords",true);?>
+                                    <?php if(!empty($all_cords)){?>
+                                        <?php foreach($all_cords as $cord){?>
+                                            <optgroup label="<?=wc_attribute_label($cord)?>">
+                                                <?php $variations=get_terms($cord);
+                                                if(!empty($variations)){
+                                                    foreach($variations as $variation){
+                                                        if (has_term(absint($variation->term_id), $cord, $post_id)) {
+                                                            $selected_value=in_array($variation->term_id,$no_cords)?"selected":"";
+                                                            ?>
+                                                            <option <?=$selected_value?> value="<?=$variation->term_id;?>"><?=$variation->name;?></option>
+                                                        <?php }}}?>
 
-                                        </optgroup>
+                                            </optgroup>
+                                        <?php }?>
                                     <?php }?>
+                                    <?php if(!empty($all_static_layers)){ ?>
+                                    <?php foreach($all_static_layers as $layer){?>
+                                    <optgroup label="<?=wc_attribute_label($layer)?>">
+                                        <?php $variations=get_terms($layer);
+                                        if(!empty($variations)){
+                                            foreach($variations as $variation){
+                                                if (has_term(absint($variation->term_id), $layer, $post_id)) {
+                                                    $selected_value=in_array($variation->term_id,$no_cords)?"selected":"";
+                                                    ?>
+                                                    <option <?=$selected_value?> value="<?=$variation->term_id;?>"><?=$variation->name;?></option>
+                                                <?php }}}?>
+                                        <?php }?>
+                                        <?php }?>
                                 </select>
                             </td>
                         </tr>
