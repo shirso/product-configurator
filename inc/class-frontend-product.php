@@ -306,6 +306,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                         $button_class=null;
                         $no_cords=get_post_meta($productId,"_wpc_no_cords",true);
                         $texture_cords=get_post_meta($productId,"_wpc_multicolor_cords",true);
+                        $static_layer=get_post_meta($productId,"_wpc_static_layers",true);
                         if(in_array($term->term_id,$no_cords)){
                             $button_class="wpc_no_cords";
                         }
@@ -322,6 +323,9 @@ if (!class_exists('WPC_Frontend_Product')) {
                                 $button_class="wpc_no_emb";
                             }
                         }
+                        if(in_array($attribute_name,$static_layer)){
+                            $button_class.=" wpc_static_layer";
+                        }
                         ?>
                         <button
                             class="wpc_terms <?=$activeClass?> <?=$button_class?> <?= $attribute_name . '_' . $term->slug ?>"
@@ -332,6 +336,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                 <?php }}}?>
             </ul>
             <?php
+            $static_button_class=is_array($static_layer) && in_array($attribute_name,$static_layer)?"static_button":"";
             $colorOfThisAttribute=isset(self::$colorsMeta[$attribute_name][$default_value]['colors'])?self::$colorsMeta[$attribute_name][$default_value]['colors']:array();
             $textureOfThisAttribute=isset(self::$textureMeta[$attribute_name][$default_value]['textures'])?self::$textureMeta[$attribute_name][$default_value]['textures']:array();
             ?>
@@ -339,7 +344,7 @@ if (!class_exists('WPC_Frontend_Product')) {
 
           <?php if(!empty($colorOfThisAttribute)){foreach ($colorOfThisAttribute as $color) {   $all = explode('|', $color); ?>
               <div class="flclr">
-              <div class="change_color insec" style="background: <?= $all[1] ?>" data-color="<?=$all[1]?>" data-display="<?=$all[0]?>" data-attribute="<?=$attribute_name?>" data-term="<?=$term->term_id;?>">
+              <div class="change_color <?=$static_button_class?> insec" style="background: <?= $all[1] ?>" data-color="<?=$all[1]?>" data-display="<?=$all[0]?>" data-attribute="<?=$attribute_name?>" data-term="<?=$term->term_id;?>">
               </div>
               <p><?= $all[0] ?></p>
               </div>
@@ -348,7 +353,7 @@ if (!class_exists('WPC_Frontend_Product')) {
             <div class="c-seclect" id="wpc_texture_tab_<?= $attribute_name ?>">
             <?php if(!empty($textureOfThisAttribute)){foreach ($textureOfThisAttribute as $texture) {   $all = explode('|', $texture); ?>
                 <div class="flclr">
-                    <div class="change_texture insec" data-attribute="<?=$attribute_name?>" data-term="<?=$term->slug;?>" data-display="<?=$all[0]?>" data-clean="<?=clean($all[0])?>"  style="background: url('<?= $all[1] ?>')">
+                    <div class="change_texture <?=$static_button_class?> insec" data-attribute="<?=$attribute_name?>" data-term="<?=$term->slug;?>" data-display="<?=$all[0]?>" data-clean="<?=clean($all[0])?>"  style="background: url('<?= $all[1] ?>')">
                     </div>
                     <p><?= $all[0] ?></p>
                 </div>

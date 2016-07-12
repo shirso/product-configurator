@@ -46,8 +46,7 @@ $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', t
                 </tr>
               <?php $all_static_cords=get_post_meta($post_id,"_wpc_static_layers",true);
               $all_static_image=get_post_meta($post_id,"_wpc_static_images_".$term_id,true);
-              $all_not_required=get_post_meta($post_id,"_wpc_not_required_".$term_id,true);
-              print_r($all_not_required);
+              $all_not_required=get_post_meta($post_id,"_wpc_not_require_".$term_id,true);
               ?>
                 <?php if(!empty($all_static_cords)){
                     foreach($all_static_cords as $cord){

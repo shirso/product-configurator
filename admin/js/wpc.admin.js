@@ -382,6 +382,7 @@ $('body').on('click','.wpc_selectAllButton',function(e){
             url: ajaxurl,
             data: data,
             success:function(){
+                alert("Data Saved!!!");
             },
             async:false
         });

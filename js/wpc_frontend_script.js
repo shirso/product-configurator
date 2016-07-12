@@ -146,6 +146,33 @@ jQuery(function ($) {
            });
        }
     };
+    var loadSingleTextureImage=function(attribute,image){
+        removeImageFromCanvas(attribute);
+        var imageBase=new Image;
+        imageBase.src= $.parseJSON(image);
+        var checking_base=0;
+        $(imageBase).load(function(){
+            if(checking_base==0) {
+                var imgInstance = new fabric.Image(imageBase, {
+                    hasControls: false,
+                    hasBorders: false,
+                    lockMovementX: true,
+                    lockMovementY: true,
+                    lockRotation: true,
+                    lockScalingX: true,
+                    lockScalingY: true,
+                    lockUniScaling: true,
+                    imageClass: "texture_image",
+                    imageType: "cord_images",
+                    attribute: attribute,
+                    scaleX: cordScaleX,
+                    scaleY: cordScaleY
+                });
+                stage.add(imgInstance);
+                checking_base +=1;}
+        });
+        stage.renderAll().calcOffset();
+    };
     var loadTextureFromAjax=function(data){
         if(!$.isEmptyObject(data)){
            data=JSON.parse(data);
@@ -205,6 +232,32 @@ jQuery(function ($) {
                         loadImageData(k,v);
                     }
                 });
+            }
+            $('#wpc_product_stage').unblock();
+        });
+    };
+    var loadStaticImageSingle=function(attributeName){
+        $('#wpc_product_stage').block({
+            message: '',
+            overlayCSS: {
+                border: 'none',
+                padding: '0',
+                margin: '0',
+                backgroundColor: 'transparent',
+                opacity: 1,
+                color: '#fff'
+            }
+        });
+        var imageData= {
+            'action': 'wpc_get_single_static_image',
+            'model':defaultModel,
+            'productId':productId,
+            'attribute':attributeName
+        };
+        $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(data) {
+            var response= $.parseJSON(data);
+            if((typeof response.base !="undefined" &&  response.base!="") && (typeof response.texture !="undefined" && response.texture!="")){
+                loadImageData(attributeName,response);
             }
             $('#wpc_product_stage').unblock();
         });
@@ -289,6 +342,32 @@ jQuery(function ($) {
         $('#wpc_product_stage').unblock();
      });
  };
+ var loadTextureDataSingle=function(attribute,texture){
+     $('#wpc_product_stage').block({
+         message: '',
+         overlayCSS: {
+             border: 'none',
+             padding: '0',
+             margin: '0',
+             backgroundColor: 'transparent',
+             opacity: 1,
+             color: '#fff'
+         }
+     });
+     var imageData= {
+         'action': 'wpc_get_single_texture_image_data',
+         'texture':texture,
+         'attribute':attribute,
+         'model':defaultModel,
+         'productId':productId
+     };
+     $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(response) {
+         loadSingleTextureImage(attribute,response);
+         console.log(response);
+         $('#wpc_product_stage').unblock();
+     });
+ };
+
  var removeImageFromCanvas=function(attribute){
    var objects=stage.getObjects();
      for (var i = 0; i < objects.length; i++) {
@@ -482,7 +561,8 @@ jQuery(function ($) {
                'term':termSlug,
                'termId':termId,
                'model':defaultModel,
-               'productId':productId
+               'productId':productId,
+               'buttonType':$this.hasClass('wpc_static_layer')?'static_button':''
            };
            $.post(wpc_ajaxUrl.ajaxUrl, data, function(response) {
                $('#wpc_color_tab_'+attributeName).unblock();
@@ -497,6 +577,10 @@ jQuery(function ($) {
            });
 
            //Load Cord Images
+           if($this.hasClass("wpc_static_layer")){
+               loadStaticImageSingle(attributeName);
+               return false;
+           }
             setCords(attributeName,termSlug);
             fetchImageData(attributeName);
        }
@@ -520,12 +604,14 @@ jQuery(function ($) {
               'term':termSlug,
               'termId':termId,
               'model':defaultModel,
-              'productId':productId
+              'productId':productId,
+              'buttonType':$this.hasClass('wpc_static_layer')?'static_button':''
           };
           $.post(wpc_ajaxUrl.ajaxUrl, data, function(response) {
               $('#wpc_texture_tab_'+attributeName).unblock();
               $('#wpc_texture_tab_'+attributeName).html(response);
           });
+          if($this.hasClass("wpc_static_layer")) return false;
           setCords(attributeName,termSlug);
       }
         if($this.hasClass("wpc_no_emb")){
@@ -580,7 +666,9 @@ jQuery(function ($) {
             textures=newArray;
             textures.push({attribute:attribute,texture:texture});
         }
-        fetchTextureData();
+        if(!$this.hasClass("static_button")){fetchTextureData();}else{
+            loadTextureDataSingle(attribute,texture);
+        }
         displayOptions("wpc1_attributes_values",attribute,display);
         hiddenData(attribute,display);
     });

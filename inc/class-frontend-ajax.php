@@ -15,18 +15,37 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             add_action( 'wp_ajax_nopriv_wpc_get_emb_config', array(&$this,'wpc_get_emb_config'));
             add_action( 'wp_ajax_wpc_get_static_images', array(&$this,'wpc_get_static_images'));
             add_action( 'wp_ajax_nopriv_wpc_get_static_images', array(&$this,'wpc_get_static_images'));
+            add_action( 'wp_ajax_wpc_get_single_static_image', array(&$this,'wpc_get_single_static_image'));
+            add_action( 'wp_ajax_nopriv_wpc_get_single_static_image', array(&$this,'wpc_get_single_static_image'));
             add_action( 'wp_ajax_wpc_get_texture_image_data', array(&$this,'wpc_get_texture_image_data'));
             add_action( 'wp_ajax_nopriv_wpc_get_texture_image_data', array(&$this,'wpc_get_texture_image_data'));
+            add_action( 'wp_ajax_wpc_get_single_texture_image_data', array(&$this,'wpc_get_single_texture_image_data'));
+            add_action( 'wp_ajax_nopriv_wpc_get_single_texture_image_data', array(&$this,'wpc_get_single_texture_image_data'));
             add_action( 'wp_ajax_wpc_get_design_data', array(&$this,'wpc_get_design_data'));
             add_action( 'wp_ajax_nopriv_wpc_get_design_data', array(&$this,'wpc_get_design_data'));
             add_action( 'wp_ajax_wpc_post_final_image', array(&$this,'wpc_post_final_image'));
             add_action( 'wp_ajax_nopriv_wpc_post_final_image', array(&$this,'wpc_post_final_image'));
         }
-
+        public function wpc_get_single_static_image(){
+            $defaultModel=absint($_POST["model"]);
+            $productId=absint($_POST["productId"]);
+            $attribute=esc_html($_POST["attribute"]);
+            $static_images=get_post_meta($productId,"_wpc_static_images_".$defaultModel,true);
+            $return_images=isset($static_images[$attribute])?$static_images[$attribute]:array();
+            echo json_encode($return_images);exit;
+        }
         public function wpc_get_static_images(){
             $defaultModel=absint($_POST["model"]);
             $productId=absint($_POST["productId"]);
             $static_images=get_post_meta($productId,"_wpc_static_images_".$defaultModel,true);
+            $not_require=get_post_meta($productId,"_wpc_not_require_".$defaultModel,true);
+            if(!empty($not_require)){
+                foreach($not_require as $k=>$v){
+                    if(isset($static_images[$k])){
+                        unset ($static_images[$k]);
+                    }
+                }
+            }
             echo json_encode($static_images);
             exit;
         }
@@ -73,12 +92,13 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             $productId=absint($_POST["productId"]);
             $colorsMeta=get_post_meta($productId,"_wpc_colors_".$defaultModel,true);
             $colorOfThisAttribute=isset($colorsMeta[$attribute][$term]['colors'])?$colorsMeta[$attribute][$term]['colors']:array();
+            $butonType=esc_html($_POST["buttonType"]);
             $html="";
            if(!empty($colorOfThisAttribute)){
                foreach ($colorOfThisAttribute as $color) {
                    $all = explode('|', $color);
                    $html .= '<div class="flclr">';
-                   $html.='<div class="change_color insec" data-color="'.$all[1].'" data-attribute="'.$attribute.'" data-term="'.$termId.'" data-display="'.$all[0].'" style="background: '.$all[1].'">';
+                   $html.='<div class="change_color '.$butonType.' insec" data-color="'.$all[1].'" data-attribute="'.$attribute.'" data-term="'.$termId.'" data-display="'.$all[0].'" style="background: '.$all[1].'">';
                    $html .= '</div>';
                    $html.='   <p>'.$all[0].'</p>';
                    $html .= '</div>';
@@ -92,13 +112,14 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             $term=esc_attr($_POST["term"]);
             $productId=absint($_POST["productId"]);
             $texturesMeta=get_post_meta($productId,"_wpc_textures_".$defaultModel,true);
+            $butonType=esc_html($_POST["buttonType"]);
             $textureOfThisAttribute=isset($texturesMeta[$attribute][$term]['textures'])?$texturesMeta[$attribute][$term]['textures']:array();
             $html="";
             if(!empty($textureOfThisAttribute)){
                 foreach ($textureOfThisAttribute as $texture) {
                     $all = explode('|', $texture);
                     $html .= '<div class="flclr">';
-                    $html.='<div class="change_texture insec" data-attribute="'.$attribute.'" data-term="'.$term.'" data-display="'.$all[0].'" data-clean="'.clean($all[0]).'" style="background:url('.$all[1].')">';
+                    $html.='<div class="change_texture '.$butonType.' insec" data-attribute="'.$attribute.'" data-term="'.$term.'" data-display="'.$all[0].'" data-clean="'.clean($all[0]).'" style="background:url('.$all[1].')">';
                     $html .= '</div>';
                     $html.='   <p>'.$all[0].'</p>';
                     $html .= '</div>';
@@ -157,6 +178,15 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             }}
             echo json_encode($finalArray);
             exit;
+        }
+        public function wpc_get_single_texture_image_data(){
+            $defaultModel=absint($_POST["model"]);
+            $productId=absint($_POST["productId"]);
+            $attribute=esc_html($_POST["attribute"]);
+            $texture=esc_html($_POST["texture"]);
+            $imageData=get_post_meta($productId,'_wpc_multicord_images_'.$defaultModel,true);
+            $imageData=isset($imageData["static_images"][$attribute][$texture])?$imageData["static_images"][$attribute][$texture]:array();
+            echo json_encode($imageData);exit;
         }
         public function wpc_get_emb_config(){
             $defaultModel=absint($_POST["model"]);
