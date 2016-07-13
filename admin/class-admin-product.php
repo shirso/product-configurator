@@ -250,7 +250,8 @@ if (!class_exists('WPC_Admin_Product')) {
                                           $selectedModels=is_array($available_models) && in_array($term->term_id,$available_models) ? "selected" :"";
                                           ?>
                                           <option <?=$selectedModels?> value="<?=$term->term_id;?>"><?=$term->name;?></option>
-                                      <?php }}}?>
+                                      <?php }
+                                      }}?>
                                   </select>
 
                               </td>

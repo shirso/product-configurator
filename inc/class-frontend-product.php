@@ -263,6 +263,7 @@ if (!class_exists('WPC_Frontend_Product')) {
             $base_layer=get_post_meta($productId,"_wpc_base_color_dependency",true);
             $edge_layer=get_post_meta($productId,"_wpc_edge_layer",true);
             $emb_layer=get_post_meta($productId,"_wpc_emb_layer",true);
+            $model_layer=get_post_meta($productId,"_wpc_color_dependency",true);
             switch ($orderby) {
                 case 'name' :
                     $args = array('orderby' => 'name', 'hide_empty' => false, 'menu_order' => false);
@@ -289,8 +290,9 @@ if (!class_exists('WPC_Frontend_Product')) {
                         $available_models=get_post_meta($productId,'_wpc_available_models',true);
                         $extraClass=in_array($term->term_id,$available_models)?"wpc_available_model":"";
                         $selected_class=$term->slug==$default_value ? "atv" : "";
+                        $model_class=$attribute_name==$model_layer?"wpc_model":"";
                         ?>
-                        <a href="#" data-display="<?=$term->name?>" class="wpc_terms  <?=$selected_class?> <?=$extraClass?> <?= $attribute_name . '_' . $term->slug ?>"
+                        <a href="#" data-display="<?=$term->name?>" class="wpc_terms <?=$model_class;?> <?=$selected_class?> <?=$extraClass?> <?= $attribute_name . '_' . $term->slug ?>"
                            data-attribute="<?= $attribute_name ?>" data-term="<?= $term->slug ?>">
                             <img src="<?= $attr_image ?>"
                                  title="<?= $term->name ?>"/><span><?= $term->name ?></span>

@@ -1,4 +1,4 @@
-jQuery(function ($) {
+ jQuery(function ($) {
     var canvasHeight = 800, canvasWidth = 800,designWidth=600,designHeight=400, cordScaleX=1, cordScaleY= 1, visitedStep=[], cords=[],textures=[],colors=[],emb_positions={};
     var canvas = jQuery('#wpc_product_stage').children('canvas').get(0);
     var stage = new fabric.Canvas(canvas, {

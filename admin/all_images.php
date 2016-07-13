@@ -3,9 +3,10 @@ if (!defined('ABSPATH')) exit;
 $post_id = absint($_GET['post']);
 $taxonomy=esc_html($_GET["taxonomy"]);
 $term_id=absint($_GET["term"]);
-//print_r()
 $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', true));
+$termDetails=get_term_by("id",$term_id,$taxonomy);
 ?>
+<h1><?=__("Image and Color configuration for","wpc")?> "<?=$termDetails->name;?>"</h1>
 <script type="text/javascript">
     var wpc_image_page=true,
         postId=<?=$post_id;?>,
