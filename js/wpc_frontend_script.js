@@ -1,5 +1,5 @@
  jQuery(function ($) {
-    var canvasHeight = 800, canvasWidth = 800,designWidth=600,designHeight=400, cordScaleX=1, cordScaleY= 1, visitedStep=[], cords=[],textures=[],colors=[],emb_positions={};
+    var canvasHeight = 800, canvasWidth = 800,designWidth=600,designHeight=400, cordScaleX=1, cordScaleY= 1, visitedStep=[], cords=[],textures=[],colors=[],emb_positions={},image_change_possible=true;
     var canvas = jQuery('#wpc_product_stage').children('canvas').get(0);
     var stage = new fabric.Canvas(canvas, {
         selection: false,
@@ -623,6 +623,26 @@
             $("#embroidery_tab").removeClass("wpc_hidden");
         }
      });
+     $(document).on('click','.wpc_model',function(e){
+         e.preventDefault();
+         $this=$(this);
+         if($this.hasClass('atv')){
+             return false;
+         }
+         var attributeName=$this.data("attribute"),
+             termSlug=$this.data("term"),
+             termId=$this.data("id"),
+             display=$this.data("display");
+         $this.closest('.attribute_loop').find('a').removeClass('atv');
+         $this.closest('.attribute_loop').find('i').remove();
+         $this.addClass('atv');
+         $this.parent().append('<i class="fa fa-check"></i>');
+         setAttributeValues(attributeName,display);
+         $("#" + attributeName).focusin().val(termSlug).change();
+         if($this.hasClass("wpc_available_model")){
+             defaultModel==termId;
+         }
+     });
 
     $(document).on("click",".change_color",function(e){
         e.preventDefault();
@@ -1164,11 +1184,30 @@
         $('.variations_form').find('.single_variation_wrap').find('.variations_button').find('.qty').val($(this).val());
 
     });
-
     $(document).on('click','#wpc_fake_add-to_cart',function(e) {
         e.preventDefault();
         $('.variations_form').find('.single_variation_wrap').find('.variations_button').find('.single_add_to_cart_button').trigger('click');
-
-
     });
+     $(document).on('click','.wpc-scroll',function(e){
+         e.preventDefault();
+         var scrollTo= "#"+$(this).data("scroll"),
+             windowwidth =$(window).width();
+         if(windowwidth>767){
+             $('html, body').animate({scrollTop:$(scrollTo).offset().top-100}, 'slow');
+         }
+         else{$('html, body').animate({scrollTop:$(scrollTo).offset().top}, 'slow');}
+     });
+     $(document).on('click','.wpc_finish_reset',function(e){
+         e.preventDefault();
+         var confirmation=confirm(translate_text.reset_text);
+         if(confirmation){
+
+         }
+         //if(!_.isEmpty(defaultValues)){
+         //    $.each(defaultValues,function(k,v){
+         //        var button=$("."+"wpc_attribute_button_"+v["attribute"]+"_"+v["term"]);
+         //        $(button).trigger("click");
+         //    });
+         //}
+     });
 });

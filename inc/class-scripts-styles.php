@@ -106,7 +106,7 @@ if (!class_exists('WPC_Scripts_Styles')) {
 //                    'texture_config' => $texture_config['_wpc_textures'], 'base_color_step' => $base_color_step,
 //                    'exclude_image' => $exclude_image, 'exclude_color' => $exclude_color,
 //                    'embrodiary_step' => $embrodiary_step, 'last_step' => $last_step,'logo_size'=>$logo_size,'font_size'=>$font_size));
-                wp_localize_script('wpc_frontend_script','translate_text',array("image_file"=>__("Image File","wpc")));
+                wp_localize_script('wpc_frontend_script','translate_text',array("image_file"=>__("Image File","wpc"),'reset_text'=>__("Are you sure to reset?","wpc")));
                 wp_enqueue_script('wpc_underscore', WPC_PLUGIN_ABSOLUTE_PATH . 'js/underscore-min.js', array('jquery'), false);
                 wp_enqueue_script('wpc_magnific_popup', WPC_PLUGIN_ABSOLUTE_PATH . 'js/jquery.magnific-popup.min.js', array('jquery'), false);
                 wp_enqueue_script('wpc_form', WPC_PLUGIN_ABSOLUTE_PATH . 'js/jquery.form.min.js', array('jquery'), false);

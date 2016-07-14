@@ -2,15 +2,18 @@
 if (!defined('ABSPATH')) exit;
 $post_id =absint($_GET['post']);
 $term_id=absint($_GET["term"]);
+$taxonomy=esc_html($_GET["taxonomy"]);
 $settings=get_option('wpc_settings');
 $allColors=$settings["colors_data"];
 $emb_config=get_post_meta($post_id,"_wpc_emb_config_".$term_id,true);
+$termDetails=get_term_by("id",$term_id,$taxonomy);
 ?>
 <script type="text/javascript">
     var embroidery_config=true,
         termId=<?=$term_id?>;
 </script>
 <div align="center">
+    <h1><?=__("Embroidery configuration for","wpc")?> "<?=$termDetails->name;?>"</h1>
 <form action="" method="post" id="step_embroidery_form" data-id="<?=$post_id?>">
 <table cellspacing="10" cellpadding="5">
     <tr>

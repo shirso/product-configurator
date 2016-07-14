@@ -253,7 +253,7 @@ if (!class_exists('WPC_Admin_Product')) {
                                       <?php }
                                       }}?>
                                   </select>
-
+                                <span class="description"><?=__("Images available for these models","wpc")?></span>
                               </td>
                           </tr>
                             <?php }?>
@@ -372,7 +372,7 @@ if (!class_exists('WPC_Admin_Product')) {
                                     <td>
                                    <?php if(!empty($all_model_terms)){
                                        foreach($all_model_terms as $term){
-                                           if (has_term(absint($term->term_id), $model_layer, $post_id) && in_array($term->term_id,$available_models)) {
+                                           if (has_term(absint($term->term_id), $model_layer, $post_id)) {
                                        ?>
                                         <a href="options.php?page=wpc_configurator_images&post=<?=$_GET["post"]?>&taxonomy=<?=$model_layer?>&term=<?=$term->term_id?>" target="_blank" class="button"><?=$term->name;?></a>
                                     <?php }}}?>
@@ -385,7 +385,7 @@ if (!class_exists('WPC_Admin_Product')) {
                                         <td>
                                             <?php if(!empty($all_model_terms)){
                                                 foreach($all_model_terms as $term){
-                                                    if (has_term(absint($term->term_id), $model_layer, $post_id) && in_array($term->term_id,$available_models)) {
+                                                    if (has_term(absint($term->term_id), $model_layer, $post_id)) {
                                                         ?>
                                                         <a href="options.php?page=wpc_configurator_embroidery&post=<?=$_GET["post"]?>&taxonomy=<?=$model_layer?>&term=<?=$term->term_id?>" target="_blank" class="button"><?=$term->name;?></a>
                                                     <?php }}}?>

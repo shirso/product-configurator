@@ -1,19 +1,32 @@
 <?php
 if (!defined('ABSPATH')) exit;
 $post_id = absint($_GET['post']);
+$available_models=get_post_meta($post_id,'_wpc_available_models',true);
 $taxonomy=esc_html($_GET["taxonomy"]);
 $term_id=absint($_GET["term"]);
 $attributes = maybe_unserialize(get_post_meta($post_id, '_product_attributes', true));
 $termDetails=get_term_by("id",$term_id,$taxonomy);
 ?>
+<?php if(in_array($term_id,$available_models)){?>
 <h1><?=__("Image and Color configuration for","wpc")?> "<?=$termDetails->name;?>"</h1>
+<?php }else{?>
+    <h1><?=__("Color configuration for","wpc")?> "<?=$termDetails->name;?>"</h1>
+<?php }?>
 <script type="text/javascript">
+    <?php if(in_array($term_id,$available_models)){?>
     var wpc_image_page=true,
         postId=<?=$post_id;?>,
         termId=<?=$term_id;?>,
         taxonomy='<?=$taxonomy;?>';
+    <?php }else{?>
+    var wpc_only_color=true,
+        postId=<?=$post_id;?>,
+        termId=<?=$term_id;?>,
+        taxonomy='<?=$taxonomy;?>';
+    <?php }?>
 </script>
 <div id="wpc_all_images">
+    <?php if(in_array($term_id,$available_models)){?>
     <h3><?=__('Base & Edge Images','wpc')?></h3>
     <section>
         <div id="wpc_base_edge">
@@ -89,12 +102,15 @@ $termDetails=get_term_by("id",$term_id,$taxonomy);
             </form>
         </div>
     </section>
+    <?php }?>
+    <?php if(in_array($term_id,$available_models)){?>
     <h3><?=__('Cord Images','wpc')?></h3>
     <section>
         <div id="wpc_cord_images">
 
         </div>
     </section>
+    <?php }?>
     <h3><?=__("Colors",'wpc')?></h3>
     <section>
         <div id="wpc_colors">
@@ -107,10 +123,12 @@ $termDetails=get_term_by("id",$term_id,$taxonomy);
 
         </div>
     </section>
+    <?php if(in_array($term_id,$available_models)){?>
     <h3><?=__('MultiColor Cord Images','wpc')?></h3>
     <section>
         <div id="wpc_multicolor_images">
 
         </div>
     </section>
+    <?php }?>
 </div>

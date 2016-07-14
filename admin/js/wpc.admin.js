@@ -360,13 +360,51 @@ $('body').on('click','.wpc_selectAllButton',function(e){
         $(this).parent().parent().parent().find('.color_checkbox').removeAttr('checked');
     }
 });
-
+    var loadColorTab=function(tabId){
+        var action="wpc_load_tab_data",
+            sectionId=null;
+        var sections=['wpc_colors','wpc_textures'];
+        sectionId=sections[tabId];
+        $("#"+sectionId).block({message:null,
+            overlayCSS: {
+                background: '#eee',
+                opacity: 0.6
+            }
+        });
+        var data = {
+            'action': action,
+            'section': sectionId,
+            'postId': postId,
+            'termId':termId,
+            'taxonomy':taxonomy
+        };
+        $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: data,
+            dataType:'html',
+            success:function(resp){
+                $("#"+sectionId).html(resp);
+                $("#wpc_multicolor_cords_select").multiselect({});
+                resizeJquerySteps();
+                //if($(resp).filter("#wpc_cord_images_form").length>0){
+                //    activateSheepIt('wpc_combinations');
+                //}
+                //else if($(resp).filter("#wpc_multicolor_images_form").length>0){
+                //    textureSheepIt('wpc_texture_combinations');
+                //}
+                $("#"+sectionId).unblock();
+            }
+        });
+    };
 //Image Page Script
-    var saveTabData=function(tabId){
+    var saveTabData=function(tabId,onlycolor){
         var action="wpc_save_tab_data",
             sectionId=null;
         var sections=['wpc_base_edge','wpc_cord_images','wpc_colors','wpc_textures','wpc_multicolor_images'];
-
+        if(typeof onlycolor!="undefined"){
+            sections=['wpc_colors','wpc_textures'];
+        }
         var formId=$("#"+sections[tabId]+"_form");
        // console.log(formId);
         var data = {
@@ -423,28 +461,56 @@ var additionalAjaxSave=function(formId,section,div){
         });
     });
 };
-
-    $("#wpc_all_images").steps({
-        headerTag: "h3",
-        bodyTag: "section",
-        transitionEffect: "slide",
-        titleTemplate: "#title#",
-        labels:wpc_image_labels,
-        stepsOrientation: "vertical",
-        onStepChanging:function(event, currentIndex, newIndex){
-            if(newIndex > currentIndex){
+    if(typeof wpc_image_page!="undefined") {
+        $("#wpc_all_images").steps({
+            headerTag: "h3",
+            bodyTag: "section",
+            transitionEffect: "slide",
+            titleTemplate: "#title#",
+            labels: wpc_image_labels,
+            stepsOrientation: "vertical",
+            onStepChanging: function (event, currentIndex, newIndex) {
+                if (newIndex > currentIndex) {
+                    saveTabData(currentIndex);
+                }
+                return true;
+            },
+            onStepChanged: function (event, currentIndex, priorIndex) {
+                loadTab(currentIndex);
+                resizeJquerySteps();
+            },
+            onFinished: function (event, currentIndex) {
                 saveTabData(currentIndex);
             }
-            return true;
-        },
-        onStepChanged:function(event, currentIndex, priorIndex){
-            loadTab(currentIndex);
-            resizeJquerySteps();
-        },
-        onFinished: function (event, currentIndex) {
-           saveTabData(currentIndex);
-        }
-    });
+        });
+    }
+    if(typeof wpc_only_color!="undefined"){
+        $("#wpc_all_images").steps({
+            headerTag: "h3",
+            bodyTag: "section",
+            transitionEffect: "slide",
+            titleTemplate: "#title#",
+            labels: wpc_image_labels,
+            stepsOrientation: "vertical",
+            onInit:function(event,currentIndex){
+                loadColorTab(currentIndex);
+            },
+            onStepChanging: function (event, currentIndex, newIndex) {
+                if (newIndex > currentIndex) {
+                    saveTabData(currentIndex, true);
+                }
+                return true;
+            },
+            onStepChanged: function (event, currentIndex, priorIndex) {
+                loadColorTab(currentIndex);
+                resizeJquerySteps();
+            },
+            onFinished: function (event, currentIndex) {
+                saveTabData(currentIndex,true);
+            }
+        });
+    }
+
     var loadTab=function(tabId){
         var action="wpc_load_tab_data",
             sectionId=null;

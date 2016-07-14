@@ -69,6 +69,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                     <div class="col-sm-6" id="attribute-tabs">
                         <input type="hidden" name="wpc_extra_item[wpc_product_image_data]" class="wpc_extra_item"
                                id="wpc_product_image_data"/>
+                        <script type="application/javascript">var defaultValues=[];</script>
                         <ul>
                             <?php if(isset($attributes) && !empty($attributes)){
                                     foreach ($attributes as $name => $options) {
@@ -82,6 +83,9 @@ if (!class_exists('WPC_Frontend_Product')) {
                                 foreach ($attributes as $name => $options) {
                                     $default_value=$product->get_variation_default_attribute($name);
                              ?>
+                                    <script type="application/javascript">
+                                        defaultValues.push({attribute:'<?=$name?>',term:'<?=$default_value?>'});
+                                    </script>
                                     <input type="hidden" name="wpc_extra_item[<?= $name ?>]" id="wpc_extra_item_<?= $name ?>"
                                            class="wpc_extra_item"/>
                                      <div id="wpc_<?= $name ?>" class="wpc-tb-all" data-attribute="<?= $name ?>">
@@ -292,7 +296,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                         $selected_class=$term->slug==$default_value ? "atv" : "";
                         $model_class=$attribute_name==$model_layer?"wpc_model":"";
                         ?>
-                        <a href="#" data-display="<?=$term->name?>" class="wpc_terms <?=$model_class;?> <?=$selected_class?> <?=$extraClass?> <?= $attribute_name . '_' . $term->slug ?>"
+                        <a href="#" data-display="<?=$term->name?>" class="<?=$model_class;?> <?=$selected_class?> <?=$extraClass?> wpc_attribute_button_<?=$attribute_name .'_'.$term->slug;?>"
                            data-attribute="<?= $attribute_name ?>" data-term="<?= $term->slug ?>">
                             <img src="<?= $attr_image ?>"
                                  title="<?= $term->name ?>"/><span><?= $term->name ?></span>
@@ -330,7 +334,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                         }
                         ?>
                         <button
-                            class="wpc_terms <?=$activeClass?> <?=$button_class?> <?= $attribute_name . '_' . $term->slug ?>"
+                            class="wpc_terms <?=$activeClass?> <?=$button_class?> wpc_attribute_button_<?=$attribute_name.'_'.$term->slug?>"
                             data-attribute="<?= $attribute_name ?>" data-display="<?=$term->name?>"
                             data-term="<?= $term->slug ?>" data-id="<?=$term->term_id;?>"><?= $term->name ?></button>
                      <?php }?>
