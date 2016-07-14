@@ -241,7 +241,8 @@ if (!class_exists('WPC_Frontend_Product')) {
                 </div>
                 <script type="text/javascript">
                     var defaultModel=<?=self::$default_model;?>,
-                        productId=<?=$product->id;?>;
+                        productId=<?=$product->id;?>,
+                        initialModel=<?=self::$default_model;?>;
                 </script>
                 <?php
                 $base_layer=get_post_meta($product->id,"_wpc_base_color_dependency",true);
@@ -297,7 +298,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                         $model_class=$attribute_name==$model_layer?"wpc_model":"";
                         ?>
                         <a href="#" data-display="<?=$term->name?>" class="<?=$model_class;?> <?=$selected_class?> <?=$extraClass?> wpc_attribute_button_<?=$attribute_name .'_'.$term->slug;?>"
-                           data-attribute="<?= $attribute_name ?>" data-term="<?= $term->slug ?>">
+                           data-attribute="<?= $attribute_name ?>" data-id="<?=$term->term_id;?>" data-term="<?= $term->slug ?>">
                             <img src="<?= $attr_image ?>"
                                  title="<?= $term->name ?>"/><span><?= $term->name ?></span>
                         </a>

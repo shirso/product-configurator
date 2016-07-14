@@ -1,5 +1,5 @@
  jQuery(function ($) {
-    var canvasHeight = 800, canvasWidth = 800,designWidth=600,designHeight=400, cordScaleX=1, cordScaleY= 1, visitedStep=[], cords=[],textures=[],colors=[],emb_positions={},image_change_possible=true;
+    var canvasHeight = 800, canvasWidth = 800,designWidth=600,designHeight=400, cordScaleX=1, cordScaleY= 1, visitedStep=[], cords=[],textures=[],colors=[],emb_positions={},image_change_possible=true,load_color_tab=false;
     var canvas = jQuery('#wpc_product_stage').children('canvas').get(0);
     var stage = new fabric.Canvas(canvas, {
         selection: false,
@@ -208,6 +208,7 @@
         }
     };
     var loadStaticImages=function(){
+        if(!image_change_possible) return false;
         $('#wpc_product_stage').block({
             message: '',
             overlayCSS: {
@@ -221,7 +222,7 @@
         });
         var imageData= {
             'action': 'wpc_get_static_images',
-            'model':defaultModel,
+            'model':initialModel,
             'productId':productId
         };
         $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(data) {
@@ -237,6 +238,7 @@
         });
     };
     var loadStaticImageSingle=function(attributeName){
+        if(!image_change_possible) return false;
         $('#wpc_product_stage').block({
             message: '',
             overlayCSS: {
@@ -250,7 +252,7 @@
         });
         var imageData= {
             'action': 'wpc_get_single_static_image',
-            'model':defaultModel,
+            'model':initialModel,
             'productId':productId,
             'attribute':attributeName
         };
@@ -262,6 +264,57 @@
             $('#wpc_product_stage').unblock();
         });
     };
+   var loadColorOrTextureTab=function(textureORcolor,attributeName,term,termId,buttonType){
+       var tabDiv=textureORcolor=="color"?'#wpc_color_tab_'+attributeName:'#wpc_texture_tab_'+attributeName;
+       $(tabDiv).block({
+           message: '',
+           overlayCSS: {
+               border: 'none',
+               padding: '0',
+               margin: '0',
+               backgroundColor: 'transparent',
+               opacity: 1,
+               color: '#fff'
+           }
+       });
+       var action=textureORcolor=='color'?'wpc_get_color_data':'wpc_get_texture_data';
+       console.log(defaultModel);
+       var data = {
+           'action':action,
+           'attribute': attributeName,
+           'term':term,
+           'termId':termId,
+           'model':defaultModel,
+           'productId':productId,
+           'buttonType':buttonType
+       };
+       $.post(wpc_ajaxUrl.ajaxUrl, data, function(response) {
+          switch (textureORcolor){
+              case "color":
+                  $('#wpc_texture_tab_'+attributeName).html("");
+                  $(tabDiv).html(response);
+                  if(typeof _.findWhere(colors,{attribute:attributeName})!="undefined"){
+                      var colorData=_.findWhere(colors,{attribute:attributeName});
+                      if($("#wpc_color_tab_"+attributeName+" .change_color[data-color='"+colorData.color+"']").length>0){
+                          $("#wpc_color_tab_"+attributeName+" .change_color[data-color='"+colorData.color+"']").trigger('click');
+                      }
+                  }
+                  $(tabDiv).unblock();
+                  break;
+              case "texture":
+                  $('#wpc_color_tab_'+attributeName).html("");
+                  $(tabDiv).html(response);
+                  if(typeof _.findWhere(textures,{attribute:attributeName})!="undefined"){
+                      var textureData=_.findWhere(textures,{attribute:attributeName});
+                      if($("#wpc_color_tab_"+attributeName+" .change_texture[data-clean='"+textureData.texture+"']").length>0){
+                          $("#wpc_color_tab_"+attributeName+" .change_texture[data-clean='"+textureData.texture+"']").append('<i class="fa fa-check-circle"></i>')
+                      }
+                  }
+                  $(tabDiv).unblock();
+                  break;
+          }
+       });
+   };
     var removeColorCordsFromArray=function(attribute){
         if(typeof _.findWhere(colors,{attribute:attribute}!="undefined")){
             var newArray = _.without(colors, _.findWhere(colors, {attribute: attribute}));
@@ -295,6 +348,7 @@
 
  };
  var fetchImageData=function(attributeName){
+     if(!image_change_possible) return false;
      $('#wpc_product_stage').block({
          message: '',
          overlayCSS: {
@@ -310,7 +364,7 @@
          'action': 'wpc_get_image_data',
          'attribute': attributeName,
          'cordsData':cords,
-         'model':defaultModel,
+         'model':initialModel,
          'productId':productId
      };
      $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(response) {
@@ -319,6 +373,7 @@
      });
  };
  var fetchTextureData=function(){
+     if(!image_change_possible) return false;
      $('#wpc_product_stage').block({
          message: '',
          overlayCSS: {
@@ -334,7 +389,7 @@
          'action': 'wpc_get_texture_image_data',
          'cordsData':cords,
          'textureData':textures,
-         'model':defaultModel,
+         'model':initialModel,
          'productId':productId
      };
      $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(response) {
@@ -358,12 +413,11 @@
          'action': 'wpc_get_single_texture_image_data',
          'texture':texture,
          'attribute':attribute,
-         'model':defaultModel,
+         'model':initialModel,
          'productId':productId
      };
      $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(response) {
          loadSingleTextureImage(attribute,response);
-         console.log(response);
          $('#wpc_product_stage').unblock();
      });
  };
@@ -497,8 +551,15 @@
             collapsible: 'accordion',
             activate: function (e, tab) {
                 var selector=tab.selector,
-                    selector_attribute= typeof selector != "undefined" && selector != null ? $(selector).data("attribute") : "";
-               if(!_.contains(visitedStep,selector_attribute)){
+                    selector_attribute= typeof selector != "undefined" && typeof $(selector).data("attribute")!="undefined" && $(selector).data("attribute") != null ? $(selector).data("attribute") : "";
+                var cordButton=$(selector).find('.atv');
+                if($(cordButton).hasClass('wpc_color_cords')){
+                    loadColorOrTextureTab("color",$(cordButton).data("attribute"),$(cordButton).data("term"),$(cordButton).data("id"),$(cordButton).hasClass('wpc_static_layer')?'static_button':'')
+                }
+                if($(cordButton).hasClass('wpc_texture_cords')){
+                    loadColorOrTextureTab("texture",$(cordButton).data("attribute"),$(cordButton).data("term"),$(cordButton).data("id"),$(cordButton).hasClass('wpc_static_layer')?'static_button':'')
+                }
+               if(selector_attribute!="" && !_.contains(visitedStep,selector_attribute)){
                    visitedStep.push(selector_attribute);
                    var selected_term=$(selector).find(".atv").data("display");
                    setAttributeValues(selector_attribute,selected_term);
@@ -506,7 +567,6 @@
 
             }
         });
-
        loadBaseEdge('wpc_base_images','base_image');
        loadStaticImages();
        makeObjectResponsive();
@@ -542,40 +602,7 @@
        }
        if($this.hasClass('wpc_color_cords')){
            removeColorTexttureArray("texture",attributeName);
-         //Load Colors Tab
-           $('#wpc_texture_tab_'+attributeName).html("");
-           $('#wpc_color_tab_'+attributeName).block({
-               message: '',
-               overlayCSS: {
-                   border: 'none',
-                   padding: '0',
-                   margin: '0',
-                   backgroundColor: 'transparent',
-                   opacity: 1,
-                   color: '#fff'
-               }
-           });
-           var data = {
-               'action': 'wpc_get_color_data',
-               'attribute': attributeName,
-               'term':termSlug,
-               'termId':termId,
-               'model':defaultModel,
-               'productId':productId,
-               'buttonType':$this.hasClass('wpc_static_layer')?'static_button':''
-           };
-           $.post(wpc_ajaxUrl.ajaxUrl, data, function(response) {
-               $('#wpc_color_tab_'+attributeName).unblock();
-               $('#wpc_color_tab_'+attributeName).html(response);
-               if(typeof _.findWhere(colors,{attribute:attributeName})!="undefined"){
-                   var colorData=_.findWhere(colors,{attribute:attributeName});
-                  if($("#wpc_color_tab_"+attributeName+" .change_color[data-color='"+colorData.color+"']").length>0){
-                      $("#wpc_color_tab_"+attributeName+" .change_color[data-color='"+colorData.color+"']").append('<i class="fa fa-check-circle"></i>')
-                  }
-               }
-
-           });
-
+            loadColorOrTextureTab("color",attributeName,termSlug,termId,$this.hasClass('wpc_static_layer')?'static_button':'');
            //Load Cord Images
            if($this.hasClass("wpc_static_layer")){
                loadStaticImageSingle(attributeName);
@@ -586,31 +613,7 @@
        }
       if($this.hasClass('wpc_texture_cords')){
           removeColorTexttureArray("color",attributeName);
-          $('#wpc_color_tab_'+attributeName).html("");
-          $('#wpc_texture_tab_'+attributeName).block({
-              message: '',
-              overlayCSS: {
-                  border: 'none',
-                  padding: '0',
-                  margin: '0',
-                  backgroundColor: 'transparent',
-                  opacity: 1,
-                  color: '#fff'
-              }
-          });
-          var data = {
-              'action': 'wpc_get_texture_data',
-              'attribute': attributeName,
-              'term':termSlug,
-              'termId':termId,
-              'model':defaultModel,
-              'productId':productId,
-              'buttonType':$this.hasClass('wpc_static_layer')?'static_button':''
-          };
-          $.post(wpc_ajaxUrl.ajaxUrl, data, function(response) {
-              $('#wpc_texture_tab_'+attributeName).unblock();
-              $('#wpc_texture_tab_'+attributeName).html(response);
-          });
+          loadColorOrTextureTab("texture",attributeName,termSlug,termId,$this.hasClass('wpc_static_layer')?'static_button':'');
           if($this.hasClass("wpc_static_layer")) return false;
           setCords(attributeName,termSlug);
       }
@@ -640,8 +643,10 @@
          setAttributeValues(attributeName,display);
          $("#" + attributeName).focusin().val(termSlug).change();
          if($this.hasClass("wpc_available_model")){
-             defaultModel==termId;
+             initialModel==termId;
          }
+         defaultModel=termId;
+        // console.log(visitedStep);
      });
 
     $(document).on("click",".change_color",function(e){
