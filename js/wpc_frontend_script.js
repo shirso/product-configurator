@@ -1,5 +1,5 @@
  jQuery(function ($) {
-    var canvasHeight = 800, canvasWidth = 800,designWidth=600,designHeight=400, cordScaleX=1, cordScaleY= 1, visitedStep=[], cords=[],textures=[],colors=[],emb_positions={},image_change_possible=true,load_color_tab=false;
+    var canvasHeight = 800, canvasWidth = 800,designWidth=600,designHeight=400, cordScaleX=1, cordScaleY= 1, visitedStep=[], cords=[],textures=[],colors=[],emb_positions={},image_change_possible=false,coming_from_reset=false;
     var canvas = jQuery('#wpc_product_stage').children('canvas').get(0);
     var stage = new fabric.Canvas(canvas, {
         selection: false,
@@ -15,6 +15,22 @@
         centeredScaling: true
     });
 
+     var resetEverything=function(values){
+       if(!_.isEmpty(values)){
+           image_change_possible=true;
+           $.each(values,function(k,v){
+               var button=$("."+"wpc_attribute_button_"+v["attribute"]+"_"+v["term"]);
+               $(button).trigger("click");
+               $("#wpc_attributes_values_"+v["attribute"]).parent().addClass("wpc_hidden");
+               $("#wpc1_attributes_values_"+v["attribute"]).parent().addClass("wpc_hidden");
+           });
+
+       }
+         visitedStep=[], cords=[],textures=[],colors=[],emb_positions={};
+         initialModel=defaultModel;
+         clearEmbTab();
+         $("#embroidery_tab").addClass("wpc_hidden");
+     };
     var makeCanvasResponsive=function(){
         stage.setWidth($('#wpc_product_stage').width());
         stage.setHeight((canvasHeight * stage.getWidth())/canvasWidth);
@@ -60,9 +76,10 @@
     };
     var loadBaseEdge=function(divId,imageType){
         var imageClasses=['base_image','texture_image'];
-        var attribute=$("#"+divId+"_"+defaultModel).data("attribute");
+        var attribute=$("#"+divId+"_"+initialModel).data("attribute");
+        console.log($("#"+divId+"_"+initialModel));
         $.each(imageClasses,function(k,v){
-            var imgInstance = new fabric.Image($("#"+divId+"_"+defaultModel).children('.'+v).get(0), {
+            var imgInstance = new fabric.Image($("#"+divId+"_"+initialModel).children('.'+v).get(0), {
                 hasControls: false,
                 hasBorders: false,
                 lockMovementX: true,
@@ -208,7 +225,6 @@
         }
     };
     var loadStaticImages=function(){
-        if(!image_change_possible) return false;
         $('#wpc_product_stage').block({
             message: '',
             overlayCSS: {
@@ -238,7 +254,6 @@
         });
     };
     var loadStaticImageSingle=function(attributeName){
-        if(!image_change_possible) return false;
         $('#wpc_product_stage').block({
             message: '',
             overlayCSS: {
@@ -278,7 +293,6 @@
            }
        });
        var action=textureORcolor=='color'?'wpc_get_color_data':'wpc_get_texture_data';
-       console.log(defaultModel);
        var data = {
            'action':action,
            'attribute': attributeName,
@@ -348,7 +362,6 @@
 
  };
  var fetchImageData=function(attributeName){
-     if(!image_change_possible) return false;
      $('#wpc_product_stage').block({
          message: '',
          overlayCSS: {
@@ -373,7 +386,6 @@
      });
  };
  var fetchTextureData=function(){
-     if(!image_change_possible) return false;
      $('#wpc_product_stage').block({
          message: '',
          overlayCSS: {
@@ -629,9 +641,10 @@
      $(document).on('click','.wpc_model',function(e){
          e.preventDefault();
          $this=$(this);
-         if($this.hasClass('atv')){
+         if($this.hasClass('atv') && !image_change_possible){
              return false;
          }
+         image_change_possible=false;
          var attributeName=$this.data("attribute"),
              termSlug=$this.data("term"),
              termId=$this.data("id"),
@@ -644,9 +657,19 @@
          $("#" + attributeName).focusin().val(termSlug).change();
          if($this.hasClass("wpc_available_model")){
              initialModel==termId;
+             stage.clear();
+             loadBaseEdge('wpc_base_images','base_image');
+             loadStaticImages();
          }
          defaultModel=termId;
-        // console.log(visitedStep);
+         if(visitedStep.length>1 && !image_change_possible && !coming_from_reset){
+             var confirmation=confirm(translate_text.model_change);
+             if(confirmation) {
+                 var newArray = _.without(colors, _.findWhere(defaultValues, {attribute: attributeName}));
+                 resetEverything(newArray);
+             }
+
+         }
      });
 
     $(document).on("click",".change_color",function(e){
@@ -1206,13 +1229,9 @@
          e.preventDefault();
          var confirmation=confirm(translate_text.reset_text);
          if(confirmation){
-
+             coming_from_reset=true;
+            resetEverything(defaultValues);
+             $('#attribute-tabs').responsiveTabs('activate', 0);
          }
-         //if(!_.isEmpty(defaultValues)){
-         //    $.each(defaultValues,function(k,v){
-         //        var button=$("."+"wpc_attribute_button_"+v["attribute"]+"_"+v["term"]);
-         //        $(button).trigger("click");
-         //    });
-         //}
      });
 });
