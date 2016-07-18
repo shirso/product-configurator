@@ -9,8 +9,29 @@ $edgeLayer=get_post_meta($postId,'_wpc_edge_layer',true);
 $settings=get_option('wpc_settings');
 $allColors=$settings["texture_data"];
 $all_static_layers=get_post_meta($postId,'_wpc_static_layers',true);
+$all_available_models=get_post_meta($postId,'_wpc_available_models',true);
 $allTexturesMeta=get_post_meta($postId,"_wpc_textures_".$termId,true); ?>
     <form id="wpc_textures_form">
+        <table>
+            <tr>
+                <td><?=__("Copy Texture Data from Another Model","wpc")?></td>
+                <td>
+                    <select id="wpc_copy_model_select_texture">
+                        <option value="">---</option>
+                        <?php if(!empty($all_available_models)){ foreach($all_available_models as $k=>$model){?>
+                            <?php if($model!=$termId){
+                                $modelDetails=get_term_by('id',$model,$taxonomy);
+                                ?>
+                                <option value="<?=$model?>"><?=$modelDetails->name;?></option>
+                            <?php }?>
+                        <?php }}?>
+                    </select>
+                </td>
+                <td>
+                    <button type="button" data-select="#wpc_copy_model_select_texture" data-term="<?=$termId?>" class="primary button" id="wpc_model_copy_texture"><?=__("Copy","wpc");?></button>
+                </td>
+            </tr>
+        </table>
         <?php if(!empty($all_static_layers)){foreach($all_static_layers as $m=>$static_layer){
             $all_terms= $post_terms = wp_get_post_terms($postId, $static_layer);
             $no_cord=($wpc_no_cords[$static_layer]) ? $wpc_no_cords[$static_layer]: array();

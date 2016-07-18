@@ -17,6 +17,7 @@ if( !class_exists('WPC_Admin') ) {
             add_action('wp_ajax_wpc_save_configuration_form_embroidery',array(&$this,'wpc_save_configuration_form_embroidery'));
             add_action('wp_ajax_wpc_save_tab_data',array(&$this,'wpc_save_tab_data'));
             add_action('wp_ajax_wpc_load_tab_data',array(&$this,'wpc_load_tab_data'));
+            add_action('wp_ajax_copy_coor_or_texture',array(&$this,'copy_coor_or_texture'));
         }
         public function admin_scripts(){
             wp_register_script('wpc_sheepit_jquery',WPC_PLUGIN_ABSOLUTE_PATH.'admin/js/jquery.sheepItPlugin-1.1.1.min.js','',false,true);
@@ -726,7 +727,7 @@ if( !class_exists('WPC_Admin') ) {
             $postId=absint($_POST["postId"]);
             $section=trim($_POST["section"]);
             $termId=isset($_POST["termId"]) ? absint($_POST["termId"]) : null;
-            $taxonomy=isset($_POST["termId"]) ? absint($_POST["termId"]) : null;
+            $taxonomy=isset($_POST["taxonomy"]) ? esc_html($_POST["taxonomy"]) : null;
             if($section!="wpc_cord_layers"  || $section!="wpc_base_edge") {
                 switch ($section) {
                     case "wpc_multicolor_cords":
@@ -747,6 +748,27 @@ if( !class_exists('WPC_Admin') ) {
                     default:
                         echo 'success';
                 }
+            }
+            exit;
+        }
+        public function copy_coor_or_texture(){
+            $type=esc_html($_POST["type"]);
+            $postId=absint($_POST["postId"]);
+            $modelToCopy=absint($_POST["modeltocopy"]);
+            $term=absint($_POST["termId"]);
+            switch ($type){
+                case "color":
+                    $modelData=get_post_meta($postId,"_wpc_colors_".$modelToCopy,true);
+                    if(!empty($modelData)){
+                        update_post_meta($postId,"_wpc_colors_".$term,$modelData);
+                    }
+                    break;
+                case "texture":
+                    $modelData=get_post_meta($postId,"_wpc_textures_".$modelToCopy,true);
+                    if(!empty($modelData)){
+                        update_post_meta($postId,"_wpc_textures_".$term,$modelData);
+                    }
+                    break;
             }
             exit;
         }

@@ -15,7 +15,7 @@
         centeredScaling: true
     });
 
-     var resetEverything=function(values){
+     var resetEverything=function(values,dont_change_model){
        if(!_.isEmpty(values)){
            image_change_possible=true;
            $.each(values,function(k,v){
@@ -27,9 +27,12 @@
 
        }
          visitedStep=[], cords=[],textures=[],colors=[],emb_positions={};
-         initialModel=defaultModel;
+         if(typeof dont_change_model=="undefined") {
+             initialModel = defaultModel;
+         }
          clearEmbTab();
          $("#embroidery_tab").addClass("wpc_hidden");
+         console.log('From Reset'+initialModel);
      };
     var makeCanvasResponsive=function(){
         stage.setWidth($('#wpc_product_stage').width());
@@ -77,7 +80,7 @@
     var loadBaseEdge=function(divId,imageType){
         var imageClasses=['base_image','texture_image'];
         var attribute=$("#"+divId+"_"+initialModel).data("attribute");
-        console.log($("#"+divId+"_"+initialModel));
+        console.log('From Image Load'+initialModel);
         $.each(imageClasses,function(k,v){
             var imgInstance = new fabric.Image($("#"+divId+"_"+initialModel).children('.'+v).get(0), {
                 hasControls: false,
@@ -665,8 +668,12 @@
          if(visitedStep.length>1 && !image_change_possible && !coming_from_reset){
              var confirmation=confirm(translate_text.model_change);
              if(confirmation) {
-                 var newArray = _.without(colors, _.findWhere(defaultValues, {attribute: attributeName}));
-                 resetEverything(newArray);
+                 console.log('From Model Click'+initialModel);
+                 var newArray = _.without(defaultValues, _.findWhere(defaultValues, {attribute: attributeName}));
+                 resetEverything(newArray,true);
+                 stage.clear();
+                 loadBaseEdge('wpc_base_images','base_image');
+                 loadStaticImages();
              }
 
          }

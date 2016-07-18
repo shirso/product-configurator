@@ -9,9 +9,30 @@ $allColorsMeta=get_post_meta($postId,"_wpc_colors_".$termId,true);
 $edgeLayer=get_post_meta($postId,'_wpc_edge_layer',true);
 $baseLayer=get_post_meta($postId,'_wpc_base_color_dependency',true);
 $all_static_layers=get_post_meta($postId,'_wpc_static_layers',true);
+$all_available_models=get_post_meta($postId,'_wpc_available_models',true);
 ?>
 <form id="wpc_colors_form">
-    <?php if($baseLayer){?>
+    <table>
+        <tr>
+            <td><?=__("Copy Color Data from Another Model","wpc")?></td>
+            <td>
+                <select id="wpc_copy_model_select_color">
+                    <option value="">---</option>
+                    <?php if(!empty($all_available_models)){ foreach($all_available_models as $k=>$model){?>
+                        <?php if($model!=$termId){
+                            $modelDetails=get_term_by('id',$model,$taxonomy);
+                            ?>
+                            <option value="<?=$model?>"><?=$modelDetails->name;?></option>
+                        <?php }?>
+                    <?php }}?>
+                </select>
+            </td>
+            <td>
+                <button type="button" data-select="#wpc_copy_model_select_color" data-term="<?=$termId?>" class="primary button" id="wpc_model_copy_color"><?=__("Copy","wpc");?></button>
+            </td>
+        </tr>
+    </table>
+    <?php if(!empty($baseLayer)){?>
         <h2><?php _e('Colors For','wpc')?> <?=wc_attribute_label($baseLayer);?></h2>
         <?php
         $all_terms= wp_get_post_terms($postId, $baseLayer);

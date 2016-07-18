@@ -630,4 +630,56 @@ var additionalAjaxSave=function(formId,section,div){
         });
         mediaUploader.open();
     });
+    $(document).on("click","#wpc_model_copy_color",function(e){
+        e.preventDefault();
+        var termId=$(this).data("term");
+        var selectdata=$($(this).data("select")).val();
+        if(selectdata!="") {
+            $("#wpc_colors_form").block({message:null,
+                overlayCSS: {
+                    background: '#eee',
+                    opacity: 0.6
+                }
+            });
+            var data = {
+                'action': 'copy_coor_or_texture',
+                'postId': postId,
+                'termId': termId,
+                'modeltocopy':selectdata,
+                'type':'color'
+            };
+            $.post(ajaxurl, data, function (resp) {
+                $("#wpc_colors_form").unblock();
+                alert("Data Copied!!!");
+                loadTab(2);
+                resizeJquerySteps();
+            });
+        }
+    });
+    $(document).on("click","#wpc_model_copy_texture",function(e){
+        e.preventDefault();
+        var termId=$(this).data("term");
+        var selectdata=$($(this).data("select")).val();
+        if(selectdata!="") {
+            $("#wpc_textures_form").block({message:null,
+                overlayCSS: {
+                    background: '#eee',
+                    opacity: 0.6
+                }
+            });
+            var data = {
+                'action': 'copy_coor_or_texture',
+                'postId': postId,
+                'termId': termId,
+                'modeltocopy':selectdata,
+                'type':'texture'
+            };
+            $.post(ajaxurl, data, function (resp) {
+                $("#wpc_textures_form").unblock();
+                alert("Data Copied!!!");
+                loadTab(3);
+                resizeJquerySteps();
+            });
+        }
+    });
 });
