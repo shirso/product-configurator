@@ -185,7 +185,7 @@ h3{font-size: 18px; color: #000; font-weight: 600; margin-top: 0;font-family: 'L
 .seclect ul li{margin-bottom: 8px;}
 .seclect ul li img{display: block;}
 .seclect button.atv{ background: #E10707; color: #fff;box-shadow: 0px 3px 0px 0px #bf050e!important;}
-.wpc_buttons.atv{ background: #ffffff; color: #fff;}
+.wpc_buttons.atv{ background: #ffffff; color: #000;}
 .seclect,.c-seclect{margin-bottom: 10px;}
 .seclect ul li a{display: block; position: relative;}
 .c-seclect ul li i,.seclect ul li i{ border-radius:0%;color:#4b4649; background:#ffffff;position: absolute; top: 50%; width: 24px; height: 24px; padding: 3px; left: 50%; margin-top: -14px; margin-left: -12px; border: 1px solid #0c6756;}
@@ -391,6 +391,7 @@ canvas {
 .wpc_finish_reset{vertical-align: top;}
 .blockUI{background-color:transparent!important; border:none!important;}
 #embroidery_tab #wpc_emb_postion_buttons{margin-bottom: 20px;}
+#embroidery_tab #wpc_emb_rotate_buttons{margin-bottom: 20px;}
 @-webkit-keyframes spin{100%{-webkit-transform:rotate(360deg)}}
 @-moz-keyframes spin{100%{-moz-transform:rotate(360deg)}}
 @keyframes spin{100%{-webkit-transform:rotate(360deg);-moz-transform:rotate(360deg);-ms-transform:rotate(360deg);-o-transform:rotate(360deg);transform:rotate(360deg)}}.blockUI.blockOverlay::before {    height:1em;width:1em;position:absolute;top:50%;left:50%;margin-left:-.5em;margin-top:-.5em;display:block;content:"";-webkit-animation:spin 1s ease-in-out infinite;-moz-animation:spin 1s ease-in-out infinite;animation:spin 1s ease-in-out infinite;background:url(../img/loader.svg) center center;background-size:cover;line-height:1;text-align:center;font-size:2em;color:rgba(0,0,0,.75)}

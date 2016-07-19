@@ -158,6 +158,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                             <input type="hidden" name="wpc_extra_item[wpc_product_emb_font_style]" class="wpc_extra_item wpc_hidden_emb wpc_emb_cart_text" id="wpc_product_emb_fontstyle" />
                             <input type="hidden" name="wpc_extra_item[wpc_product_emb_color]" class="wpc_extra_item wpc_hidden_emb wpc_emb_cart_text" id="wpc_product_emb_fontcolor" />
                             <input type="hidden" name="wpc_extra_item[wpc_product_emb_position]" class="wpc_extra_item wpc_hidden_emb" id="wpc_product_emb_position" />
+                            <input type="hidden" name="wpc_extra_item[wpc_product_emb_angle]" class="wpc_extra_item wpc_hidden_emb" id="wpc_product_emb_angle" />
                             <input type="hidden" name="wpc_extra_item[wpc_product_extra_comment]" class="wpc_extra_item wpc_hidden_emb" id="wpc_product_emb_extra_comment" />
                             <input type="hidden" name="wpc_extra_item[wpc_product_additional_comment]" class="wpc_extra_item" id="wpc_product_additional_comment" />
                         </div>
@@ -223,6 +224,10 @@ if (!class_exists('WPC_Frontend_Product')) {
                                         <tr class="wpc_hidden">
                                             <th><?=__('Color','wpc')?></th>
                                             <td class="wpc_emb_options emb_options_for_text" id="wpc_emb_options_fontcolor"></td>
+                                        </tr>
+                                        <tr class="wpc_hidden">
+                                            <th><?=__('Rotation','wpc')?></th>
+                                            <td class="wpc_emb_options" id="wpc_emb_options_angle"></td>
                                         </tr>
                                         <tr class="wpc_hidden">
                                             <th><?=__('Position','wpc')?></th>
@@ -370,9 +375,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                 ?>
                 <div class="wpc_hidden" id="embroidery_tab">
                     <a href="#" class="wpc_clear_all"><i class="fa fa-refresh"></i> <?=__('Reset','wpc')?></a>
-                    <ul>
-                        <li><a data-type="image" class="btab wpc_emb_tabs wpc_buttons" href="#wpc_emb_image"><?=__('Image','wpc')?></a></li>
-                        <li><a data-type="text" class="btab wpc_emb_tabs wpc_buttons" href="#wpc_emb_text"><?=__('Text','wpc')?></a></li>
+                    <ul id="wpc_emb_buttons">
                     </ul>
                     <div id="wpc_emb_image" class="wpc_hidden wpc_emb_controls">
                         <form id="wpc_image_upload_form"
@@ -408,6 +411,15 @@ if (!class_exists('WPC_Frontend_Product')) {
                             </div>
                         </div>
                     </div>
+                    <div class="row wpc_hidden" id="wpc_emb_rotate_buttons">
+                        <div class="col-sm-4"><input id="wpc_emb_angle" placeholder="<?=__("Insert Angle","wpc")?>" type="text" class=""></div>
+                        <div class="col-sm-8 btn-group"  role="group">
+                            <a href="#" id="wpc_reset_angle"><i class="fa fa-refresh"></i> <?=__('Reset','wpc')?></a>
+                            <button type="button" data-type="left" class="wpc_emb_rotate_buttons wpc_buttons btn btn-default"><?=__("Rotate Left","wpc");?></button>
+                            <button type="button" data-type="right" class="wpc_emb_rotate_buttons wpc_buttons btn btn-default"><?=__("Rotate Right","wpc");?></button>
+                        </div>
+                    </div>
+
                     <div id="wpc_emb_postion_buttons" class="btn-group wpc_hidden" role="group">
 
                     </div>

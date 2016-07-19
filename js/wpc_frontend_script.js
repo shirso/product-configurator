@@ -1,5 +1,5 @@
  jQuery(function ($) {
-    var canvasHeight = 800, canvasWidth = 800,designWidth=600,designHeight=400, cordScaleX=1, cordScaleY= 1, visitedStep=[], cords=[],textures=[],colors=[],emb_positions={},image_change_possible=false,coming_from_reset=false;
+    var canvasHeight = 800, canvasWidth = 800,designWidth=600,designHeight=400, cordScaleX=1, cordScaleY= 1, visitedStep=[], cords=[],textures=[],colors=[],emb_positions={},image_change_possible=false,coming_from_reset=false,first_time_emb_change=true;
     var canvas = jQuery('#wpc_product_stage').children('canvas').get(0);
     var stage = new fabric.Canvas(canvas, {
         selection: false,
@@ -26,7 +26,7 @@
            });
 
        }
-         visitedStep=[], cords=[],textures=[],colors=[],emb_positions={};
+         visitedStep=[], cords=[],textures=[],colors=[],emb_positions={},first_time_emb_change=true;
          if(typeof dont_change_model=="undefined") {
              initialModel = defaultModel;
          }
@@ -234,8 +234,8 @@
                 border: 'none',
                 padding: '0',
                 margin: '0',
-                backgroundColor: 'transparent',
-                opacity: 1,
+                backgroundColor: '#fff',
+                opacity: 0.6,
                 color: '#fff'
             }
         });
@@ -263,8 +263,8 @@
                 border: 'none',
                 padding: '0',
                 margin: '0',
-                backgroundColor: 'transparent',
-                opacity: 1,
+                backgroundColor: '#fff',
+                opacity: 0.6,
                 color: '#fff'
             }
         });
@@ -290,8 +290,8 @@
                border: 'none',
                padding: '0',
                margin: '0',
-               backgroundColor: 'transparent',
-               opacity: 1,
+               backgroundColor: '#fff',
+               opacity: 0.6,
                color: '#fff'
            }
        });
@@ -371,8 +371,8 @@
              border: 'none',
              padding: '0',
              margin: '0',
-             backgroundColor: 'transparent',
-             opacity: 1,
+             backgroundColor: '#fff',
+             opacity: 0.6,
              color: '#fff'
          }
      });
@@ -395,8 +395,8 @@
              border: 'none',
              padding: '0',
              margin: '0',
-             backgroundColor: 'transparent',
-             opacity: 1,
+             backgroundColor: '#fff',
+             opacity: 0.6,
              color: '#fff'
          }
      });
@@ -419,8 +419,8 @@
              border: 'none',
              padding: '0',
              margin: '0',
-             backgroundColor: 'transparent',
-             opacity: 1,
+             backgroundColor: '#fff',
+             opacity: 0.6,
              color: '#fff'
          }
      });
@@ -473,6 +473,7 @@
         $("#wpc_text_options").addClass("wpc_hidden");
         $("#wpc_emb_colors").addClass("wpc_hidden");
         $("#wpc_emb_postion_buttons").addClass("wpc_hidden");
+        $("#wpc_emb_rotate_buttons").addClass("wpc_hidden");
         $("#wpc_image_upload").val("");
         $(".wpc_emb_options").parent().addClass("wpc_hidden");
         emb_positions={};
@@ -539,9 +540,8 @@
     var putEmbData=function(type,text,html){
         var td=$("#wpc_emb_options_"+type);
         var textWithLineBreak=text.replace(/\n\r?/g, '<br />');
-        if(text==""){$(td).parent().addClass("wpc_hidden");}
-
         $(td).parent().removeClass("wpc_hidden");
+        if(text==""){$(td).parent().addClass("wpc_hidden");}
         if(html){
             $(td).html(textWithLineBreak);
         }else{
@@ -552,6 +552,59 @@
     var hiddenData=function(attribute,value){
         $('#wpc_extra_item_' + attribute).val(value);
     };
+     fabric.Object.prototype.setOriginToCenter = function () {
+         this._originalOriginX = this.originX;
+         this._originalOriginY = this.originY;
+
+         var center = this.getCenterPoint();
+
+         this.set({
+             originX: 'center',
+             originY: 'center',
+             left: center.x,
+             top: center.y
+         });
+     };
+
+     fabric.Object.prototype.setCenterToOrigin = function () {
+         var originPoint = this.translateToOriginPoint(
+             this.getCenterPoint(),
+             this._originalOriginX,
+             this._originalOriginY);
+
+         this.set({
+             originX: this._originalOriginX,
+             originY: this._originalOriginY,
+             left: originPoint.x,
+             top: originPoint.y
+         });
+     };
+     var rotateObject=function(obj,angleOffset,resetEvrything){
+         var resetOrigin = false;
+         if (!obj) return;
+         var angle = obj.getAngle() + angleOffset;
+         if(typeof resetEvrything !="undefined"){
+             angle=0;
+         }
+         if ((obj.originX !== 'center' || obj.originY !== 'center') && obj.centeredRotation) {
+             obj.setOriginToCenter && obj.setOriginToCenter();
+             resetOrigin = true;
+         }
+         angle = angle > 360 ? angle-360 : angle < -360 ? -360-angle : angle;
+         obj.setAngle(angle).setCoords();
+         if (resetOrigin) {
+             obj.setCenterToOrigin && obj.setCenterToOrigin();
+         }
+      //   console.log(obj.getAngle());
+         var finalAngle=obj.getAngle();
+         var angleText=finalAngle>0?translate_text.right + ' '+Math.abs(finalAngle) : translate_text.left + ' '+Math.abs(finalAngle);
+         if(finalAngle!=0 && finalAngle != 360 && finalAngle != -360) {
+             putEmbData("angle", angleText);
+         }else{
+             putEmbData("angle", '');
+         }
+         stage.renderAll();
+     };
     $(document).on("click",".wpc_clear_all",function(e){
         e.preventDefault();
         clearEmbControls();
@@ -639,6 +692,36 @@
         }
         if($this.hasClass("wpc_emb_buttons")){
             $("#embroidery_tab").removeClass("wpc_hidden");
+            if(first_time_emb_change){
+                first_time_emb_change=false;
+                $('#wpc_emb_buttons').block({
+                    message: '',
+                    overlayCSS: {
+                        border: 'none',
+                        padding: '0',
+                        margin: '0',
+                        backgroundColor: '#fff',
+                        opacity: 0.6,
+                        color: '#fff'
+                    }
+                });
+                var data= {
+                    'action': 'wpc_get_emb_button_data',
+                    'model':defaultModel,
+                    'productId':productId
+                };
+                $.post(wpc_ajaxUrl.ajaxUrl, data, function(response) {
+                    var data= $.parseJSON(response);
+                    $('#wpc_emb_buttons').html(data.html);
+                    $('#wpc_emb_buttons').unblock();
+                    if(data.type!='both'){
+                        if($("#wpc_emb_buttons .wpc_emb_tabs[data-type='"+data.type+"']").length>0){
+                            $("#wpc_emb_buttons .wpc_emb_tabs[data-type='"+data.type+"']").trigger('click');
+                        }
+                    }
+                });
+            }
+
         }
      });
      $(document).on('click','.wpc_model',function(e){
@@ -668,7 +751,6 @@
          if(visitedStep.length>1 && !image_change_possible && !coming_from_reset){
              var confirmation=confirm(translate_text.model_change);
              if(confirmation) {
-                 console.log('From Model Click'+initialModel);
                  var newArray = _.without(defaultValues, _.findWhere(defaultValues, {attribute: attributeName}));
                  resetEverything(newArray,true);
                  stage.clear();
@@ -747,8 +829,8 @@
                     border: 'none',
                     padding: '0',
                     margin: '0',
-                    backgroundColor: 'transparent',
-                    opacity: 1,
+                    backgroundColor: '#fff',
+                    opacity: 0.6,
                     color: '#fff'
                 }
             });
@@ -767,11 +849,13 @@
                 $("#wpc_text_options").removeClass("wpc_hidden");
                 $("#wpc_emb_colors").removeClass("wpc_hidden");
                 $("#wpc_emb_postion_buttons").removeClass("wpc_hidden");
+                $("#wpc_emb_rotate_buttons").removeClass("wpc_hidden");
                 removeEmb();
                 var position_x=$("#wpc_emb_postion_buttons").find(".active").data("left");
                     position_y=$("#wpc_emb_postion_buttons").find(".active").data("top"),
                     actualPostions=getLogoPostions(position_y,position_x),
                     tempfontSize=getFontSize(responseData.selectedFontSize),
+                    tempfontStyle=responseData.selectedFontStyle,
                     positionText= $("#wpc_emb_postion_buttons").find(".active").text();
                 var comicSansText = new fabric.Text(textToPut, {
                     title: 'extraContent',
@@ -786,7 +870,8 @@
                     lockUniScaling: true,
                     top:actualPostions.top,
                     left:actualPostions.left,
-                    fontSize:tempfontSize
+                    fontSize:tempfontSize,
+                    fontFamily:tempfontStyle
                 });
                 stage.add(comicSansText);
                 stage.renderAll();
@@ -810,8 +895,8 @@
                 border: 'none',
                 padding: '0',
                 margin: '0',
-                backgroundColor: 'transparent',
-                opacity: 1,
+                backgroundColor: '#fff',
+                opacity: 0.6,
                 color: '#fff'
             }
         });
@@ -822,6 +907,7 @@
                 removeEmb();
                 $("#wpc_emb_postion_buttons").html(data.positions);
                 $("#wpc_emb_postion_buttons").removeClass("wpc_hidden");
+                $("#wpc_emb_rotate_buttons").removeClass("wpc_hidden");
                 var position_x=$("#wpc_emb_postion_buttons").find(".active").data("left"),
                      position_y=$("#wpc_emb_postion_buttons").find(".active").data("top"),
                      actualPostions=getLogoPostions(position_y,position_x),
@@ -871,6 +957,41 @@
         }
         stage.renderAll().calcOffset();
         putEmbData("position",positionText);
+    });
+   $(document).on("click",".wpc_emb_rotate_buttons",function(e){
+       e.preventDefault();
+       $this=$(this);
+       var type=$this.data("type");
+       var angle=parseFloat($("#wpc_emb_angle").val());
+       //var embData=null;
+       if(angle>0 && angle<360) {
+           var objects = stage.getObjects();
+           for (var i = 0; i < objects.length; i++) {
+               if (objects[i].title == "extraContent") {
+                   switch (type) {
+                       case "left":
+                           rotateObject(objects[i],-angle);
+                           break;
+                       case "right":
+                           rotateObject(objects[i], angle);
+                           break;
+                   }
+                   break;
+               }
+           }
+       }
+   });
+    $(document).on("click","#wpc_reset_angle",function(e){
+        e.preventDefault();
+        var objects = stage.getObjects();
+        for (var i = 0; i < objects.length; i++) {
+            if (objects[i].title == "extraContent") {
+                rotateObject(objects[i],0,true);
+                break;
+            }
+        }
+        $("#wpc_emb_angle").val('');
+        putEmbData("angle", '');
     });
     $(document).on('change', '#wpc_font_select', function () {
        $this=$(this);
@@ -1015,8 +1136,8 @@
                border: 'none',
                padding: '0',
                margin: '0',
-               backgroundColor: 'transparent',
-               opacity: 1,
+               backgroundColor: '#fff',
+               opacity: 0.6,
                color: '#fff'
            }
        });
@@ -1051,8 +1172,8 @@
                 border: 'none',
                 padding: '0',
                 margin: '0',
-                backgroundColor: 'transparent',
-                opacity: 1,
+                backgroundColor: '#fff',
+                opacity: 0.6,
                 color: '#fff'
             }
         });
@@ -1111,8 +1232,8 @@
                 border: 'none',
                 padding: '0',
                 margin: '0',
-                backgroundColor: 'transparent',
-                opacity: 1,
+                backgroundColor: '#fff',
+                opacity: 0.6,
                 color: '#fff'
             }
         });

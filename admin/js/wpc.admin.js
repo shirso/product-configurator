@@ -77,7 +77,7 @@ jQuery(function($){
             }
         })
     }
-
+    $(".wpc_multiselect_chosen").chosen();
     if (typeof wpc_product_page != "undefined") {
         if($("#_wpc_check").is(':checked')){
             $('.wpc_default_config_options').removeClass('show_if_wpc_panel');
@@ -680,6 +680,30 @@ var additionalAjaxSave=function(formId,section,div){
                 loadTab(3);
                 resizeJquerySteps();
             });
+        }
+    });
+    $(document).on("click","#wpc_model_copy_emb",function(e){
+        e.preventDefault();
+        var termId=$(this).data("term");
+        var selectdata=$($(this).data("select")).val();
+        var postId=$(this).data("postid");
+        if(selectdata!="") {
+            $("#step_embroidery_form").block({message:null,
+                overlayCSS: {
+                    background: '#eee',
+                    opacity: 0.6
+                }
+            });
+            var data = {
+                'action': 'copy_coor_or_texture',
+                'postId': postId,
+                'termId': termId,
+                'modeltocopy':selectdata,
+                'type':'embroidery'
+            };
+            $.post(ajaxurl, data, function (resp) {
+                location.reload(true);
+            })
         }
     });
 });

@@ -25,6 +25,30 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             add_action( 'wp_ajax_nopriv_wpc_get_design_data', array(&$this,'wpc_get_design_data'));
             add_action( 'wp_ajax_wpc_post_final_image', array(&$this,'wpc_post_final_image'));
             add_action( 'wp_ajax_nopriv_wpc_post_final_image', array(&$this,'wpc_post_final_image'));
+            add_action( 'wp_ajax_wpc_get_emb_button_data', array(&$this,'wpc_get_emb_button_data'));
+            add_action( 'wp_ajax_nopriv_wpc_get_emb_button_data', array(&$this,'wpc_get_emb_button_data'));
+        }
+        public function wpc_get_emb_button_data(){
+            $productId=absint($_POST["productId"]);
+            $defaultModel=absint($_POST["model"]);
+            $emb_config=get_post_meta($productId,"_wpc_emb_config_".$defaultModel,true);
+            $emb_options=$emb_config["emb_options"];
+            $html="";
+            switch ($emb_options){
+                case "both":
+                    $html.='<li><a data-type="image" class="btab wpc_emb_tabs wpc_buttons" href="#wpc_emb_image">'.__('Image','wpc').'</a></li>';
+                    $html.='<li><a data-type="image" class="btab wpc_emb_tabs wpc_buttons" href="#wpc_emb_text">'.__('Text','wpc').'</a></li>';
+                    break;
+                case "image":
+                    $html.='<li><a data-type="image" class="btab wpc_emb_tabs wpc_buttons" href="#wpc_emb_image">'.__('Image','wpc').'</a></li>';
+                    break;
+                case "text":
+                    $html.='<li><a data-type="text" class="btab wpc_emb_tabs wpc_buttons" href="#wpc_emb_text">'.__('Text','wpc').'</a></li>';
+                    break;
+            }
+            $returnArray=array("html"=>$html,"type"=>$emb_options);
+            echo json_encode($returnArray);
+            exit;
         }
         public function wpc_get_single_static_image(){
             $defaultModel=absint($_POST["model"]);
@@ -199,10 +223,13 @@ if(!class_exists('WPC_Frontend_Ajax')) {
                 case "text":
                     $fontOptions="";
                     $fontOptions.='<option value="">'.__("---Fonts---","wpc").'</option>';
-                    foreach ($setting['google_fonts'] as $gfont) {
+                    $availableFonts=$emb_config['available_fonts'];
+                    $defaultFont=$emb_config["default_font"];
+                   if(!empty($availableFonts)){ foreach ($availableFonts as $gfont) {
                         $gname = str_replace('+', ' ', $gfont);
-                        $fontOptions .= '<option value="' . $gname . '" style="font-family:' . $gname . '">' . $gname . '</option>';
-                    }
+                       $selectFont=$gfont==$defaultFont?"selected":"";
+                        $fontOptions .= '<option '.$selectFont.' value="' . $gname . '" style="font-family:' . $gname . '">' . $gname . '</option>';
+                    }}
                     $returnData["fontOptions"]=$fontOptions;
                     $fontSizes="";
                     $selected_font_size=0;
@@ -218,6 +245,7 @@ if(!class_exists('WPC_Frontend_Ajax')) {
                     }
                     $returnData["fontSizes"]=$fontSizes;
                     $returnData["selectedFontSize"]=$selected_font_size;
+                    $returnData["selectedFontStyle"]=$defaultFont;
                     $colors="";
                     if(!empty($emb_config["colors"])){
                         foreach($emb_config["colors"] as $colorEmb){

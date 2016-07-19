@@ -7,14 +7,51 @@ $settings=get_option('wpc_settings');
 $allColors=$settings["colors_data"];
 $emb_config=get_post_meta($post_id,"_wpc_emb_config_".$term_id,true);
 $termDetails=get_term_by("id",$term_id,$taxonomy);
+$all_available_models=get_post_meta($post_id,'_wpc_available_models',true);
 ?>
 <script type="text/javascript">
     var embroidery_config=true,
         termId=<?=$term_id?>;
 </script>
 <div align="center">
+    <table>
+        <tr>
+            <td><?=__("Copy Embroidery Data from Another Model","wpc")?></td>
+            <td>
+                <select id="wpc_copy_model_select_emb">
+                    <option value="">---</option>
+                    <?php if(!empty($all_available_models)){ foreach($all_available_models as $k=>$model){?>
+                        <?php if($model!=$term_id){
+                            $modelDetails=get_term_by('id',$model,$taxonomy);
+                            ?>
+                            <option value="<?=$model?>"><?=$modelDetails->name;?></option>
+                        <?php }?>
+                    <?php }}?>
+                </select>
+            </td>
+            <td>
+                <button type="button" data-select="#wpc_copy_model_select_emb" data-postid="<?=$post_id?>" data-term="<?=$term_id?>" class="primary button" id="wpc_model_copy_emb"><?=__("Copy","wpc");?></button>
+            </td>
+        </tr>
+    </table>
     <h1><?=__("Embroidery configuration for","wpc")?> "<?=$termDetails->name;?>"</h1>
 <form action="" method="post" id="step_embroidery_form" data-id="<?=$post_id?>">
+<table cellspacing="10" cellpadding="10">
+    <tr>
+        <th><?=__("Embroidery Options","wpc")?></th>
+        <td>
+            <select name="wpc_emb_config[emb_options]">
+                <?php
+                $emb_options=array("both"=>__("Both","wpc"),"image"=>__("Image","wpc"),"text"=>__("Text","wpc"));
+                $emb_options_from_database=!empty($emb_config["emb_options"])?$emb_config["emb_options"]:"";
+                ?>
+                <?php foreach($emb_options as $k=>$v){?>
+                    <option <?php if($emb_options_from_database==$k)echo "selected";?> value="<?=$k?>"><?=$v?></option>
+                <?php }?>
+            </select>
+        </td>
+    </tr>
+</table>
 <table cellspacing="10" cellpadding="5">
     <tr>
        <th><?=__('Default Logo Image Size. (Based on 800 X 800)','wpc')?></th>
@@ -26,6 +63,37 @@ $termDetails=get_term_by("id",$term_id,$taxonomy);
                     <td><input type="text" name="wpc_emb_config[logo_height]" value="<?=@$emb_config['logo_height']?>" placeholder="<?=__('Height','wpc')?>" size="10"></td>
                 </tr>
             </table>
+        </td>
+    </tr>
+    <tr>
+        <th><?=__("Available Fonts","wpc")?></th>
+        <td>
+            <select name="wpc_emb_config[available_fonts][]" multiple class="wpc_multiselect_chosen">
+                <option value="">---</option>
+                <?php
+                $google_fonts=WPC_Admin::$optimised_google_webfonts;
+
+                if(!empty($google_fonts)){
+                    foreach($google_fonts as $font){
+                        $select_fonts=!empty($emb_config["available_fonts"]) && in_array($font,$emb_config["available_fonts"]) ?"selected":"";
+                    ?>
+                   <option <?=$select_fonts?> value="<?=$font;?>"><?=$font;?></option>
+                <?php }}?>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th><?=__("Default Font","wpc")?></th>
+        <td>
+            <select name="wpc_emb_config[default_font]" class="wpc_multiselect_chosen">
+                <option value="">---</option>
+              <?php  if(!empty($google_fonts)){
+                foreach($google_fonts as $font){
+                    $select_fonts=!empty($emb_config["default_font"]) && $emb_config["default_font"]==$font?"selected":"";
+                ?>
+                <option <?=$select_fonts?> value="<?=$font;?>"><?=$font;?></option>
+                <?php }}?>
+            </select>
         </td>
     </tr>
     <tr>
