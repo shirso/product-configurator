@@ -70,7 +70,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                         <input type="hidden" name="wpc_extra_item[wpc_product_image_data]" class="wpc_extra_item"
                                id="wpc_product_image_data"/>
                         <script type="application/javascript">var defaultValues=[];</script>
-                        <ul>
+                        <ul id="wpc_nav_buttons">
                             <?php if(isset($attributes) && !empty($attributes)){
                                     foreach ($attributes as $name => $options) {
                                 ?>

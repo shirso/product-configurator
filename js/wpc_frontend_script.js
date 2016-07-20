@@ -1219,6 +1219,10 @@
     });
     $(document).on("click",".wpc_finish_product",function(e){
         e.preventDefault();
+        if($("#wpc_nav_buttons").find('li').length-1!=visitedStep.length){
+            alert(translate_text.finish_all);
+            return false;
+        }
         $("#wpc_product_additional_comment").val($("#wpc_additional_comment_text").val());
         var single_variation_wrap=$('.variations_form').find('.single_variation_wrap');
         if ( $(single_variation_wrap).is( ':visible' ) ) {

@@ -101,7 +101,7 @@ if (!class_exists('WPC_Scripts_Styles')) {
                 wp_localize_script('wpc_frontend_script', 'wpc_default_config', $default_config);
                 wp_localize_script('wpc_frontend_script', 'wpc_ajaxUrl', array('ajaxUrl' => admin_url('admin-ajax.php')));
                 wp_localize_script('wpc_frontend_script', 'wpc_loading', array('loading' => WPC_PLUGIN_ABSOLUTE_PATH . 'img/loader.gif'));
-                wp_localize_script('wpc_frontend_script','translate_text',array("image_file"=>__("Image File","wpc"),'reset_text'=>__("Are you sure to reset?","wpc"),'model_change'=>__("All selection will be lost. Are you sure to continue?","wpc"),'left'=>__('Left','wpc'),'right'=>__('Right','wpc')));
+                wp_localize_script('wpc_frontend_script','translate_text',array("image_file"=>__("Image File","wpc"),'reset_text'=>__("Are you sure to reset?","wpc"),'model_change'=>__("All selection will be lost. Are you sure to continue?","wpc"),'left'=>__('Left','wpc'),'right'=>__('Right','wpc'),'finish_all'=>__("Please Finish All Steps!!!","wpc")));
                 wp_enqueue_script('wpc_underscore', WPC_PLUGIN_ABSOLUTE_PATH . 'js/underscore-min.js', array('jquery'), false);
                 wp_enqueue_script('wpc_magnific_popup', WPC_PLUGIN_ABSOLUTE_PATH . 'js/jquery.magnific-popup.min.js', array('jquery'), false);
                 wp_enqueue_script('wpc_form', WPC_PLUGIN_ABSOLUTE_PATH . 'js/jquery.form.min.js', array('jquery'), false);
