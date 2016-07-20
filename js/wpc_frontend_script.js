@@ -32,7 +32,8 @@
          }
          clearEmbTab();
          $("#embroidery_tab").addClass("wpc_hidden");
-         console.log('From Reset'+initialModel);
+         $('.variations_button').addClass('wpc_hidden');
+         coming_from_reset=false;
      };
     var makeCanvasResponsive=function(){
         stage.setWidth($('#wpc_product_stage').width());
@@ -80,7 +81,6 @@
     var loadBaseEdge=function(divId,imageType){
         var imageClasses=['base_image','texture_image'];
         var attribute=$("#"+divId+"_"+initialModel).data("attribute");
-        console.log('From Image Load'+initialModel);
         $.each(imageClasses,function(k,v){
             var imgInstance = new fabric.Image($("#"+divId+"_"+initialModel).children('.'+v).get(0), {
                 hasControls: false,
@@ -447,6 +447,11 @@
      }
      stage.renderAll().calcOffset();
  };
+ var resetCanvas=function(){
+     stage.clear();
+     loadBaseEdge('wpc_base_images','base_image');
+     loadStaticImages();
+ };
  var colorCanvas=function(attribute,color){
      var objects=stage.getObjects();
      for (var i = 0; i < objects.length; i++) {
@@ -595,7 +600,6 @@
          if (resetOrigin) {
              obj.setCenterToOrigin && obj.setCenterToOrigin();
          }
-      //   console.log(obj.getAngle());
          var finalAngle=obj.getAngle();
          var angleText=finalAngle>0?translate_text.right + ' '+Math.abs(finalAngle) : translate_text.left + ' '+Math.abs(finalAngle);
          if(finalAngle!=0 && finalAngle != 360 && finalAngle != -360) {
@@ -646,19 +650,19 @@
     });
     $(document).on("click",".wpc_terms",function(e){
         e.preventDefault();
-        $this=$(this);
-        if($this.hasClass('atv')){
+        var self=$(this);
+        if(self.hasClass('atv')){
             return false;
         }
-        var attributeName=$this.data("attribute"),
-            termSlug=$this.data("term"),
-            termId=$this.data("id"),
-            display=$this.data("display");
-       $this.closest('.attribute_loop').find('button').removeClass('atv');
-       $this.addClass('atv');
+        var attributeName=self.data("attribute"),
+            termSlug=self.data("term"),
+            termId=self.data("id"),
+            display=self.data("display");
+        self.closest('.attribute_loop').find('button').removeClass('atv');
+        self.addClass('atv');
        setAttributeValues(attributeName,display);
         $("#" + attributeName).focusin().val(termSlug).change();
-       if($this.hasClass('wpc_no_cords')){
+       if(self.hasClass('wpc_no_cords')){
            $('#wpc_color_tab_'+attributeName).html('');
            $('#wpc_texture_tab_'+attributeName).html('');
            removeColorCordsFromArray(attributeName);
@@ -668,29 +672,29 @@
            displayOptions("wpc1_attributes_values",attributeName,'');
            hiddenData(attributeName,"");
        }
-       if($this.hasClass('wpc_color_cords')){
+       if(self.hasClass('wpc_color_cords')){
            removeColorTexttureArray("texture",attributeName);
-            loadColorOrTextureTab("color",attributeName,termSlug,termId,$this.hasClass('wpc_static_layer')?'static_button':'');
+            loadColorOrTextureTab("color",attributeName,termSlug,termId,self.hasClass('wpc_static_layer')?'static_button':'');
            //Load Cord Images
-           if($this.hasClass("wpc_static_layer")){
+           if(self.hasClass("wpc_static_layer")){
                loadStaticImageSingle(attributeName);
                return false;
            }
             setCords(attributeName,termSlug);
             fetchImageData(attributeName);
        }
-      if($this.hasClass('wpc_texture_cords')){
+      if(self.hasClass('wpc_texture_cords')){
           removeColorTexttureArray("color",attributeName);
-          loadColorOrTextureTab("texture",attributeName,termSlug,termId,$this.hasClass('wpc_static_layer')?'static_button':'');
-          if($this.hasClass("wpc_static_layer")) return false;
+          loadColorOrTextureTab("texture",attributeName,termSlug,termId,self.hasClass('wpc_static_layer')?'static_button':'');
+          if(self.hasClass("wpc_static_layer")) return false;
           setCords(attributeName,termSlug);
       }
-        if($this.hasClass("wpc_no_emb")){
+        if(self.hasClass("wpc_no_emb")){
             clearEmbTab();
             $("#embroidery_tab").addClass("wpc_hidden");
             return false;
         }
-        if($this.hasClass("wpc_emb_buttons")){
+        if(self.hasClass("wpc_emb_buttons")){
             $("#embroidery_tab").removeClass("wpc_hidden");
             if(first_time_emb_change){
                 first_time_emb_change=false;
@@ -725,54 +729,49 @@
         }
      });
      $(document).on('click','.wpc_model',function(e){
-         e.preventDefault();
-         $this=$(this);
-         if($this.hasClass('atv') && !image_change_possible){
+         var self=$(this);
+         if(self.hasClass('atv') && !image_change_possible){
              return false;
          }
          image_change_possible=false;
-         var attributeName=$this.data("attribute"),
-             termSlug=$this.data("term"),
-             termId=$this.data("id"),
-             display=$this.data("display");
-         $this.closest('.attribute_loop').find('a').removeClass('atv');
-         $this.closest('.attribute_loop').find('i').remove();
-         $this.addClass('atv');
-         $this.parent().append('<i class="fa fa-check"></i>');
-         setAttributeValues(attributeName,display);
-         $("#" + attributeName).focusin().val(termSlug).change();
-         if($this.hasClass("wpc_available_model")){
-             initialModel==termId;
-             stage.clear();
-             loadBaseEdge('wpc_base_images','base_image');
-             loadStaticImages();
-         }
-         defaultModel=termId;
+         var attributeName=self.data("attribute"),
+             termSlug=self.data("term"),
+             termId=self.data("id"),
+             display=self.data("display");
          if(visitedStep.length>1 && !image_change_possible && !coming_from_reset){
              var confirmation=confirm(translate_text.model_change);
-             if(confirmation) {
-                 var newArray = _.without(defaultValues, _.findWhere(defaultValues, {attribute: attributeName}));
-                 resetEverything(newArray,true);
-                 stage.clear();
-                 loadBaseEdge('wpc_base_images','base_image');
-                 loadStaticImages();
-             }
-
+             if(!confirmation) return false;
+             defaultModel=termId;
+             if(self.hasClass("wpc_available_model")) initialModel=termId;
+             var newArray = _.without(defaultValues, _.findWhere(defaultValues, {attribute: attributeName}));
+             resetEverything(newArray,true);
+             resetCanvas();
          }
+         defaultModel=termId;
+         if(self.hasClass("wpc_available_model")){
+             initialModel==termId;
+             resetCanvas();
+         }
+         self.closest('.attribute_loop').find('a').removeClass('atv');
+         self.closest('.attribute_loop').find('i').remove();
+         self.addClass('atv');
+         self.parent().append('<i class="fa fa-check"></i>');
+         setAttributeValues(attributeName,display);
+         $("#" + attributeName).focusin().val(termSlug).change();
      });
 
     $(document).on("click",".change_color",function(e){
         e.preventDefault();
-        $this=$(this);
-        if($this.hasClass("active")){return false;}
+       var self=$(this);
+        if(self.hasClass("active")){return false;}
 
-        $this.closest('.c-seclect').find('.change_color').removeClass('active');
-        $this.addClass("active");
-        $this.closest('.c-seclect').find('i').remove();
-        $this.append('<i class="fa fa-check-circle"></i>');
-        var attribute=$this.data("attribute"),
-            colorValue=$this.data("color"),
-            displayValue=$this.data("display");
+        self.closest('.c-seclect').find('.change_color').removeClass('active');
+        self.addClass("active");
+        self.closest('.c-seclect').find('i').remove();
+        self.append('<i class="fa fa-check-circle"></i>');
+        var attribute=self.data("attribute"),
+            colorValue=self.data("color"),
+            displayValue=self.data("display");
         if(typeof _.findWhere(colors,{attribute:attribute})=="undefined"){
             colors.push({attribute:attribute,color:colorValue});
         }else{
@@ -786,16 +785,16 @@
     });
     $(document).on("click",".change_texture",function(e){
         e.preventDefault();
-        $this=$(this);
-        if($this.hasClass("active")){return false;}
-        var attribute=$this.data("attribute"),
-            term=$this.data("term"),
-            texture=$this.data("clean"),
-            display=$this.data("display");
-        $this.closest('.c-seclect').find('.change_texture').removeClass('active');
-        $this.addClass("active");
-        $this.closest('.c-seclect').find('i').remove();
-        $this.append('<i class="fa fa-check-circle"></i>');
+        var self=$(this);
+        if(self.hasClass("active")){return false;}
+        var attribute=self.data("attribute"),
+            term=self.data("term"),
+            texture=self.data("clean"),
+            display=self.data("display");
+        self.closest('.c-seclect').find('.change_texture').removeClass('active');
+        self.addClass("active");
+        self.closest('.c-seclect').find('i').remove();
+        self.append('<i class="fa fa-check-circle"></i>');
         if(typeof _.findWhere(textures,{attribute:attribute})=="undefined"){
             textures.push({attribute:attribute,texture:texture});
         }else{
@@ -803,7 +802,7 @@
             textures=newArray;
             textures.push({attribute:attribute,texture:texture});
         }
-        if(!$this.hasClass("static_button")){fetchTextureData();}else{
+        if(!self.hasClass("static_button")){fetchTextureData();}else{
             loadTextureDataSingle(attribute,texture);
         }
         displayOptions("wpc1_attributes_values",attribute,display);
@@ -811,13 +810,13 @@
     });
     $(document).on("click",".wpc_emb_tabs",function(e){
         e.preventDefault();
-        $this=$(this);
+        var self=$(this);
         $('.wpc_emb_controls').addClass("wpc_hidden");
         $('.wpc_emb_tabs').removeClass("atv");
-        $($this.attr("href")).removeClass("wpc_hidden");
-        $($this).addClass("atv");
+        $(self.attr("href")).removeClass("wpc_hidden");
+        $(self).addClass("atv");
         clearEmbControls();
-        putEmbData("type",$this.text());
+        putEmbData("type",self.text());
     });
     $(document).on("click","#wpc_add_text_btn",function(e){
         e.preventDefault();
@@ -937,14 +936,14 @@
     });
     $(document).on("click",".wpc_emb_btn",function(e){
         e.preventDefault();
-        $this=$(this);
-        if($this.hasClass("active"))return false;
-        var position_x=$this.data("left"),
-            position_y=$this.data("top"),
+        var self=$(this);
+        if(self.hasClass("active"))return false;
+        var position_x=self.data("left"),
+            position_y=self.data("top"),
             actualPostions=getLogoPostions(position_y,position_x),
-            positionText=$this.text();
+            positionText=self.text();
         $("#wpc_emb_postion_buttons").find(".active").removeClass("active");
-        $this.addClass("active");
+        self.addClass("active");
         var objects = stage.getObjects();
         for (var i = 0; i < objects.length; i++) {
             if(objects[i].title=="extraContent"){
@@ -960,8 +959,8 @@
     });
    $(document).on("click",".wpc_emb_rotate_buttons",function(e){
        e.preventDefault();
-       $this=$(this);
-       var type=$this.data("type");
+      var self=$(this);
+       var type=self.data("type");
        var angle=parseFloat($("#wpc_emb_angle").val());
        //var embData=null;
        if(angle>0 && angle<360) {
@@ -994,12 +993,12 @@
         putEmbData("angle", '');
     });
     $(document).on('change', '#wpc_font_select', function () {
-       $this=$(this);
-        if($this.val()!=""){
+      var self=$(this);
+        if(self.val()!=""){
             var objects = stage.getObjects();
             for (var i = 0; i < objects.length; i++) {
                 if(objects[i].objectType=='text'){
-                    objects[i].set({fontFamily: $this.val()});
+                    objects[i].set({fontFamily:self.val()});
                     break;
                 }
             }
@@ -1008,10 +1007,10 @@
         }
     });
     $(document).on('change', '#wpc_size_select', function () {
-        $this=$(this);
-        if($this.val()!=""){
+       var self=$(this);
+        if(self.val()!=""){
             var objects = stage.getObjects(),
-                fontSize=getFontSize($this.val());
+                fontSize=getFontSize(self.val());
             for (var i = 0; i < objects.length; i++) {
                 if(objects[i].objectType=='text'){
                     objects[i].set({fontSize:fontSize});
@@ -1028,9 +1027,9 @@
     });
     $(document).on('click', '.change_color_emb', function (e) {
         e.preventDefault();
-        $this=$(this);
-        var color=$this.data('color'),
-            all=$this.data('all').split("|"),
+       var self=$(this);
+        var color=self.data('color'),
+            all=self.data('all').split("|"),
             colorName=all[0];
         var objects = stage.getObjects();
         for (var i = 0; i < objects.length; i++) {
@@ -1125,7 +1124,7 @@
     });
    $(document).on("click","#wpc_product_stage",function(e){
        var windoWidth = $(window).width();
-       $this=$(this);
+       var self=$(this);
        if(windoWidth<767){ return false};
        if($("#tempForCloud").length){
            $('#tempForCloud').remove();
@@ -1141,14 +1140,14 @@
                color: '#fff'
            }
        });
-       var position= $this.offset();
+       var position=self.offset();
        var orginalImage=stage.toDataURL({
            format: 'png',
            quality: 1
        });
        var zoomingImage=zoomImage(canvasWidth/stage.getWidth());
        var anchor='<img class="cloudzoom"  id ="zoom1" src="'+orginalImage+'" data-cloudzoom=\'zoomImage:"'+zoomingImage+'",zoomSizeMode:"image",autoInside: 550\' />'
-       var div='<div id="tempForCloud" style="top:'+position.top+'px;left:'+position.left+'px;width:'+$this.width()+'px;height:'+$this.height()+'px;z-index:100;position:absolute">'+anchor+'</div>';
+       var div='<div id="tempForCloud" style="top:'+position.top+'px;left:'+position.left+'px;width:'+self.width()+'px;height:'+self.height()+'px;z-index:100;position:absolute">'+anchor+'</div>';
        $('body').append(div);
        $('#zoom1').CloudZoom();
        $('#zoom1').bind('cloudzoom_ready',function(){  $('#wpc_product_stage').unblock();});
@@ -1164,8 +1163,8 @@
        });
    });
     $(document).on("change","#wpc_base_design_options",function(){
-       $this=$(this);
-       if($this.val()==""){ designStage.clear(); return false};
+       var self=$(this);
+       if(self.val()==""){ designStage.clear(); return false};
         $('#wpc_final_design').block({
             message: '',
             overlayCSS: {
@@ -1179,7 +1178,7 @@
         });
         var data = {
             'action': 'wpc_get_design_data',
-            'postId':$this.val()
+            'postId':self.val()
         };
         $.post(wpc_ajaxUrl.ajaxUrl, data, function(response) {
             var data=JSON.parse(response);
