@@ -412,7 +412,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                         </div>
                     </div>
                     <div class="row wpc_hidden" id="wpc_emb_rotate_buttons">
-                        <div class="col-sm-4"><input id="wpc_emb_angle" placeholder="<?=__("Insert Angle","wpc")?>" type="text" class=""></div>
+                        <div class="col-sm-4"><input id="wpc_emb_angle" placeholder="<?=__("Insert Rotate Angle","wpc")?>" type="text" class=""></div>
                         <div class="col-sm-8 btn-group"  role="group">
                             <a href="#" id="wpc_reset_angle"><i class="fa fa-refresh"></i> <?=__('Reset','wpc')?></a>
                             <button type="button" data-type="left" class="wpc_emb_rotate_buttons wpc_buttons btn btn-default"><?=__("Rotate Left","wpc");?></button>

@@ -877,6 +877,7 @@
                 emb_positions={objectType:"text",stageWidth:stage.getWidth(),stageHeight:stage.getHeight(),top:actualPostions.top,left:actualPostions.left,fontSize:tempfontSize};
                 putEmbData("text",textToPut,true);
                 putEmbData("fontsize",$("#wpc_size_select :selected").text());
+                putEmbData("font",$("#wpc_font_select :selected").text());
                 putEmbData("position",positionText);
                 $('#wpc_text_add').val("");
                 $('#embroidery_tab').unblock();

@@ -90,7 +90,10 @@ if (!class_exists('WPC_Cart')) {
                         }elseif($key=='wpc_product_emb_position'){
                             $other_data[] = array('name' => __('Embroidery Position','wpc'), 'display' => $value, 'value' => '','hidden'=>false);
 
-                        }elseif($key=='wpc_product_extra_comment'){
+                        }elseif($key=='wpc_product_emb_angle'){
+                         $other_data[] = array('name' => __('Embroidery Angle','wpc'), 'display' => $value, 'value' => '','hidden'=>false);
+
+                     }elseif($key=='wpc_product_extra_comment'){
                          $other_data[] = array('name' => __('Additional Comment','wpc'), 'display' => $value, 'value' => '','hidden'=>false);
 
                      }elseif($key=='wpc_product_additional_comment'){
@@ -154,6 +157,9 @@ if (!class_exists('WPC_Cart')) {
                         }elseif($k=='wpc_product_emb_position'){
                             wc_add_order_item_meta($item_id, __('Embroidery Position','wpc'), $v);
 
+                        }elseif($k=='wpc_product_emb_angle'){
+                            wc_add_order_item_meta($item_id, __('Embroidery Angle','wpc'), $v);
+
                         }elseif($k=='wpc_product_extra_comment'){
                             wc_add_order_item_meta($item_id, __('Additional Comment','wpc'), $v);
 
@@ -182,9 +188,12 @@ if (!class_exists('WPC_Cart')) {
             if( is_object($_product) ) {
                // print_r($item);
                 if(isset($item['wpc_product_image_data'])){
+                    $upload_dir = wp_upload_dir();
+                    $wpc_upload_path=$upload_dir["baseurl"]."/product_configurator_images/final_design/";
+                    $imgSrc=$wpc_upload_path.$item['wpc_product_image_data'];
                   ?>
                  <td class="wpc_product_image_thumbnail">
-                  <img src="<?=$item['wpc_product_image_data']?>" width="300" height="300" alt="">
+                  <img src="<?=$imgSrc?>" width="300" height="300" alt="">
                  </td>
                 <?php
                 }else{
@@ -192,9 +201,7 @@ if (!class_exists('WPC_Cart')) {
                 }
             }
         }
-        public function woocommerce_order_items_meta_display($output,$a)
-        {
-
+        public function woocommerce_order_items_meta_display($output,$a){
             $output=str_replace( 'wpc_product_emb_type',__('Embroidery Type','wpc'),$output);
             $output=str_replace( 'wpc_product_emb_image',__('Embroidery Image','wpc'),$output);
             $output=str_replace( 'wpc_product_emb_position',__('Embroidery Position','wpc'),$output);
@@ -222,6 +229,9 @@ if (!class_exists('WPC_Cart')) {
                    foreach ($results as $s) {
                        if ($s->tagName == 'dd') {
                            $imgSrc = $s->nodeValue;
+                           $upload_dir = wp_upload_dir();
+                           $wpc_upload_path=$upload_dir["baseurl"]."/product_configurator_images/final_design/";
+                           $imgSrc=$wpc_upload_path.trim($imgSrc);
                            $s->nodeValue = '';
                            $title = $dom->createElement('img');
                            $title->setAttribute('src', $imgSrc);
