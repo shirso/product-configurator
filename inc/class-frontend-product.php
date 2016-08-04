@@ -69,6 +69,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                     <div class="col-sm-6" id="attribute-tabs">
                         <input type="hidden" name="wpc_extra_item[wpc_product_image_data]" class="wpc_extra_item"
                                id="wpc_product_image_data"/>
+
                         <script type="application/javascript">var defaultValues=[];</script>
                         <ul id="wpc_nav_buttons">
                             <?php if(isset($attributes) && !empty($attributes)){
@@ -88,6 +89,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                                     </script>
                                     <input type="hidden" name="wpc_extra_item[<?= $name ?>]" id="wpc_extra_item_<?= $name ?>"
                                            class="wpc_extra_item"/>
+                                    <input type="hidden" name="wpc_original_item[<?= $name ?>]" id="wpc_original_item_<?= $name ?>" class="wpc_original_item"/>
                                      <div id="wpc_<?= $name ?>" class="wpc-tb-all" data-attribute="<?= $name ?>">
                                          <a id="wpc_up_<?= $name ?>" data-scroll="wpc_down_<?= $name ?>" href="#" class="wpc_scroll_down wpc-scroll">
                                              <i class="fa fa-arrow-circle-down"></i>
@@ -386,6 +388,16 @@ if (!class_exists('WPC_Frontend_Product')) {
                                 <input name="wpc_image_upload" type="file" id="wpc_image_upload"/>
                             </div>
                         </form>
+                        <div class="row wpc_hidden wpc_emb_rotate_buttons">
+                            <div class="col-sm-12">
+                                <a href="#" id="wpc_reset_angle"><i class="fa fa-refresh"></i> <?=__('Reset','wpc')?></a>
+                                <?php
+                                $settings=get_option("wpc_settings");
+                                $angle=isset($settings["emb_settings"]["rotation_angle"]) && !empty($settings["emb_settings"]["rotation_angle"])?$settings["emb_settings"]["rotation_angle"]:"45";
+                                ?>
+                                <button data-angle=<?=$angle?> type="button" class="wpc_emb_rotate_only wpc_buttons btn btn-default"><?=__("Rotate","wpc")?></button>
+                            </div>
+                        </div>
                     </div>
                     <div id="wpc_emb_text" class="wpc_hidden wpc_emb_controls">
                         <div id="wpc_text_add_div">
@@ -406,19 +418,22 @@ if (!class_exists('WPC_Frontend_Product')) {
                             </div>
                             <textarea id="wpc_text_add" cols="10" rows="3"></textarea>
                             <button id="wpc_add_text_btn"><?=__("Add Text","wpc")?></button>
+                            <div class="row wpc_hidden wpc_emb_rotate_buttons">
+                                <div class="col-sm-12">
+                                    <a href="#" id="wpc_reset_angle"><i class="fa fa-refresh"></i> <?=__('Reset','wpc')?></a>
+                                    <?php
+                                    $settings=get_option("wpc_settings");
+                                    $angle=isset($settings["emb_settings"]["rotation_angle"]) && !empty($settings["emb_settings"]["rotation_angle"])?$settings["emb_settings"]["rotation_angle"]:"45";
+                                    ?>
+                                    <button data-angle=<?=$angle?> type="button" class="wpc_emb_rotate_only wpc_buttons btn btn-default"><?=__("Rotate","wpc")?></button>
+                                </div>
+                            </div>
                             <div id="wpc_emb_colors" class="wpc_hidden">
 
                             </div>
                         </div>
                     </div>
-                    <div class="row wpc_hidden" id="wpc_emb_rotate_buttons">
-                        <div class="col-sm-4"><input id="wpc_emb_angle" placeholder="<?=__("Insert Rotate Angle","wpc")?>" type="text" class=""></div>
-                        <div class="col-sm-8 btn-group"  role="group">
-                            <a href="#" id="wpc_reset_angle"><i class="fa fa-refresh"></i> <?=__('Reset','wpc')?></a>
-                            <button type="button" data-type="left" class="wpc_emb_rotate_buttons wpc_buttons btn btn-default"><?=__("Rotate Left","wpc");?></button>
-                            <button type="button" data-type="right" class="wpc_emb_rotate_buttons wpc_buttons btn btn-default"><?=__("Rotate Right","wpc");?></button>
-                        </div>
-                    </div>
+
 
                     <div id="wpc_emb_postion_buttons" class="btn-group wpc_hidden" role="group">
 

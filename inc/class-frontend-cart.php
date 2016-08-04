@@ -42,11 +42,14 @@ if (!class_exists('WPC_Cart')) {
         }
         function add_cart_item_data($cart_item_meta, $product_id) {
             global $woocommerce;
-            if (isset($cart_item_meta['wpc_extra_cart_item']) ) {
+            if (isset($cart_item_meta['wpc_extra_cart_item']) && isset($cart_item_meta['wpc_original_item']) ) {
                 return $cart_item_meta;
             }
             if(isset($_POST["wpc_extra_item"])) {
                 $cart_item_meta['wpc_extra_cart_item']=$_POST["wpc_extra_item"];
+            }
+            if(isset($_POST["wpc_original_item"])){
+                $cart_item_meta['wpc_original_item']=$_POST["wpc_original_item"];
             }
             return $cart_item_meta;
         }

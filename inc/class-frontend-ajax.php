@@ -37,7 +37,7 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             switch ($emb_options){
                 case "both":
                     $html.='<li><a data-type="image" class="btab wpc_emb_tabs wpc_buttons" href="#wpc_emb_image">'.__('Image','wpc').'</a></li>';
-                    $html.='<li><a data-type="image" class="btab wpc_emb_tabs wpc_buttons" href="#wpc_emb_text">'.__('Text','wpc').'</a></li>';
+                    $html.='<li><a data-type="text" class="btab wpc_emb_tabs wpc_buttons" href="#wpc_emb_text">'.__('Text','wpc').'</a></li>';
                     break;
                 case "image":
                     $html.='<li><a data-type="image" class="btab wpc_emb_tabs wpc_buttons" href="#wpc_emb_image">'.__('Image','wpc').'</a></li>';

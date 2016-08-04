@@ -35,8 +35,9 @@ if (!class_exists('WPC_Scripts_Styles')) {
                     $wpc_cart=$woocommerce->cart->get_cart();
                     $wpc_get_cart=$wpc_cart[$wpc_cart_item_key];
                     $wpc_cart_variations=$wpc_get_cart['variation'];
-                    if(isset($wpc_get_cart['wpc_extra_cart_item'])){
-                        $wpc_extra_items=$wpc_get_cart['wpc_extra_cart_item'];
+                    $wpc_extra_items=array();
+                    if(isset($wpc_get_cart['wpc_original_item'])){
+                        $wpc_extra_items=$wpc_get_cart['wpc_original_item'];
                         if(isset($wpc_extra_items['wpc_product_image_data'])){
                             unset($wpc_extra_items['wpc_product_image_data']);
                         }
@@ -81,27 +82,14 @@ if (!class_exists('WPC_Scripts_Styles')) {
                     echo '<link href="http://fonts.googleapis.com/css?family=' . implode("|", $google_webfonts['google_fonts']) . '" rel="stylesheet" type="text/css">';
                 }
                 $emb_limits=$google_webfonts['emb_settings'];
-                $pre_configure = get_post_meta($product->id, '_wpc_default_config', true);
-                $color_dependency_step = get_post_meta($product->id, '_wpc_color_dependency', true);
-                $color_config = get_post_meta($product->id, '_wpc_color_config', true);
-                $texture_config = get_post_meta($product->id, '_wpc_texture_config', true);
-                $base_color_step = get_post_meta($product->id, '_wpc_base_color_step', true);
-                $exclude_image = get_post_meta($product->id, '_wpc_exclude_image', true);
-                $exclude_color = get_post_meta($product->id, '_wpc_exclude_color', true);
-                $embrodiary_step = get_post_meta($product->id, '_wpc_embroidery_step', true);
-                $logo_size=get_post_meta($product->id, '_wpc_emb_logo_size', true);
-                $font_size=get_post_meta($product->id, '_wpc_emb_font_size', true);
-                $last_step = get_post_meta($product->id, '_wpc_last_step', true);
                 wp_enqueue_script('wpc_jQuery_tabs', WPC_PLUGIN_ABSOLUTE_PATH . 'js/jquery.responsiveTabs.js', array('jquery'), false);
                 wp_enqueue_script('wpc_fabric_js', WPC_PLUGIN_ABSOLUTE_PATH . 'js/fabric.js', array('jquery'), false);
                 wp_register_script('wpc_frontend_script', WPC_PLUGIN_ABSOLUTE_PATH . 'js/wpc_frontend_script.js', array('jquery', 'wpc_fabric_js'), false);
-                $default_config = get_post_meta($product->id, '_wpc_default_config', true);
                 wp_localize_script('wpc_frontend_script','wpc_cart_redirect_items',$wpc_cart_redirect_items);
                 wp_localize_script('wpc_frontend_script','wpc_emb_limit',$emb_limits);
-                wp_localize_script('wpc_frontend_script', 'wpc_default_config', $default_config);
+                wp_localize_script('wpc_frontend_script','wpc_emb_layer',get_post_meta($product->id,'_wpc_emb_layer',true));
                 wp_localize_script('wpc_frontend_script', 'wpc_ajaxUrl', array('ajaxUrl' => admin_url('admin-ajax.php')));
-                wp_localize_script('wpc_frontend_script', 'wpc_loading', array('loading' => WPC_PLUGIN_ABSOLUTE_PATH . 'img/loader.gif'));
-                wp_localize_script('wpc_frontend_script','translate_text',array("image_file"=>__("Image File","wpc"),'reset_text'=>__("Are you sure to reset?","wpc"),'model_change'=>__("All selection will be lost. Are you sure to continue?","wpc"),'left'=>__('Left','wpc'),'right'=>__('Right','wpc'),'finish_all'=>__("Please Finish All Steps!!!","wpc")));
+                wp_localize_script('wpc_frontend_script','translate_text',array("image_file"=>__("Image File","wpc"),'reset_text'=>__("Are you sure to reset?","wpc"),'model_change'=>__("All selection will be lost. Are you sure to continue?","wpc"),'left'=>__('Left','wpc'),'right'=>__('Right','wpc'),'finish_all'=>__("Please Finish All Steps!!!","wpc"),'step_alert'=>__("You Have Missed Some Options.Please Check!!!","wpc")));
                 wp_enqueue_script('wpc_underscore', WPC_PLUGIN_ABSOLUTE_PATH . 'js/underscore-min.js', array('jquery'), false);
                 wp_enqueue_script('wpc_magnific_popup', WPC_PLUGIN_ABSOLUTE_PATH . 'js/jquery.magnific-popup.min.js', array('jquery'), false);
                 wp_enqueue_script('wpc_form', WPC_PLUGIN_ABSOLUTE_PATH . 'js/jquery.form.min.js', array('jquery'), false);
