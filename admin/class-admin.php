@@ -340,6 +340,34 @@ if( !class_exists('WPC_Admin') ) {
             add_action('wp_ajax_wpc_save_tab_data',array(&$this,'wpc_save_tab_data'));
             add_action('wp_ajax_wpc_load_tab_data',array(&$this,'wpc_load_tab_data'));
             add_action('wp_ajax_copy_coor_or_texture',array(&$this,'copy_coor_or_texture'));
+            add_filter('manage_edit-wpc_textures_columns',array(&$this,'wpc_textures_columns'));
+            add_filter('manage_edit-wpc_colors_columns',array(&$this,'wpc_colors_columns'));
+            add_action('manage_wpc_textures_posts_custom_column',array(&$this,"manage_wpc_textures_posts_custom_column"), 10, 2);
+            add_action('manage_wpc_colors_posts_custom_column',array(&$this,"manage_wpc_colors_posts_custom_column"), 10, 2);
+        }
+        public function wpc_textures_columns($columns){
+            unset($columns["date"]);
+            $columns["texture_image"]=__("Texture Images","wpc");
+            return $columns;
+        }
+        public function wpc_colors_columns($columns){
+            unset($columns["date"]);
+            $columns["color_code"]=__("Color","wpc");
+            return $columns;
+        }
+        public function manage_wpc_textures_posts_custom_column($column_name, $id){
+            $texture_image=get_post_meta($id,"_wpc_texture_image",true);
+            if($column_name=="texture_image" && !empty($texture_image)){
+                ?>
+                <img src="<?=$texture_image?>" width="80" />
+           <?php }
+        }
+        public function manage_wpc_colors_posts_custom_column($column_name, $id){
+            $color_code=get_post_meta($id,"_wpc_color_code",true);
+            if($column_name=="color_code" && !empty($color_code)){
+                ?>
+             <div style="width: 50px;height: 50px;background: <?=$color_code?>"></div>
+            <?php }
         }
         public function admin_scripts(){
             wp_register_script('wpc_sheepit_jquery',WPC_PLUGIN_ABSOLUTE_PATH.'admin/js/jquery.sheepItPlugin-1.1.1.min.js','',false,true);

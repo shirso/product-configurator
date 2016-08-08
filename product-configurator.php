@@ -108,10 +108,60 @@ if( !class_exists('WPC_Product_Configurator') ) {
                 'public'              => false,
                 'show_in_menu'        => true,
                 'show_ui'             => true,
-
             );
+            $labels_colors=array(
+                'name'                => _x( 'Colors', 'Post Type General Name', 'wpc' ),
+                'singular_name'       => _x( 'Color', 'Post Type Singular Name', 'wpc' ),
+                'menu_name'           => __( 'Colors', 'wpc' ),
+                'name_admin_bar'      => __( 'Color', 'wpc' ),
+                'all_items'           => __( 'All Colors', 'wpc' ),
+                'add_new_item'        => __( 'Add New Color', 'wpc' ),
+                'add_new'             => __( 'Add New', 'wpc' ),
+                'new_item'            => __( 'New Color', 'wpc' ),
+                'edit_item'           => __( 'Edit Color', 'wpc' ),
+                'update_item'         => __( 'Update Color', 'wpc' ),
+                'view_item'           => __( 'View Color', 'wpc' ),
+                'search_items'        => __( 'Search Colors', 'wpc' ),
+                'not_found'           => __( 'Not found', 'wpc' ),
+                'not_found_in_trash'  => __( 'Not found in Trash', 'wpc' ),
+            );
+         $args_colors = array(
+             'label'               => __( 'Color', 'wpc' ),
+             'labels'              => $labels_colors,
+             'supports'            => array( 'title'),
+             'hierarchical'        => false,
+             'public'              => false,
+             'show_in_menu'        => true,
+             'show_ui'             => true,
+         );
+         $labels_textures=array(
+             'name'                => _x( 'Textures', 'Post Type General Name', 'wpc' ),
+             'singular_name'       => _x( 'Texture', 'Post Type Singular Name', 'wpc' ),
+             'menu_name'           => __( 'Textures', 'wpc' ),
+             'name_admin_bar'      => __( 'Texture', 'wpc' ),
+             'all_items'           => __( 'All Textures', 'wpc' ),
+             'add_new_item'        => __( 'Add New Texture', 'wpc' ),
+             'add_new'             => __( 'Add New', 'wpc' ),
+             'new_item'            => __( 'New Texture', 'wpc' ),
+             'edit_item'           => __( 'Edit Texture', 'wpc' ),
+             'update_item'         => __( 'Update Texture', 'wpc' ),
+             'view_item'           => __( 'View Texture', 'wpc' ),
+             'search_items'        => __( 'Search Textures', 'wpc' ),
+             'not_found'           => __( 'Not found', 'wpc' ),
+             'not_found_in_trash'  => __( 'Not found in Trash', 'wpc' ),
+         );
+         $args_textures = array(
+             'label'               => __( 'Textures', 'wpc' ),
+             'labels'              => $labels_textures,
+             'supports'            => array( 'title'),
+             'hierarchical'        => false,
+             'public'              => false,
+             'show_in_menu'        => true,
+             'show_ui'             => true,
+         );
             register_post_type( 'wpc_base_design', $args );
-
+            register_post_type( 'wpc_colors', $args_colors );
+            register_post_type( 'wpc_textures', $args_textures );
         }
         public function register_custom_taxonomy(){
             $labels = array(
@@ -135,10 +185,52 @@ if( !class_exists('WPC_Product_Configurator') ) {
                 'query_var'         => true,
                 'rewrite'           => array( 'slug' => 'category' ),
             );
+            $labels_colors = array(
+                'name'              => __('Manufacturers', 'wpc' ),
+                'singular_name'     => __( 'Manufacturer', 'wpc' ),
+                'search_items'      => __( 'Search Manufacturers', 'wpc' ),
+                'all_items'         => __( 'All Manufacturers', 'wpc' ),
+                'parent_item'       => __( 'Parent Manufacturer', 'wpc' ),
+                'parent_item_colon' => __( 'Parent Manufacturer:', 'wpc'),
+                'edit_item'         => __( 'Edit Manufacturer', 'wpc' ),
+                'update_item'       => __( 'Update Manufacturer', 'wpc' ),
+                'add_new_item'      => __( 'Add New Manufacturer', 'wpc' ),
+                'new_item_name'     => __( 'New Manufacturer Name', 'wpc' ),
+                'menu_name'         => __( 'Manufacturer' ),
+            );
+            $args_colors = array(
+                'hierarchical'      => true,
+                'labels'            => $labels_colors,
+                'show_ui'           => true,
+                'show_admin_column' => true,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'manufacturer' ),
+            );
+            $labels_textures = array(
+                'name'              => __('Manufacturers', 'wpc' ),
+                'singular_name'     => __( 'Manufacturer', 'wpc' ),
+                'search_items'      => __( 'Search Manufacturers', 'wpc' ),
+                'all_items'         => __( 'All Manufacturers', 'wpc' ),
+                'parent_item'       => __( 'Parent Manufacturer', 'wpc' ),
+                'parent_item_colon' => __( 'Parent Manufacturer:', 'wpc'),
+                'edit_item'         => __( 'Edit Manufacturer', 'wpc' ),
+                'update_item'       => __( 'Update Manufacturer', 'wpc' ),
+                'add_new_item'      => __( 'Add New Manufacturer', 'wpc' ),
+                'new_item_name'     => __( 'New Manufacturer Name', 'wpc' ),
+                'menu_name'         => __( 'Manufacturer' ),
+            );
+            $args_textures = array(
+                'hierarchical'      => true,
+                'labels'            => $labels_textures,
+                'show_ui'           => true,
+                'show_admin_column' => true,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'manufacturer' ),
+            );
             register_taxonomy( 'wpc_design_category', array( 'wpc_base_design' ), $args );
+            register_taxonomy( 'wpc_color_manufacturer', array( 'wpc_colors' ), $args_colors );
+            register_taxonomy( 'wpc_texture_manufacturer', array( 'wpc_textures' ), $args_textures );
         }
-
-
     }
     new WPC_Product_Configurator();
     register_activation_hook( __FILE__, array( 'WPC_Product_Configurator', 'install' ) );

@@ -703,7 +703,7 @@ $(document).on("staticimageload",function(){
                 var checkTabContent=checkTab(typeof previousTab.colorDiv!='undefined' ? previousTab.colorDiv : '',typeof previousTab.tabDiv!='undefined' ? previousTab.tabDiv : '');
                 if(!checkTabContent){
 
-                    alert(translate_tex.step_alert);
+                    alert(translate_text.step_alert);
                     comingFromOtherTab=true;
                     $('#attribute-tabs').responsiveTabs('activate', previousTab.tabId);
                 }

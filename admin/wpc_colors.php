@@ -54,7 +54,13 @@ $all_available_models=get_post_meta($postId,'_wpc_available_models',true);
                                 <table style="border-bottom: 1px solid #000000" cellspacing="10">
                                     <?php if(!empty($allColors)){
                                         ?>
-                                        <tr><th>&nbsp;</th><th>&nbsp;</th><th style="text-align: center"><a class="wpc_selectAllButton" href="#"><?=__('All','wpc');?></a> </th></tr>
+                                        <tr><th><?=__("Manufacturers","wpc")?></th><th>&nbsp;</th><th style="text-align: center">
+                                            <select class="wpc_selection">
+                                                <option value="">---</option>
+                                                <option value="all"><?=__("All","wpc")?></option>
+
+                                            </select>
+                                            </th></tr>
                                         <?php
                                         foreach($allColors as $color){
                                             ?>

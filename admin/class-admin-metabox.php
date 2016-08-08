@@ -7,9 +7,26 @@ if (!class_exists('WPC_Admin_metabox')) {
         public function __construct()
         {
             add_meta_box('wpc_meta_id', __('Base Design', 'wpc'), array(&$this, 'wpc_add_metaboxes'), 'wpc_base_design', 'normal', 'high');
+            add_meta_box('wpc_texture_image', __('Texture Image', 'wpc'), array(&$this, 'wpc_add_metaboxes_texture'), 'wpc_textures', 'normal', 'high');
+            add_meta_box('wpc_color_code', __('Color Code', 'wpc'), array(&$this, 'wpc_add_metaboxes_color'), 'wpc_colors', 'normal', 'high');
             add_action('save_post',array(&$this,'wpc_save_base_saddle'));
         }
-
+        public function wpc_add_metaboxes_texture(){
+            global $post;
+            $txture_image=get_post_meta($post->ID,'_wpc_texture_image',true);
+            ?>
+            <div class="form-field">
+                <label for="hd_wpb_attribute_image"><?php _e('Image', 'wpc') ?></label>
+                <input type="text" class="wide-fat" id="hd_wpb_attribute_image" value="<?=@$txture_image?>" name="hd_wpc_texture_image"/>
+                <button class="button button-secondary wpc_upload_button"  id="btn_wpb_attribute_image_upload"><?php _e('Upload', 'wpc') ?></button>
+            </div>
+       <?php }
+       public function wpc_add_metaboxes_color(){
+           global $post;
+           $color_code=get_post_meta($post->ID,'_wpc_color_code',true);
+        ?>
+           <input type="color" value="<?=@$color_code?>" name="hd_wpc_color_code" class="full-width wpc_color_picker1">
+       <?php }
         public function wpc_add_metaboxes()
         {
             global $post;
@@ -64,6 +81,12 @@ if (!class_exists('WPC_Admin_metabox')) {
             if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
             if(isset($_POST['wpc_design'])){
                 update_post_meta( $post_id, '_wpc_admin_design', $_POST['wpc_design'] );
+            }
+            if(isset($_POST["hd_wpc_texture_image"])){
+                update_post_meta( $post_id, '_wpc_texture_image', $_POST['hd_wpc_texture_image'] );
+            }
+            if(isset($_POST["hd_wpc_color_code"])){
+                update_post_meta( $post_id, '_wpc_color_code', $_POST['hd_wpc_color_code'] );
             }
         }
     }
