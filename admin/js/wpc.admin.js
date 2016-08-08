@@ -360,6 +360,19 @@ $('body').on('click','.wpc_selectAllButton',function(e){
         $(this).parent().parent().parent().find('.color_checkbox').removeAttr('checked');
     }
 });
+  $(document).on("change",".wpc_selection",function(e){
+      var self=$(this);
+      if(self.val()=="") return false;
+      self.parent().parent().parent().find('.color_checkbox').removeAttr('checked');
+      if(self.val()=="none"){return false;}
+      if(self.val()=="all"){self.parent().parent().parent().find('.color_checkbox').prop('checked', 'checked'); return false;}
+      $.each(self.parent().parent().parent().find('.color_checkbox'),function(k,v){
+         var manu=$(v).data("manu");
+          if($.inArray(parseInt(self.val()),manu)>=0){
+              $(v).prop('checked', 'checked');
+          }
+      });
+  });
     var loadColorTab=function(tabId){
         var action="wpc_load_tab_data",
             sectionId=null;

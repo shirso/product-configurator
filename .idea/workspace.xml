@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="fc01be34-babe-44dd-9fc8-b8773c6788b1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/class-admin-metabox.php" afterPath="$PROJECT_DIR$/admin/class-admin-metabox.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/class-admin.php" afterPath="$PROJECT_DIR$/admin/class-admin.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/js/wpc.admin.js" afterPath="$PROJECT_DIR$/admin/js/wpc.admin.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/wpc_colors.php" afterPath="$PROJECT_DIR$/admin/wpc_colors.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/wpc_frontend_script.js" afterPath="$PROJECT_DIR$/js/wpc_frontend_script.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product-configurator.php" afterPath="$PROJECT_DIR$/product-configurator.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/wpc_multicolor_images.php" afterPath="$PROJECT_DIR$/admin/wpc_multicolor_images.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/wpc_textures.php" afterPath="$PROJECT_DIR$/admin/wpc_textures.php" />
     </list>
     <ignored path="product-configurator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,17 +27,76 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="wpc_colors.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="wpc_colors.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/wpc_colors.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="60" column="48" selection-start-line="60" selection-start-column="48" selection-end-line="60" selection-end-column="48" />
+            <state relative-caret-position="340">
+              <caret line="80" column="35" selection-start-line="80" selection-start-column="35" selection-end-line="87" selection-end-column="42" />
               <folding>
-                <element signature="n#style#0;n#th#2;n#tr#0;n#table#0;n#td#1;n#tr#1;n#table#1;n#form#0;n#!!top" expanded="true" />
-                <marker date="1470641152761" expanded="true" signature="2928:2934" ph=" " />
-                <marker date="1470641152761" expanded="true" signature="3591:3701" ph="..." />
-                <marker date="1470641152761" expanded="true" signature="3644:3701" ph="..." />
+                <element signature="n#style#0;n#td#1;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#1;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#1;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#2;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#2;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#3;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#3;n#form#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wpc_textures.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/wpc_textures.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-369">
+              <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
+              <folding>
+                <element signature="n#style#0;n#td#1;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#1;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#2;n#form#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wpc_multicolor_images.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/admin/wpc_multicolor_images.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="193">
+              <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wpc_multicolor_cords.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/wpc_multicolor_cords.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-80">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wpc.admin.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/js/wpc.admin.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-233">
+              <caret line="369" column="31" selection-start-line="369" selection-start-column="31" selection-end-line="369" selection-end-column="31" />
+              <folding>
+                <marker date="1470654823517" expanded="true" signature="12946:13002" ph="..." />
+                <marker date="1470654823517" expanded="true" signature="21506:21562" ph="..." />
+                <marker date="1470654823517" expanded="true" signature="22239:22295" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="product-configurator.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/product-configurator.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="376">
+              <caret line="230" column="54" selection-start-line="230" selection-start-column="32" selection-end-line="230" selection-end-column="54" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -58,6 +116,9 @@
         <option value="$PROJECT_DIR$/admin/class-admin-metabox.php" />
         <option value="$PROJECT_DIR$/admin/class-admin.php" />
         <option value="$PROJECT_DIR$/admin/wpc_colors.php" />
+        <option value="$PROJECT_DIR$/admin/js/wpc.admin.js" />
+        <option value="$PROJECT_DIR$/admin/wpc_textures.php" />
+        <option value="$PROJECT_DIR$/admin/wpc_multicolor_images.php" />
       </list>
     </option>
   </component>
@@ -102,6 +163,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -285,7 +347,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -362,12 +423,13 @@
       <workItem from="1470224566067" duration="1803000" />
       <workItem from="1470293981625" duration="12719000" />
       <workItem from="1470328199438" duration="690000" />
-      <workItem from="1470629715818" duration="9378000" />
+      <workItem from="1470629715818" duration="13149000" />
+      <workItem from="1470647953483" duration="9226000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38919000" />
+    <option name="totallyTimeSpent" value="51916000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1370" height="744" extended-state="1" />
@@ -415,9 +477,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1470328290391" expanded="true" signature="51396:51525" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -425,7 +484,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
           <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -433,7 +491,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2720">
           <caret line="160" column="179" selection-start-line="160" selection-start-column="154" selection-end-line="160" selection-end-column="179" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -441,7 +498,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1547">
           <caret line="91" column="364" selection-start-line="91" selection-start-column="354" selection-end-line="91" selection-end-column="364" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -463,9 +519,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8211">
           <caret line="483" column="29" selection-start-line="483" selection-start-column="29" selection-end-line="483" selection-end-column="29" />
-          <folding>
-            <marker date="1470328290391" expanded="true" signature="51396:51525" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -480,9 +533,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1470328290391" expanded="true" signature="51396:51525" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -497,9 +547,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1470328290391" expanded="true" signature="51396:51525" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -514,9 +561,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
           <caret line="705" column="40" selection-start-line="705" selection-start-column="40" selection-end-line="705" selection-end-column="40" />
-          <folding>
-            <marker date="1470328290391" expanded="true" signature="51396:51525" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -524,7 +568,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -532,7 +575,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="160" column="179" selection-start-line="160" selection-start-column="154" selection-end-line="160" selection-end-column="179" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -540,7 +582,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="91" column="364" selection-start-line="91" selection-start-column="354" selection-end-line="91" selection-end-column="364" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -548,26 +589,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="328">
           <caret line="35" column="22" selection-start-line="31" selection-start-column="15" selection-end-line="35" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/js/wpc.admin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="644" column="34" selection-start-line="644" selection-start-column="34" selection-end-line="644" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/class-admin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="364" column="26" selection-start-line="364" selection-start-column="26" selection-end-line="364" selection-end-column="26" />
-          <folding>
-            <element signature="e#147#13754#0#PHP" expanded="false" />
-            <element signature="e#16652#16713#0#HTML" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -575,28 +596,171 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="413">
           <caret line="88" column="88" selection-start-line="88" selection-start-column="88" selection-end-line="88" selection-end-column="88" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/class-admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="364" column="26" selection-start-line="364" selection-start-column="26" selection-end-line="364" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/product-configurator.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="163" column="45" selection-start-line="163" selection-start-column="33" selection-end-line="163" selection-end-column="45" />
+        <state relative-caret-position="376">
+          <caret line="230" column="54" selection-start-line="230" selection-start-column="32" selection-end-line="230" selection-end-column="54" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../wp-includes/post.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="2906" column="25" selection-start-line="2906" selection-start-column="25" selection-end-line="2906" selection-end-column="25" />
+          <folding>
+            <marker date="1460056948000" expanded="true" signature="57823:57839" ph="Insert into post... " />
+            <marker date="1460056948000" expanded="true" signature="57849:57865" ph="Insert into page... " />
+            <marker date="1460056948000" expanded="true" signature="82983:83067" ph="SELECT post_... $" />
+            <marker date="1460056948000" expanded="true" signature="85003:85154" ph="SELECT post_... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="85324:85417" ph="SELECT COUNT... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="91144:91184" ph="SELECT * FRO... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="92590:92658" ph="SELECT * FRO... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="92983:93060" ph="SELECT ID FR... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="93512:93577" ph="SELECT comme... wp_comments" />
+            <marker date="1460056948000" expanded="true" signature="93770:93824" ph="SELECT meta_... wp_postmeta" />
+            <marker date="1460056948000" expanded="true" signature="98412:98495" ph="SELECT comme... wp_comments" />
+            <marker date="1460056948000" expanded="true" signature="100417:100500" ph="UPDATE wp_co... " />
+            <marker date="1460056948000" expanded="true" signature="119758:119799" ph="SELECT ID FR... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="130370:130446" ph="SELECT post_... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="131518:131653" ph="SELECT post_... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="132770:132865" ph="SELECT post_... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="143223:143268" ph="SELECT pinge... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="144791:144836" ph="SELECT pinge... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="145406:145452" ph="SELECT to_pi... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="146884:146936" ph="SELECT ID FR... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="148868:149008" ph="SELECT ID, p... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="150612:150710" ph="SELECT ID FR... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="150771:150848" ph="SELECT ID FR... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="162829:162887" ph="SELECT * FRO... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="167006:167046" ph="SELECT * FRO... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="168164:168229" ph="SELECT comme... wp_comments" />
+            <marker date="1460056948000" expanded="true" signature="168423:168477" ph="SELECT meta_... wp_postmeta" />
+            <marker date="1460056948000" expanded="true" signature="169048:169167" ph="SELECT meta_... wp_postmeta" />
+            <marker date="1460056948000" expanded="true" signature="190555:190700" ph="SELECT post_... " />
+            <marker date="1460056948000" expanded="true" signature="190759:190900" ph="SELECT post_... " />
+            <marker date="1460056948000" expanded="true" signature="191000:191194" ph="SELECT DATE_... " />
+            <marker date="1460056948000" expanded="true" signature="201939:202049" ph="SELECT ID FR... wp_posts" />
+            <marker date="1460056948000" expanded="true" signature="204570:204626" ph="SELECT wp_po... wp_posts" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../wp-includes/taxonomy.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="2520" column="44" selection-start-line="2520" selection-start-column="37" selection-end-line="2520" selection-end-column="44" />
+          <folding>
+            <marker date="1459358008000" expanded="true" signature="29235:29462" ph="SELECT tr.ob... wp_term_relationships" />
+            <marker date="1459358008000" expanded="true" signature="36719:36841" ph="SELECT t.*, wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="61708:61785" ph="SELECT ${$di... wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="70517:70560" ph="SELECT term_... wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="70580:70711" ph="SELECT tt.te... wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="71639:71808" ph="SELECT tt.te... wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="71905:72079" ph="SELECT tt.te... wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="72171:72231" ph="SELECT term_... wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="72318:72383" ph="SELECT term_... wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="83964:84040" ph="SELECT term_... wp_term_taxonomy" />
+            <marker date="1459358008000" expanded="true" signature="85133:85208" ph="SELECT objec... wp_term_relationships" />
+            <marker date="1459358008000" expanded="true" signature="86004:86058" ph="SELECT meta_... wp_termmeta" />
+            <marker date="1459358008000" expanded="true" signature="86685:86745" ph="SELECT COUNT... wp_term_taxonomy" />
+            <marker date="1459358008000" expanded="true" signature="93935:94169" ph="SELECT ${$se... wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="95377:95602" ph="SELECT tr.te... wp_term_relationships" />
+            <marker date="1459358008000" expanded="true" signature="101788:101816" ph="SELECT MAX(t... wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="104281:104436" ph="SELECT tt.te... wp_term_taxonomy" />
+            <marker date="1459358008000" expanded="true" signature="105129:105358" ph="SELECT t.ter... wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="109511:109612" ph="SELECT term_... wp_term_relationships" />
+            <marker date="1459358008000" expanded="true" signature="110598:110717" ph="SELECT tt.te... wp_term_taxonomy" />
+            <marker date="1459358008000" expanded="true" signature="111368:111539" ph="INSERT INTO wp_term_relationships... " />
+            <marker date="1459358008000" expanded="true" signature="114313:114408" ph="DELETE FROM " />
+            <marker date="1459358008000" expanded="true" signature="117343:117406" ph="SELECT slug wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="117472:117517" ph="SELECT slug wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="117689:117734" ph="SELECT slug wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="121427:121455" ph="SELECT MAX(t... wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="122743:122898" ph="SELECT tt.te... wp_term_taxonomy" />
+            <marker date="1459358008000" expanded="true" signature="124542:124617" ph="SELECT objec... wp_term_relationships" />
+            <marker date="1459358008000" expanded="true" signature="131414:131500" ph="SELECT term_... wp_term_taxonomy" />
+            <marker date="1459358008000" expanded="true" signature="139721:139988" ph="SELECT objec... wp_term_relationships" />
+            <marker date="1459358008000" expanded="true" signature="142126:142460" ph="SELECT COUNT... wp_term_relationships" />
+            <marker date="1459358008000" expanded="true" signature="142325:142387" ph="SELECT post_... wp_posts" />
+            <marker date="1459358008000" expanded="true" signature="142550:142785" ph="SELECT COUNT... wp_term_relationships" />
+            <marker date="1459358008000" expanded="true" signature="143634:143708" ph="SELECT COUNT... wp_term_relationships" />
+            <marker date="1459358008000" expanded="true" signature="146037:146133" ph="SELECT COUNT... wp_term_taxonomy" />
+            <marker date="1459358008000" expanded="true" signature="146493:146561" ph="SELECT term_... wp_term_taxonomy" />
+            <marker date="1459358008000" expanded="true" signature="146826:146877" ph="SELECT t.* F... wp_terms" />
+            <marker date="1459358008000" expanded="true" signature="147584:147646" ph="SELECT * FRO... wp_term_taxonomy" />
+            <marker date="1459358008000" expanded="true" signature="147729:147814" ph="SELECT term_... wp_term_taxonomy" />
+            <marker date="1459358008000" expanded="true" signature="148448:148508" ph="SELECT taxon... wp_term_taxonomy" />
+            <marker date="1459358008000" expanded="true" signature="149221:149418" ph="SELECT tt.te... $" />
+            <marker date="1459358008000" expanded="true" signature="151122:151320" ph="SELECT tt.te... $" />
+            <marker date="1459358008000" expanded="true" signature="152049:152125" ph="SELECT * FRO... $" />
+            <marker date="1459358008000" expanded="true" signature="155168:155570" ph="SELECT m1.po... $" />
+            <marker date="1459358008000" expanded="true" signature="158254:158314" ph="SELECT COUNT... wp_term_taxonomy" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/js/wpc.admin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-233">
+          <caret line="369" column="31" selection-start-line="369" selection-start-column="31" selection-end-line="369" selection-end-column="31" />
+          <folding>
+            <marker date="1470654823517" expanded="true" signature="12946:13002" ph="..." />
+            <marker date="1470654823517" expanded="true" signature="21506:21562" ph="..." />
+            <marker date="1470654823517" expanded="true" signature="22239:22295" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/wpc_colors.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="60" column="48" selection-start-line="60" selection-start-column="48" selection-end-line="60" selection-end-column="48" />
+        <state relative-caret-position="340">
+          <caret line="80" column="35" selection-start-line="80" selection-start-column="35" selection-end-line="87" selection-end-column="42" />
           <folding>
-            <element signature="n#style#0;n#th#2;n#tr#0;n#table#0;n#td#1;n#tr#1;n#table#1;n#form#0;n#!!top" expanded="true" />
-            <marker date="1470641152761" expanded="true" signature="2928:2934" ph=" " />
-            <marker date="1470641152761" expanded="true" signature="3591:3701" ph="..." />
-            <marker date="1470641152761" expanded="true" signature="3644:3701" ph="..." />
+            <element signature="n#style#0;n#td#1;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#1;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#1;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#2;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#2;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#3;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#3;n#form#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/wpc_textures.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-369">
+          <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
+          <folding>
+            <element signature="n#style#0;n#td#1;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#1;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#1;n#table#0;n#td#1;n#tr#1;n#table#2;n#form#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/wpc_multicolor_cords.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-80">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/wpc_multicolor_images.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>

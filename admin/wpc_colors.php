@@ -10,6 +10,15 @@ $edgeLayer=get_post_meta($postId,'_wpc_edge_layer',true);
 $baseLayer=get_post_meta($postId,'_wpc_base_color_dependency',true);
 $all_static_layers=get_post_meta($postId,'_wpc_static_layers',true);
 $all_available_models=get_post_meta($postId,'_wpc_available_models',true);
+$all_manufacturer = get_terms( 'wpc_color_manufacturer', array(
+    'hide_empty' => true
+));
+$all_Colors=get_posts(array(
+    'posts_per_page'=> -1,
+    'post_type'=> 'wpc_colors',
+    'post_status'=> 'publish',
+    'orderby'=>'name',
+));
 ?>
 <form id="wpc_colors_form">
     <table>
@@ -52,29 +61,32 @@ $all_available_models=get_post_meta($postId,'_wpc_available_models',true);
                             <td><?=$term->name?></td>
                             <td>
                                 <table style="border-bottom: 1px solid #000000" cellspacing="10">
-                                    <?php if(!empty($allColors)){
-                                        ?>
+                                    <?php if(!empty($all_Colors)){?>
                                         <tr><th><?=__("Manufacturers","wpc")?></th><th>&nbsp;</th><th style="text-align: center">
-                                            <select class="wpc_selection">
-                                                <option value="">---</option>
-                                                <option value="all"><?=__("All","wpc")?></option>
-
-                                            </select>
+                                                <select class="wpc_selection">
+                                                    <option value="">---</option>
+                                                    <option value="all"><?=__("All","wpc")?></option>
+                                                    <option value="none"><?=__("None","wpc")?></option>
+                                                    <?php if(!empty($all_manufacturer)){?>
+                                                        <?php foreach ($all_manufacturer as $man){ ?>
+                                                            <option value="<?=$man->term_id?>"><?=$man->name?></option>
+                                                        <?php }?>
+                                                    <?php }?>
+                                                </select>
                                             </th></tr>
-                                        <?php
-                                        foreach($allColors as $color){
+                                      <?php  foreach ($all_Colors as $Color){
+                                            $color_code=get_post_meta($Color->ID,"_wpc_color_code",true);
+                                            $all_manufacturer_for_this_post= !empty(wp_get_post_terms( $Color->ID, 'wpc_color_manufacturer',array('fields'=>'ids')))?wp_get_post_terms( $Color->ID, 'wpc_color_manufacturer',array('fields'=>'ids')):array();
                                             ?>
-                                            <tr>
-                                                <td>
-                                                    <?=$color["name"];?>
-                                                </td>
-                                                <td style="background-color: <?=$color["value"];?>;width: 20px;height: 20px"></td>
-                                                <td style="text-align: center">
-                                                    <?php $checked_color=in_array($color["name"]."|".$color["value"],$check_color)?"checked":""; ?>
-                                                    <input <?=$checked_color;?> class="color_checkbox"  type="checkbox" value="<?=$color["name"]?>|<?=$color["value"];?>" name="wpc_colors[<?=$baseLayer?>][<?=$term->slug?>][colors][]">
-                                                </td>
-                                            </tr>
-                                        <?php }}?>
+                                    <tr>
+                                        <td><?=$Color->post_title;?></td>
+                                        <td style="background-color: <?=@$color_code;?>;width: 20px;height: 20px"></td>
+                                        <td style="text-align: center">
+                                            <?php $checked_color=in_array($Color->ID,$check_color)?"checked":""; ?>
+                                            <input <?=$checked_color;?> class="color_checkbox" data-manu="<?=json_encode($all_manufacturer_for_this_post);?>"  type="checkbox" value="<?=$Color->ID?>" name="wpc_colors[<?=$baseLayer?>][<?=$term->slug?>][colors][]">
+                                        </td>
+                                     </tr>
+                                   <?php  }} ?>
                                 </table>
                             </td>
                         </tr>
@@ -101,23 +113,33 @@ $all_available_models=get_post_meta($postId,'_wpc_available_models',true);
                                 <td><?=$term->name?></td>
                                 <td>
                                     <table style="border-bottom: 1px solid #000000" cellspacing="10">
-                                        <?php if(!empty($allColors)){
+                                        <?php if(!empty($all_Colors)){
                                             ?>
-                                            <tr><th>&nbsp;</th><th>&nbsp;</th><th style="text-align: center"><a class="wpc_selectAllButton" href="#"><?=__('All','wpc');?></a> </th></tr>
-                                            <?php
-                                            foreach($allColors as $color){
+                                            <tr><th><?=__("Manufacturers","wpc")?></th><th>&nbsp;</th><th style="text-align: center">
+                                                    <select class="wpc_selection">
+                                                        <option value="">---</option>
+                                                        <option value="all"><?=__("All","wpc")?></option>
+                                                        <option value="none"><?=__("None","wpc")?></option>
+                                                        <?php if(!empty($all_manufacturer)){?>
+                                                            <?php foreach ($all_manufacturer as $man){ ?>
+                                                                <option value="<?=$man->term_id?>"><?=$man->name?></option>
+                                                            <?php }?>
+                                                        <?php }?>
+                                                    </select>
+                                                </th></tr>
+                                            <?php  foreach ($all_Colors as $Color){
+                                                $color_code=get_post_meta($Color->ID,"_wpc_color_code",true);
+                                                $all_manufacturer_for_this_post= !empty(wp_get_post_terms( $Color->ID, 'wpc_color_manufacturer',array('fields'=>'ids')))?wp_get_post_terms( $Color->ID, 'wpc_color_manufacturer',array('fields'=>'ids')):array();
                                                 ?>
                                                 <tr>
-                                                    <td>
-                                                        <?=$color["name"];?>
-                                                    </td>
-                                                    <td style="background-color: <?=$color["value"];?>;width: 20px;height: 20px"></td>
+                                                    <td><?=$Color->post_title;?></td>
+                                                    <td style="background-color: <?=@$color_code;?>;width: 20px;height: 20px"></td>
                                                     <td style="text-align: center">
-                                                        <?php $checked_color=in_array($color["name"]."|".$color["value"],$check_color)?"checked":""; ?>
-                                                        <input <?=$checked_color;?> class="color_checkbox"  type="checkbox" value="<?=$color["name"]?>|<?=$color["value"];?>" name="wpc_colors[<?=$static_layer?>][<?=$term->slug?>][colors][]">
+                                                        <?php $checked_color=in_array($Color->ID,$check_color)?"checked":""; ?>
+                                                        <input <?=$checked_color;?> data-manu="<?=json_encode($all_manufacturer_for_this_post);?>" class="color_checkbox"  type="checkbox" value="<?=$Color->ID?>" name="wpc_colors[<?=$static_layer?>][<?=$term->slug?>][colors][]">
                                                     </td>
                                                 </tr>
-                                            <?php }}?>
+                                            <?php  }} ?>
                                     </table>
                                 </td>
                             </tr>
@@ -144,23 +166,33 @@ $all_available_models=get_post_meta($postId,'_wpc_available_models',true);
                     <td><?=$term->name?></td>
                     <td>
                         <table style="border-bottom: 1px solid #000000" cellspacing="10">
-                            <?php if(!empty($allColors)){
+                            <?php if(!empty($all_Colors)){
                                 ?>
-                                <tr><th>&nbsp;</th><th>&nbsp;</th><th style="text-align: center"><a class="wpc_selectAllButton" href="#"><?=__('All','wpc');?></a> </th></tr>
-                            <?php
-                                foreach($allColors as $color){
-                                ?>
-                                 <tr>
-                                    <td>
-                                        <?=$color["name"];?>
-                                    </td>
-                                     <td style="background-color: <?=$color["value"];?>;width: 20px;height: 20px"></td>
-                                     <td style="text-align: center">
-                                         <?php $checked_color=in_array($color["name"]."|".$color["value"],$check_color)?"checked":""; ?>
-                                         <input <?=$checked_color;?> class="color_checkbox"  type="checkbox" value="<?=$color["name"]?>|<?=$color["value"];?>" name="wpc_colors[<?=$layer?>][<?=$term->slug?>][colors][]">
-                                     </td>
-                                 </tr>
-                            <?php }}?>
+                                <tr><th><?=__("Manufacturers","wpc")?></th><th>&nbsp;</th><th style="text-align: center">
+                                        <select class="wpc_selection">
+                                            <option value="">---</option>
+                                            <option value="all"><?=__("All","wpc")?></option>
+                                            <option value="none"><?=__("None","wpc")?></option>
+                                            <?php if(!empty($all_manufacturer)){?>
+                                                <?php foreach ($all_manufacturer as $man){ ?>
+                                                    <option value="<?=$man->term_id?>"><?=$man->name?></option>
+                                                <?php }?>
+                                            <?php }?>
+                                        </select>
+                                    </th></tr>
+                                <?php  foreach ($all_Colors as $Color){
+                                    $color_code=get_post_meta($Color->ID,"_wpc_color_code",true);
+                                    $all_manufacturer_for_this_post= !empty(wp_get_post_terms( $Color->ID, 'wpc_color_manufacturer',array('fields'=>'ids')))?wp_get_post_terms( $Color->ID, 'wpc_color_manufacturer',array('fields'=>'ids')):array();
+                                    ?>
+                                    <tr>
+                                        <td><?=$Color->post_title;?></td>
+                                        <td style="background-color: <?=@$color_code;?>;width: 20px;height: 20px"></td>
+                                        <td style="text-align: center">
+                                            <?php $checked_color=in_array($Color->ID,$check_color)?"checked":""; ?>
+                                            <input <?=$checked_color;?> data-manu="<?=json_encode($all_manufacturer_for_this_post);?>" class="color_checkbox"  type="checkbox" value="<?=$Color->ID?>" name="wpc_colors[<?=$layer?>][<?=$term->slug?>][colors][]">
+                                        </td>
+                                    </tr>
+                                <?php  }} ?>
                         </table>
                     </td>
                 </tr>

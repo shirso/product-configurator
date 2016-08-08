@@ -10,7 +10,17 @@ $settings=get_option('wpc_settings');
 $allColors=$settings["texture_data"];
 $all_static_layers=get_post_meta($postId,'_wpc_static_layers',true);
 $all_available_models=get_post_meta($postId,'_wpc_available_models',true);
-$allTexturesMeta=get_post_meta($postId,"_wpc_textures_".$termId,true); ?>
+$allTexturesMeta=get_post_meta($postId,"_wpc_textures_".$termId,true);
+$all_manufacturer = get_terms( 'wpc_texture_manufacturer', array(
+    'hide_empty' => true
+));
+$all_Colors=get_posts(array(
+    'posts_per_page'=> -1,
+    'post_type'=> 'wpc_textures',
+    'post_status'=> 'publish',
+    'orderby'=>'name',
+));
+?>
     <form id="wpc_textures_form">
         <table>
             <tr>
@@ -52,19 +62,29 @@ $allTexturesMeta=get_post_meta($postId,"_wpc_textures_".$termId,true); ?>
                                 <td><?=$term->name?></td>
                                 <td>
                                     <table style="border-bottom: 1px solid #000000" cellspacing="10">
-                                        <?php if(!empty($allColors)){
+                                        <?php if(!empty($all_Colors)){
                                             ?>
-                                            <tr><th>&nbsp;</th><th style="text-align: center"><a class="wpc_selectAllButton" href="#"><?=__('All','wpc');?></a> </th></tr>
+                                            <tr><th><?=__("Manufacturers","wpc")?></th><th>&nbsp;</th><th style="text-align: center">
+                                                    <select class="wpc_selection">
+                                                        <option value="">---</option>
+                                                        <option value="all"><?=__("All","wpc")?></option>
+                                                        <option value="none"><?=__("None","wpc")?></option>
+                                                        <?php if(!empty($all_manufacturer)){?>
+                                                            <?php foreach ($all_manufacturer as $man){ ?>
+                                                                <option value="<?=$man->term_id?>"><?=$man->name?></option>
+                                                            <?php }?>
+                                                        <?php }?>
+                                                    </select>
+                                                </th></tr>
                                             <?php
-                                            foreach($allColors as $color){
+                                            foreach($all_Colors as $Color){
+                                                $all_manufacturer_for_this_post= !empty(wp_get_post_terms( $Color->ID, 'wpc_texture_manufacturer',array('fields'=>'ids')))?wp_get_post_terms( $Color->ID, 'wpc_texture_manufacturer',array('fields'=>'ids')):array();
                                                 ?>
                                                 <tr>
-                                                    <td>
-                                                        <?=$color["name"];?>
-                                                    </td>
+                                                    <td><?=$Color->post_title;?></td>
                                                     <td style="text-align: center">
-                                                        <?php $checked_color=in_array($color["name"]."|".$color["value"],$check_color)?"checked":""; ?>
-                                                        <input <?=$checked_color;?> class="color_checkbox"  type="checkbox" value="<?=$color["name"];?>|<?=$color["value"];?>" name="wpc_textures[<?=$static_layer?>][<?=$term->slug?>][textures][]">
+                                                        <?php $checked_color=in_array($Color->ID,$check_color)?"checked":""; ?>
+                                                        <input <?=$checked_color;?> class="color_checkbox" data-manu="<?=json_encode($all_manufacturer_for_this_post);?>"  type="checkbox" value="<?=$Color->ID?>" name="wpc_textures[<?=$static_layer?>][<?=$term->slug?>][textures][]">
                                                     </td>
                                                 </tr>
                                             <?php }}?>
@@ -94,19 +114,29 @@ $allTexturesMeta=get_post_meta($postId,"_wpc_textures_".$termId,true); ?>
                 <td><?=$term->name?></td>
                 <td>
                     <table style="border-bottom: 1px solid #000000" cellspacing="10">
-                        <?php if(!empty($allColors)){
+                        <?php if(!empty($all_Colors)){
                             ?>
-                            <tr><th>&nbsp;</th><th style="text-align: center"><a class="wpc_selectAllButton" href="#"><?=__('All','wpc');?></a> </th></tr>
+                            <tr><th><?=__("Manufacturers","wpc")?></th><th>&nbsp;</th><th style="text-align: center">
+                                    <select class="wpc_selection">
+                                        <option value="">---</option>
+                                        <option value="all"><?=__("All","wpc")?></option>
+                                        <option value="none"><?=__("None","wpc")?></option>
+                                        <?php if(!empty($all_manufacturer)){?>
+                                            <?php foreach ($all_manufacturer as $man){ ?>
+                                                <option value="<?=$man->term_id?>"><?=$man->name?></option>
+                                            <?php }?>
+                                        <?php }?>
+                                    </select>
+                                </th></tr>
                             <?php
-                            foreach($allColors as $color){
+                            foreach($all_Colors as $Color){
+                                $all_manufacturer_for_this_post= !empty(wp_get_post_terms( $Color->ID, 'wpc_texture_manufacturer',array('fields'=>'ids')))?wp_get_post_terms( $Color->ID, 'wpc_texture_manufacturer',array('fields'=>'ids')):array();
                                 ?>
                                 <tr>
-                                    <td>
-                                        <?=$color["name"];?>
-                                    </td>
+                                    <td><?=$Color->post_title;?></td>
                                     <td style="text-align: center">
-                                        <?php $checked_color=in_array($color["name"]."|".$color["value"],$check_color)?"checked":""; ?>
-                                        <input <?=$checked_color;?> class="color_checkbox"  type="checkbox" value="<?=$color["name"];?>|<?=$color["value"];?>" name="wpc_textures[<?=$layer?>][<?=$term->slug?>][textures][]">
+                                        <?php $checked_color=in_array($Color->ID,$check_color)?"checked":""; ?>
+                                        <input <?=$checked_color;?> class="color_checkbox" data-manu="<?=json_encode($all_manufacturer_for_this_post);?>"  type="checkbox" value="<?=$Color->ID?>" name="wpc_textures[<?=$layer?>][<?=$term->slug?>][textures][]">
                                     </td>
                                 </tr>
                             <?php }}?>

@@ -68,15 +68,17 @@ $wpc_no_cords=get_post_meta($postId,'_wpc_no_cords',true);
                                                                <?php if(isset($textureLayer["textures"]) && !empty($textureLayer["textures"])){ ?>
                                                               <?php foreach($textureLayer["textures"] as $t){
                                                                        $spitData=explode("|",$t);
+                                                                      $texture_details=get_post($t,ARRAY_A);
+                                                                       if(!empty($texture_details) && $texture_details["post_status"]=="publish"){
                                                                        ?>
                                                                <tr>
-                                                                    <td><?=$spitData[0]?></td>
+                                                                    <td><?=$texture_details["post_title"]?></td>
                                                                     <td>
-                                                                        <input type="text" name="wpc_muticord_images[images][#index#][<?=$layer?>][<?=clean($spitData[0]);?>]" id="wpc_multicord_images_images_<?=$layer?>_<?=clean($spitData[0]);?>_#index#">
-                                                                        <button class="button button-secondary wpc_image_upload" data-field="wpc_multicord_images_images_<?=$layer?>_<?=clean($spitData[0]);?>_#index#"><?=__('Upload','wpc');?></button>
+                                                                        <input type="text" name="wpc_muticord_images[images][#index#][<?=$layer?>][<?=$t?>]" id="wpc_multicord_images_images_<?=$layer?>_<?=$t?>_#index#">
+                                                                        <button class="button button-secondary wpc_image_upload" data-field="wpc_multicord_images_images_<?=$layer?>_<?=$t?>_#index#"><?=__('Upload','wpc');?></button>
                                                                     </td>
                                                                </tr>
-                                                                <?php }}?>
+                                                                <?php }}}?>
                                                            </table>
                                                        </td>
                                                    </tr>
@@ -129,16 +131,18 @@ $wpc_no_cords=get_post_meta($postId,'_wpc_no_cords',true);
                                         <table style="overflow-x: scroll;height: 100px;">
                                             <?php if(isset($textureLayer["textures"]) && !empty($textureLayer["textures"])){ ?>
                                                 <?php foreach($textureLayer["textures"] as $t){
+                                                    $texture_details=get_post($t,ARRAY_A);
                                                     $spitData=explode("|",$t);
+                                        if(!empty($texture_details) && $texture_details["post_status"]=="publish"){
                                                     ?>
                                                     <tr>
                                                         <td><?=$spitData[0]?></td>
                                                         <td>
-                                                            <input type="text" value="<?=@$static_images[clean($spitData[0])]?>" name="wpc_muticord_images[static_images][<?=$static_layer?>][<?=clean($spitData[0]);?>]" id="wpc_multicord_images_static_images_<?=$static_layer?>_<?=clean($spitData[0]);?>">
-                                                            <button class="button button-secondary wpc_image_upload" data-field="wpc_multicord_images_static_images_<?=$static_layer?>_<?=clean($spitData[0]);?>"><?=__('Upload','wpc');?></button>
+                                                            <input type="text" value="<?=@$static_images[$t]?>" name="wpc_muticord_images[static_images][<?=$static_layer?>][<?=$t?>]" id="wpc_multicord_images_static_images_<?=$static_layer?>_<?=$t?>">
+                                                            <button class="button button-secondary wpc_image_upload" data-field="wpc_multicord_images_static_images_<?=$static_layer?>_<?=$t?>"><?=__('Upload','wpc');?></button>
                                                         </td>
                                                     </tr>
-                                                <?php }}?>
+                                                <?php }}}?>
                                         </table>
                                     </td>
                                 </tr>
