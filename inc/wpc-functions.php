@@ -34,3 +34,6 @@ function array_find($needle, array $haystack)
     }
     return false;
 }
+function acme_post_exists( $id ) {
+    return is_string( get_post_status( $id ) );
+}

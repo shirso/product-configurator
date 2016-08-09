@@ -3,11 +3,20 @@ if (!defined('ABSPATH')) exit;
 $post_id =absint($_GET['post']);
 $term_id=absint($_GET["term"]);
 $taxonomy=esc_html($_GET["taxonomy"]);
-$settings=get_option('wpc_settings');
-$allColors=$settings["colors_data"];
+//$settings=get_option('wpc_settings');
+//$allColors=$settings["colors_data"];
 $emb_config=get_post_meta($post_id,"_wpc_emb_config_".$term_id,true);
 $termDetails=get_term_by("id",$term_id,$taxonomy);
 $all_available_models=get_post_meta($post_id,'_wpc_available_models',true);
+$all_manufacturer = get_terms( 'wpc_color_manufacturer', array(
+    'hide_empty' => true
+));
+$all_Colors=get_posts(array(
+    'posts_per_page'=> -1,
+    'post_type'=> 'wpc_colors',
+    'post_status'=> 'publish',
+    'orderby'=>'name',
+));
 ?>
 <script type="text/javascript">
     var embroidery_config=true,
@@ -160,17 +169,28 @@ $all_available_models=get_post_meta($post_id,'_wpc_available_models',true);
 </div>
 <h4><?=__('Colors','wpc');?></h4>
 <table cellspacing="10" cellpadding="5">
-    <tr>
-        <td></td>
-        <td></td>
-        <td><a class="wpc_selectAllButton" href="#">(<?=__('All','wpc');?>)</a></td>
-    </tr>
-    <?php if(!empty($allColors) && is_array($allColors)){ foreach($allColors as $color){ ?>
+    <tr><th><?=__("Manufacturers","wpc")?></th><th>&nbsp;</th><th style="text-align: center">
+            <select class="wpc_selection">
+                <option value="">---</option>
+                <option value="all"><?=__("All","wpc")?></option>
+                <option value="none"><?=__("None","wpc")?></option>
+                <?php if(!empty($all_manufacturer)){?>
+                    <?php foreach ($all_manufacturer as $man){ ?>
+                        <option value="<?=$man->term_id?>"><?=$man->name?></option>
+                    <?php }?>
+                <?php }?>
+            </select>
+        </th></tr>
+    <?php if(!empty($all_Colors)){ foreach($all_Colors as $Color){
+        $all_manufacturer_for_this_post= !empty(wp_get_post_terms( $Color->ID, 'wpc_color_manufacturer',array('fields'=>'ids')))?wp_get_post_terms( $Color->ID, 'wpc_color_manufacturer',array('fields'=>'ids')):array();
+        ?>
         <tr>
-            <td><?=$color["name"]?></td>
-            <td style="background-color: <?=$color["value"];?>;width: 20px;height: 20px"></td>
-            <?php  $selectedColor=isset($emb_config["colors"]) && in_array($color["name"].'|'.$color["value"],$emb_config["colors"])?'checked':'' ?>
-            <td><input class="color_checkbox" <?=$selectedColor?> type="checkbox" value="<?=$color["name"]?>|<?=$color["value"];?>" name="wpc_emb_config[colors][]"> </td>
+            <td><?=$Color->post_title;?></td>
+            <td style="background-color: <?=@$color_code;?>;width: 20px;height: 20px"></td>
+            <td style="text-align: center">
+                <?php  $selectedColor=isset($emb_config["colors"]) && in_array($Color->ID ,$emb_config["colors"])?'checked':'' ?>
+                <input <?=$selectedColor;?> data-manu="<?=json_encode($all_manufacturer_for_this_post);?>" class="color_checkbox"  type="checkbox" value="<?=$Color->ID?>" name="wpc_emb_config[colors][]">
+            </td>
         </tr>
     <?php }}?>
 </table>

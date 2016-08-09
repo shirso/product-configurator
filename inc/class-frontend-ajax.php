@@ -120,12 +120,17 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             $html="";
            if(!empty($colorOfThisAttribute)){
                foreach ($colorOfThisAttribute as $color) {
-                   $all = explode('|', $color);
+                   $colorId=absint($color);
+                   if(acme_post_exists($colorId)) {
+                       $colorDetails = get_post($colorId, ARRAY_A);
+                       $color_code=get_post_meta($colorId,"_wpc_color_code",true);
+//                   $all = explode('|', $color);
                    $html .= '<div class="flclr">';
-                   $html.='<div class="change_color '.$butonType.' insec" data-color="'.$all[1].'" data-attribute="'.$attribute.'" data-term="'.$termId.'" data-display="'.$all[0].'" style="background: '.$all[1].'">';
+                   $html .= '<div class="change_color ' . $butonType . ' insec" data-color="' . $color_code . '" data-attribute="' . $attribute . '" data-term="' . $termId . '" data-display="' .$colorDetails["post_title"] . '" style="background: ' . $color_code . '">';
                    $html .= '</div>';
-                   $html.='   <p>'.$all[0].'</p>';
+                   $html .= '   <p>' .$colorDetails["post_title"] . '</p>';
                    $html .= '</div>';
+                       }
                }}
             echo $html;
             exit;
@@ -141,12 +146,17 @@ if(!class_exists('WPC_Frontend_Ajax')) {
             $html="";
             if(!empty($textureOfThisAttribute)){
                 foreach ($textureOfThisAttribute as $texture) {
-                    $all = explode('|', $texture);
-                    $html .= '<div class="flclr">';
-                    $html.='<div class="change_texture '.$butonType.' insec" data-attribute="'.$attribute.'" data-term="'.$term.'" data-display="'.$all[0].'" data-clean="'.clean($all[0]).'" style="background:url('.$all[1].')">';
-                    $html .= '</div>';
-                    $html.='   <p>'.$all[0].'</p>';
-                    $html .= '</div>';
+                  //  $all = explode('|', $texture);
+                    $colorId=absint($texture);
+                    if(acme_post_exists($colorId)) {
+                        $colorDetails = get_post($colorId, ARRAY_A);
+                        $color_code = get_post_meta($colorId, "_wpc_texture_image", true);
+                        $html .= '<div class="flclr">';
+                        $html .= '<div class="change_texture ' . $butonType . ' insec" data-attribute="' . $attribute . '" data-term="' . $term . '" data-display="' . $colorDetails["post_title"] . '" data-clean="' . $colorId . '" style="background:url(' . $color_code . ')">';
+                        $html .= '</div>';
+                        $html .= '   <p>' . $colorDetails["post_title"] . '</p>';
+                        $html .= '</div>';
+                    }
                 }
             }
             echo $html;
@@ -249,13 +259,17 @@ if(!class_exists('WPC_Frontend_Ajax')) {
                     $colors="";
                     if(!empty($emb_config["colors"])){
                         foreach($emb_config["colors"] as $colorEmb){
-                            $allEmb = explode('|', $colorEmb);
-                            $colors.='<div class="flclr">';
-                            $colors.='<div class="change_color_emb insec" style="background: '.$allEmb[1].'"';
-                            $colors.='data-all="'. $allEmb[0] . '|' . $allEmb[1].'" data-colorname="'.$allEmb[0].'" data-color="'.$allEmb[1].'">';
-                            $colors.='</div>';
-                            $colors.='<p>'.$allEmb[0].'</p>';
-                            $colors.='</div>';
+                            if(acme_post_exists($colorEmb)) {
+                                $colorDetails = get_post($colorEmb, ARRAY_A);
+                                $color_code = get_post_meta($colorEmb, "_wpc_color_code", true);
+                                // $allEmb = explode('|', $colorEmb);
+                                $colors .= '<div class="flclr">';
+                                $colors .= '<div class="change_color_emb insec" style="background: ' . $color_code . '"';
+                                $colors .= 'data-all="' . $colorDetails["post_title"] . '|' . $color_code . '" data-colorname="' . $colorDetails["post_title"] . '" data-color="' . $color_code . '">';
+                                $colors .= '</div>';
+                                $colors .= '<p>' . $colorDetails["post_title"] . '</p>';
+                                $colors .= '</div>';
+                            }
                         }
                     }
                     $returnData["colors"]=$colors;
