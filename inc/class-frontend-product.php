@@ -70,7 +70,10 @@ if (!class_exists('WPC_Frontend_Product')) {
                         <input type="hidden" name="wpc_extra_item[wpc_product_image_data]" class="wpc_extra_item"
                                id="wpc_product_image_data"/>
 
-                        <script type="application/javascript">var defaultValues=[];</script>
+                        <script type="application/javascript">
+                            var defaultValues=[];
+                           var cords=[];
+                        </script>
                         <ul id="wpc_nav_buttons">
                             <?php if(isset($attributes) && !empty($attributes)){
                                     foreach ($attributes as $name => $options) {
@@ -340,6 +343,14 @@ if (!class_exists('WPC_Frontend_Product')) {
                         if(in_array($attribute_name,$static_layer)){
                             $button_class.=" wpc_static_layer";
                         }
+                        ?>
+                        <?php
+                        if(($button_class=="wpc_color_cords" || $button_class=="wpc_texture_cords") && $activeClass=="atv"){
+                            ?>
+                            <script type="text/javascript">
+                                cords.push({attribute:'<?=$attribute_name;?>',term:'<?=$term->slug;?>'});
+                            </script>
+                       <?php }
                         ?>
                         <button
                             class="wpc_terms <?=$activeClass?> <?=$button_class?> wpc_attribute_button_<?=$attribute_name.'_'.$term->slug?>"

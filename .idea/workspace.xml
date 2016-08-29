@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc01be34-babe-44dd-9fc8-b8773c6788b1" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/languages/wpc-en_GB.mo" afterPath="$PROJECT_DIR$/languages/wpc-en_GB.mo" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/class-admin-metabox.php" afterPath="$PROJECT_DIR$/admin/class-admin-metabox.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/embroidery_configurator.php" afterPath="$PROJECT_DIR$/admin/embroidery_configurator.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inc/class-frontend-ajax.php" afterPath="$PROJECT_DIR$/inc/class-frontend-ajax.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/wpc_colors.php" afterPath="$PROJECT_DIR$/admin/wpc_colors.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/wpc_textures.php" afterPath="$PROJECT_DIR$/admin/wpc_textures.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inc/class-frontend-product.php" afterPath="$PROJECT_DIR$/inc/class-frontend-product.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inc/wpc-functions.php" afterPath="$PROJECT_DIR$/inc/wpc-functions.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/wpc_frontend_script.js" afterPath="$PROJECT_DIR$/js/wpc_frontend_script.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/languages/wpc-en_GB.po" afterPath="$PROJECT_DIR$/languages/wpc-en_GB.po" />
     </list>
     <ignored path="product-configurator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,8 +34,40 @@
       <file leaf-file-name="wpc_colors.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/wpc_colors.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="154" column="20" selection-start-line="154" selection-start-column="20" selection-end-line="154" selection-end-column="20" />
+            <state relative-caret-position="323">
+              <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wpc_textures.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/wpc_textures.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wpc_frontend_script.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/wpc_frontend_script.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="123" selection-start-line="1" selection-start-column="123" selection-end-line="1" selection-end-column="123" />
+              <folding>
+                <marker date="1472465478322" expanded="true" signature="51911:52040" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="class-frontend-product.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/inc/class-frontend-product.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="350" column="102" selection-start-line="350" selection-start-column="102" selection-end-line="350" selection-end-column="102" />
               <folding />
             </state>
           </provider>
@@ -40,8 +76,18 @@
       <file leaf-file-name="embroidery_configurator.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/embroidery_configurator.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="38" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="38" />
+            <state relative-caret-position="289">
+              <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="class-admin-metabox.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/class-admin-metabox.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -50,8 +96,8 @@
       <file leaf-file-name="class-frontend-ajax.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/inc/class-frontend-ajax.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="276" column="26" selection-start-line="276" selection-start-column="26" selection-end-line="276" selection-end-column="26" />
+            <state relative-caret-position="251">
+              <caret line="200" column="88" selection-start-line="200" selection-start-column="88" selection-end-line="200" selection-end-column="88" />
               <folding />
             </state>
           </provider>
@@ -66,18 +112,19 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/inc/class-scripts-styles.php" />
-        <option value="$PROJECT_DIR$/js/wpc_frontend_script.js" />
         <option value="$PROJECT_DIR$/product-configurator.php" />
-        <option value="$PROJECT_DIR$/admin/class-admin-metabox.php" />
         <option value="$PROJECT_DIR$/admin/class-admin.php" />
         <option value="$PROJECT_DIR$/admin/js/wpc.admin.js" />
-        <option value="$PROJECT_DIR$/admin/wpc_textures.php" />
         <option value="$PROJECT_DIR$/admin/wpc_multicolor_images.php" />
         <option value="$PROJECT_DIR$/inc/wpc-functions.php" />
-        <option value="$PROJECT_DIR$/inc/class-frontend-product.php" />
+        <option value="$PROJECT_DIR$/admin/class-admin-metabox.php" />
         <option value="$PROJECT_DIR$/admin/wpc_colors.php" />
         <option value="$PROJECT_DIR$/admin/embroidery_configurator.php" />
+        <option value="$PROJECT_DIR$/admin/wpc_textures.php" />
+        <option value="$PROJECT_DIR$/../../../wp-includes/post.php" />
         <option value="$PROJECT_DIR$/inc/class-frontend-ajax.php" />
+        <option value="$PROJECT_DIR$/js/wpc_frontend_script.js" />
+        <option value="$PROJECT_DIR$/inc/class-frontend-product.php" />
       </list>
     </option>
   </component>
@@ -122,7 +169,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -305,6 +351,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -384,12 +431,20 @@
       <workItem from="1470328199438" duration="690000" />
       <workItem from="1470629715818" duration="13149000" />
       <workItem from="1470647953483" duration="9762000" />
-      <workItem from="1470723072913" duration="7124000" />
+      <workItem from="1470723072913" duration="7241000" />
+      <workItem from="1470821299146" duration="702000" />
+      <workItem from="1470836857096" duration="1506000" />
+      <workItem from="1471345035450" duration="85000" />
+      <workItem from="1471847621219" duration="1470000" />
+      <workItem from="1472193377864" duration="599000" />
+      <workItem from="1472220413306" duration="598000" />
+      <workItem from="1472456967930" duration="347000" />
+      <workItem from="1472457438473" duration="3924000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59576000" />
+    <option name="totallyTimeSpent" value="68924000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1370" height="744" extended-state="0" />
@@ -433,6 +488,160 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/admin/wpc_textures.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../wp-includes/post.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1471848693543" expanded="true" signature="53025:53041" ph="Insert into post... " />
+            <marker date="1471848693543" expanded="true" signature="53051:53067" ph="Insert into page... " />
+            <marker date="1471848693543" expanded="true" signature="78775:78859" ph="SELECT post_... $" />
+            <marker date="1471848693543" expanded="true" signature="80795:80946" ph="SELECT post_... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="81116:81209" ph="SELECT COUNT... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="86937:86977" ph="SELECT * FRO... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="88384:88452" ph="SELECT * FRO... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="88777:88854" ph="SELECT ID FR... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="89306:89371" ph="SELECT comme... wp_comments" />
+            <marker date="1471848693543" expanded="true" signature="89564:89618" ph="SELECT meta_... wp_postmeta" />
+            <marker date="1471848693543" expanded="true" signature="94206:94289" ph="SELECT comme... wp_comments" />
+            <marker date="1471848693543" expanded="true" signature="96211:96294" ph="UPDATE wp_co... " />
+            <marker date="1471848693543" expanded="true" signature="116000:116041" ph="SELECT ID FR... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="127575:127651" ph="SELECT post_... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="128724:128859" ph="SELECT post_... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="129977:130072" ph="SELECT post_... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="140441:140486" ph="SELECT pinge... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="142011:142056" ph="SELECT pinge... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="142627:142673" ph="SELECT to_pi... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="144106:144158" ph="SELECT ID FR... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="146619:146759" ph="SELECT ID, p... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="148449:148547" ph="SELECT ID FR... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="148608:148685" ph="SELECT ID FR... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="160792:160850" ph="SELECT * FRO... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="164970:165010" ph="SELECT * FRO... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="166128:166193" ph="SELECT comme... wp_comments" />
+            <marker date="1471848693543" expanded="true" signature="166387:166441" ph="SELECT meta_... wp_postmeta" />
+            <marker date="1471848693543" expanded="true" signature="167012:167131" ph="SELECT meta_... wp_postmeta" />
+            <marker date="1471848693543" expanded="true" signature="189273:189418" ph="SELECT post_... " />
+            <marker date="1471848693543" expanded="true" signature="189477:189618" ph="SELECT post_... " />
+            <marker date="1471848693543" expanded="true" signature="189718:189912" ph="SELECT DATE_... " />
+            <marker date="1471848693543" expanded="true" signature="200627:200737" ph="SELECT ID FR... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="203258:203314" ph="SELECT wp_po... wp_posts" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/embroidery_configurator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/class-admin-metabox.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inc/class-frontend-ajax.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3808">
+          <caret line="224" column="45" selection-start-line="224" selection-start-column="45" selection-end-line="224" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/wpc_colors.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/wpc_textures.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/wpc_colors.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/wpc_textures.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/embroidery_configurator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/class-admin-metabox.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inc/class-frontend-ajax.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3808">
+          <caret line="224" column="45" selection-start-line="224" selection-start-column="45" selection-end-line="224" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/wpc_colors.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2618">
+          <caret line="154" column="20" selection-start-line="154" selection-start-column="20" selection-end-line="154" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/embroidery_configurator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="38" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inc/class-frontend-ajax.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4981">
+          <caret line="293" column="9" selection-start-line="293" selection-start-column="9" selection-end-line="293" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/admin/wpc_colors.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1360">
@@ -453,7 +662,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -461,7 +669,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -469,11 +676,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6273">
           <caret line="369" column="31" selection-start-line="369" selection-start-column="31" selection-end-line="369" selection-end-column="31" />
-          <folding>
-            <marker date="1470654823517" expanded="true" signature="12946:13002" ph="..." />
-            <marker date="1470654823517" expanded="true" signature="21506:21562" ph="..." />
-            <marker date="1470654823517" expanded="true" signature="22239:22295" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -481,7 +683,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3791">
           <caret line="230" column="54" selection-start-line="230" selection-start-column="32" selection-end-line="230" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -583,59 +784,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/class-admin-metabox.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="88" column="88" selection-start-line="88" selection-start-column="88" selection-end-line="88" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/class-admin.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="364" column="26" selection-start-line="364" selection-start-column="26" selection-end-line="364" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../wp-includes/post.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="2906" column="25" selection-start-line="2906" selection-start-column="25" selection-end-line="2906" selection-end-column="25" />
-          <folding>
-            <marker date="1460056948000" expanded="true" signature="57823:57839" ph="Insert into post... " />
-            <marker date="1460056948000" expanded="true" signature="57849:57865" ph="Insert into page... " />
-            <marker date="1460056948000" expanded="true" signature="82983:83067" ph="SELECT post_... $" />
-            <marker date="1460056948000" expanded="true" signature="85003:85154" ph="SELECT post_... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="85324:85417" ph="SELECT COUNT... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="91144:91184" ph="SELECT * FRO... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="92590:92658" ph="SELECT * FRO... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="92983:93060" ph="SELECT ID FR... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="93512:93577" ph="SELECT comme... wp_comments" />
-            <marker date="1460056948000" expanded="true" signature="93770:93824" ph="SELECT meta_... wp_postmeta" />
-            <marker date="1460056948000" expanded="true" signature="98412:98495" ph="SELECT comme... wp_comments" />
-            <marker date="1460056948000" expanded="true" signature="100417:100500" ph="UPDATE wp_co... " />
-            <marker date="1460056948000" expanded="true" signature="119758:119799" ph="SELECT ID FR... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="130370:130446" ph="SELECT post_... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="131518:131653" ph="SELECT post_... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="132770:132865" ph="SELECT post_... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="143223:143268" ph="SELECT pinge... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="144791:144836" ph="SELECT pinge... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="145406:145452" ph="SELECT to_pi... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="146884:146936" ph="SELECT ID FR... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="148868:149008" ph="SELECT ID, p... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="150612:150710" ph="SELECT ID FR... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="150771:150848" ph="SELECT ID FR... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="162829:162887" ph="SELECT * FRO... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="167006:167046" ph="SELECT * FRO... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="168164:168229" ph="SELECT comme... wp_comments" />
-            <marker date="1460056948000" expanded="true" signature="168423:168477" ph="SELECT meta_... wp_postmeta" />
-            <marker date="1460056948000" expanded="true" signature="169048:169167" ph="SELECT meta_... wp_postmeta" />
-            <marker date="1460056948000" expanded="true" signature="190555:190700" ph="SELECT post_... " />
-            <marker date="1460056948000" expanded="true" signature="190759:190900" ph="SELECT post_... " />
-            <marker date="1460056948000" expanded="true" signature="191000:191194" ph="SELECT DATE_... " />
-            <marker date="1460056948000" expanded="true" signature="201939:202049" ph="SELECT ID FR... wp_posts" />
-            <marker date="1460056948000" expanded="true" signature="204570:204626" ph="SELECT wp_po... wp_posts" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -644,51 +796,50 @@
         <state relative-caret-position="389">
           <caret line="2520" column="44" selection-start-line="2520" selection-start-column="37" selection-end-line="2520" selection-end-column="44" />
           <folding>
-            <marker date="1459358008000" expanded="true" signature="29235:29462" ph="SELECT tr.ob... wp_term_relationships" />
-            <marker date="1459358008000" expanded="true" signature="36719:36841" ph="SELECT t.*, wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="61708:61785" ph="SELECT ${$di... wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="70517:70560" ph="SELECT term_... wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="70580:70711" ph="SELECT tt.te... wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="71639:71808" ph="SELECT tt.te... wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="71905:72079" ph="SELECT tt.te... wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="72171:72231" ph="SELECT term_... wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="72318:72383" ph="SELECT term_... wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="83964:84040" ph="SELECT term_... wp_term_taxonomy" />
-            <marker date="1459358008000" expanded="true" signature="85133:85208" ph="SELECT objec... wp_term_relationships" />
-            <marker date="1459358008000" expanded="true" signature="86004:86058" ph="SELECT meta_... wp_termmeta" />
-            <marker date="1459358008000" expanded="true" signature="86685:86745" ph="SELECT COUNT... wp_term_taxonomy" />
-            <marker date="1459358008000" expanded="true" signature="93935:94169" ph="SELECT ${$se... wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="95377:95602" ph="SELECT tr.te... wp_term_relationships" />
-            <marker date="1459358008000" expanded="true" signature="101788:101816" ph="SELECT MAX(t... wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="104281:104436" ph="SELECT tt.te... wp_term_taxonomy" />
-            <marker date="1459358008000" expanded="true" signature="105129:105358" ph="SELECT t.ter... wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="109511:109612" ph="SELECT term_... wp_term_relationships" />
-            <marker date="1459358008000" expanded="true" signature="110598:110717" ph="SELECT tt.te... wp_term_taxonomy" />
-            <marker date="1459358008000" expanded="true" signature="111368:111539" ph="INSERT INTO wp_term_relationships... " />
-            <marker date="1459358008000" expanded="true" signature="114313:114408" ph="DELETE FROM " />
-            <marker date="1459358008000" expanded="true" signature="117343:117406" ph="SELECT slug wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="117472:117517" ph="SELECT slug wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="117689:117734" ph="SELECT slug wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="121427:121455" ph="SELECT MAX(t... wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="122743:122898" ph="SELECT tt.te... wp_term_taxonomy" />
-            <marker date="1459358008000" expanded="true" signature="124542:124617" ph="SELECT objec... wp_term_relationships" />
-            <marker date="1459358008000" expanded="true" signature="131414:131500" ph="SELECT term_... wp_term_taxonomy" />
-            <marker date="1459358008000" expanded="true" signature="139721:139988" ph="SELECT objec... wp_term_relationships" />
-            <marker date="1459358008000" expanded="true" signature="142126:142460" ph="SELECT COUNT... wp_term_relationships" />
-            <marker date="1459358008000" expanded="true" signature="142325:142387" ph="SELECT post_... wp_posts" />
-            <marker date="1459358008000" expanded="true" signature="142550:142785" ph="SELECT COUNT... wp_term_relationships" />
-            <marker date="1459358008000" expanded="true" signature="143634:143708" ph="SELECT COUNT... wp_term_relationships" />
-            <marker date="1459358008000" expanded="true" signature="146037:146133" ph="SELECT COUNT... wp_term_taxonomy" />
-            <marker date="1459358008000" expanded="true" signature="146493:146561" ph="SELECT term_... wp_term_taxonomy" />
-            <marker date="1459358008000" expanded="true" signature="146826:146877" ph="SELECT t.* F... wp_terms" />
-            <marker date="1459358008000" expanded="true" signature="147584:147646" ph="SELECT * FRO... wp_term_taxonomy" />
-            <marker date="1459358008000" expanded="true" signature="147729:147814" ph="SELECT term_... wp_term_taxonomy" />
-            <marker date="1459358008000" expanded="true" signature="148448:148508" ph="SELECT taxon... wp_term_taxonomy" />
-            <marker date="1459358008000" expanded="true" signature="149221:149418" ph="SELECT tt.te... $" />
-            <marker date="1459358008000" expanded="true" signature="151122:151320" ph="SELECT tt.te... $" />
-            <marker date="1459358008000" expanded="true" signature="152049:152125" ph="SELECT * FRO... $" />
-            <marker date="1459358008000" expanded="true" signature="155168:155570" ph="SELECT m1.po... $" />
-            <marker date="1459358008000" expanded="true" signature="158254:158314" ph="SELECT COUNT... wp_term_taxonomy" />
+            <marker date="1471848693702" expanded="true" signature="29235:29462" ph="SELECT tr.ob... wp_term_relationships" />
+            <marker date="1471848693702" expanded="true" signature="36719:36841" ph="SELECT t.*, wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="61708:61785" ph="SELECT ${$di... wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="70517:70560" ph="SELECT term_... wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="70580:70711" ph="SELECT tt.te... wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="71639:71808" ph="SELECT tt.te... wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="71905:72079" ph="SELECT tt.te... wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="72171:72231" ph="SELECT term_... wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="72318:72383" ph="SELECT term_... wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="83964:84040" ph="SELECT term_... wp_term_taxonomy" />
+            <marker date="1471848693702" expanded="true" signature="85133:85208" ph="SELECT objec... wp_term_relationships" />
+            <marker date="1471848693702" expanded="true" signature="86004:86058" ph="SELECT meta_... wp_termmeta" />
+            <marker date="1471848693702" expanded="true" signature="86685:86745" ph="SELECT COUNT... wp_term_taxonomy" />
+            <marker date="1471848693702" expanded="true" signature="93935:94169" ph="SELECT ${$se... wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="95377:95602" ph="SELECT tr.te... wp_term_relationships" />
+            <marker date="1471848693702" expanded="true" signature="101788:101816" ph="SELECT MAX(t... wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="104281:104436" ph="SELECT tt.te... wp_term_taxonomy" />
+            <marker date="1471848693702" expanded="true" signature="105129:105358" ph="SELECT t.ter... wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="109511:109612" ph="SELECT term_... wp_term_relationships" />
+            <marker date="1471848693702" expanded="true" signature="110598:110717" ph="SELECT tt.te... wp_term_taxonomy" />
+            <marker date="1471848693702" expanded="true" signature="111368:111539" ph="INSERT INTO wp_term_relationships... " />
+            <marker date="1471848693702" expanded="true" signature="114313:114408" ph="DELETE FROM " />
+            <marker date="1471848693702" expanded="true" signature="117343:117406" ph="SELECT slug wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="117472:117517" ph="SELECT slug wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="117689:117734" ph="SELECT slug wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="121427:121455" ph="SELECT MAX(t... wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="122743:122898" ph="SELECT tt.te... wp_term_taxonomy" />
+            <marker date="1471848693702" expanded="true" signature="124542:124617" ph="SELECT objec... wp_term_relationships" />
+            <marker date="1471848693702" expanded="true" signature="131414:131500" ph="SELECT term_... wp_term_taxonomy" />
+            <marker date="1471848693702" expanded="true" signature="139721:139988" ph="SELECT objec... wp_term_relationships" />
+            <marker date="1471848693702" expanded="true" signature="142126:142460" ph="SELECT COUNT... wp_term_relationships" />
+            <marker date="1471848693702" expanded="true" signature="142325:142387" ph="SELECT post_... wp_posts" />
+            <marker date="1471848693702" expanded="true" signature="142550:142785" ph="SELECT COUNT... wp_term_relationships" />
+            <marker date="1471848693702" expanded="true" signature="143634:143708" ph="SELECT COUNT... wp_term_relationships" />
+            <marker date="1471848693702" expanded="true" signature="146037:146133" ph="SELECT COUNT... wp_term_taxonomy" />
+            <marker date="1471848693702" expanded="true" signature="146493:146561" ph="SELECT term_... wp_term_taxonomy" />
+            <marker date="1471848693702" expanded="true" signature="146826:146877" ph="SELECT t.* F... wp_terms" />
+            <marker date="1471848693702" expanded="true" signature="147584:147646" ph="SELECT * FRO... wp_term_taxonomy" />
+            <marker date="1471848693702" expanded="true" signature="147729:147814" ph="SELECT term_... wp_term_taxonomy" />
+            <marker date="1471848693702" expanded="true" signature="148448:148508" ph="SELECT taxon... wp_term_taxonomy" />
+            <marker date="1471848693702" expanded="true" signature="149221:149418" ph="SELECT tt.te... $" />
+            <marker date="1471848693702" expanded="true" signature="151122:151320" ph="SELECT tt.te... $" />
+            <marker date="1471848693702" expanded="true" signature="152049:152125" ph="SELECT * FRO... $" />
+            <marker date="1471848693702" expanded="true" signature="155168:155570" ph="SELECT m1.po... $" />
           </folding>
         </state>
       </provider>
@@ -697,15 +848,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/wpc_textures.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -713,11 +855,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="369" column="31" selection-start-line="369" selection-start-column="31" selection-end-line="369" selection-end-column="31" />
-          <folding>
-            <marker date="1470654823517" expanded="true" signature="12946:13002" ph="..." />
-            <marker date="1470654823517" expanded="true" signature="21506:21562" ph="..." />
-            <marker date="1470654823517" expanded="true" signature="22239:22295" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -725,17 +862,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="515">
           <caret line="38" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
-          <folding>
-            <marker date="1470737688885" expanded="true" signature="958:1066" ph="SELECT * FRO... wp_prefixwoocommerce_attribute_taxonomies" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/inc/class-frontend-product.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="363" column="18" selection-start-line="363" selection-start-column="18" selection-end-line="363" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -743,17 +869,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1156">
           <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/wpc_frontend_script.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="712" column="41" selection-start-line="712" selection-start-column="20" selection-end-line="712" selection-end-column="41" />
-          <folding>
-            <marker date="1470328290391" expanded="true" signature="51396:51525" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -761,7 +876,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="376">
           <caret line="230" column="54" selection-start-line="230" selection-start-column="32" selection-end-line="230" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -769,30 +883,105 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-131">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/wpc_colors.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="154" column="20" selection-start-line="154" selection-start-column="20" selection-end-line="154" selection-end-column="20" />
+        <state relative-caret-position="323">
+          <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../wp-includes/post.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1566" column="36" selection-start-line="1566" selection-start-column="36" selection-end-line="1566" selection-end-column="36" />
+          <folding>
+            <marker date="1471848693543" expanded="true" signature="53025:53041" ph="Insert into post... " />
+            <marker date="1471848693543" expanded="true" signature="53051:53067" ph="Insert into page... " />
+            <marker date="1471848693543" expanded="true" signature="78775:78859" ph="SELECT post_... $" />
+            <marker date="1471848693543" expanded="true" signature="80795:80946" ph="SELECT post_... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="81116:81209" ph="SELECT COUNT... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="86937:86977" ph="SELECT * FRO... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="88384:88452" ph="SELECT * FRO... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="88777:88854" ph="SELECT ID FR... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="89306:89371" ph="SELECT comme... wp_comments" />
+            <marker date="1471848693543" expanded="true" signature="89564:89618" ph="SELECT meta_... wp_postmeta" />
+            <marker date="1471848693543" expanded="true" signature="94206:94289" ph="SELECT comme... wp_comments" />
+            <marker date="1471848693543" expanded="true" signature="96211:96294" ph="UPDATE wp_co... " />
+            <marker date="1471848693543" expanded="true" signature="116000:116041" ph="SELECT ID FR... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="127575:127651" ph="SELECT post_... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="128724:128859" ph="SELECT post_... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="129977:130072" ph="SELECT post_... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="140441:140486" ph="SELECT pinge... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="142011:142056" ph="SELECT pinge... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="142627:142673" ph="SELECT to_pi... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="144106:144158" ph="SELECT ID FR... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="146619:146759" ph="SELECT ID, p... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="148449:148547" ph="SELECT ID FR... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="148608:148685" ph="SELECT ID FR... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="160792:160850" ph="SELECT * FRO... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="164970:165010" ph="SELECT * FRO... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="166128:166193" ph="SELECT comme... wp_comments" />
+            <marker date="1471848693543" expanded="true" signature="166387:166441" ph="SELECT meta_... wp_postmeta" />
+            <marker date="1471848693543" expanded="true" signature="167012:167131" ph="SELECT meta_... wp_postmeta" />
+            <marker date="1471848693543" expanded="true" signature="189273:189418" ph="SELECT post_... " />
+            <marker date="1471848693543" expanded="true" signature="189477:189618" ph="SELECT post_... " />
+            <marker date="1471848693543" expanded="true" signature="189718:189912" ph="SELECT DATE_... " />
+            <marker date="1471848693543" expanded="true" signature="200627:200737" ph="SELECT ID FR... wp_posts" />
+            <marker date="1471848693543" expanded="true" signature="203258:203314" ph="SELECT wp_po... wp_posts" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/embroidery_configurator.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="38" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="38" />
+        <state relative-caret-position="289">
+          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/class-admin-metabox.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/wpc_textures.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/wpc_frontend_script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="123" selection-start-line="1" selection-start-column="123" selection-end-line="1" selection-end-column="123" />
+          <folding>
+            <marker date="1472465478322" expanded="true" signature="51911:52040" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inc/class-frontend-product.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="350" column="102" selection-start-line="350" selection-start-column="102" selection-end-line="350" selection-end-column="102" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/inc/class-frontend-ajax.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="276" column="26" selection-start-line="276" selection-start-column="26" selection-end-line="276" selection-end-column="26" />
+        <state relative-caret-position="251">
+          <caret line="200" column="88" selection-start-line="200" selection-start-column="88" selection-end-line="200" selection-end-column="88" />
           <folding />
         </state>
       </provider>

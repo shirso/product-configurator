@@ -1,5 +1,5 @@
  jQuery(function ($) {
-    var canvasHeight = 800, canvasWidth = 800,designWidth=600,designHeight=400, cordScaleX=1, cordScaleY= 1, visitedStep=[], cords=[],textures=[],colors=[],emb_positions={},image_change_possible=false,coming_from_reset=false,first_time_emb_change=true,imageLoading=false;
+    var canvasHeight = 800, canvasWidth = 800,designWidth=600,designHeight=400, cordScaleX=1, cordScaleY= 1, visitedStep=[],textures=[],colors=[],emb_positions={},image_change_possible=false,coming_from_reset=false,first_time_emb_change=true,imageLoading=false;
     var redirect_form_cart=wpc_cart_redirect_items!=null?true:false;
     var previousTab={},currentTab={};
     var globalEmbType=null;
@@ -17,11 +17,13 @@
         rotationCursor: 'default',
         centeredScaling: true
     });
-     var checkTab=function(colorDiv,tabDiv){
+     var checkTab=function(colorDiv,textureDiv,tabDiv){
          var checking=true;
-
-         if(colorDiv!="" && colorDiv.find('.flclr').length){
+         if((colorDiv!="" && colorDiv.find('.flclr').length)){
              if(colorDiv.find('i').length<=0) checking=false;
+         }
+         if((textureDiv!="" && textureDiv.find('.flclr').length)){
+             if(textureDiv.find('i').length<=0) checking=false;
          }
          if(globalEmbType=='image' && $(tabDiv).data("attribute")==wpc_emb_layer){
              if($("#wpc_product_emb_image").val()==""){
@@ -685,22 +687,26 @@ $(document).on("staticimageload",function(){
             activate: function (e, tab) {
                 var selector=tab.selector,
                     selector_attribute= typeof selector != "undefined" && typeof $(selector).data("attribute")!="undefined" && $(selector).data("attribute") != null ? $(selector).data("attribute") : "",
-                    colorDiv=$("#wpc_color_tab_"+selector_attribute);
+                    colorDiv=$("#wpc_color_tab_"+selector_attribute),
+                    textureDiv=$("#wpc_texture_tab_"+selector_attribute);
                 if(_.isEmpty(previousTab) && _.isEmpty(currentTab)){
                     currentTab.tabId=tab.id;
                     currentTab.colorDiv=colorDiv.length ? colorDiv: '';
+                    currentTab.textureDiv=textureDiv.length ? textureDiv: '';
                     currentTab.tabDiv=selector;
                 }
                 else{
                     previousTab.tabId=currentTab.tabId;
                     previousTab.colorDiv=currentTab.colorDiv;
+                    previousTab.textureDiv=currentTab.textureDiv;
                     previousTab.tabDiv=currentTab.tabDiv;
                     currentTab.tabId=tab.id;
                     currentTab.colorDiv=colorDiv.length ? colorDiv : '';
+                    currentTab.textureDiv=textureDiv.length ? textureDiv : '';
                     currentTab.tabDiv=selector;
                 }
                 if(comingFromOtherTab) previousTab={};
-                var checkTabContent=checkTab(typeof previousTab.colorDiv!='undefined' ? previousTab.colorDiv : '',typeof previousTab.tabDiv!='undefined' ? previousTab.tabDiv : '');
+                var checkTabContent=checkTab(typeof previousTab.colorDiv!='undefined' ? previousTab.colorDiv : '',typeof previousTab.textureDiv!='undefined' ? previousTab.textureDiv : '' ,typeof previousTab.tabDiv!='undefined' ? previousTab.tabDiv : '');
                 if(!checkTabContent){
 
                     alert(translate_text.step_alert);

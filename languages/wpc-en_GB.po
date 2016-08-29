@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Product Configurator\n"
-"POT-Creation-Date: 2016-06-26 10:39+0530\n"
-"PO-Revision-Date: 2016-06-26 11:29+0530\n"
+"POT-Creation-Date: 2016-08-15 12:43+0530\n"
+"PO-Revision-Date: 2016-08-15 12:48+0530\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_GB\n"
@@ -15,62 +15,79 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: admin/all_images.php:16
+#: admin/all_images.php:11
+msgid "Image and Color configuration for"
+msgstr ""
+
+#: admin/all_images.php:13
+msgid "Color configuration for"
+msgstr ""
+
+#: admin/all_images.php:30
 msgid "Base & Edge Images"
 msgstr "Base & Edge Images"
 
-#: admin/all_images.php:22
+#: admin/all_images.php:36
 msgid "Base Images"
 msgstr "Base Images"
 
-#: admin/all_images.php:30 admin/all_images.php:58
+#: admin/all_images.php:44 admin/all_images.php:73
 msgid "Base"
 msgstr "Base"
 
-#: admin/all_images.php:31 admin/all_images.php:59
+#: admin/all_images.php:45 admin/all_images.php:74 product-configurator.php:141
 msgid "Texture"
 msgstr "Texture"
 
-#: admin/all_images.php:37 admin/all_images.php:41 admin/all_images.php:65
-#: admin/all_images.php:69 admin/class-admin-attributes.php:35
-#: admin/class-admin-attributes.php:53 admin/class-admin.php:150
-#: admin/configurator.php:60 admin/configurator.php:64
-#: admin/image_configurator.php:59 admin/image_configurator.php:63
-#: admin/wpc_cord_images.php:63 admin/wpc_cord_images.php:67
-#: admin/wpc_multicolor_images.php:75 admin/wpc_multicolor_images.php:137
+#: admin/all_images.php:51 admin/all_images.php:55 admin/all_images.php:80
+#: admin/all_images.php:84 admin/class-admin-attributes.php:35
+#: admin/class-admin-attributes.php:53 admin/class-admin-metabox.php:21
+#: admin/class-admin.php:501 admin/configurator.php:60
+#: admin/configurator.php:64 admin/image_configurator.php:59
+#: admin/image_configurator.php:63 admin/wpc_cord_images.php:63
+#: admin/wpc_cord_images.php:67 admin/wpc_multicolor_images.php:78
+#: admin/wpc_multicolor_images.php:142
 msgid "Upload"
 msgstr "Upload"
 
-#: admin/all_images.php:54
+#: admin/all_images.php:69
 msgid "Images"
 msgstr "Images"
 
-#: admin/all_images.php:81
+#: admin/all_images.php:92
+msgid "This Step is Optional"
+msgstr "This Step is Optional"
+
+#: admin/all_images.php:107
 msgid "Cord Images"
 msgstr "Cord Images"
 
-#: admin/all_images.php:87 admin/color_configurator.php:49
-#: admin/embroidery_configurator.php:90 admin/wpc_colors.php:22
-#: admin/wpc_colors.php:65 admin/wpc_colors.php:108
+#: admin/all_images.php:114 admin/color_configurator.php:49
+#: admin/embroidery_configurator.php:170 admin/wpc_colors.php:52
+#: admin/wpc_colors.php:104 admin/wpc_colors.php:157
+#: product-configurator.php:115
 msgid "Colors"
 msgstr "Colors"
 
-#: admin/all_images.php:93 admin/wpc_textures.php:22 admin/wpc_textures.php:64
+#: admin/all_images.php:120 admin/wpc_textures.php:53
+#: admin/wpc_textures.php:105
 msgid "Multi Colors"
 msgstr "Multi Colors"
 
-#: admin/all_images.php:99
+#: admin/all_images.php:127
 msgid "MultiColor Cord Images"
 msgstr "MultiColor Cord Images"
 
 #: admin/class-admin-attributes.php:22 admin/class-admin-attributes.php:33
-#: admin/class-admin-attributes.php:49 admin/texture_configurator.php:34
-#: inc/class-frontend-product.php:196 inc/class-frontend-product.php:362
+#: admin/class-admin-attributes.php:49 admin/class-admin-metabox.php:19
+#: admin/embroidery_configurator.php:54 admin/texture_configurator.php:34
+#: inc/class-frontend-ajax.php:39 inc/class-frontend-ajax.php:43
+#: inc/class-frontend-product.php:203
 msgid "Image"
 msgstr "Image"
 
@@ -83,35 +100,45 @@ msgstr "Thumbnail"
 msgid "Base Design"
 msgstr "Base Design"
 
-#: admin/class-admin-metabox.php:32
+#: admin/class-admin-metabox.php:10 admin/configurator.php:52
+#: admin/image_configurator.php:51 admin/wpc_cord_images.php:58
+msgid "Texture Image"
+msgstr "Texture Image"
+
+#: admin/class-admin-metabox.php:11
+msgid "Color Code"
+msgstr "Color Code"
+
+#: admin/class-admin-metabox.php:49
 msgid "Upload Base Design"
 msgstr "Upload Base Design"
 
-#: admin/class-admin-metabox.php:33
+#: admin/class-admin-metabox.php:50
 msgid "Upload Secondary Design"
 msgstr "Upload Secondary Design"
 
-#: admin/class-admin-metabox.php:34
+#: admin/class-admin-metabox.php:51
 msgid "Clear All"
 msgstr "Clear All"
 
-#: admin/class-admin-metabox.php:39
+#: admin/class-admin-metabox.php:56
 msgid "Scale"
 msgstr "Scale"
 
-#: admin/class-admin-metabox.php:43
+#: admin/class-admin-metabox.php:60
 msgid "ScaleX"
 msgstr "ScaleX"
 
-#: admin/class-admin-metabox.php:47
+#: admin/class-admin-metabox.php:64
 msgid "ScaleY"
 msgstr "ScaleY"
 
-#: admin/class-admin-metabox.php:51 admin/embroidery_configurator.php:61
+#: admin/class-admin-metabox.php:68 admin/embroidery_configurator.php:141
+#: inc/class-scripts-styles.php:92
 msgid "Left"
 msgstr "Left"
 
-#: admin/class-admin-metabox.php:55 admin/embroidery_configurator.php:67
+#: admin/class-admin-metabox.php:72 admin/embroidery_configurator.php:147
 msgid "Top"
 msgstr "Top"
 
@@ -147,7 +174,7 @@ msgstr "Step Instructions"
 msgid "WP Product Configurator"
 msgstr "WP Product Configurator"
 
-#: admin/class-admin-product.php:128 admin/class-admin-product.php:416
+#: admin/class-admin-product.php:128 admin/class-admin-product.php:431
 msgid "Refresh"
 msgstr "Refresh"
 
@@ -179,154 +206,171 @@ msgstr "Save Layers"
 msgid "Available Models"
 msgstr "Available Models"
 
-#: admin/class-admin-product.php:261
-msgid "No Cords"
-msgstr "No Cords"
+#: admin/class-admin-product.php:256
+msgid "Images available for these models"
+msgstr "Images available for these models"
 
-#: admin/class-admin-product.php:285
+#: admin/class-admin-product.php:262
+msgid "No Cords or Static Layer"
+msgstr "No Cords or Static Layer"
+
+#: admin/class-admin-product.php:300
 msgid "No Embroidery"
 msgstr "No Embroidery"
 
-#: admin/class-admin-product.php:305
+#: admin/class-admin-product.php:320
 msgid "Multi-Color Cords"
 msgstr "Multi-Color Cords"
 
-#: admin/class-admin-product.php:343
+#: admin/class-admin-product.php:358
 msgid "Save Cords"
 msgstr "Save Cords"
 
-#: admin/class-admin-product.php:356
+#: admin/class-admin-product.php:371
 msgid "Images & Colors for"
 msgstr "Images & Colors for"
 
-#: admin/class-admin-product.php:369
+#: admin/class-admin-product.php:384
 msgid "Embroidery Options for"
 msgstr "Embroidery Options for"
 
-#: admin/class-admin-product.php:386
+#: admin/class-admin-product.php:401
 msgid "Design Category"
 msgstr "Design Category"
 
-#: admin/class-admin-product.php:400 inc/class-frontend-cart.php:94
-#: inc/class-frontend-cart.php:158 inc/class-frontend-cart.php:207
-#: inc/class-frontend-product.php:228 inc/class-frontend-product.php:403
+#: admin/class-admin-product.php:415 inc/class-frontend-cart.php:100
+#: inc/class-frontend-cart.php:167 inc/class-frontend-cart.php:217
+#: inc/class-frontend-product.php:239 inc/class-frontend-product.php:429
 msgid "Additional Comment"
 msgstr "Additional Comment"
 
-#: admin/class-admin-product.php:408
+#: admin/class-admin-product.php:423
 msgid "Save Others"
 msgstr "Save Others"
 
-#: admin/class-admin-product.php:431
+#: admin/class-admin-product.php:446
 msgid "Finish Step"
 msgstr "Finish Step"
 
-#: admin/class-admin-product.php:439
+#: admin/class-admin-product.php:454
 msgid "General Instruction"
 msgstr "General Instruction"
 
-#: admin/class-admin.php:33
+#: admin/class-admin.php:350
+msgid "Texture Images"
+msgstr "Texture Images"
+
+#: admin/class-admin.php:355 inc/class-frontend-product.php:227
+#: product-configurator.php:116 product-configurator.php:129
+msgid "Color"
+msgstr "Color"
+
+#: admin/class-admin.php:384
 msgid "Previous"
 msgstr "Previous"
 
-#: admin/class-admin.php:33
+#: admin/class-admin.php:384
 msgid "Save and Continue"
 msgstr "Save and Continue"
 
-#: admin/class-admin.php:52
+#: admin/class-admin.php:403
 msgid "WP Product Configurator Settings"
 msgstr "WP Product Configurator Settings"
 
-#: admin/class-admin.php:57
+#: admin/class-admin.php:408
 msgid "Save Changes"
 msgstr "Save Changes"
 
-#: admin/class-admin.php:73
+#: admin/class-admin.php:424
 msgid "Available Colors"
 msgstr "Available Colors"
 
-#: admin/class-admin.php:74
+#: admin/class-admin.php:425
 msgid "Available Textures"
 msgstr "Available Textures"
 
-#: admin/class-admin.php:75
-msgid "Choose Fonts"
-msgstr "Choose Fonts"
+#: admin/class-admin.php:426 inc/class-frontend-product.php:231
+msgid "Rotation"
+msgstr "Rotation"
 
-#: admin/class-admin.php:76
+#: admin/class-admin.php:427
 msgid "Font Sizes"
 msgstr "Font Sizes"
 
-#: admin/class-admin.php:77
+#: admin/class-admin.php:428
 msgid "Embroidery Character Limit"
 msgstr "Embroidery Character Limit"
 
-#: admin/class-admin.php:98
+#: admin/class-admin.php:449
 msgid "Color Name"
 msgstr "Embroidery Character Limit"
 
-#: admin/class-admin.php:108 admin/color_configurator.php:50
+#: admin/class-admin.php:459 admin/color_configurator.php:50
 msgid "No Color"
 msgstr "No Color"
 
-#: admin/class-admin.php:112
+#: admin/class-admin.php:463
 msgid "Add Color"
 msgstr "No Color"
 
-#: admin/class-admin.php:113 admin/class-admin.php:162
-#: admin/class-admin.php:210 admin/embroidery_configurator.php:83
-#: inc/class-frontend-product.php:407
+#: admin/class-admin.php:464 admin/class-admin.php:513
+#: admin/class-admin.php:561 admin/embroidery_configurator.php:163
+#: inc/class-frontend-product.php:433
 msgid "Remove"
 msgstr "No Color"
 
-#: admin/class-admin.php:114 admin/class-admin.php:163
-#: admin/class-admin.php:211 admin/wpc_cord_images.php:87
-#: admin/wpc_multicolor_images.php:99
+#: admin/class-admin.php:465 admin/class-admin.php:514
+#: admin/class-admin.php:562 admin/wpc_cord_images.php:87
+#: admin/wpc_multicolor_images.php:102
 msgid "Remove all"
 msgstr "Remove all"
 
-#: admin/class-admin.php:118 admin/class-admin.php:167
-#: admin/class-admin.php:215 admin/embroidery_configurator.php:82
-#: admin/wpc_cord_images.php:91 admin/wpc_multicolor_images.php:103
-#: inc/class-frontend-product.php:406
+#: admin/class-admin.php:469 admin/class-admin.php:518
+#: admin/class-admin.php:566 admin/embroidery_configurator.php:162
+#: admin/wpc_cord_images.php:91 admin/wpc_multicolor_images.php:106
+#: inc/class-frontend-product.php:432
 msgid "Add"
 msgstr "Add"
 
-#: admin/class-admin.php:145
+#: admin/class-admin.php:496
 msgid "Texture Name"
 msgstr "Texture Name"
 
-#: admin/class-admin.php:157
+#: admin/class-admin.php:508
 msgid "No Texture"
 msgstr "No Texture"
 
-#: admin/class-admin.php:161
+#: admin/class-admin.php:512
 msgid "Add Texture"
 msgstr "Add Texture"
 
-#: admin/class-admin.php:193
+#: admin/class-admin.php:544
 msgid "Display Name"
 msgstr "Display Name"
 
-#: admin/class-admin.php:197
+#: admin/class-admin.php:548
 msgid "Size"
 msgstr "Size"
 
-#: admin/class-admin.php:205
+#: admin/class-admin.php:556
 msgid "No Font Size"
 msgstr "No Font Size"
 
-#: admin/class-admin.php:209
+#: admin/class-admin.php:560
 msgid "Add Size"
 msgstr "Add Size"
 
-#: admin/class-admin.php:583
+#: admin/class-admin.php:586
 msgid "Per Line Character Limit"
 msgstr "Per Line Character Limit"
 
-#: admin/class-admin.php:587
+#: admin/class-admin.php:590
 msgid "Line Limit"
 msgstr "Line Limit"
+
+#: admin/class-admin.php:600
+msgid "Rotation Angle"
+msgstr "Rotation Angle"
 
 #: admin/color_configurator.php:25
 msgid "Color setting for"
@@ -337,9 +381,9 @@ msgid "Step Color"
 msgstr "Step Color"
 
 #: admin/color_configurator.php:48 admin/configurator.php:50
-#: admin/image_configurator.php:49 admin/wpc_colors.php:21
-#: admin/wpc_colors.php:64 admin/wpc_colors.php:107 admin/wpc_textures.php:21
-#: admin/wpc_textures.php:63
+#: admin/image_configurator.php:49 admin/wpc_colors.php:51
+#: admin/wpc_colors.php:103 admin/wpc_colors.php:156 admin/wpc_textures.php:52
+#: admin/wpc_textures.php:104
 msgid "Term Name"
 msgstr "Term Name"
 
@@ -347,13 +391,13 @@ msgstr "Term Name"
 msgid "Available"
 msgstr "Available"
 
-#: admin/color_configurator.php:59 admin/embroidery_configurator.php:95
-#: admin/wpc_colors.php:36 admin/wpc_colors.php:79 admin/wpc_colors.php:122
-#: admin/wpc_textures.php:36 admin/wpc_textures.php:78
+#: admin/color_configurator.php:59 admin/embroidery_configurator.php:175
+#: admin/wpc_colors.php:68 admin/wpc_colors.php:121 admin/wpc_colors.php:174
+#: admin/wpc_textures.php:70 admin/wpc_textures.php:122
 msgid "All"
 msgstr "All"
 
-#: admin/color_configurator.php:59 admin/embroidery_configurator.php:73
+#: admin/color_configurator.php:59 admin/embroidery_configurator.php:153
 #: admin/texture_configurator.php:34
 msgid "Default"
 msgstr "Default"
@@ -375,40 +419,82 @@ msgstr "Step Images"
 msgid "Base Image"
 msgstr "Base Image"
 
-#: admin/configurator.php:52 admin/image_configurator.php:51
-#: admin/wpc_cord_images.php:58
-msgid "Texture Image"
-msgstr "Texture Image"
-
 #: admin/configurator.php:72 admin/image_configurator.php:75
 msgid "Save Images"
 msgstr "Save Images"
 
-#: admin/embroidery_configurator.php:17
+#: admin/embroidery_configurator.php:28
+msgid "Copy Embroidery Data from Another Model"
+msgstr "Copy Embroidery Data from Another Model"
+
+#: admin/embroidery_configurator.php:42 admin/wpc_colors.php:40
+#: admin/wpc_textures.php:41
+msgid "Copy"
+msgstr "Copy"
+
+#: admin/embroidery_configurator.php:46
+msgid "Embroidery configuration for"
+msgstr "Embroidery configuration for"
+
+#: admin/embroidery_configurator.php:50
+msgid "Embroidery Options"
+msgstr "Embroidery Options"
+
+#: admin/embroidery_configurator.php:54
+msgid "Both"
+msgstr "Both"
+
+#: admin/embroidery_configurator.php:54 inc/class-frontend-ajax.php:40
+#: inc/class-frontend-ajax.php:46 inc/class-frontend-product.php:207
+msgid "Text"
+msgstr "Text"
+
+#: admin/embroidery_configurator.php:66
 msgid "Default Logo Image Size. (Based on 800 X 800)"
 msgstr "Default Logo Image Size. (Based on 800 X 800)"
 
-#: admin/embroidery_configurator.php:21
+#: admin/embroidery_configurator.php:70
 msgid "Width"
 msgstr "Width"
 
-#: admin/embroidery_configurator.php:23
+#: admin/embroidery_configurator.php:72
 msgid "Height"
 msgstr "Height"
 
-#: admin/embroidery_configurator.php:29
+#: admin/embroidery_configurator.php:78
+msgid "Available Fonts"
+msgstr "Available Fonts"
+
+#: admin/embroidery_configurator.php:95
+msgid "Default Font"
+msgstr "Default Font"
+
+#: admin/embroidery_configurator.php:109
 msgid "Default Font Size"
 msgstr "Default Font Size"
 
-#: admin/embroidery_configurator.php:42
+#: admin/embroidery_configurator.php:122
 msgid "Positions (Based on 800 X 800)"
 msgstr "Positions (Based on 800 X 800)"
 
-#: admin/embroidery_configurator.php:55
+#: admin/embroidery_configurator.php:135
 msgid "Position Name"
 msgstr "Position Name"
 
-#: admin/embroidery_configurator.php:106
+#: admin/embroidery_configurator.php:172 admin/wpc_colors.php:65
+#: admin/wpc_colors.php:118 admin/wpc_colors.php:171 admin/wpc_textures.php:67
+#: admin/wpc_textures.php:119 product-configurator.php:189
+#: product-configurator.php:210
+msgid "Manufacturers"
+msgstr "Manufacturers"
+
+#: admin/embroidery_configurator.php:176 admin/wpc_colors.php:69
+#: admin/wpc_colors.php:122 admin/wpc_colors.php:175 admin/wpc_textures.php:71
+#: admin/wpc_textures.php:123
+msgid "None"
+msgstr "None"
+
+#: admin/embroidery_configurator.php:197
 msgid "Save Data"
 msgstr "Save Data"
 
@@ -440,19 +526,23 @@ msgstr "Not Available"
 msgid "Save Setting"
 msgstr "Save Setting"
 
-#: admin/wpc_colors.php:15 admin/wpc_colors.php:61 admin/wpc_colors.php:104
+#: admin/wpc_colors.php:26
+msgid "Copy Color Data from Another Model"
+msgstr "Copy Color Data from Another Model"
+
+#: admin/wpc_colors.php:45 admin/wpc_colors.php:100 admin/wpc_colors.php:153
 msgid "Colors For"
 msgstr "Colors For"
 
-#: admin/wpc_cord_images.php:77 admin/wpc_multicolor_images.php:89
+#: admin/wpc_cord_images.php:77 admin/wpc_multicolor_images.php:92
 msgid "Remove This"
 msgstr "Remove This"
 
-#: admin/wpc_cord_images.php:84 admin/wpc_multicolor_images.php:96
+#: admin/wpc_cord_images.php:84 admin/wpc_multicolor_images.php:99
 msgid "No Combination"
 msgstr "No Combination"
 
-#: admin/wpc_cord_images.php:86 admin/wpc_multicolor_images.php:98
+#: admin/wpc_cord_images.php:86 admin/wpc_multicolor_images.php:101
 msgid "Add Combination"
 msgstr "Add Combination"
 
@@ -460,15 +550,19 @@ msgstr "Add Combination"
 msgid "Choose Multicolor Cord Terms"
 msgstr "Choose Multicolor Cord Terms"
 
-#: admin/wpc_textures.php:18 admin/wpc_textures.php:60
+#: admin/wpc_textures.php:27
+msgid "Copy Texture Data from Another Model"
+msgstr "Copy Texture Data from Another Model"
+
+#: admin/wpc_textures.php:49 admin/wpc_textures.php:101
 msgid "Multi Color For"
 msgstr "Multi Color For"
 
-#: inc/class-frontend-ajax.php:171
+#: inc/class-frontend-ajax.php:235
 msgid "---Fonts---"
 msgstr "---Fonts---"
 
-#: inc/class-frontend-ajax.php:179
+#: inc/class-frontend-ajax.php:246
 msgid "---Font Size---"
 msgstr "---Font Size---"
 
@@ -476,61 +570,65 @@ msgstr "---Font Size---"
 msgid "Product Image"
 msgstr "Product Image"
 
-#: inc/class-frontend-cart.php:70 inc/class-frontend-cart.php:134
-#: inc/class-frontend-cart.php:198
+#: inc/class-frontend-cart.php:73 inc/class-frontend-cart.php:140
+#: inc/class-frontend-cart.php:208
 msgid "Embroidery Type"
 msgstr "Embroidery Type"
 
-#: inc/class-frontend-cart.php:72 inc/class-frontend-cart.php:136
-#: inc/class-frontend-cart.php:199
+#: inc/class-frontend-cart.php:75 inc/class-frontend-cart.php:142
+#: inc/class-frontend-cart.php:209
 msgid "Embroidery Image"
 msgstr "Embroidery Image"
 
-#: inc/class-frontend-cart.php:74 inc/class-frontend-cart.php:138
-#: inc/class-frontend-cart.php:201
+#: inc/class-frontend-cart.php:77 inc/class-frontend-cart.php:144
+#: inc/class-frontend-cart.php:211
 msgid "Embroidery Text"
 msgstr "Embroidery Text"
 
-#: inc/class-frontend-cart.php:76 inc/class-frontend-cart.php:140
-#: inc/class-frontend-cart.php:202 inc/class-frontend-product.php:204
+#: inc/class-frontend-cart.php:79 inc/class-frontend-cart.php:146
+#: inc/class-frontend-cart.php:212 inc/class-frontend-product.php:211
 msgid "Font"
 msgstr "Font"
 
-#: inc/class-frontend-cart.php:79 inc/class-frontend-cart.php:143
-#: inc/class-frontend-cart.php:203 inc/class-frontend-product.php:208
+#: inc/class-frontend-cart.php:82 inc/class-frontend-cart.php:149
+#: inc/class-frontend-cart.php:213 inc/class-frontend-product.php:215
 msgid "Font Size"
 msgstr "Font Size"
 
-#: inc/class-frontend-cart.php:82 inc/class-frontend-cart.php:146
-#: inc/class-frontend-cart.php:204 inc/class-frontend-product.php:212
+#: inc/class-frontend-cart.php:85 inc/class-frontend-cart.php:152
+#: inc/class-frontend-cart.php:214 inc/class-frontend-product.php:219
 msgid "Font Weight"
 msgstr "Font Weight"
 
-#: inc/class-frontend-cart.php:85 inc/class-frontend-cart.php:149
-#: inc/class-frontend-cart.php:205 inc/class-frontend-product.php:216
+#: inc/class-frontend-cart.php:88 inc/class-frontend-cart.php:155
+#: inc/class-frontend-cart.php:215 inc/class-frontend-product.php:223
 msgid "Font Style"
 msgstr "Font Style"
 
-#: inc/class-frontend-cart.php:88 inc/class-frontend-cart.php:152
-#: inc/class-frontend-cart.php:206
+#: inc/class-frontend-cart.php:91 inc/class-frontend-cart.php:158
+#: inc/class-frontend-cart.php:216
 msgid "Embroidery Color"
 msgstr "Embroidery Color"
 
-#: inc/class-frontend-cart.php:91 inc/class-frontend-cart.php:155
-#: inc/class-frontend-cart.php:200
+#: inc/class-frontend-cart.php:94 inc/class-frontend-cart.php:161
+#: inc/class-frontend-cart.php:210
 msgid "Embroidery Position"
 msgstr "Embroidery Position"
 
-#: inc/class-frontend-cart.php:97 inc/class-frontend-cart.php:161
-#: inc/class-frontend-cart.php:208 inc/class-frontend-product.php:133
+#: inc/class-frontend-cart.php:97 inc/class-frontend-cart.php:164
+msgid "Embroidery Angle"
+msgstr "Embroidery Angle"
+
+#: inc/class-frontend-cart.php:103 inc/class-frontend-cart.php:170
+#: inc/class-frontend-cart.php:218 inc/class-frontend-product.php:139
 msgid "Additional Instructions"
 msgstr "Additional Instructions"
 
-#: inc/class-frontend-cart.php:177
+#: inc/class-frontend-cart.php:186
 msgid "WPC Product"
 msgstr "WPC Product"
 
-#: inc/class-frontend-cart.php:210
+#: inc/class-frontend-cart.php:220
 msgid "Image:"
 msgstr "Image:"
 
@@ -538,77 +636,94 @@ msgstr "Image:"
 msgid "Configure"
 msgstr "Configure"
 
-#: inc/class-frontend-product.php:79
+#: inc/class-frontend-product.php:81
 msgid "Finish"
 msgstr "Finish"
 
-#: inc/class-frontend-product.php:107
+#: inc/class-frontend-product.php:113
 msgid "Choose Design"
 msgstr "Choose Design"
 
-#: inc/class-frontend-product.php:139
+#: inc/class-frontend-product.php:145
 msgid "Finish Builder"
 msgstr "Finish Builder"
 
-#: inc/class-frontend-product.php:140
+#: inc/class-frontend-product.php:146
 msgid "Reset All"
 msgstr "Reset All"
 
-#: inc/class-frontend-product.php:145
+#: inc/class-frontend-product.php:151
 msgid "Add to Cart"
 msgstr "Add to Cart"
 
-#: inc/class-frontend-product.php:164
+#: inc/class-frontend-product.php:171
 msgid "Chosen Options"
 msgstr "Chosen Options"
 
-#: inc/class-frontend-product.php:175
+#: inc/class-frontend-product.php:182
 msgid "Chosen Colors"
 msgstr "Chosen Colors"
 
-#: inc/class-frontend-product.php:189
+#: inc/class-frontend-product.php:196
 msgid "Embroidery"
 msgstr "Embroidery"
 
-#: inc/class-frontend-product.php:192
+#: inc/class-frontend-product.php:199
 msgid "Type"
 msgstr "Type"
 
-#: inc/class-frontend-product.php:200 inc/class-frontend-product.php:363
-msgid "Text"
-msgstr "Text"
-
-#: inc/class-frontend-product.php:220
-msgid "Color"
-msgstr "Color"
-
-#: inc/class-frontend-product.php:224
+#: inc/class-frontend-product.php:235
 msgid "Position"
 msgstr "Position"
 
-#: inc/class-frontend-product.php:360
+#: inc/class-frontend-product.php:366 inc/class-frontend-product.php:380
+#: inc/class-frontend-product.php:410
 msgid "Reset"
 msgstr "Reset"
 
-#: inc/class-frontend-product.php:370
+#: inc/class-frontend-product.php:374
 msgid "Choose Image"
 msgstr "Choose Image"
 
-#: inc/class-frontend-product.php:379
+#: inc/class-frontend-product.php:385 inc/class-frontend-product.php:415
+msgid "Rotate"
+msgstr ""
+
+#: inc/class-frontend-product.php:393
 msgid "Bold"
 msgstr "Bold"
 
-#: inc/class-frontend-product.php:380
+#: inc/class-frontend-product.php:394
 msgid "Italic"
 msgstr "Italic"
 
-#: inc/class-frontend-product.php:393
+#: inc/class-frontend-product.php:407
 msgid "Add Text"
 msgstr "Add Text"
 
-#: inc/class-scripts-styles.php:109
+#: inc/class-scripts-styles.php:92
 msgid "Image File"
 msgstr "Image File"
+
+#: inc/class-scripts-styles.php:92
+msgid "Are you sure to reset?"
+msgstr "Are you sure to reset?"
+
+#: inc/class-scripts-styles.php:92
+msgid "All selection will be lost. Are you sure to continue?"
+msgstr "All selection will be lost. Are you sure to continue?"
+
+#: inc/class-scripts-styles.php:92
+msgid "Right"
+msgstr "Right"
+
+#: inc/class-scripts-styles.php:92
+msgid "Please Finish All Steps!!!"
+msgstr "Please Finish All Steps!!!"
+
+#: inc/class-scripts-styles.php:92
+msgid "You Have Missed Some Options.Please Check!!!"
+msgstr "You Have Missed Some Options.Please Check!!!"
 
 #: product-configurator.php:88
 msgctxt "Post Type General Name"
@@ -632,7 +747,8 @@ msgstr "All Designs"
 msgid "Add New Design"
 msgstr "Add New Design"
 
-#: product-configurator.php:94
+#: product-configurator.php:94 product-configurator.php:119
+#: product-configurator.php:144
 msgid "Add New"
 msgstr "Add New"
 
@@ -656,53 +772,172 @@ msgstr "View Design"
 msgid "Search Design"
 msgstr "Search Design"
 
-#: product-configurator.php:100
+#: product-configurator.php:100 product-configurator.php:125
+#: product-configurator.php:150
 msgid "Not found"
 msgstr "Not found"
 
-#: product-configurator.php:101
+#: product-configurator.php:101 product-configurator.php:126
+#: product-configurator.php:151
 msgid "Not found in Trash"
 msgstr "Not found in Trash"
 
+#: product-configurator.php:113
+msgctxt "Post Type General Name"
+msgid "Colors"
+msgstr "Colors"
+
+#: product-configurator.php:114
+msgctxt "Post Type Singular Name"
+msgid "Color"
+msgstr "Color"
+
+#: product-configurator.php:117
+msgid "All Colors"
+msgstr "All Colors"
+
 #: product-configurator.php:118
+msgid "Add New Color"
+msgstr "Add New Color"
+
+#: product-configurator.php:120
+msgid "New Color"
+msgstr "New Color"
+
+#: product-configurator.php:121
+msgid "Edit Color"
+msgstr "Edit Color"
+
+#: product-configurator.php:122
+msgid "Update Color"
+msgstr "Update Color"
+
+#: product-configurator.php:123
+msgid "View Color"
+msgstr "View Color"
+
+#: product-configurator.php:124
+msgid "Search Colors"
+msgstr "Search Colors"
+
+#: product-configurator.php:138
+msgctxt "Post Type General Name"
+msgid "Textures"
+msgstr "Textures"
+
+#: product-configurator.php:139
+msgctxt "Post Type Singular Name"
+msgid "Texture"
+msgstr "Texture"
+
+#: product-configurator.php:140 product-configurator.php:154
+msgid "Textures"
+msgstr "Textures"
+
+#: product-configurator.php:142
+msgid "All Textures"
+msgstr "All Textures"
+
+#: product-configurator.php:143
+msgid "Add New Texture"
+msgstr "Add New Texture"
+
+#: product-configurator.php:145
+msgid "New Texture"
+msgstr "New Texture"
+
+#: product-configurator.php:146
+msgid "Edit Texture"
+msgstr "Edit Texture"
+
+#: product-configurator.php:147
+msgid "Update Texture"
+msgstr "Update Texture"
+
+#: product-configurator.php:148
+msgid "View Texture"
+msgstr "View Texture"
+
+#: product-configurator.php:149
+msgid "Search Textures"
+msgstr "Search Textures"
+
+#: product-configurator.php:168
 msgid "Categories"
 msgstr "Categories"
 
-#: product-configurator.php:119 product-configurator.php:128
+#: product-configurator.php:169 product-configurator.php:178
 msgid "Category"
 msgstr "Category"
 
-#: product-configurator.php:120
+#: product-configurator.php:170
 msgid "Search Categories"
 msgstr "Search Categories"
 
-#: product-configurator.php:121
+#: product-configurator.php:171
 msgid "All Categories"
 msgstr "All Categories"
 
-#: product-configurator.php:122
+#: product-configurator.php:172
 msgid "Parent Category"
 msgstr "Parent Category"
 
-#: product-configurator.php:123
+#: product-configurator.php:173
 msgid "Parent Category:"
 msgstr "Parent Category:"
 
-#: product-configurator.php:124
+#: product-configurator.php:174
 msgid "Edit Category"
 msgstr "Edit Category"
 
-#: product-configurator.php:125
+#: product-configurator.php:175
 msgid "Update Category"
 msgstr "Update Category"
 
-#: product-configurator.php:126
+#: product-configurator.php:176
 msgid "Add New Category"
 msgstr "Add New Category"
 
-#: product-configurator.php:127
+#: product-configurator.php:177
 msgid "New Category Name"
 msgstr "New Category Name"
+
+#: product-configurator.php:190 product-configurator.php:199
+#: product-configurator.php:211 product-configurator.php:220
+msgid "Manufacturer"
+msgstr "Manufacturer"
+
+#: product-configurator.php:191 product-configurator.php:212
+msgid "Search Manufacturers"
+msgstr "Search Manufacturers"
+
+#: product-configurator.php:192 product-configurator.php:213
+msgid "All Manufacturers"
+msgstr "All Manufacturers"
+
+#: product-configurator.php:193 product-configurator.php:214
+msgid "Parent Manufacturer"
+msgstr "Parent Manufacturer"
+
+#: product-configurator.php:194 product-configurator.php:215
+msgid "Parent Manufacturer:"
+msgstr "Parent Manufacturer:"
+
+#: product-configurator.php:195 product-configurator.php:216
+msgid "Edit Manufacturer"
+msgstr "Edit Manufacturer"
+
+#: product-configurator.php:196 product-configurator.php:217
+msgid "Update Manufacturer"
+msgstr "Update Manufacturer"
+
+#: product-configurator.php:197 product-configurator.php:218
+msgid "Add New Manufacturer"
+msgstr "Add New Manufacturer"
+
+#: product-configurator.php:198 product-configurator.php:219
+msgid "New Manufacturer Name"
+msgstr "New Manufacturer Name"
 
 #. Plugin Name of the plugin/theme
 msgid "WordPress Product Configurator"
@@ -722,3 +957,9 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "WP-THEME.EU"
 msgstr ""
+
+#~ msgid "No Cords"
+#~ msgstr "No Cords"
+
+#~ msgid "Choose Fonts"
+#~ msgstr "Choose Fonts"

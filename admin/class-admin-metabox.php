@@ -25,7 +25,7 @@ if (!class_exists('WPC_Admin_metabox')) {
            global $post;
            $color_code=get_post_meta($post->ID,'_wpc_color_code',true);
         ?>
-           <input type="color" value="<?=@$color_code?>" name="hd_wpc_color_code" class="full-width wpc_color_picker1">
+           <input type="text" value="<?=@$color_code?>" name="hd_wpc_color_code" class="full-width wpc_color_picker1">
        <?php }
         public function wpc_add_metaboxes()
         {

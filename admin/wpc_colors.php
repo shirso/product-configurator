@@ -17,7 +17,7 @@ $all_Colors=get_posts(array(
     'posts_per_page'=> -1,
     'post_type'=> 'wpc_colors',
     'post_status'=> 'publish',
-    'orderby'=>'name',
+    'orderby'=>'menu_order',
 ));
 ?>
 <form id="wpc_colors_form">
