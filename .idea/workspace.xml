@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc01be34-babe-44dd-9fc8-b8773c6788b1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/languages/wpc-en_GB.mo" afterPath="$PROJECT_DIR$/languages/wpc-en_GB.mo" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/class-admin-metabox.php" afterPath="$PROJECT_DIR$/admin/class-admin-metabox.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/embroidery_configurator.php" afterPath="$PROJECT_DIR$/admin/embroidery_configurator.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/wpc_colors.php" afterPath="$PROJECT_DIR$/admin/wpc_colors.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/wpc_textures.php" afterPath="$PROJECT_DIR$/admin/wpc_textures.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inc/class-frontend-product.php" afterPath="$PROJECT_DIR$/inc/class-frontend-product.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/wpc_frontend_script.js" afterPath="$PROJECT_DIR$/js/wpc_frontend_script.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/languages/wpc-en_GB.po" afterPath="$PROJECT_DIR$/languages/wpc-en_GB.po" />
     </list>
     <ignored path="product-configurator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,20 +48,20 @@
       <file leaf-file-name="wpc_frontend_script.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/wpc_frontend_script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="123" selection-start-line="1" selection-start-column="123" selection-end-line="1" selection-end-column="123" />
+            <state relative-caret-position="413">
+              <caret line="58" column="18" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="18" />
               <folding>
-                <marker date="1472465478322" expanded="true" signature="51911:52040" ph="..." />
+                <marker date="1472468336024" expanded="true" signature="51998:52127" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="class-frontend-product.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="class-frontend-product.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/inc/class-frontend-product.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="350" column="102" selection-start-line="350" selection-start-column="102" selection-end-line="350" selection-end-column="102" />
+            <state relative-caret-position="183">
+              <caret line="75" column="31" selection-start-line="75" selection-start-column="31" selection-end-line="75" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -93,7 +87,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="class-frontend-ajax.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="class-frontend-ajax.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/inc/class-frontend-ajax.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="251">
@@ -123,8 +117,8 @@
         <option value="$PROJECT_DIR$/admin/wpc_textures.php" />
         <option value="$PROJECT_DIR$/../../../wp-includes/post.php" />
         <option value="$PROJECT_DIR$/inc/class-frontend-ajax.php" />
-        <option value="$PROJECT_DIR$/js/wpc_frontend_script.js" />
         <option value="$PROJECT_DIR$/inc/class-frontend-product.php" />
+        <option value="$PROJECT_DIR$/js/wpc_frontend_script.js" />
       </list>
     </option>
   </component>
@@ -439,16 +433,16 @@
       <workItem from="1472193377864" duration="599000" />
       <workItem from="1472220413306" duration="598000" />
       <workItem from="1472456967930" duration="347000" />
-      <workItem from="1472457438473" duration="3924000" />
+      <workItem from="1472457438473" duration="5867000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68924000" />
+    <option name="totallyTimeSpent" value="70867000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1370" height="744" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25184637" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -960,28 +954,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/inc/class-frontend-ajax.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="200" column="88" selection-start-line="200" selection-start-column="88" selection-end-line="200" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/wpc_frontend_script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="123" selection-start-line="1" selection-start-column="123" selection-end-line="1" selection-end-column="123" />
+        <state relative-caret-position="413">
+          <caret line="58" column="18" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="18" />
           <folding>
-            <marker date="1472465478322" expanded="true" signature="51911:52040" ph="..." />
+            <marker date="1472468336024" expanded="true" signature="51998:52127" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/inc/class-frontend-product.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="350" column="102" selection-start-line="350" selection-start-column="102" selection-end-line="350" selection-end-column="102" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/inc/class-frontend-ajax.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="200" column="88" selection-start-line="200" selection-start-column="88" selection-end-line="200" selection-end-column="88" />
+        <state relative-caret-position="183">
+          <caret line="75" column="31" selection-start-line="75" selection-start-column="31" selection-end-line="75" selection-end-column="31" />
           <folding />
         </state>
       </provider>

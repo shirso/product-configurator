@@ -73,6 +73,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                         <script type="application/javascript">
                             var defaultValues=[];
                            var cords=[];
+                           var actualCords=[];
                         </script>
                         <ul id="wpc_nav_buttons">
                             <?php if(isset($attributes) && !empty($attributes)){
@@ -349,6 +350,7 @@ if (!class_exists('WPC_Frontend_Product')) {
                             ?>
                             <script type="text/javascript">
                                 cords.push({attribute:'<?=$attribute_name;?>',term:'<?=$term->slug;?>'});
+                                actualCords.push({attribute:'<?=$attribute_name;?>',term:'<?=$term->slug;?>'});
                             </script>
                        <?php }
                         ?>

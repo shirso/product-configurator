@@ -55,6 +55,9 @@
          clearEmbTab();
          $("#embroidery_tab").addClass("wpc_hidden");
          $('.variations_button').addClass('wpc_hidden');
+         if(!$.isEmptyObject(actualCords)){
+             cords=actualCords;
+         }
          coming_from_reset=false;
      };
     var makeCanvasResponsive=function(){
