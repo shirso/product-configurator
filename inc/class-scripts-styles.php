@@ -19,7 +19,6 @@ if (!class_exists('WPC_Scripts_Styles')) {
                 wp_enqueue_style('wpc_style_grids', WPC_PLUGIN_ABSOLUTE_PATH . 'css/grid12.css', false);
                 wp_enqueue_style('wpc_style_tabs', WPC_PLUGIN_ABSOLUTE_PATH . 'css/responsive-tabs.css', false);
                 wp_enqueue_style('wpc_magnific_popup_style', WPC_PLUGIN_ABSOLUTE_PATH . 'css/magnific-popup.css', false);
-               // wp_enqueue_style('wpc_color_picker_style', WPC_PLUGIN_ABSOLUTE_PATH . 'colorpicker/css/colorpicker.css', false);
                 wp_enqueue_style('wpc_cloud_zoom_style', WPC_PLUGIN_ABSOLUTE_PATH . 'cloud-zoom/cloudzoom.css', false);
                 wp_enqueue_style('wpc_style_frontend', WPC_PLUGIN_ABSOLUTE_PATH . 'css/wpc_style_frontend.css', false);
             }
@@ -90,11 +89,9 @@ if (!class_exists('WPC_Scripts_Styles')) {
                 wp_localize_script('wpc_frontend_script','wpc_emb_layer',get_post_meta($product->id,'_wpc_emb_layer',true));
                 wp_localize_script('wpc_frontend_script', 'wpc_ajaxUrl', array('ajaxUrl' => admin_url('admin-ajax.php')));
                 wp_localize_script('wpc_frontend_script','translate_text',array("image_file"=>__("Image File","wpc"),'reset_text'=>__("Are you sure to reset?","wpc"),'model_change'=>__("All selection will be lost. Are you sure to continue?","wpc"),'left'=>__('Left','wpc'),'right'=>__('Right','wpc'),'finish_all'=>__("Please Finish All Steps!!!","wpc"),'step_alert'=>__("You Have Missed Some Options.Please Check!!!","wpc")));
-                wp_enqueue_script('wpc_underscore', WPC_PLUGIN_ABSOLUTE_PATH . 'js/underscore-min.js', array('jquery'), false);
+                wp_enqueue_script('underscore');
                 wp_enqueue_script('wpc_magnific_popup', WPC_PLUGIN_ABSOLUTE_PATH . 'js/jquery.magnific-popup.min.js', array('jquery'), false);
                 wp_enqueue_script('wpc_form', WPC_PLUGIN_ABSOLUTE_PATH . 'js/jquery.form.min.js', array('jquery'), false);
-                wp_enqueue_script('wpc_colors', WPC_PLUGIN_ABSOLUTE_PATH . 'js/colors.js', array('jquery'), false);
-                wp_enqueue_script('wpc_color_picker', WPC_PLUGIN_ABSOLUTE_PATH . 'js/jqColorPicker.min.js', array('jquery'), false);
                 wp_enqueue_script('wpc_cloud_zoom', WPC_PLUGIN_ABSOLUTE_PATH . 'cloud-zoom/cloudzoom.js', array('jquery'), false);
                 wp_enqueue_script('wpc_frontend_script');
             }

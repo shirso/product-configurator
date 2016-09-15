@@ -421,8 +421,8 @@ if( !class_exists('WPC_Admin') ) {
             require_once(WPC_PLUGIN_ADMIN_DIR . '/class-admin-metabox.php' );
             register_setting( 'wpc_plugin_options', 'wpc_settings',array(&$this,'plugin_options_validate'));
             add_settings_section('wpc_plugin_main', '', array(&$this,'plugin_description'), 'wpc_plugin_fields');
-            add_settings_field('plugin_text_string1', __('Available Colors','wpc'), array(&$this,'add_colors'),'wpc_plugin_fields','wpc_plugin_main');
-            add_settings_field('plugin_text_string4', __('Available Textures','wpc'), array(&$this,'add_textures'),'wpc_plugin_fields','wpc_plugin_main');
+          /* add_settings_field('plugin_text_string1', __('Available Colors','wpc'), array(&$this,'add_colors'),'wpc_plugin_fields','wpc_plugin_main');
+            add_settings_field('plugin_text_string4', __('Available Textures','wpc'), array(&$this,'add_textures'),'wpc_plugin_fields','wpc_plugin_main');*/
             add_settings_field('plugin_text_string3', __('Rotation','wpc'), array(&$this,'emb_rotation_angle'),'wpc_plugin_fields','wpc_plugin_main');
             add_settings_field('plugin_text_string5', __('Font Sizes','wpc'), array(&$this,'font_sizes'),'wpc_plugin_fields','wpc_plugin_main');
             add_settings_field('plugin_text_string6', __('Embroidery Character Limit','wpc'), array(&$this,'emb_char_limit'),'wpc_plugin_fields','wpc_plugin_main');
