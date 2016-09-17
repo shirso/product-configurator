@@ -1,0 +1,16 @@
+{
+    "name": "shirso/product-configurator",
+    "description": "Create Customizable Products with Woocommerce",
+    "keywords": ["woocommerce", "configurator", "custom color"],
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors":{
+      "name": "WP-THEME.EU",
+      "email": "shirso@gmail.com",
+      "homepage": "http://wp-theme.eu/de"
+    },
+    "require": {
+      "php": ">=5.6",
+      "composer/installers": "v1.0.6"
+    }
+}
