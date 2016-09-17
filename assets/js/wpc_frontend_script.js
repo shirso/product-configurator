@@ -19,19 +19,19 @@
     });
      var checkTab=function(colorDiv,textureDiv,tabDiv){
          var checking=true;
-         if((colorDiv!="" && colorDiv.find('.flclr').length)){
+         if((colorDiv!=="" && colorDiv.find('.flclr').length)){
              if(colorDiv.find('i').length<=0) checking=false;
          }
-         if((textureDiv!="" && textureDiv.find('.flclr').length)){
+         if((textureDiv!=="" && textureDiv.find('.flclr').length)){
              if(textureDiv.find('i').length<=0) checking=false;
          }
          if(globalEmbType=='image' && $(tabDiv).data("attribute")==wpc_emb_layer){
-             if($("#wpc_product_emb_image").val()==""){
+             if($("#wpc_product_emb_image").val()===""){
                  checking=false;
              }
          }
          if(globalEmbType=='text' && $(tabDiv).data("attribute")==wpc_emb_layer){
-             if($("#wpc_product_emb_text").val()=="" || $("#wpc_product_emb_fontcolor").val()==""){
+             if($("#wpc_product_emb_text").val()==="" || $("#wpc_product_emb_fontcolor").val()===""){
                  checking=false;
              }
          }
@@ -127,10 +127,10 @@
     var loadImageData=function(attribute,object){
        removeImageFromCanvas(attribute);
        var checking_base=0;
-       var imageBase=new Image;
+       var imageBase=new Image();
         imageBase.src=object.base;
         $(imageBase).load(function(){
-          if(checking_base==0) {
+          if(checking_base===0) {
               var imgInstance = new fabric.Image(imageBase, {
                   hasControls: false,
                   hasBorders: false,
@@ -147,7 +147,7 @@
                   scaleY: cordScaleY
               });
               stage.add(imgInstance);
-              var imageTexture = new Image;
+              var imageTexture = new Image();
               imageTexture.src = object.texture;
               var checking_texture=0;
               $(imageTexture).load(function () {
@@ -185,7 +185,7 @@
     var loadImagesFromAjax=function(data){
        if(!$.isEmptyObject(data)){
            $.each(data,function(k,v){
-             if((typeof v.base !="undefined" &&  v.base!="") && (typeof v.texture !="undefined" && v.texture!="")){
+             if((typeof v.base !="undefined" &&  v.base!=="") && (typeof v.texture !="undefined" && v.texture!=="")){
                  loadImageData(k,v);
              }
            });
@@ -193,11 +193,11 @@
     };
     var loadSingleTextureImage=function(attribute,image){
         removeImageFromCanvas(attribute);
-        var imageBase=new Image;
+        var imageBase=new Image();
         imageBase.src= $.parseJSON(image);
         var checking_base=0;
         $(imageBase).load(function(){
-            if(checking_base==0) {
+            if(checking_base===0) {
                 var imgInstance = new fabric.Image(imageBase, {
                     hasControls: false,
                     hasBorders: false,
@@ -222,13 +222,13 @@
         if(!$.isEmptyObject(data)){
            data=JSON.parse(data);
             $.each(data,function(k,v){
-                if(v!=""){
+                if(v!==""){
                 removeImageFromCanvas(k);
                     var checking_base=0;
-                    var imageBase=new Image;
+                    var imageBase=new Image();
                     imageBase.src=v;
                     $(imageBase).load(function(){
-                        if(checking_base==0) {
+                        if(checking_base===0) {
                         var imgInstance = new fabric.Image(imageBase, {
                             hasControls: false,
                             hasBorders: false,
@@ -273,7 +273,7 @@
             if(!$.isEmptyObject(data)){
                 var response= $.parseJSON(data);
                 $.each(response,function(k,v){
-                    if((typeof v.base !="undefined" &&  v.base!="") && (typeof v.texture !="undefined" && v.texture!="")){
+                    if((typeof v.base !=="undefined" &&  v.base!=="") && (typeof v.texture !="undefined" && v.texture!=="")){
                         if(redirect_form_cart){
                        $(document).trigger("staticimageload");
                         }
@@ -305,7 +305,7 @@
         };
         $.post(wpc_ajaxUrl.ajaxUrl, imageData, function(data) {
             var response= $.parseJSON(data);
-            if((typeof response.base !="undefined" &&  response.base!="") && (typeof response.texture !="undefined" && response.texture!="")){
+            if((typeof response.base !=="undefined" &&  response.base!=="") && (typeof response.texture !=="undefined" && response.texture!=="")){
                 loadImageData(attributeName,response);
             }
             $('#wpc_product_stage').unblock();
@@ -353,7 +353,7 @@
                   if(typeof _.findWhere(textures,{attribute:attributeName})!="undefined"){
                       var textureData=_.findWhere(textures,{attribute:attributeName});
                       if($("#wpc_color_tab_"+attributeName+" .change_texture[data-clean='"+textureData.texture+"']").length>0){
-                          $("#wpc_color_tab_"+attributeName+" .change_texture[data-clean='"+textureData.texture+"']").append('<i class="fa fa-check-circle"></i>')
+                          $("#wpc_color_tab_"+attributeName+" .change_texture[data-clean='"+textureData.texture+"']").append('<i class="fa fa-check-circle"></i>');
                       }
                   }
                   $(tabDiv).unblock();
@@ -387,7 +387,7 @@
                  var newArray = _.without(textures, _.findWhere(textures, {attribute: attribute}));
                  textures=newArray;
              }
-             break
+             break;
          default :
              break;
      }
@@ -564,7 +564,7 @@
     var displayOptions=function(prefix,attribute_name,value){
 
         var td=$("#"+prefix+'_'+attribute_name);
-        if(value!='') {
+        if(value!=='') {
             td.parent().removeClass('wpc_hidden');
         }else{
             td.parent().addClass('wpc_hidden');
@@ -576,7 +576,7 @@
         var td=$("#wpc_emb_options_"+type);
         var textWithLineBreak=text.replace(/\n\r?/g, '<br />');
         $(td).parent().removeClass("wpc_hidden");
-        if(text==""){$(td).parent().addClass("wpc_hidden");}
+        if(text===""){$(td).parent().addClass("wpc_hidden");}
         if(html){
             $(td).html(textWithLineBreak);
         }else{
@@ -640,7 +640,7 @@
          }
          var finalAngle=obj.getAngle();
          var angleText=finalAngle>0?translate_text.right + ' '+Math.abs(finalAngle) : translate_text.left + ' '+Math.abs(finalAngle);
-         if(finalAngle!=0 && finalAngle != 360 && finalAngle != -360) {
+         if(finalAngle!==0 && finalAngle != 360 && finalAngle != -360) {
              putEmbData("angle", angleText);
          }else{
              putEmbData("angle", '');
@@ -719,12 +719,12 @@ $(document).on("staticimageload",function(){
                 comingFromOtherTab=false;
                 var cordButton=$(selector).find('.atv');
                 if($(cordButton).hasClass('wpc_color_cords')){
-                    loadColorOrTextureTab("color",$(cordButton).data("attribute"),$(cordButton).data("term"),$(cordButton).data("id"),$(cordButton).hasClass('wpc_static_layer')?'static_button':'')
+                    loadColorOrTextureTab("color",$(cordButton).data("attribute"),$(cordButton).data("term"),$(cordButton).data("id"),$(cordButton).hasClass('wpc_static_layer')?'static_button':'');
                 }
                 if($(cordButton).hasClass('wpc_texture_cords')){
-                    loadColorOrTextureTab("texture",$(cordButton).data("attribute"),$(cordButton).data("term"),$(cordButton).data("id"),$(cordButton).hasClass('wpc_static_layer')?'static_button':'')
+                    loadColorOrTextureTab("texture",$(cordButton).data("attribute"),$(cordButton).data("term"),$(cordButton).data("id"),$(cordButton).hasClass('wpc_static_layer')?'static_button':'');
                 }
-               if(selector_attribute!="" && !_.contains(visitedStep,selector_attribute)){
+               if(selector_attribute!=="" && !_.contains(visitedStep,selector_attribute)){
                    visitedStep.push(selector_attribute);
                    var selected_term=$(selector).find(".atv").data("display");
                    setAttributeValues(selector_attribute,selected_term);
@@ -843,7 +843,7 @@ $(document).on("staticimageload",function(){
          }
          defaultModel=termId;
          if(self.hasClass("wpc_available_model")){
-             initialModel==termId;
+             initialModel=termId;
              resetCanvas();
          }
          self.closest('.attribute_loop').find('a').removeClass('atv');
@@ -918,7 +918,7 @@ $(document).on("staticimageload",function(){
     $(document).on("click","#wpc_add_text_btn",function(e){
         e.preventDefault();
         var textToPut = $('#wpc_text_add').val().trim();
-        if(textToPut!="") {
+        if(textToPut!=="") {
             $('#embroidery_tab').block({
                 message: '',
                 overlayCSS: {
@@ -983,7 +983,7 @@ $(document).on("staticimageload",function(){
     });
     $(document).on('change', '#wpc_image_upload', function (e) {
         var reg = /(.jpg|.gif|.png)$/;
-        if ($("#wpc_image_upload").val()=="" && !reg.test($("#wpc_image_upload").val())) {
+        if ($("#wpc_image_upload").val()==="" && !reg.test($("#wpc_image_upload").val())) {
             return false;
         }
         $('#wpc_product_stage').block({
@@ -1104,7 +1104,7 @@ $(document).on("staticimageload",function(){
     });
     $(document).on('change', '#wpc_font_select', function () {
       var self=$(this);
-        if(self.val()!=""){
+        if(self.val()!==""){
             var objects = stage.getObjects();
             for (var i = 0; i < objects.length; i++) {
                 if(objects[i].objectType=='text'){
@@ -1118,7 +1118,7 @@ $(document).on("staticimageload",function(){
     });
     $(document).on('change', '#wpc_size_select', function () {
        var self=$(this);
-        if(self.val()!=""){
+        if(self.val()!==""){
             var objects = stage.getObjects(),
                 fontSize=getFontSize(self.val());
             for (var i = 0; i < objects.length; i++) {
@@ -1225,7 +1225,7 @@ $(document).on("staticimageload",function(){
     $(document).on("click","#wpc_emb_extra_comment_button",function(e){
         e.preventDefault();
         var text=$("#wpc_emb_extra_comment_text").val();
-        if(text!="") {
+        if(text!=="") {
             putEmbData("extra_comment", text,true);
             $("#wpc_emb_extra_comment_text").val("");
         }
@@ -1238,7 +1238,7 @@ $(document).on("staticimageload",function(){
    $(document).on("click","#wpc_product_stage",function(e){
        var windoWidth = $(window).width();
        var self=$(this);
-       if(windoWidth<767){ return false};
+       if(windoWidth<767){ return false;}
        if($("#tempForCloud").length){
            $('#tempForCloud').remove();
        }
@@ -1259,7 +1259,7 @@ $(document).on("staticimageload",function(){
            quality: 1
        });
        var zoomingImage=zoomImage(canvasWidth/stage.getWidth());
-       var anchor='<img class="cloudzoom"  id ="zoom1" src="'+orginalImage+'" data-cloudzoom=\'zoomImage:"'+zoomingImage+'",zoomSizeMode:"image",autoInside: 550\' />'
+       var anchor='<img class="cloudzoom"  id ="zoom1" src="'+orginalImage+'" data-cloudzoom=\'zoomImage:"'+zoomingImage+'",zoomSizeMode:"image",autoInside: 550\' />';
        var div='<div id="tempForCloud" style="top:'+position.top+'px;left:'+position.left+'px;width:'+self.width()+'px;height:'+self.height()+'px;z-index:100;position:absolute">'+anchor+'</div>';
        $('body').append(div);
        $('#zoom1').CloudZoom();
@@ -1277,7 +1277,7 @@ $(document).on("staticimageload",function(){
    });
     $(document).on("change","#wpc_base_design_options",function(){
        var self=$(this);
-       if(self.val()==""){ designStage.clear(); return false};
+       if(self.val()===""){ designStage.clear(); return false;}
         $('#wpc_final_design').block({
             message: '',
             overlayCSS: {
@@ -1297,12 +1297,12 @@ $(document).on("staticimageload",function(){
             var data=JSON.parse(response);
             designStage.clear();
             var imagedata=data.wpc_hidden_base_design;
-            var img=new Image;
+            var img=new Image();
             img.src=imagedata;
             var checking=0;
             makeDesignResponsive();
             $(img).load(function(){
-                if(checking==0) {
+                if(checking===0) {
                     var ratio=1;
                     if(img.width > designStage.getWidth()){
                         ratio=designStage.getWidth() / img.width;
@@ -1353,7 +1353,7 @@ $(document).on("staticimageload",function(){
                 color: '#fff'
             }
         });
-        if(designValue!=""){
+        if(designValue!==""){
             var data = {
                 'action': 'wpc_get_design_data',
                 'postId':designValue
@@ -1373,7 +1373,7 @@ $(document).on("staticimageload",function(){
                     }
                 }
                 if(isBase){
-                  var img=new Image;
+                  var img=new Image();
                     img.src=saddle_image;
                     var actualHeight=img.height * data.wpc_saddle_scaleY,
                         actualWidth=img.width * data.wpc_saddle_scaleX;
@@ -1388,7 +1388,7 @@ $(document).on("staticimageload",function(){
                     }
                     var tempTop=(data.wpc_saddle_pos_y/designHeight) * designStage.getHeight(),
                         tempLeft=(data.wpc_saddle_pos_x/designWidth) * designStage.getWidth();
-                    var saddelImage=new Image;
+                    var saddelImage=new Image();
                     var dataUrlForFinal=zoomImage(ratio);
                     saddelImage.onload = function () {
                         var imgbase64 = new fabric.Image(saddelImage, {
@@ -1422,7 +1422,7 @@ $(document).on("staticimageload",function(){
                 ratio = designStage.getHeight() / stage.getHeight();
             }
             var dataUrlForFinal=zoomImage(1);
-            var saddelImage=new Image;
+            var saddelImage=new Image();
             saddelImage.onload = function () {
                 var imgbase64 = new fabric.Image(saddelImage, {
                     top: 0,
@@ -1450,7 +1450,7 @@ $(document).on("staticimageload",function(){
         $.post(wpc_ajaxUrl.ajaxUrl, data, function(response) {
             $("#wpc_product_image_data").val(response);
             $('#wpc_final_design').unblock();
-        })
+        });
     });
     $(document).on('keyup','#wpc_fake_qty',function() {
         $('.variations_form').find('.single_variation_wrap').find('.variations_button').find('.qty').val($(this).val());

@@ -16,11 +16,12 @@ if (!class_exists('WPC_Scripts_Styles')) {
         {
             global $post;
             if (wpc_enabled($post->ID)) {
-                wp_enqueue_style('wpc_style_grids', WPC_PLUGIN_ABSOLUTE_PATH . 'css/grid12.css', false);
-                wp_enqueue_style('wpc_style_tabs', WPC_PLUGIN_ABSOLUTE_PATH . 'css/responsive-tabs.css', false);
-                wp_enqueue_style('wpc_magnific_popup_style', WPC_PLUGIN_ABSOLUTE_PATH . 'css/magnific-popup.css', false);
-                wp_enqueue_style('wpc_cloud_zoom_style', WPC_PLUGIN_ABSOLUTE_PATH . 'cloud-zoom/cloudzoom.css', false);
-                wp_enqueue_style('wpc_style_frontend', WPC_PLUGIN_ABSOLUTE_PATH . 'css/wpc_style_frontend.css', false);
+//                wp_enqueue_style('wpc_style_grids', WPC_PLUGIN_ABSOLUTE_PATH . 'css/grid12.css', false);
+//                wp_enqueue_style('wpc_style_tabs', WPC_PLUGIN_ABSOLUTE_PATH . 'css/responsive-tabs.css', false);
+//                wp_enqueue_style('wpc_magnific_popup_style', WPC_PLUGIN_ABSOLUTE_PATH . 'css/magnific-popup.css', false);
+//                wp_enqueue_style('wpc_cloud_zoom_style', WPC_PLUGIN_ABSOLUTE_PATH . 'cloud-zoom/cloudzoom.css', false);
+//                wp_enqueue_style('wpc_style_frontend', WPC_PLUGIN_ABSOLUTE_PATH . 'css/wpc_style_frontend.css', false);
+                wp_enqueue_style('wpc_style_frontend', WPC_PLUGIN_ABSOLUTE_PATH . 'css/wpc_frontend_style.min.css', false);
             }
         }
 
@@ -77,21 +78,17 @@ if (!class_exists('WPC_Scripts_Styles')) {
                 <?php
                 $google_webfonts = get_option('wpc_settings');
                 if (!empty($google_webfonts['google_fonts'])) {
-                    wp_localize_script('wpc_frontend_script', 'wpc_font', $google_webfonts['google_fonts']);
                     echo '<link href="http://fonts.googleapis.com/css?family=' . implode("|", $google_webfonts['google_fonts']) . '" rel="stylesheet" type="text/css">';
                 }
                 $emb_limits=$google_webfonts['emb_settings'];
-                wp_enqueue_script('wpc_jQuery_tabs', WPC_PLUGIN_ABSOLUTE_PATH . 'js/jquery.responsiveTabs.js', array('jquery'), false);
-                wp_enqueue_script('wpc_fabric_js', WPC_PLUGIN_ABSOLUTE_PATH . 'js/fabric.js', array('jquery'), false);
-                wp_register_script('wpc_frontend_script', WPC_PLUGIN_ABSOLUTE_PATH . 'js/wpc_frontend_script.js', array('jquery', 'wpc_fabric_js'), false);
+                wp_register_script('wpc_frontend_script', WPC_PLUGIN_ABSOLUTE_PATH . 'assets/js/wpc_frontend_script.min.js', array('jquery'), false);
                 wp_localize_script('wpc_frontend_script','wpc_cart_redirect_items',$wpc_cart_redirect_items);
                 wp_localize_script('wpc_frontend_script','wpc_emb_limit',$emb_limits);
                 wp_localize_script('wpc_frontend_script','wpc_emb_layer',get_post_meta($product->id,'_wpc_emb_layer',true));
                 wp_localize_script('wpc_frontend_script', 'wpc_ajaxUrl', array('ajaxUrl' => admin_url('admin-ajax.php')));
                 wp_localize_script('wpc_frontend_script','translate_text',array("image_file"=>__("Image File","wpc"),'reset_text'=>__("Are you sure to reset?","wpc"),'model_change'=>__("All selection will be lost. Are you sure to continue?","wpc"),'left'=>__('Left','wpc'),'right'=>__('Right','wpc'),'finish_all'=>__("Please Finish All Steps!!!","wpc"),'step_alert'=>__("You Have Missed Some Options.Please Check!!!","wpc")));
                 wp_enqueue_script('underscore');
-                wp_enqueue_script('wpc_magnific_popup', WPC_PLUGIN_ABSOLUTE_PATH . 'js/jquery.magnific-popup.min.js', array('jquery'), false);
-                wp_enqueue_script('wpc_form', WPC_PLUGIN_ABSOLUTE_PATH . 'js/jquery.form.min.js', array('jquery'), false);
+                wp_enqueue_script('wpc_frontend_plugins', WPC_PLUGIN_ABSOLUTE_PATH . 'assets/js/wpc_plugins.min.js', array('jquery'), false);
                 wp_enqueue_script('wpc_cloud_zoom', WPC_PLUGIN_ABSOLUTE_PATH . 'cloud-zoom/cloudzoom.js', array('jquery'), false);
                 wp_enqueue_script('wpc_frontend_script');
             }

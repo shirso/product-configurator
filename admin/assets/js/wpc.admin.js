@@ -49,7 +49,7 @@ jQuery(function($){
             });
             mediaUploader.open();
 
-        })
+        });
         $("#wpc_google_fonts").chosen({disable_search_threshold: 10});
     }
 
@@ -75,7 +75,7 @@ jQuery(function($){
                 $('.wpc-hidden').hide();
                 $('.' + data).show();
             }
-        })
+        });
     }
     $(".wpc_multiselect_chosen").chosen();
     if (typeof wpc_product_page != "undefined") {
@@ -131,7 +131,7 @@ jQuery(function($){
             });
             $('#wpc_instructions_tab').load(this_page + ' #wpc_instructions_tab', function () {
                 $('#wpc_instructions_tab').unblock();
-            })
+            });
         });
     }
     $('body').on('click', '.background-upload', function (e) {
@@ -147,7 +147,7 @@ jQuery(function($){
             mediaUploader = null;
         });
         mediaUploader.open();
-    })
+    });
     $('body').on('click', '.shadow-upload', function (e) {
         e.preventDefault();
         var self = this;
@@ -160,7 +160,7 @@ jQuery(function($){
             mediaUploader = null;
         });
         mediaUploader.open();
-    })
+    });
     $('#step_image_form').on('submit', function (e) {
         e.preventDefault();
         // alert($(this).serialize());
@@ -171,9 +171,9 @@ jQuery(function($){
         };
         $.post(ajaxurl, data, function (resp) {
             //console.log(resp);
-        })
+        });
 
-    })
+    });
     $('#step_texture_form').on('submit', function (e) {
         e.preventDefault();
         // alert($(this).serialize());
@@ -184,9 +184,9 @@ jQuery(function($){
         };
         $.post(ajaxurl, data, function (resp) {
             //console.log(resp);
-        })
+        });
 
-    })
+    });
     $('#step_color_form').on('submit', function (e) {
         e.preventDefault();
         var data = {
@@ -196,13 +196,13 @@ jQuery(function($){
         };
         $.post(ajaxurl, data, function (resp) {
             //console.log(resp);
-        })
+        });
 
-    })
+    });
     var addToCanvasSaddle = function (url,scale,scaleX,scaleY,xX,yY) {
         var image = new Image();
         image.src = url;
-        setFieldValue('#wpc_hidden_saddle_design',url)
+        setFieldValue('#wpc_hidden_saddle_design',url);
         $(image).on('load', function () {
             new fabric.Image.fromURL(url, function (oImg) {
                 oImg.set({
@@ -216,12 +216,12 @@ jQuery(function($){
                 design.add(oImg).renderAll();
                // console.log(oImg);
                 $("#saddle_design_upload_btn").attr('disabled','disabled');
-            })
-        })
-    }
+            });
+        });
+    };
     var setFieldValue = function (field,value){
         $(field).val(value);
-    }
+    };
     var addToCanvas = function (url) {
         var scaleX = 1;
         var scaleY = 1;
@@ -251,9 +251,9 @@ jQuery(function($){
                 design.add(oImg).renderAll();
                 $("#base_design_upload_btn").attr('disabled','disabled');
                 $("#saddle_design_upload_btn").removeAttr('disabled');
-            })
-        })
-    }
+            });
+        });
+    };
     if (typeof wpc_base_design_page != 'undefined') {
         var canvas = $('#wpc_base_design_stage').children('canvas').get(0);
         var design = new fabric.Canvas(canvas, {
@@ -297,7 +297,7 @@ jQuery(function($){
             $('.wpc_hidden').val('');
             $("#saddle_design_upload_btn").attr('disabled','disabled');
             $("#base_design_upload_btn").removeAttr('disabled');
-        })
+        });
         design.on({
             'object:scaling': function(opts) {
                 var scale = Number(opts.target.scale).toFixed(2);
@@ -345,11 +345,11 @@ jQuery(function($){
             };
             $.post(ajaxurl, data, function (resp) {
              alert("Data Saved");
-            })
+            });
 
-        })
+        });
 
-    }
+    };
 
 $('body').on('click','.wpc_selectAllButton',function(e){
     e.preventDefault();
@@ -362,7 +362,7 @@ $('body').on('click','.wpc_selectAllButton',function(e){
 });
   $(document).on("change",".wpc_selection",function(e){
       var self=$(this);
-      if(self.val()=="") return false;
+      if(self.val()==="") return false;
       self.parent().parent().parent().find('.color_checkbox').removeAttr('checked');
       if(self.val()=="none"){return false;}
       if(self.val()=="all"){self.parent().parent().parent().find('.color_checkbox').prop('checked', 'checked'); return false;}
@@ -437,7 +437,7 @@ $('body').on('click','.wpc_selectAllButton',function(e){
             },
             async:false
         });
-    }
+    };
 
  $(document).on("click","#wpc_btn_save_layers",function(e){
      e.preventDefault();
@@ -562,7 +562,7 @@ var additionalAjaxSave=function(formId,section,div){
                 $("#"+sectionId).unblock();
             }
         });
-    }
+    };
     var activateSheepIt=function(className){
         var injectData = $("#"+className+"_data").val();
         injectData = $.parseJSON(injectData);
@@ -647,7 +647,7 @@ var additionalAjaxSave=function(formId,section,div){
         e.preventDefault();
         var termId=$(this).data("term");
         var selectdata=$($(this).data("select")).val();
-        if(selectdata!="") {
+        if(selectdata!=="") {
             $("#wpc_colors_form").block({message:null,
                 overlayCSS: {
                     background: '#eee',
@@ -673,7 +673,7 @@ var additionalAjaxSave=function(formId,section,div){
         e.preventDefault();
         var termId=$(this).data("term");
         var selectdata=$($(this).data("select")).val();
-        if(selectdata!="") {
+        if(selectdata!=="") {
             $("#wpc_textures_form").block({message:null,
                 overlayCSS: {
                     background: '#eee',
@@ -700,7 +700,7 @@ var additionalAjaxSave=function(formId,section,div){
         var termId=$(this).data("term");
         var selectdata=$($(this).data("select")).val();
         var postId=$(this).data("postid");
-        if(selectdata!="") {
+        if(selectdata!=="") {
             $("#step_embroidery_form").block({message:null,
                 overlayCSS: {
                     background: '#eee',
@@ -716,7 +716,7 @@ var additionalAjaxSave=function(formId,section,div){
             };
             $.post(ajaxurl, data, function (resp) {
                 location.reload(true);
-            })
+            });
         }
     });
 });

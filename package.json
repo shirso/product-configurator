@@ -1,35 +1,22 @@
 {
-  "engines": {
-    "node": ">= 0.10.0"
-  },
-  "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-concat": "~0.4.0",
-    "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-qunit": "~0.5.2",
-    "grunt-contrib-uglify": "~0.5.0",
-    "grunt-contrib-watch": "~0.6.1"
-  },
   "name": "product-configurator",
   "version": "1.0.1",
-  "description": "Create customizable products with Woocommerce",
-  "main": "Gruntfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "Create Customizable Products with Woocommerce",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shirso/product-configurator.git"
   },
-  "keywords": [
-    "Woocommerce",
-    "Product",
-    "Builder"
-  ],
-  "author": "WP-THEME.EU",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/shirso/product-configurator/issues"
   },
-  "homepage": "https://github.com/shirso/product-configurator#readme"
+  "homepage": "https://github.com/shirso/product-configurator#readme",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-contrib-watch": "~0.6.1"
+  }
 }
