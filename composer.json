@@ -9,6 +9,8 @@
       "email": "shirso@gmail.com",
       "homepage": "http://wp-theme.eu/de"
     },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
     "require": {
       "php": ">=5.6",
       "composer/installers": "v1.0.6"
