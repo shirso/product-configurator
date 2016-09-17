@@ -21,7 +21,7 @@ if (!class_exists('WPC_Scripts_Styles')) {
 //                wp_enqueue_style('wpc_magnific_popup_style', WPC_PLUGIN_ABSOLUTE_PATH . 'css/magnific-popup.css', false);
 //                wp_enqueue_style('wpc_cloud_zoom_style', WPC_PLUGIN_ABSOLUTE_PATH . 'cloud-zoom/cloudzoom.css', false);
 //                wp_enqueue_style('wpc_style_frontend', WPC_PLUGIN_ABSOLUTE_PATH . 'css/wpc_style_frontend.css', false);
-                wp_enqueue_style('wpc_style_frontend', WPC_PLUGIN_ABSOLUTE_PATH . 'css/wpc_frontend_style.min.css', false);
+                wp_enqueue_style('wpc_style_frontend', WPC_PLUGIN_ABSOLUTE_PATH . 'assets/css/wpc_frontend_style.min.css', false);
             }
         }
 
