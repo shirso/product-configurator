@@ -1,30 +1,30 @@
 jQuery(function($){
 
     if (typeof wpc_config_page != "undefined") {
-        var sheepItForm = $('#wpc_sheepItForm').sheepIt({
-            separator: '',
-            allowRemoveLast: true,
-            allowRemoveCurrent: true,
-            allowRemoveAll: false,
-            allowAdd: true,
-            allowAddN: true,
-            maxFormsCount: 0,
-            minFormsCount: 0,
-            iniFormsCount: 1,
-            data: inject_data
-        });
-        var sheepItForm1 = $('#wpc_sheepItForm1').sheepIt({
-            separator: '',
-            allowRemoveLast: true,
-            allowRemoveCurrent: true,
-            allowRemoveAll: false,
-            allowAdd: true,
-            allowAddN: true,
-            maxFormsCount: 0,
-            minFormsCount: 0,
-            iniFormsCount: 1,
-            data: inject_data_texture
-        });
+        // var sheepItForm = $('#wpc_sheepItForm').sheepIt({
+        //     separator: '',
+        //     allowRemoveLast: true,
+        //     allowRemoveCurrent: true,
+        //     allowRemoveAll: false,
+        //     allowAdd: true,
+        //     allowAddN: true,
+        //     maxFormsCount: 0,
+        //     minFormsCount: 0,
+        //     iniFormsCount: 1,
+        //     data: inject_data
+        // });
+        // var sheepItForm1 = $('#wpc_sheepItForm1').sheepIt({
+        //     separator: '',
+        //     allowRemoveLast: true,
+        //     allowRemoveCurrent: true,
+        //     allowRemoveAll: false,
+        //     allowAdd: true,
+        //     allowAddN: true,
+        //     maxFormsCount: 0,
+        //     minFormsCount: 0,
+        //     iniFormsCount: 1,
+        //     data: inject_data_texture
+        // });
         var sheepItForm2 = $('#wpc_sheepItForm2').sheepIt({
             separator: '',
             allowRemoveLast: true,
