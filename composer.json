@@ -3,7 +3,7 @@
     "description": "Create Customizable Products with Woocommerce",
     "keywords": ["woocommerce", "configurator", "custom color"],
     "type": "wordpress-plugin",
-    "license": "MIT",
+    "license": "GPLv3",
     "authors":{
       "name": "WP-THEME.EU",
       "email": "shirso@gmail.com",

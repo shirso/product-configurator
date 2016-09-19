@@ -64,7 +64,10 @@ module.exports = function(grunt) {
     cssmin: {
       dist: {
         options: {
-          banner: '/*! MyLib.js 1.0.0 | Aurelio De Rosa (@AurelioDeRosa) | MIT Licensed */'
+          banner: '/*! MyLib.js 1.0.0 | Aurelio De Rosa (@AurelioDeRosa) | MIT Licensed */',
+          process: function(src, filepath) {
+            return "@import url(http://fonts.googleapis.com/css?family=Lato);"+src.replace('@import url(http://fonts.googleapis.com/css?family=Lato);', '');
+          }
         },
         files: {
           'assets/css/wpc_frontend_style.min.css': ['assets/css/src/*.css']

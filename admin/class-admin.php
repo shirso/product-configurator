@@ -381,15 +381,15 @@ if( !class_exists('WPC_Admin') ) {
         //    wp_enqueue_script( 'wpc_chosen_jquery' );
        //     wp_enqueue_script( 'wpc_blockUI' );
             wp_enqueue_script('wpc_admin_plugins',WPC_PLUGIN_ABSOLUTE_PATH.'admin/assets/js/wpc_admin_plugins.min.js','',false,true);
-            wp_register_script('wpc_admin_script',WPC_PLUGIN_ABSOLUTE_PATH.'admin/assets/js/wpc.admin_script.min.js','',false,true);
+            wp_register_script('wpc_admin_script',WPC_PLUGIN_ABSOLUTE_PATH.'admin/assets/js/wpc_admin_script.min.js','',false,true);
             wp_localize_script('wpc_admin_script','wpc_image_labels',array('previous'=>__('Previous','wpc'),'next'=>__('Save and Continue','wpc'),'finish'=>'Save'));
             wp_enqueue_script('wpc_admin_script');
-            wp_enqueue_style('wpc_grid12',WPC_PLUGIN_ABSOLUTE_PATH.'admin/css/grid12.css');
-            wp_enqueue_style('wpc_chosen_style',WPC_PLUGIN_ABSOLUTE_PATH.'admin/css/chosen.min.css');
-            wp_enqueue_style('wpc_steps_style',WPC_PLUGIN_ABSOLUTE_PATH.'admin/css/jquery.steps.css');
+            wp_enqueue_style('wpc_grid12',WPC_PLUGIN_ABSOLUTE_PATH.'admin/assets/css/grid12.css');
+            wp_enqueue_style('wpc_chosen_style',WPC_PLUGIN_ABSOLUTE_PATH.'admin/assets/css/chosen.min.css');
+            wp_enqueue_style('wpc_steps_style',WPC_PLUGIN_ABSOLUTE_PATH.'admin/assets/css/jquery.steps.css');
             wp_enqueue_style('wpc_ui_style','http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-darkness/jquery-ui.css');
-            wp_enqueue_style('wpc_multiselect_style',WPC_PLUGIN_ABSOLUTE_PATH.'admin/css/jquery.multiselect.css');
-            wp_enqueue_style('wpc_admin_style',WPC_PLUGIN_ABSOLUTE_PATH.'admin/css/wpc.admin.css');
+            wp_enqueue_style('wpc_multiselect_style',WPC_PLUGIN_ABSOLUTE_PATH.'admin/assets/css/jquery.multiselect.css');
+            wp_enqueue_style('wpc_admin_style',WPC_PLUGIN_ABSOLUTE_PATH.'admin/assets/css/wpc.admin.css');
         }
         public  function wpc_save_configuration_form_texture(){
             parse_str($_POST['formData'],$params);
