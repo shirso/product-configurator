@@ -3,9 +3,13 @@
 Plugin Name: WordPress Product Configurator
 Plugin URI: http://wp-theme.eu/de
 Description: Create a Multistep Product Configurator with the attributes and variations of your products.
-Version: 1.0.1
+Version: 1.0.1,
 Author: WP-THEME.EU
 Author URI:http://wp-theme.eu/de
+Requires at least: 4.4
+Tested up to: 4.5
+Text Domain: wpc
+Domain Path: /languages/
 */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
